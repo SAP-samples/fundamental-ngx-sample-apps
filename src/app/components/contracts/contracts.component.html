@@ -1,0 +1,37 @@
+<fd-panel>
+    <fd-panel-header>
+        <fd-panel-head>
+            <fd-panel-title>Contracts</fd-panel-title>
+            <fd-panel-description>Manage the contracts recorded by various company representatives.
+            </fd-panel-description>
+        </fd-panel-head>
+        <fd-panel-actions>
+            <button fd-button fdType="light" glyph="add"></button>
+        </fd-panel-actions>
+    </fd-panel-header>
+</fd-panel>
+
+<div class="fd-has-padding-m">
+    <fd-table>
+        <thead>
+        <tr>
+            <th>Company</th>
+            <th>Contact</th>
+            <th>Signed</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let contract of contracts | async">
+            <td>{{contract.company}}</td>
+            <td>{{contract.contact}}</td>
+            <td>{{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}</td>
+            <td>{{contract.type}}</td>
+            <td>{{contract.value | currency}}</td>
+            <td>{{contract.status}}</td>
+        </tr>
+        </tbody>
+    </fd-table>
+</div>

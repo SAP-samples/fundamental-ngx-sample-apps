@@ -1,0 +1,27 @@
+:host {
+    display: inline-block;
+    width: 255px;
+    flex-shrink: 0;
+    background-color: var(--fd-color-background-2);
+}
+
+
+
+// The sidebar kinda sucks, this custom css will be removed eventually
+.custom-sidebar-main-css {
+    display: block;
+    height: 100%;
+}
+
+.temporary-custom-css {
+    display: inline-flex;
+    width: 100%;
+}
+
+.custom-icon-css {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 12px;
+}
