@@ -6,7 +6,7 @@
             </fd-panel-description>
         </fd-panel-head>
         <fd-panel-actions>
-            <button fd-button fdType="light" glyph="add"></button>
+            <button fd-button fdType="light" glyph="add" (click)="openCreateModal()"></button>
         </fd-panel-actions>
     </fd-panel-header>
 </fd-panel>
@@ -21,17 +21,36 @@
             <th>Type</th>
             <th>Value</th>
             <th>Status</th>
+            <th></th>
         </tr>
         </thead>
-        <tbody>
-        <tr *ngFor="let contract of contracts | async">
+        <tbody *ngIf="contracts | async as contractList">
+        <tr *ngFor="let contract of contractList">
             <td>{{contract.company}}</td>
             <td>{{contract.contact}}</td>
             <td>{{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}</td>
             <td>{{contract.type}}</td>
             <td>{{contract.value | currency}}</td>
-            <td>{{contract.status}}</td>
+            <td>
+                <fd-badge [status]="contract.status | status"
+                          modifier="pill">
+                    {{contract.status}}
+                </fd-badge>
+            </td>
+            <td style="text-align: end;">
+                <fd-icon glyph="edit"
+                         class="action-button"
+                         tabindex="0" size="m"
+                         title="Edit Contract" (click)="openEditModal(contract)"></fd-icon>
+                <fd-icon glyph="delete"
+                         class="action-button"
+                         tabindex="0" size="m"
+                         title="Delete Contract" (click)="openConfirmModal()"></fd-icon>
+            </td>
         </tr>
         </tbody>
     </fd-table>
+    <div *ngIf="!(contracts | async)" class="spinner-container">
+        <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+    </div>
 </div>

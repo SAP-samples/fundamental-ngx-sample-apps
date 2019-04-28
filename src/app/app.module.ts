@@ -9,9 +9,23 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {ShellbarComponent} from './components/shellbar/shellbar.component';
-import {BadgeLabelModule, ButtonModule, PanelModule, ShellbarModule, SideNavigationModule, TableModule} from 'fundamental-ngx';
+import {
+    AlertModule,
+    BadgeLabelModule,
+    ButtonModule, DatePickerModule, FormModule, IconModule,
+    LoadingSpinnerModule, ModalModule,
+    PanelModule,
+    ShellbarModule,
+    SideNavigationModule,
+    TableModule
+} from 'fundamental-ngx';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
+import { StatusPipe } from './components/contracts/status.pipe';
+import { CreateContractModalComponent } from './components/contracts/create-contract-modal/create-contract-modal.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -19,7 +33,10 @@ import { ProductsComponent } from './components/products/products.component';
         SidebarComponent,
         ShellbarComponent,
         ContractsComponent,
-        ProductsComponent
+        ProductsComponent,
+        StatusPipe,
+        CreateContractModalComponent,
+        ConfirmModalComponent
     ],
     imports: [
         BrowserModule,
@@ -32,9 +49,22 @@ import { ProductsComponent } from './components/products/products.component';
         PanelModule,
         ButtonModule,
         TableModule,
-        BadgeLabelModule
+        BadgeLabelModule,
+        LoadingSpinnerModule,
+        ModalModule,
+        AlertModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FormModule,
+        DatePickerModule,
+        BrowserAnimationsModule,
+        IconModule
     ],
     providers: [],
+    entryComponents: [
+        CreateContractModalComponent,
+        ConfirmModalComponent
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
