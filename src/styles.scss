@@ -6,3 +6,11 @@ body {
 fd-alert-container {
     top: 5% !important;
 }
+
+.collapsed {
+    width: auto !important;
+
+    .custom-icon-css {
+        margin-right: 0 !important;
+    }
+}

@@ -29,7 +29,7 @@
             <td>{{contract.company}}</td>
             <td>{{contract.contact}}</td>
             <td>{{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}</td>
-            <td>{{contract.type}}</td>
+            <td>{{contract.type | uppercase}}</td>
             <td>{{contract.value | currency}}</td>
             <td>
                 <fd-badge [status]="contract.status | status"

@@ -7,7 +7,7 @@
                     <fd-side-nav-icon class="custom-icon-css"
                                       [glyph]="'customer-order-entry'"
                                       [size]="'l'"></fd-side-nav-icon>
-                    Contracts
+                    <span *ngIf="!collapsed">Contracts</span>
                 </a>
             </fd-side-nav-link>
         </fd-side-nav-item>
@@ -18,9 +18,12 @@
                     <fd-side-nav-icon class="custom-icon-css"
                                       [glyph]="'product'"
                                       [size]="'l'"></fd-side-nav-icon>
-                    Products
+                    <span *ngIf="!collapsed">Products</span>
                 </a>
             </fd-side-nav-link>
         </fd-side-nav-item>
     </fd-side-nav-list>
+    <div class="bottom-content">
+        <button fd-button fdType="light" [glyph]="collapsed ? 'navigation-right-arrow' : 'navigation-left-arrow'" (click)="collapsed = !collapsed"></button>
+    </div>
 </fd-side-nav>

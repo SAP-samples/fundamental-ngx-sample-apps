@@ -2,26 +2,50 @@
     display: inline-block;
     width: 255px;
     flex-shrink: 0;
+    z-index: 2;
     background-color: var(--fd-color-background-2);
+    transition: all 0.25s ease-in-out;
+}
+
+.bottom-content {
+    border-top: 1px solid var(--fd-color-neutral-3);
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 
 
 // The sidebar kinda sucks, this custom css will be removed eventually
 .custom-sidebar-main-css {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
     height: 100%;
+}
+
+/deep/ .fd-side-nav {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    min-width: unset;
 }
 
 .temporary-custom-css {
     display: inline-flex;
     width: 100%;
+    align-items: center;
 }
 
 .custom-icon-css {
     width: 25px;
     height: 25px;
     vertical-align: middle;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-right: 12px;
 }
