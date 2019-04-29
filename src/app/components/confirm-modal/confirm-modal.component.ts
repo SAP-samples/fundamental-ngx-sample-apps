@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ModalRef} from 'fundamental-ngx';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmModalComponent implements OnInit {
 
-  constructor() { }
+  constructor(public modalRef: ModalRef) { }
 
   ngOnInit() {
   }
