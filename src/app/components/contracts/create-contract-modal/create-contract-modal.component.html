@@ -59,6 +59,6 @@
     </form>
 </fd-modal-body>
 <fd-modal-footer>
-    <button fd-button fdType="main" type="submit" form="main-form" [disabled]="!contractForm.dirty || contractForm.invalid">Create</button>
+    <button fd-button fdType="main" type="submit" form="main-form" [disabled]="!contractForm.dirty || contractForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
     <button fd-button fdType="light" style="margin-left: 16px;" (click)="this.modalRef.dismiss()">Cancel</button>
 </fd-modal-footer>
