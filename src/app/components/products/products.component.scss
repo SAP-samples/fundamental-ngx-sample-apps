@@ -1,0 +1,31 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: var(--fd-color-background-2);
+}
+
+.action-button {
+    transition: all 0.2s ease-in-out;
+    margin-left: 24px;
+    display: inline-block;
+    cursor: pointer;
+    color: var(--fd-color-action-1);
+
+    &:hover {
+        transform: scale(1.25);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .action-button {
+        margin-left: 8px;
+    }
+}

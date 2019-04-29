@@ -1,0 +1,46 @@
+:host {
+    display: flex;
+    flex-grow: 1;
+    padding: 36px;
+
+    @media (max-width: 1000px) {
+        flex-wrap: wrap;
+    }
+}
+
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: var(--fd-color-background-2);
+}
+
+.panel-custom {
+    height: fit-content;
+    width: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    min-width: 320px;
+
+    @media (max-width: 1000px) {
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    &:hover {
+        box-shadow: 0 0 20px 0 rgba(88, 92, 110, 0.4);
+    }
+
+    .badge-cell {
+        text-align: end;
+    }
+
+    td {
+        padding: 12px 0;
+    }
+}
+
+.table-custom {
+    width: 100%;
+}

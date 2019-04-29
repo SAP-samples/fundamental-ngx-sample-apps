@@ -26,6 +26,8 @@ import { CreateContractModalComponent } from './components/contracts/create-cont
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CreateProductModalComponent } from './components/products/create-product-modal/create-product-modal.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +38,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         ProductsComponent,
         StatusPipe,
         CreateContractModalComponent,
-        ConfirmModalComponent
+        ConfirmModalComponent,
+        DashboardComponent,
+        CreateProductModalComponent
     ],
     imports: [
         BrowserModule,
@@ -63,7 +67,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     providers: [],
     entryComponents: [
         CreateContractModalComponent,
-        ConfirmModalComponent
+        ConfirmModalComponent,
+        CreateProductModalComponent
     ],
     bootstrap: [AppComponent]
 })

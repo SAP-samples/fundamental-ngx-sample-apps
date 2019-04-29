@@ -1,0 +1,32 @@
+.modal-body {
+    display: flex;
+    flex-grow: 1;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    border: none !important;
+}
+
+.column {
+    flex: 50%;
+}
+
+.form-element {
+    margin: 16px;
+}
+
+#datepicker-input {
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        flex: 100%;
+    }
+}
+
+.ng-touched.ng-invalid {
+    border: 1px solid red;
+}
