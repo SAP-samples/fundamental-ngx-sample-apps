@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {Observable} from 'rxjs';
-import {Product} from '../../models/Product.model';
-import {AlertService, ModalService} from 'fundamental-ngx';
-import {CreateProductModalComponent} from './create-product-modal/create-product-modal.component';
-import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { Product } from '../../models/product.model';
+import { AlertService, ModalService } from 'fundamental-ngx';
+import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
     selector: 'app-products',
@@ -31,7 +31,7 @@ export class ProductsComponent implements OnInit {
                     type: 'warning'
                 });
             }
-        }, () => {});
+        }, () => { });
     }
 
     openEditModal(newProduct: Product): void {
@@ -46,7 +46,7 @@ export class ProductsComponent implements OnInit {
                     type: 'warning'
                 });
             }
-        }, () => {});
+        }, () => { });
     }
 
     openConfirmModal(): void {
@@ -56,7 +56,7 @@ export class ProductsComponent implements OnInit {
                     type: 'warning'
                 });
             }
-        }, () => {});
+        }, () => { });
     }
 
 }

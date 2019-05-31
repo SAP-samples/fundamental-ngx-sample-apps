@@ -1,42 +1,74 @@
 <fd-modal-header>
     <h1 fd-modal-title>{{ editMode ? 'Edit' : 'Create'}} a Product</h1>
-    <button fd-modal-close-btn (click)="modalRef.dismiss()"></button>
+    <button fd-modal-close-btn
+            (click)="modalRef.dismiss()"></button>
 </fd-modal-header>
 <fd-modal-body class="modal-body">
-    <form [formGroup]="productForm" (ngSubmit)="submitForm()" id="main-form" class="row">
+    <form [formGroup]="productForm"
+          (ngSubmit)="submitForm()"
+          id="main-form"
+          class="row">
         <div class="column">
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label forValue="name-input">Name: </fd-form-label>
-                    <input fd-form-control type="text" id="name-input" placeholder="Enter a name" formControlName="name">
+                    <label fd-form-label
+                           for="name-input">Name: </label>
+                    <input fd-form-control
+                           type="text"
+                           id="name-input"
+                           placeholder="Enter a name"
+                           formControlName="name">
                 </div>
             </div>
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label forValue="contact-input">Contact: </fd-form-label>
-                    <input fd-form-control type="text" id="contact-input" placeholder="Enter a contact" formControlName="contact">
+                    <label fd-form-label
+                           for="contact-input">Contact: </label>
+                    <input fd-form-control
+                           type="text"
+                           id="contact-input"
+                           placeholder="Enter a contact"
+                           formControlName="contact">
                 </div>
             </div>
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label forValue="lob-input">Line of Business: </fd-form-label>
-                    <input fd-form-control type="text" id="lob-input" placeholder="Enter a line of business" formControlName="lob">
+                    <label fd-form-label
+                           for="lob-input">Line of Business: </label>
+                    <input fd-form-control
+                           type="text"
+                           id="lob-input"
+                           placeholder="Enter a line of business"
+                           formControlName="lob">
                 </div>
             </div>
         </div>
         <div class="column">
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label forValue="users-input">Number of Users: </fd-form-label>
-                    <input fd-form-control type="number" id="users-input" placeholder="Enter a number" formControlName="user_number">
+                    <label fd-form-label
+                           for="users-input">Number of Users: </label>
+                    <input fd-form-control
+                           type="number"
+                           id="users-input"
+                           placeholder="Enter a number"
+                           formControlName="user_number">
                 </div>
             </div>
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label [forValue]="'status-1'">
+                    <label fd-form-label
+                           [for]="'status-1'">
                         Status:
-                    </fd-form-label>
-                    <select fd-form-control id="status-1" formControlName="status">
+                    </label>
+                    <select fd-form-control
+                            id="status-1"
+                            formControlName="status">
                         <option value="completed">Completed</option>
                         <option value="in progress">In Progress</option>
                         <option value="dropped">Dropped</option>
@@ -47,6 +79,13 @@
     </form>
 </fd-modal-body>
 <fd-modal-footer>
-    <button fd-button fdType="main" type="submit" form="main-form" [disabled]="!productForm.dirty || productForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
-    <button fd-button fdType="light" style="margin-left: 16px;" (click)="this.modalRef.dismiss()">Cancel</button>
+    <button fd-button
+            fdType="main"
+            type="submit"
+            form="main-form"
+            [disabled]="!productForm.dirty || productForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
+    <button fd-button
+            fdType="light"
+            style="margin-left: 16px;"
+            (click)="this.modalRef.dismiss()">Cancel</button>
 </fd-modal-footer>
