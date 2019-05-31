@@ -1,54 +1,88 @@
 <fd-modal-header>
     <h1 fd-modal-title>{{ editMode ? 'Edit' : 'Create'}} a Contract</h1>
-    <button fd-modal-close-btn (click)="modalRef.dismiss()"></button>
+    <button fd-modal-close-btn
+            (click)="modalRef.dismiss()"></button>
 </fd-modal-header>
 <fd-modal-body class="modal-body">
-    <form [formGroup]="contractForm" (ngSubmit)="submitForm()" id="main-form" class="row">
+    <form [formGroup]="contractForm"
+          (ngSubmit)="submitForm()"
+          id="main-form"
+          class="row">
         <div class="column">
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label forValue="company-input">Company: </fd-form-label>
-                    <input fd-form-control type="text" id="company-input" placeholder="Enter a company" formControlName="company">
+                    <label fd-form-label
+                           for="company-input">Company: </label>
+                    <input fd-form-control
+                           type="text"
+                           id="company-input"
+                           placeholder="Enter a company"
+                           formControlName="company">
                 </div>
             </div>
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label forValue="contact-input">Contact: </fd-form-label>
-                    <input fd-form-control type="text" id="contact-input" placeholder="Enter a contact" formControlName="contact">
+                    <label fd-form-label
+                           for="contact-input">Contact: </label>
+                    <input fd-form-control
+                           type="text"
+                           id="contact-input"
+                           placeholder="Enter a contact"
+                           formControlName="contact">
                 </div>
             </div>
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label forValue="datepicker-input">Date signed: </fd-form-label>
-                    <fd-date-picker [(ngModel)]="selectedDay" [ngModelOptions]="{standalone: true}" id="datepicker-input"></fd-date-picker>
+                    <label fd-form-label
+                           for="datepicker-input">Date signed: </label>
+                    <fd-date-picker [(ngModel)]="selectedDay"
+                                    [ngModelOptions]="{standalone: true}"
+                                    id="datepicker-input"></fd-date-picker>
                 </div>
             </div>
         </div>
         <div class="column">
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label [forValue]="'type-1'">
+                    <label fd-form-label
+                           [for]="'type-1'">
                         Contract Type:
-                    </fd-form-label>
-                    <select fd-form-control id="type-1" formControlName="type">
+                    </label>
+                    <select fd-form-control
+                            id="type-1"
+                            formControlName="type">
                         <option value="premium">Premium</option>
                         <option value="gold">Gold</option>
                         <option value="silver">Silver</option>
                     </select>
                 </div>
             </div>
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label forValue="value-input">Value: </fd-form-label>
-                    <input fd-form-control type="number" id="value-input" placeholder="Enter a number" formControlName="value">
+                    <label fd-form-label
+                           for="value-input">Value: </label>
+                    <input fd-form-control
+                           type="number"
+                           id="value-input"
+                           placeholder="Enter a number"
+                           formControlName="value">
                 </div>
             </div>
-            <div fd-form-set class="form-element">
+            <div fd-form-set
+                 class="form-element">
                 <div fd-form-item>
-                    <fd-form-label [forValue]="'status-1'">
+                    <label fd-form-label
+                           [for]="'status-1'">
                         Status:
-                    </fd-form-label>
-                    <select fd-form-control id="status-1" formControlName="status">
+                    </label>
+                    <select fd-form-control
+                            id="status-1"
+                            formControlName="status">
                         <option value="completed">Completed</option>
                         <option value="on hold">On Hold</option>
                         <option value="dropped">Dropped</option>
@@ -59,6 +93,13 @@
     </form>
 </fd-modal-body>
 <fd-modal-footer>
-    <button fd-button fdType="main" type="submit" form="main-form" [disabled]="!contractForm.dirty || contractForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
-    <button fd-button fdType="light" style="margin-left: 16px;" (click)="this.modalRef.dismiss()">Cancel</button>
+    <button fd-button
+            fdType="main"
+            type="submit"
+            form="main-form"
+            [disabled]="!contractForm.dirty || contractForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
+    <button fd-button
+            fdType="light"
+            style="margin-left: 16px;"
+            (click)="this.modalRef.dismiss()">Cancel</button>
 </fd-modal-footer>

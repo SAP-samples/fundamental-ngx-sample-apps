@@ -1,55 +1,63 @@
 <fd-panel>
     <fd-panel-header>
         <fd-panel-head>
-            <fd-panel-title>Contracts</fd-panel-title>
+            <h2>Contracts</h2>
             <fd-panel-description>Manage the contracts recorded by various company representatives.
             </fd-panel-description>
         </fd-panel-head>
         <fd-panel-actions>
-            <button fd-button fdType="light" glyph="add" (click)="openCreateModal()"></button>
+            <button fd-button
+                    fdType="light"
+                    glyph="add"
+                    (click)="openCreateModal()"></button>
         </fd-panel-actions>
     </fd-panel-header>
 </fd-panel>
 <div class="fd-has-padding-m">
-    <fd-table>
+    <table fd-table>
         <thead>
-        <tr>
-            <th>Company</th>
-            <th>Contact</th>
-            <th>Signed</th>
-            <th>Type</th>
-            <th>Value</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Signed</th>
+                <th>Type</th>
+                <th>Value</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody *ngIf="contracts | async as contractList">
-        <tr *ngFor="let contract of contractList">
-            <td>{{contract.company}}</td>
-            <td>{{contract.contact}}</td>
-            <td>{{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}</td>
-            <td>{{contract.type | uppercase}}</td>
-            <td>{{contract.value | currency}}</td>
-            <td>
-                <fd-badge [status]="contract.status | status"
-                          modifier="pill">
-                    {{contract.status}}
-                </fd-badge>
-            </td>
-            <td style="text-align: end;">
-                <fd-icon glyph="edit"
-                         class="action-button"
-                         tabindex="0" size="m"
-                         title="Edit Contract" (click)="openEditModal(contract)"></fd-icon>
-                <fd-icon glyph="delete"
-                         class="action-button"
-                         tabindex="0" size="m"
-                         title="Delete Contract" (click)="openConfirmModal()"></fd-icon>
-            </td>
-        </tr>
+            <tr *ngFor="let contract of contractList">
+                <td>{{contract.company}}</td>
+                <td>{{contract.contact}}</td>
+                <td>{{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}</td>
+                <td>{{contract.type | uppercase}}</td>
+                <td>{{contract.value | currency}}</td>
+                <td>
+                    <fd-badge [status]="contract.status | status"
+                              modifier="pill">
+                        {{contract.status}}
+                    </fd-badge>
+                </td>
+                <td style="text-align: end;">
+                    <fd-icon glyph="edit"
+                             class="action-button"
+                             tabindex="0"
+                             size="m"
+                             title="Edit Contract"
+                             (click)="openEditModal(contract)"></fd-icon>
+                    <fd-icon glyph="delete"
+                             class="action-button"
+                             tabindex="0"
+                             size="m"
+                             title="Delete Contract"
+                             (click)="openConfirmModal()"></fd-icon>
+                </td>
+            </tr>
         </tbody>
-    </fd-table>
-    <div *ngIf="!(contracts | async)" class="spinner-container">
+    </table>
+    <div *ngIf="!(contracts | async)"
+         class="spinner-container">
         <fd-loading-spinner [loading]="true"></fd-loading-spinner>
     </div>
 </div>

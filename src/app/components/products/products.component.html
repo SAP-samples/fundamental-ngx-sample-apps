@@ -1,53 +1,61 @@
 <fd-panel>
     <fd-panel-header>
         <fd-panel-head>
-            <fd-panel-title>Products</fd-panel-title>
+            <h2>Products</h2>
             <fd-panel-description>Manage the products recorded by various company representatives.
             </fd-panel-description>
         </fd-panel-head>
         <fd-panel-actions>
-            <button fd-button fdType="light" glyph="add" (click)="openCreateModal()"></button>
+            <button fd-button
+                    fdType="light"
+                    glyph="add"
+                    (click)="openCreateModal()"></button>
         </fd-panel-actions>
     </fd-panel-header>
 </fd-panel>
 <div class="fd-has-padding-m">
-    <fd-table>
+    <table fd-table>
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Contact</th>
-            <th>LoB</th>
-            <th>User Number</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>LoB</th>
+                <th>User Number</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody *ngIf="products | async as productList">
-        <tr *ngFor="let product of productList">
-            <td>{{product.name}}</td>
-            <td>{{product.contact}}</td>
-            <td>{{product.lob}}</td>
-            <td>{{product.user_number}}</td>
-            <td>
-                <fd-badge [status]="product.status | status"
-                          modifier="pill">
-                    {{product.status}}
-                </fd-badge>
-            </td>
-            <td style="text-align: end;">
-                <fd-icon glyph="edit"
-                         class="action-button"
-                         tabindex="0" size="m"
-                         title="Edit Contract" (click)="openEditModal(product)"></fd-icon>
-                <fd-icon glyph="delete"
-                         class="action-button"
-                         tabindex="0" size="m"
-                         title="Delete Contract" (click)="openConfirmModal()"></fd-icon>
-            </td>
-        </tr>
+            <tr *ngFor="let product of productList">
+                <td>{{product.name}}</td>
+                <td>{{product.contact}}</td>
+                <td>{{product.lob}}</td>
+                <td>{{product.user_number}}</td>
+                <td>
+                    <fd-badge [status]="product.status | status"
+                              modifier="pill">
+                        {{product.status}}
+                    </fd-badge>
+                </td>
+                <td style="text-align: end;">
+                    <fd-icon glyph="edit"
+                             class="action-button"
+                             tabindex="0"
+                             size="m"
+                             title="Edit Contract"
+                             (click)="openEditModal(product)"></fd-icon>
+                    <fd-icon glyph="delete"
+                             class="action-button"
+                             tabindex="0"
+                             size="m"
+                             title="Delete Contract"
+                             (click)="openConfirmModal()"></fd-icon>
+                </td>
+            </tr>
         </tbody>
-    </fd-table>
-    <div *ngIf="!(products | async)" class="spinner-container">
+    </table>
+    <div *ngIf="!(products | async)"
+         class="spinner-container">
         <fd-loading-spinner [loading]="true"></fd-loading-spinner>
     </div>
 </div>

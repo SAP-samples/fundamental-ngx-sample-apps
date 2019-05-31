@@ -1,7 +1,9 @@
-<fd-panel class="panel-custom" [routerLink]="'/contracts'" style="margin-right: 18px;">
+<fd-panel class="panel-custom"
+          [routerLink]="'/contracts'"
+          style="margin-right: 18px;">
     <fd-panel-header>
         <fd-panel-head>
-            <fd-panel-title>Contracts</fd-panel-title>
+            <h2>Contracts</h2>
             <fd-panel-description>Quick information about company contracts.</fd-panel-description>
         </fd-panel-head>
     </fd-panel-header>
@@ -21,16 +23,19 @@
                 </tr>
             </table>
         </ng-container>
-        <div *ngIf="!(contracts | async)" class="spinner-container">
+        <div *ngIf="!(contracts | async)"
+             class="spinner-container">
             <fd-loading-spinner [loading]="true"></fd-loading-spinner>
         </div>
     </fd-panel-body>
 </fd-panel>
 
-<fd-panel class="panel-custom" [routerLink]="'/products'" style="margin-left: 18px;">
+<fd-panel class="panel-custom"
+          [routerLink]="'/products'"
+          style="margin-left: 18px;">
     <fd-panel-header>
         <fd-panel-head>
-            <fd-panel-title>Products</fd-panel-title>
+            <h2>Products</h2>
             <fd-panel-description>Quick information about company products.</fd-panel-description>
         </fd-panel-head>
     </fd-panel-header>
@@ -50,7 +55,8 @@
                 </tr>
             </table>
         </ng-container>
-        <div *ngIf="!(contracts | async)" class="spinner-container">
+        <div *ngIf="!(contracts | async)"
+             class="spinner-container">
             <fd-loading-spinner [loading]="true"></fd-loading-spinner>
         </div>
     </fd-panel-body>
