@@ -30,4 +30,4 @@ Please post an issue on this repository's issues section.
 ## License
 
 Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. 
-This file is licensed under the SAP Sample Code License Agreement except as noted otherwise in the [LICENSE file](https://github.wdf.sap.corp/staging-for-SAP-samples-public/fundamental-ngx-sample-apps/blob/master/LICENSE.md).
+This file is licensed under the SAP Sample Code License Agreement except as noted otherwise in the [LICENSE file](LICENSE).
