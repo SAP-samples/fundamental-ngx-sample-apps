@@ -38,9 +38,12 @@
                 <div fd-form-item>
                     <label fd-form-label
                            for="datepicker-input">Date signed: </label>
-                    <fd-date-picker [(ngModel)]="selectedDay"
-                                    [ngModelOptions]="{standalone: true}"
-                                    id="datepicker-input"></fd-date-picker>
+                    <fd-date-picker formControlName="thisDate"
+                                    [type]="'single'"
+                                    [blockFunction]="myBlockFunction"
+                                    [disableFunction]="myDisableFunction"
+                                    id="datepicker-input">
+                    </fd-date-picker>
                 </div>
             </div>
         </div>
