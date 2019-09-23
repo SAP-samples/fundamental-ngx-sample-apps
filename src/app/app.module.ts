@@ -18,7 +18,7 @@ import {
     ShellbarModule,
     SideNavigationModule,
     TableModule
-} from 'fundamental-ngx';
+} from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
 import { StatusPipe } from './components/contracts/status.pipe';

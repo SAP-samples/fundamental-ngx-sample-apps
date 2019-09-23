@@ -15,10 +15,10 @@
                     <td>{{contract.contact}}</td>
                     <td>{{contract.value}}</td>
                     <td class="badge-cell">
-                        <fd-badge [status]="contract.status | status"
+                        <span fd-badge [status]="contract.status | status"
                                   modifier="pill">
                             {{contract.status}}
-                        </fd-badge>
+                    </span>
                     </td>
                 </tr>
             </table>
@@ -47,10 +47,10 @@
                     <td>{{product.contact}}</td>
                     <td>{{product.lob}}</td>
                     <td class="badge-cell">
-                        <fd-badge [status]="product.status | status"
+                        <span fd-badge [status]="product.status | status"
                                   modifier="pill">
                             {{product.status}}
-                        </fd-badge>
+                    </span>
                     </td>
                 </tr>
             </table>

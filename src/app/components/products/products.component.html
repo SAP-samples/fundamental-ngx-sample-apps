@@ -32,10 +32,10 @@
                 <td>{{product.lob}}</td>
                 <td>{{product.user_number}}</td>
                 <td>
-                    <fd-badge [status]="product.status | status"
+                    <span fd-badge [status]="product.status | status"
                               modifier="pill">
                         {{product.status}}
-                    </fd-badge>
+                </span>
                 </td>
                 <td style="text-align: end;">
                     <fd-icon glyph="edit"

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalRef} from 'fundamental-ngx';
+import {ModalRef, FdDate} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -18,10 +18,19 @@ export class CreateContractModalComponent implements OnInit {
         type: new FormControl('', [Validators.required]),
         value: new FormControl('', [Validators.required]),
         status: new FormControl('', [Validators.required]),
+        thisDate: new FormControl ('', )
     });
 
-    selectedDay = {
-        date: null
+    date: FdDate = FdDate.getToday();
+
+    myDisableFunction = (d: FdDate) => {
+        const day = d.getDay();
+        return day === 6 || day === 0;
+    }
+    myBlockFunction =  (d: FdDate) => {
+        const firstDay = FdDate.getToday();
+        const lastDay = new FdDate(firstDay.year, firstDay.month, firstDay.day + 7);
+        return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
     };
 
     constructor(public modalRef: ModalRef) {
@@ -34,7 +43,7 @@ export class CreateContractModalComponent implements OnInit {
         if (this.editMode && contract) {
             Object.keys(contract).forEach(key => {
                 if (key === 'date_signed') {
-                    this.selectedDay.date = contract[key];
+                    this.date = contract[key];
                 }
                 if (this.contractForm.controls[key]) {
                     this.contractForm.controls[key].setValue(contract[key]);
@@ -45,7 +54,7 @@ export class CreateContractModalComponent implements OnInit {
 
     submitForm(): void {
         const tmpObj = this.contractForm.getRawValue();
-        tmpObj.date_signed = this.selectedDay.date;
+        tmpObj.date_signed = this.date;
         this.modalRef.close(tmpObj);
     }
 
