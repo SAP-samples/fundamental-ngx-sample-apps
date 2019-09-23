@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {Contract} from '../../models/contract.model';
-import {AlertService, ModalService} from 'fundamental-ngx';
+import {AlertService, ModalService, CalendarModule} from '@fundamental-ngx/core';
 import {CreateContractModalComponent} from './create-contract-modal/create-contract-modal.component';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 
@@ -15,7 +15,8 @@ export class ContractsComponent implements OnInit {
 
     contracts: Observable<Contract[]>;
 
-    constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
+    constructor(db: AngularFirestore,
+                private modalService: ModalService, private alertService: AlertService) {
         this.contracts = db.collection('contracts').valueChanges();
     }
 

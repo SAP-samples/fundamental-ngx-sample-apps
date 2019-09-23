@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalRef} from 'fundamental-ngx';
+import {ModalRef} from '@fundamental-ngx/core';
 
 @Component({
   selector: 'app-confirm-modal',

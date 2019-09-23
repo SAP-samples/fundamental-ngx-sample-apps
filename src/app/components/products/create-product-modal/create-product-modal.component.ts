@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalRef} from 'fundamental-ngx';
+import {ModalRef} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -17,6 +17,7 @@ export class CreateProductModalComponent implements OnInit {
         lob: new FormControl('', [Validators.required]),
         user_number: new FormControl('', [Validators.required]),
         status: new FormControl('', [Validators.required]),
+        
     });
 
     constructor(public modalRef: ModalRef) {

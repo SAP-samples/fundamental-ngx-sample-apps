@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Product } from '../../models/product.model';
-import { AlertService, ModalService } from 'fundamental-ngx';
+import { AlertService, ModalService } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 

@@ -1,39 +1,41 @@
 <fd-side-nav class="custom-sidebar-main-css" [collapsed]="collapsed">
-    <fd-side-nav-list>
+    <!-- <fd-side-nav-list> -->
+    <div fd-side-nav-list>
         <fd-side-nav-item>
-            <fd-side-nav-link>
+            <a fd-side-nav-link>
                 <a [routerLink]="'/dashboard'" class="temporary-custom-css"
                    routerLinkActive="is-selected">
-                    <fd-side-nav-icon class="custom-icon-css"
+                    <fd-icon class="custom-icon-css"
                                       [glyph]="'Chart-Tree-Map'"
-                                      [size]="'l'"></fd-side-nav-icon>
+                                      [size]="'l'"></fd-icon>
                     <span *ngIf="!collapsed">Dashboard</span>
                 </a>
-            </fd-side-nav-link>
+            </a>
         </fd-side-nav-item>
         <fd-side-nav-item>
-            <fd-side-nav-link>
+            <div fd-side-nav-link>
                 <a [routerLink]="'/contracts'" class="temporary-custom-css"
                    routerLinkActive="is-selected">
-                    <fd-side-nav-icon class="custom-icon-css"
+                    <fd-icon class="custom-icon-css"
                                       [glyph]="'customer-order-entry'"
-                                      [size]="'l'"></fd-side-nav-icon>
+                                      [size]="'l'"></fd-icon>
                     <span *ngIf="!collapsed">Contracts</span>
                 </a>
-            </fd-side-nav-link>
+            </div>
         </fd-side-nav-item>
         <fd-side-nav-item>
-            <fd-side-nav-link>
+            <a fd-side-nav-link>
                 <a [routerLink]="'/products'" class="temporary-custom-css"
                    routerLinkActive="is-selected">
-                    <fd-side-nav-icon class="custom-icon-css"
+                    <fd-icon class="custom-icon-css"
                                       [glyph]="'product'"
-                                      [size]="'l'"></fd-side-nav-icon>
+                                      [size]="'l'"></fd-icon>
                     <span *ngIf="!collapsed">Products</span>
                 </a>
-            </fd-side-nav-link>
+            </a>
         </fd-side-nav-item>
-    </fd-side-nav-list>
+    </div>
+    <!-- </fd-side-nav-list> -->
     <div class="bottom-content">
         <button fd-button fdType="light" [glyph]="collapsed ? 'navigation-right-arrow' : 'navigation-left-arrow'" (click)="collapsed = !collapsed"></button>
     </div>
