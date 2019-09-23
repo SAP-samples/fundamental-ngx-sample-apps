@@ -22,22 +22,22 @@
     "@angular/platform-browser-dynamic": "~8.2.7",
     "@angular/router": "~8.2.7",
     "@fundamental-ngx/core": "^0.10.0",
-    "core-js": "^2.5.4",
-    "firebase": "^5.10.1",
-    "rxjs": "~6.5.3",
-    "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "core-js": "^3.2.1",
+    "firebase": "^6.6.2",
+    "rxjs": "^6.5.3",
+    "tslib": "^1.10.0",
+    "zone.js": "^0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.5",
     "@angular/cli": "~8.3.5",
     "@angular/compiler-cli": "~8.2.7",
     "@angular/language-service": "~8.2.7",
-    "@types/node": "~8.9.4",
-    "angular-cli-ghpages": "^0.5.3",
-    "codelyzer": "^5.0.1",
-    "ts-node": "~7.0.0",
-    "tslint": "~5.11.0",
+    "@types/node": "^12.7.5",
+    "angular-cli-ghpages": "^0.6.0",
+    "codelyzer": "^5.1.1",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.20.0",
     "typescript": "~3.5.3"
   }
 }
