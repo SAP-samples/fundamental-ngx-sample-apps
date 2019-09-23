@@ -26,7 +26,7 @@
     height: 100%;
 }
 
-/deep/ .fd-side-nav {
+::ng-deep .fd-side-nav {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
