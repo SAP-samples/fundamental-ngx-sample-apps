@@ -11,9 +11,22 @@
                     glyph="add"
                     (click)="openCreateModal()"></button>
         </fd-panel-actions>
+
+
     </fd-panel-header>
 </fd-panel>
 <div class="fd-has-padding-m">
+    <div *ngIf="products">
+        <fd-multi-input 
+        [dropdownValues]="products"
+        [placeholder]="'Search here...'"
+        [(ngModel)]="selected"
+        [displayFn]="displayFunc">
+        </fd-multi-input>
+                <span *ngFor="let item of selected; let i = index">
+        </span>
+    </div>
+
     <table fd-table>
         <thead>
             <tr>
@@ -25,9 +38,15 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody *ngIf="products | async as productList">
-            <tr *ngFor="let product of productList">
-                <td>{{product.name}}</td>
+
+        <tbody *ngIf="products">
+            <tr *ngFor="let product of products">
+                <ng-container  *ngIf="filterProduct(product)">
+                <td>{{product.name}}
+                <fd-inline-help [placement]="'right'">
+                    Information about {{product.name}}
+                </fd-inline-help>
+                </td>
                 <td>{{product.contact}}</td>
                 <td>{{product.lob}}</td>
                 <td>{{product.user_number}}</td>
@@ -51,10 +70,11 @@
                              title="Delete Contract"
                              (click)="openConfirmModal()"></fd-icon>
                 </td>
+            </ng-container>
             </tr>
         </tbody>
     </table>
-    <div *ngIf="!(products | async)"
+    <div *ngIf="!(products)"
          class="spinner-container">
         <fd-loading-spinner [loading]="true"></fd-loading-spinner>
     </div>

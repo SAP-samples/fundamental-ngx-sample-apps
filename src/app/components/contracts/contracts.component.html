@@ -28,7 +28,11 @@
         </thead>
         <tbody *ngIf="contracts | async as contractList">
             <tr *ngFor="let contract of contractList">
-                <td>{{contract.company}}</td>
+                <td>{{contract.company}}
+                        <fd-inline-help [placement]="'right'">
+                                Information about {{contract.company}}
+                            </fd-inline-help>
+                    </td>
                 <td>{{contract.contact}}</td>
                 <td>{{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}</td>
                 <td>{{contract.type | uppercase}}</td>
