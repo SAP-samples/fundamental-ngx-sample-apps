@@ -17,7 +17,9 @@ import {
     PanelModule,
     ShellbarModule,
     SideNavigationModule,
-    TableModule
+    TableModule,
+    InlineHelpModule,
+    MultiInputModule
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -28,7 +30,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateProductModalComponent } from './components/products/create-product-modal/create-product-modal.component';
-
+import { CreateProductModalDetailedComponent } from './components/products/create-product-modal/create-product-modal-detailed/create-product-modal-detailed.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -40,7 +42,9 @@ import { CreateProductModalComponent } from './components/products/create-produc
         CreateContractModalComponent,
         ConfirmModalComponent,
         DashboardComponent,
-        CreateProductModalComponent
+        CreateProductModalComponent,
+        CreateProductModalDetailedComponent
+        
     ],
     imports: [
         BrowserModule,
@@ -58,6 +62,8 @@ import { CreateProductModalComponent } from './components/products/create-produc
         ModalModule,
         AlertModule,
         FormsModule,
+        MultiInputModule,
+        InlineHelpModule,
         ReactiveFormsModule,
         FormModule,
         DatePickerModule,
@@ -68,7 +74,8 @@ import { CreateProductModalComponent } from './components/products/create-produc
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,
-        CreateProductModalComponent
+        CreateProductModalComponent,
+        CreateProductModalDetailedComponent
     ],
     bootstrap: [AppComponent]
 })
