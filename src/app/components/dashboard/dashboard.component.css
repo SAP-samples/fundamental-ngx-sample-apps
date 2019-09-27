@@ -1,0 +1,66 @@
+:host {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 36px;
+}
+
+@media (max-width: 1000px) {
+  :host {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+}
+
+.spinner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 24px;
+  background-color: var(--fd-color-background-2);
+}
+
+.panel-custom {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 50%;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  min-width: 320px;
+}
+
+@media (max-width: 1000px) {
+  .panel-custom {
+    margin: 0 !important;
+    width: 100%;
+  }
+}
+
+.panel-custom:hover {
+  -webkit-box-shadow: 0 0 20px 0 rgba(88, 92, 110, 0.4);
+          box-shadow: 0 0 20px 0 rgba(88, 92, 110, 0.4);
+}
+
+.panel-custom .badge-cell {
+  text-align: end;
+}
+
+.panel-custom td {
+  padding: 12px 0;
+}
+
+.table-custom {
+  width: 100%;
+}
+/*# sourceMappingURL=dashboard.component.css.map */

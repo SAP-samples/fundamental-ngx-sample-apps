@@ -18,8 +18,12 @@
                            type="text"
                            id="name-input"
                            placeholder="Enter a name"
-                           formControlName="name">
+                           formControlName="name"
+                            [state]="nameValid.state"
+                           (blur)="changeValueState('nameValid')">
                 </div>
+                <fd-form-message [hidden]="nameValid.hidden" [type]="nameValid.warningType">Required name</fd-form-message>
+
             </div>
             <div fd-form-set
                  class="form-element">
@@ -30,8 +34,12 @@
                            type="text"
                            id="contact-input"
                            placeholder="Enter a contact"
-                           formControlName="contact">
+                           formControlName="contact"
+                            [state]="contactValid.state"
+                           (blur)="changeValueState('contactValid')">
                 </div>
+                <fd-form-message [hidden]="contactValid.hidden" [type]="contactValid.warningType">Required contact information</fd-form-message>
+
             </div>
             <div fd-form-set
                  class="form-element">
@@ -42,8 +50,12 @@
                            type="text"
                            id="lob-input"
                            placeholder="Enter a line of business"
-                           formControlName="lob">
+                           formControlName="lob"
+                            [state]="lobValid.state"
+                           (blur)="changeValueState('lobValid')">
                 </div>
+                <fd-form-message [hidden]="lobValid.hidden" [type]="lobValid.warningType">Required line of business</fd-form-message>
+                
             </div>
         </div>
         <div class="column">
@@ -56,7 +68,11 @@
                            type="number"
                            id="users-input"
                            placeholder="Enter a number"
-                           formControlName="user_number">
+                           formControlName="user_number"
+                            [state]="user_numberValid.state"
+                           (blur)="changeValueState('user_numberValid')">
+                    <fd-form-message [hidden]="user_numberValid.hidden" [type]="user_numberValid.warningType">Required number of users</fd-form-message>
+                           
                 </div>
             </div>
             <div fd-form-set
@@ -68,17 +84,23 @@
                     </label>
                     <select fd-form-control
                             id="status-1"
-                            formControlName="status">
+                            formControlName="status"
+                            [state]="statusValid.state"
+                           (blur)="changeValueState('statusValid')">
                         <option value="completed">Completed</option>
                         <option value="in progress">In Progress</option>
                         <option value="dropped">Dropped</option>
                     </select>
+                    <fd-form-message [hidden]="statusValid.hidden" [type]="statusValid.warningType">Required status</fd-form-message>
+
                 </div>
             </div>
         </div>
     </form>
 </fd-modal-body>
 <fd-modal-footer>
+    <button fd-button (click)="openModal()" [options]="'light'">*Detailed</button>
+
     <button fd-button
             fdType="main"
             type="submit"

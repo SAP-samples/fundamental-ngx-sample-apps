@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Product } from '../../models/product.model';
-import { AlertService, ModalService } from '@fundamental-ngx/core';
+import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
@@ -12,14 +12,41 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
     styleUrls: ['./Products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+    products: any;
 
-    products: Observable<Product[]>;
+    test: Product[] = [];
+    selected = [];
+
+    displayFunc(obj: any): string {
+        return obj.name;
+    }
+
+    filterProduct(arr: { name: any; }) {
+
+        console.log('\\\\\\\\', arr, 'specific company: ', arr.name);
+        console.log('Selected arry: ', this.selected[0]);
+        if (this.selected.length !== 0) {
+            for (const value of this.selected) {
+                console.log('value: ', value);
+                if (value.name === arr.name) {
+                    console.log('this value: ', value.name);
+                    return true;
+                }
+            }
+        } else { return true; }
+    }
 
     constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-        this.products = db.collection('products').valueChanges();
+            db.collection('products').valueChanges().subscribe(data => {
+                this.products = data;
+                console.log(data);
+                console.log(this.products);
+                console.log(this.selected);
+            });
     }
 
     ngOnInit() {
+
     }
 
     openCreateModal(): void {
