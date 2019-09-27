@@ -32,9 +32,9 @@ export class CreateContractModalComponent implements OnInit {
     date: FdDate = FdDate.getToday();
     validityName;
 
-    changeValueState() {
+    changeValueState(str: string) {
 
-        switch (arguments[0]) {
+        switch (str) {
             case 'companyValid': this.validityName = this.companyValid; break;
             case 'contactValid': this.validityName = this.contactValid; break;
             case 'dateValid': this.validityName = this.dateValid; break;

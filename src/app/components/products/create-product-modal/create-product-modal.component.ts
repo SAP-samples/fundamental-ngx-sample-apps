@@ -30,9 +30,9 @@ export class CreateProductModalComponent implements OnInit {
     statusValid: MyValidation = {formControl: this.productForm.get('status'), state: '', warningType: '', hidden: true };
     productDateValid: MyValidation = {formControl: this.productForm.get('product_date_signed'), state: '', warningType: '', hidden: true };
     
-    changeValueState() {
+    changeValueState(str: string) {
 
-        switch (arguments[0]) {
+        switch (str) {
             case 'nameValid': this.validityName = this.nameValid; break;
             case 'contactValid': this.validityName = this.contactValid; break;
             case 'lobValid': this.validityName = this.lobValid; break;
