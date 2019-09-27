@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ModalRef, ModalModule, ModalService} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MyValidation } from './../../contracts/create-contract-modal/create-contract-modal-int';
-import {CreateProductModalDetailedComponent} from './create-product-modal-detailed/create-product-modal-detailed.component'
+import {CreateProductModalDetailedComponent} from './create-product-modal-detailed/create-product-modal-detailed.component';
 
 @Component({
     selector: 'app-create-product-modal',
@@ -20,7 +20,7 @@ export class CreateProductModalComponent implements OnInit {
         user_number: new FormControl('', [Validators.required, Validators.min(0), Validators.max(2000)]),
         status: new FormControl('', [Validators.required]),
     });
-    
+
     validityName;
 
     nameValid: MyValidation = { formControl: this.productForm.get('name'), state: '', warningType: '', hidden: true };
@@ -29,10 +29,10 @@ export class CreateProductModalComponent implements OnInit {
     user_numberValid: MyValidation = {formControl: this.productForm.get('user_number'), state: '', warningType: '', hidden: true };
     statusValid: MyValidation = {formControl: this.productForm.get('status'), state: '', warningType: '', hidden: true };
     productDateValid: MyValidation = {formControl: this.productForm.get('product_date_signed'), state: '', warningType: '', hidden: true };
-    
-    changeValueState() {
 
-        switch (arguments[0]) {
+    changeValueState(validity: string) {
+
+        switch (validity) {
             case 'nameValid': this.validityName = this.nameValid; break;
             case 'contactValid': this.validityName = this.contactValid; break;
             case 'lobValid': this.validityName = this.lobValid; break;
