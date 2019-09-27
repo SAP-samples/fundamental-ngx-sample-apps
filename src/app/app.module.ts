@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
+import {CdkTableModule } from '@angular/cdk/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {environment} from '../environments/environment';
@@ -44,7 +45,7 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         DashboardComponent,
         CreateProductModalComponent,
         CreateProductModalDetailedComponent
-        
+
     ],
     imports: [
         BrowserModule,
@@ -52,6 +53,7 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireDatabaseModule,
+        CdkTableModule, DragDropModule,
         SideNavigationModule,
         ShellbarModule,
         PanelModule,
