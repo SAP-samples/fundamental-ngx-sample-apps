@@ -1,21 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { CdkTable } from '@angular/cdk/table';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-products',
     templateUrl: './Products.component.html',
     styleUrls: ['./Products.component.scss']
 })
-export class ProductsComponent implements OnInit {
-    products: any;
 
+export class ProductsComponent implements OnInit, OnDestroy {
+
+    // @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
+
+    products: any;
     test: Product[] = [];
     selected = [];
+    subscription: Subscription;
+    columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove'];
+
+
+    @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
+
+    // dataSource = this.products;
+    dataSource;
+
+    dropRow(event) {
+        const previousIndex = this.products.findIndex((d) => d === event.item.data);
+        moveItemInArray(this.products, previousIndex, event.currentIndex);
+        this.table.renderRows();
+    }
 
     displayFunc(obj: any): string {
         return obj.name;
@@ -23,13 +42,9 @@ export class ProductsComponent implements OnInit {
 
     filterProduct(arr: { name: any; }) {
 
-        console.log('\\\\\\\\', arr, 'specific company: ', arr.name);
-        console.log('Selected arry: ', this.selected[0]);
         if (this.selected.length !== 0) {
             for (const value of this.selected) {
-                console.log('value: ', value);
                 if (value.name === arr.name) {
-                    console.log('this value: ', value.name);
                     return true;
                 }
             }
@@ -37,18 +52,19 @@ export class ProductsComponent implements OnInit {
     }
 
     constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-            db.collection('products').valueChanges().subscribe(data => {
+            this.subscription = db.collection('products').valueChanges().subscribe(data => {
                 this.products = data;
                 console.log(data);
-                console.log(this.products);
-                console.log(this.selected);
+                this.dataSource = data;
             });
     }
 
     ngOnInit() {
 
     }
-
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
     openCreateModal(): void {
         this.modalService.open(CreateProductModalComponent, {
             data: {}
