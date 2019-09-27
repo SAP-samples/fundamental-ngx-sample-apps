@@ -3,8 +3,7 @@
 Intended as a showcase of fundamental-ngx components and their capabilities. The project also uses Firebase for some mock data loading.
 
 ```
-fiori-fundamentals: 1.5.5
-fundamental-ngx: 0.4.5
+@fundamental-ngx/core: 0.11.0
 ```
 
 ## Requirements
