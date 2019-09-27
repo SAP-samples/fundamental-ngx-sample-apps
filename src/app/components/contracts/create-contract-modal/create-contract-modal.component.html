@@ -2,10 +2,12 @@
     <h1 fd-modal-title>{{ editMode ? 'Edit' : 'Create'}} a Contract</h1>
     <button fd-modal-close-btn
             (click)="modalRef.dismiss()"></button>
+            <!-- <button fd-button (click)="openModal()" [options]="'emphasized'">Open Second Modal</button> -->
 </fd-modal-header>
 <fd-modal-body class="modal-body">
     <form [formGroup]="contractForm"
           (ngSubmit)="submitForm()"
+          (change)="checkValidity()"
           id="main-form"
           class="row">
         <div class="column">
@@ -14,11 +16,14 @@
                 <div fd-form-item>
                     <label fd-form-label
                            for="company-input">Company: </label>
-                    <input fd-form-control
+                    <input fd-form-control 
                            type="text"
                            id="company-input"
                            placeholder="Enter a company"
-                           formControlName="company">
+                           formControlName="company"
+                           [state]="companyValid.state"
+                           (blur)="changeValueState('companyValid')">
+                           <fd-form-message [hidden]="companyValid.hidden" [type]="companyValid.warningType">Required Contact Name</fd-form-message>
                 </div>
             </div>
             <div fd-form-set
@@ -30,20 +35,26 @@
                            type="text"
                            id="contact-input"
                            placeholder="Enter a contact"
-                           formControlName="contact">
+                           formControlName="contact"
+                           [state]="contactValid.state"
+                           (blur)="changeValueState('contactValid')">
+                           <fd-form-message [hidden]="contactValid.hidden" [type]="contactValid.warningType">Required Contact Name</fd-form-message>
                 </div>
+                
             </div>
             <div fd-form-set
                  class="form-element">
                 <div fd-form-item>
                     <label fd-form-label
                            for="datepicker-input">Date signed: </label>
-                    <fd-date-picker formControlName="thisDate"
+                    <fd-date-picker formControlName="date_signed"
                                     [type]="'single'"
                                     [blockFunction]="myBlockFunction"
                                     [disableFunction]="myDisableFunction"
-                                    id="datepicker-input">
+                                    id="datepicker-input"
+                                    (click)="changeValueState('dateValid')">
                     </fd-date-picker>
+                    <fd-form-message [hidden]="dateValid.hidden" [type]="dateValid.warningType">Must enter a date</fd-form-message>
                 </div>
             </div>
         </div>
@@ -57,11 +68,15 @@
                     </label>
                     <select fd-form-control
                             id="type-1"
-                            formControlName="type">
+                            formControlName="type"
+                            [state]="companyValid.state"
+                            (blur)="changeValueState('typeValid')">
                         <option value="premium">Premium</option>
                         <option value="gold">Gold</option>
                         <option value="silver">Silver</option>
                     </select>
+                    <fd-form-message [hidden]="typeValid.hidden" [type]="typeValid.warningType">Must enter a type</fd-form-message>
+
                 </div>
             </div>
             <div fd-form-set
@@ -73,7 +88,11 @@
                            type="number"
                            id="value-input"
                            placeholder="Enter a number"
-                           formControlName="value">
+                           formControlName="value"
+                           [state]="valueValid.state"
+                           (blur)="changeValueState('valueValid')">
+                           <fd-form-message [hidden]="valueValid.hidden" [type]="valueValid.warningType">Value must be more than 0</fd-form-message>
+
                 </div>
             </div>
             <div fd-form-set
@@ -85,14 +104,19 @@
                     </label>
                     <select fd-form-control
                             id="status-1"
-                            formControlName="status">
+                            formControlName="status"
+                            [state]="statusValid.state"
+                            (blur)="changeValueState('statusValid')">
                         <option value="completed">Completed</option>
                         <option value="on hold">On Hold</option>
                         <option value="dropped">Dropped</option>
+                        
                     </select>
+                    <fd-form-message [hidden]="statusValid.hidden" [type]="statusValid.warningType">Required Status</fd-form-message>
                 </div>
             </div>
         </div>
+
     </form>
 </fd-modal-body>
 <fd-modal-footer>
