@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "publish": "ng build --prod && ng add angular-cli-ghpages && ng deploy",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
