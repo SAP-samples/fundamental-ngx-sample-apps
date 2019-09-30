@@ -18,6 +18,7 @@ export class CreateProductModalDetailedComponent implements OnInit, AfterViewIni
     productDateValid: MyValidation = { formControl: this.detailedProductForm.get('product_date_signed'), state: '', warningType: '', hidden: true };
     validityName;
 
+
 changeValueState(validity: string) {
 
         switch (validity) {

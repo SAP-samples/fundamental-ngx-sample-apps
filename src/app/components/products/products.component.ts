@@ -16,10 +16,7 @@ import { Subscription } from 'rxjs';
 
 export class ProductsComponent implements OnInit, OnDestroy {
 
-    // @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
-
     products: any;
-    test: Product[] = [];
     selected = [];
     subscription: Subscription;
     columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove'];
@@ -27,7 +24,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
-    // dataSource = this.products;
     dataSource;
 
     dropRow(event) {
@@ -54,7 +50,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
             this.subscription = db.collection('products').valueChanges().subscribe(data => {
                 this.products = data;
-                console.log(data);
                 this.dataSource = data;
             });
     }
