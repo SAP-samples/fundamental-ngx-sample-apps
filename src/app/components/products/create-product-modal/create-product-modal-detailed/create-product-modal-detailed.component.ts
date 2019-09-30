@@ -14,12 +14,14 @@ export class CreateProductModalDetailedComponent implements OnInit, AfterViewIni
         product_date_signed: new FormControl('', [Validators.required]),
     });
 
+    // tslint:disable-next-line: max-line-length
     productDateValid: MyValidation = { formControl: this.detailedProductForm.get('product_date_signed'), state: '', warningType: '', hidden: true };
     validityName;
 
-changeValueState(str: string) {
 
-        switch (str) {
+changeValueState(validity: string) {
+
+        switch (validity) {
             case 'productDateValid': this.validityName = this.productDateValid; break;
         }
 
@@ -55,5 +57,7 @@ changeValueState(str: string) {
       event.preventDefault();
       this.modalRef.close();
     }
+
+
 
 }
