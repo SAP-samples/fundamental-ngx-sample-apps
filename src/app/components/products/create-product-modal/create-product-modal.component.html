@@ -86,7 +86,8 @@
                             id="status-1"
                             formControlName="status"
                             [state]="statusValid.state"
-                           (blur)="changeValueState('statusValid')">
+                           (blur)="changeValueState('statusValid')"
+                           >
                         <option value="completed">Completed</option>
                         <option value="in progress">In Progress</option>
                         <option value="dropped">Dropped</option>
@@ -105,6 +106,7 @@
             fdType="main"
             type="submit"
             form="main-form"
+            style="margin-left: 16px;"
             [disabled]="!productForm.dirty || productForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
     <button fd-button
             fdType="light"
