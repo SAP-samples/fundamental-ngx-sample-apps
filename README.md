@@ -2,10 +2,6 @@
 
 Intended as a showcase of fundamental-ngx components and their capabilities. The project also uses Firebase for some mock data loading.
 
-```
-@fundamental-ngx/core: 0.11.0
-```
-
 ## Requirements
 
 Basic knowledge of Angular is expected.
@@ -13,8 +9,9 @@ Basic knowledge of Angular is expected.
 ## Download and Installation
 
 1. Clone the repository.
-2. Run `ng serve` in the root.
-3. Navigate to `http://localhost:4200/`.
+2. Run npm install
+3. Run `ng serve` in the root.
+4. Navigate to `http://localhost:4200/`.
 
 The application will automatically reload if you change any of the source files.
 

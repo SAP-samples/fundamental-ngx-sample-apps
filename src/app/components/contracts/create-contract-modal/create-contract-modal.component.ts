@@ -32,6 +32,7 @@ export class CreateContractModalComponent implements OnInit {
     date: FdDate = FdDate.getToday();
     validityName;
 
+
     changeValueState(validity: string) {
 
         switch (validity) {
