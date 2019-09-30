@@ -10,6 +10,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {ShellbarComponent} from './components/shellbar/shellbar.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
     BadgeLabelModule,
@@ -72,7 +73,7 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         BrowserAnimationsModule,
         IconModule
     ],
-    providers: [],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,
