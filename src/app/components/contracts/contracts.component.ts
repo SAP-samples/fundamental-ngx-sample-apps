@@ -1,10 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {Contract} from '../../models/contract.model';
 import {AlertService, ModalService, CalendarModule} from '@fundamental-ngx/core';
 import {CreateContractModalComponent} from './create-contract-modal/create-contract-modal.component';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
+import { Product } from 'src/app/models/product.model';
+import { CdkTable } from '@angular/cdk/table';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-contracts',
@@ -13,12 +16,45 @@ import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 })
 export class ContractsComponent implements OnInit {
 
-    contracts: Observable<Contract[]>;
+    contracts: any;
+    selected = [];
+    subscription: Subscription;
+    columnHeaders: string [] = ['company', 'contact', 'signed', 'type', 'value', 'status', 'edit', 'remove'];
 
-    constructor(db: AngularFirestore,
-                private modalService: ModalService, private alertService: AlertService) {
-        this.contracts = db.collection('contracts').valueChanges();
+
+    @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
+
+    dataSource;
+
+    dropRow(event) {
+        const previousIndex = this.contracts.findIndex((d) => d === event.item.data);
+        moveItemInArray(this.contracts, previousIndex, event.currentIndex);
+        this.table.renderRows();
     }
+
+    displayFunc(obj: any): string {
+        return obj.company;
+    }
+
+    filterProduct(arr: { company: any; }) {
+
+        if (this.selected.length !== 0) {
+            for (const value of this.selected) {
+                if (value.company === arr.company) {
+                    return true;
+                }
+            }
+        } else { return true; }
+    }
+
+
+
+    constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
+        this.subscription = db.collection('contracts').valueChanges().subscribe(data => {
+            this.contracts = data;
+            this.dataSource = data;
+        });
+}
 
     ngOnInit() {
     }

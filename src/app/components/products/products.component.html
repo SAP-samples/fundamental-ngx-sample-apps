@@ -1,119 +1,119 @@
 <fd-panel>
-        <fd-panel-header>
-            <fd-panel-head>
-                <h2>Products</h2>
-                <fd-panel-description>Manage the products recorded by various company representatives.
-                </fd-panel-description>
-            </fd-panel-head>
-            <fd-panel-actions>
-                <button fd-button
-                        fdType="light"
-                        glyph="add"
-                        (click)="openCreateModal()">
-                </button>
-            </fd-panel-actions>
-    
-    
-        </fd-panel-header>
-    </fd-panel>
-    <div class="fd-has-padding-m">
-        <div *ngIf="products">
-            <fd-multi-input 
-            [dropdownValues]="products"
-            [placeholder]="'Search here...'"
-            [(ngModel)]="selected"
-            [displayFn]="displayFunc">
-            </fd-multi-input>
-                    <span *ngFor="let item of selected; let i = index">
-            </span>
-        </div>
-        <table fd-table cdk-table  [dataSource]="dataSource" #table cdkDropList [cdkDropListData]="dataSource" (cdkDropListDropped)="dropRow($event)">
-    
-                        <ng-container   cdkColumnDef="name">
-                            <th cdk-header-cell *cdkHeaderCellDef>Name</th> 
-                            <ng-container cdk-cell *cdkCellDef="let product">                       
-                                <td *ngIf="filterProduct(product)">
-                                            {{product.name}}
-                                        <fd-inline-help [placement]="'right'">
-                                            Information about {{product.name}}
-                                        </fd-inline-help>
-                                    </td>
-                                </ng-container>                    
-                            </ng-container>
-    
-                        <ng-container   cdkColumnDef="contact">
-                            <th cdk-header-cell *cdkHeaderCellDef>Contact</th> 
-                            <ng-container cdk-cell *cdkCellDef="let product">                       
-                                <td *ngIf="filterProduct(product)">
-                                    {{product.contact}}
+    <fd-panel-header>
+        <fd-panel-head>
+            <h2>Products</h2>
+            <fd-panel-description>Manage the products recorded by various company representatives.
+            </fd-panel-description>
+        </fd-panel-head>
+        <fd-panel-actions>
+            <button fd-button
+                    fdType="light"
+                    glyph="add"
+                    (click)="openCreateModal()">
+            </button>
+        </fd-panel-actions>
+
+
+    </fd-panel-header>
+</fd-panel>
+<div class="fd-has-padding-m">
+    <div *ngIf="products">
+        <fd-multi-input 
+        [dropdownValues]="products"
+        [placeholder]="'Search here...'"
+        [(ngModel)]="selected"
+        [displayFn]="displayFunc">
+        </fd-multi-input>
+                <span *ngFor="let item of selected; let i = index">
+        </span>
+    </div>
+    <table fd-table cdk-table  [dataSource]="dataSource" #table cdkDropList [cdkDropListData]="dataSource" (cdkDropListDropped)="dropRow($event)">
+
+                    <ng-container   cdkColumnDef="name">
+                        <th cdk-header-cell *cdkHeaderCellDef>Name</th> 
+                        <ng-container cdk-cell *cdkCellDef="let product">                       
+                            <td *ngIf="filterProduct(product)">
+                                        {{product.name}}
+                                    <fd-inline-help [placement]="'right'">
+                                        Information about {{product.name}}
+                                    </fd-inline-help>
                                 </td>
-                            </ng-container>
+                            </ng-container>                    
                         </ng-container>
-    
-                        <ng-container   cdkColumnDef="lob">
-                            <th cdk-header-cell *cdkHeaderCellDef>LoB</th>                            
-                            <ng-container cdk-cell *cdkCellDef="let product">                       
+
+                    <ng-container   cdkColumnDef="contact">
+                        <th cdk-header-cell *cdkHeaderCellDef>Contact</th> 
+                        <ng-container cdk-cell *cdkCellDef="let product">                       
+                            <td *ngIf="filterProduct(product)">
+                                {{product.contact}}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container   cdkColumnDef="lob">
+                        <th cdk-header-cell *cdkHeaderCellDef>LoB</th>                            
+                        <ng-container cdk-cell *cdkCellDef="let product">                       
+                            <td *ngIf="filterProduct(product)">
+                            {{product.lob}}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container   cdkColumnDef="user_number">
+                        <th cdk-header-cell *cdkHeaderCellDef>User Number</th>
+                        <ng-container cdk-cell *cdkCellDef="let product">                       
+                            <td *ngIf="filterProduct(product)">
+                                {{product.user_number}}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container  cdkColumnDef="status">
+                        <th cdk-header-cell *cdkHeaderCellDef>Status</th>
+                        <ng-container cdk-cell *cdkCellDef="let product">                       
                                 <td *ngIf="filterProduct(product)">
-                                {{product.lob}}
-                                </td>
-                            </ng-container>
+                                <span fd-badge [status]="product.status | status" modifier="pill"> {{product.status}} </span>
+                            </td>
                         </ng-container>
-    
-                        <ng-container   cdkColumnDef="user_number">
-                            <th cdk-header-cell *cdkHeaderCellDef>User Number</th>
-                            <ng-container cdk-cell *cdkCellDef="let product">                       
+                    </ng-container> 
+
+                    <ng-container   cdkColumnDef="glyph">
+                        <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
+                        <ng-container cdk-cell *cdkCellDef="let product">                       
                                 <td *ngIf="filterProduct(product)">
-                                    {{product.user_number}}
-                                </td>
-                            </ng-container>
+                                <fd-icon glyph="edit"
+                                        class="action-button"
+                                        tabindex="0"
+                                        size="m"
+                                        title="Edit Contract"
+                                        (click)="openEditModal(product)">
+                                </fd-icon>
+                            </td>
                         </ng-container>
-    
-                        <ng-container  cdkColumnDef="status">
-                            <th cdk-header-cell *cdkHeaderCellDef>Status</th>
+                    </ng-container>
+
+                    <ng-container   cdkColumnDef="remove">
+                            <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
                             <ng-container cdk-cell *cdkCellDef="let product">                       
                                     <td *ngIf="filterProduct(product)">
-                                    <span fd-badge [status]="product.status | status" modifier="pill"> {{product.status}} </span>
-                                </td>
-                            </ng-container>
-                        </ng-container> 
-    
-                        <ng-container   cdkColumnDef="glyph">
-                            <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
-                            <ng-container cdk-cell *cdkCellDef="let product">                       
-                                    <td *ngIf="filterProduct(product)">
-                                    <fd-icon glyph="edit"
-                                            class="action-button"
-                                            tabindex="0"
-                                            size="m"
-                                            title="Edit Contract"
-                                            (click)="openEditModal(product)">
+                                <fd-icon glyph="delete"
+                                        class="action-button"
+                                        tabindex="0"
+                                        size="m"
+                                        title="Delete Contract"
+                                        (click)="openConfirmModal()">
                                     </fd-icon>
                                 </td>
                             </ng-container>
-                        </ng-container>
+                    </ng-container>
+                    <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
+
+                    <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr>
+    </table>
+
     
-                        <ng-container   cdkColumnDef="remove">
-                                <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
-                                <ng-container cdk-cell *cdkCellDef="let product">                       
-                                        <td *ngIf="filterProduct(product)">
-                                    <fd-icon glyph="delete"
-                                            class="action-button"
-                                            tabindex="0"
-                                            size="m"
-                                            title="Delete Contract"
-                                            (click)="openConfirmModal()">
-                                        </fd-icon>
-                                    </td>
-                                </ng-container>
-                        </ng-container>
-                        <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
-    
-                        <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr>
-        </table>
-    
-        
-        <div *ngIf="!(products)"
-             class="spinner-container">
-            <fd-loading-spinner [loading]="true"></fd-loading-spinner>
-        </div>
+    <div *ngIf="!(products)"
+         class="spinner-container">
+        <fd-loading-spinner [loading]="true"></fd-loading-spinner>
     </div>
+</div>
