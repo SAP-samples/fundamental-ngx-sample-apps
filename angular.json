@@ -28,7 +28,10 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/fundamental-styles/dist/fundamental-styles.min.css"
+              "node_modules/fundamental-styles/dist/fonts.css",
+              "node_modules/fundamental-styles/dist/icon.css",
+              "node_modules/fundamental-styles/dist/table.css",
+              "node_modules/fundamental-styles/dist/fundamental-styles.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

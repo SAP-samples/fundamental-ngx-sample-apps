@@ -25,6 +25,7 @@
 }
 
 .cdk-drag-preview {
+    height: 100px;
     background-color: white;
     box-sizing: border-box;
     border-radius: 4px;
@@ -40,4 +41,21 @@
     .action-button {
         margin-left: 8px;
     }
+}
+
+.fd-table {
+    border: none;
+}
+
+.cdk-row {
+    &.cdk-drag{
+        height: 50px;
+        &.cdk-drag-preview{
+            height: 20px;
+            padding-right: 32px;
+        }
+    }
+}
+.cdk-header-row{
+    text-align: left;
 }
