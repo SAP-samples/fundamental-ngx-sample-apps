@@ -18,3 +18,7 @@
           flex-grow: 1;
 }
 /*# sourceMappingURL=app.component.css.map */
+
+body {
+  background-color: cyan;
+}
