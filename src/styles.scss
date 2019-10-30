@@ -19,3 +19,10 @@ fd-alert-container {
     list-style: none;
 }
 
+.fd-product-switch__control {
+    color: var(--sapShell_TextColor, #fff)!important;
+}
+
+.fd-product-switch__control:hover{
+    background-color:var(--sapShell_Hover_Background,#283848) !important;
+}

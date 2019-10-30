@@ -29,6 +29,10 @@
     </div>
     <fd-table-wrapper>
         <table cdk-table [dataSource]="dataSource" #table cdkDropList [cdkDropListData]="dataSource" (cdkDropListDropped)="dropRow($event)">
+            <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
+
+            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr>
+
             <ng-container   cdkColumnDef="name">
                 <th cdk-header-cell *cdkHeaderCellDef>Name</th> 
                 <ng-container cdk-cell *cdkCellDef="let product">                       
@@ -106,9 +110,9 @@
                         </td>
                     </ng-container>
             </ng-container>
-            <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
+            <!-- <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 
-            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr>
+            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr> -->
         </table>
     </fd-table-wrapper>
 
