@@ -9,7 +9,6 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
-import {ShellbarComponent} from './components/shellbar/shellbar.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
@@ -38,7 +37,6 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
     declarations: [
         AppComponent,
         SidebarComponent,
-        ShellbarComponent,
         ContractsComponent,
         ProductsComponent,
         StatusPipe,
@@ -57,7 +55,6 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         AngularFireDatabaseModule,
         CdkTableModule, DragDropModule,
         SideNavigationModule,
-        ShellbarModule,
         PanelModule,
         ButtonModule,
         TableModule,
@@ -73,6 +70,7 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         FormModule,
         DatePickerModule,
         BrowserAnimationsModule,
+        ShellbarModule,
         IconModule
     ],
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],

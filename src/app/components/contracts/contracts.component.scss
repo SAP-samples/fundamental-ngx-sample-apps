@@ -56,6 +56,16 @@
     }
 }
 
+.cdk-row {
+    &.cdk-drag{
+        height: 50px;
+        &.cdk-drag-preview{
+            height: 20px;
+            padding-right: 32px;
+        }
+    }
+}
+
 .cdk-header-row{
     text-align: left;
 }

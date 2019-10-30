@@ -25,8 +25,8 @@
         </span>
     </div>
     <fd-table-wrapper>
-        <table cdk-table  [dataSource]="dataSource" #table cdkDropList [cdkDropListData]="dataSource" (cdkDropListDropped)="dropRow($event)">
-            <ng-container   cdkColumnDef="company">
+        <table cdk-table  [dataSource]="dataSource" #table cdkDropList [cdkDropListData]="dataSource" (cdkDropListDropped)="dropRow($event)">  
+            <ng-container  cdkColumnDef="company">
                 <th cdk-header-cell *cdkHeaderCellDef>Company</th> 
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                     <td *ngIf="filterProduct(contract)">
