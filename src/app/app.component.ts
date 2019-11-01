@@ -69,6 +69,6 @@ export class AppComponent {
 
 productChangeHandle(products: ProductSwitchItem[]): void {
     this.list = products;
-    console.log(products);
+    // console.log(products);
 }
 }
