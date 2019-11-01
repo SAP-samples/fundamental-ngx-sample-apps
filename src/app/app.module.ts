@@ -33,6 +33,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateProductModalComponent } from './components/products/create-product-modal/create-product-modal.component';
 import { CreateProductModalDetailedComponent } from './components/products/create-product-modal/create-product-modal-detailed/create-product-modal-detailed.component';
+import { FilterDataByNamePipe } from './pipes/filter-data-by-name.pipe';
 @NgModule({
     declarations: [
         AppComponent,
@@ -44,7 +45,8 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         ConfirmModalComponent,
         DashboardComponent,
         CreateProductModalComponent,
-        CreateProductModalDetailedComponent
+        CreateProductModalDetailedComponent,
+        FilterDataByNamePipe
 
     ],
     imports: [
@@ -73,7 +75,8 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         ShellbarModule,
         IconModule
     ],
-    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
+        FilterDataByNamePipe],
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,

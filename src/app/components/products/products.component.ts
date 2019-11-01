@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component,  ViewChild, OnDestroy } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -6,7 +6,8 @@ import { Product } from '../../models/product.model';
 import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
+import { Behavior } from 'popper.js';
 
 @Component({
     selector: 'app-products',
@@ -14,10 +15,10 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./Products.component.scss']
 })
 
-export class ProductsComponent implements OnInit, OnDestroy {
+export class ProductsComponent implements  OnDestroy {
 
     products: any;
-    selected = [];
+    selected: Product[] = [];
     subscription: Subscription;
     columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove'];
 
@@ -25,6 +26,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
     dataSource;
+    filteredDatasource;
 
     dropRow(event) {
         const previousIndex = this.products.findIndex((d) => d === event.item.data);
@@ -32,31 +34,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.table.renderRows();
     }
 
+    clickMe() {
+        this.table.renderRows();
+    }
+
+
     displayFunc(obj: any): string {
         return obj.name;
     }
 
-    filterProduct(arr: { name: any; }) {
-
-        if (this.selected.length !== 0) {
-            for (const value of this.selected) {
-                if (value.name === arr.name) {
-                    return true;
-                }
-            }
-        } else { return true; }
-    }
 
     constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-            this.subscription = db.collection('products').valueChanges().subscribe(data => {
-                this.products = data;
-                this.dataSource = data;
-            });
+        this.subscription = db.collection('products').valueChanges().subscribe(data => {
+            this.products = data;
+            this.dataSource = data;
+        });
     }
 
-    ngOnInit() {
-
-    }
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
