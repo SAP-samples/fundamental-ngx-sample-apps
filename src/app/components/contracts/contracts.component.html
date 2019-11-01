@@ -19,29 +19,30 @@
         [dropdownValues]="contracts"
         [placeholder]="'Search here...'"
         [(ngModel)]="selected"
+        (ngModelChange)="refresh()"
         [displayFn]="displayFunc">
         </fd-multi-input>
                 <span *ngFor="let item of selected; let i = index">
         </span>
     </div>
     <fd-table-wrapper>
-        <table cdk-table  [dataSource]="dataSource" #table cdkDropList [cdkDropListData]="dataSource" (cdkDropListDropped)="dropRow($event)">  
+        <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
             <ng-container  cdkColumnDef="company">
                 <th cdk-header-cell *cdkHeaderCellDef>Company</th> 
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td *ngIf="filterProduct(contract)">
-                                {{contract.company}}
-                            <fd-inline-help [placement]="'right'">
-                                Information about {{contract.company}}
-                            </fd-inline-help>
-                        </td>
+                    <td>
+                            {{contract.company}}
+                        <fd-inline-help [placement]="'right'">
+                            Information about {{contract.company}}
+                        </fd-inline-help>
+                    </td>
                     </ng-container>                    
                 </ng-container>
 
             <ng-container   cdkColumnDef="contact">
                 <th cdk-header-cell *cdkHeaderCellDef>Contact</th> 
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td *ngIf="filterProduct(contract)">
+                    <td>
                         {{contract.contact}}
                     </td>
                 </ng-container>
@@ -50,8 +51,8 @@
             <ng-container   cdkColumnDef="signed">
                 <th cdk-header-cell *cdkHeaderCellDef>Signed</th>                            
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td *ngIf="filterProduct(contract)">
-                    {{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}
+                    <td>
+                        {{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}
                     </td>
                 </ng-container>
             </ng-container>
@@ -59,7 +60,7 @@
             <ng-container   cdkColumnDef="type">
                 <th cdk-header-cell *cdkHeaderCellDef>Type</th>
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td *ngIf="filterProduct(contract)">
+                    <td>
                         {{contract.type | uppercase}}
                     </td>
                 </ng-container>
@@ -68,7 +69,7 @@
             <ng-container   cdkColumnDef="value">
                 <th cdk-header-cell *cdkHeaderCellDef>Value</th>
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td *ngIf="filterProduct(contract)">
+                    <td>
                         {{contract.value | currency}}
                     </td>
                 </ng-container>
@@ -77,7 +78,7 @@
             <ng-container  cdkColumnDef="status">
                 <th cdk-header-cell *cdkHeaderCellDef>Status</th>
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
-                        <td *ngIf="filterProduct(contract)">
+                    <td>
                         <span fd-badge [status]="contract.status | status" modifier="pill"> {{contract.status}} </span>
                     </td>
                 </ng-container>
@@ -86,7 +87,7 @@
             <ng-container   cdkColumnDef="edit">
                 <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
-                        <td *ngIf="filterProduct(contract)">
+                        <td>
                         <fd-icon glyph="edit"
                                 class="action-button"
                                 tabindex="0"
@@ -101,7 +102,7 @@
             <ng-container   cdkColumnDef="remove">
                     <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
-                            <td *ngIf="filterProduct(contract)">
+                            <td>
                         <fd-icon glyph="delete"
                                 class="action-button"
                                 tabindex="0"

@@ -17,14 +17,15 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 export class ContractsComponent implements OnInit {
 
     contracts: any;
-    selected = [];
+    selected: Contract[] = [];
+    filteredDataSource: Contract[];
     subscription: Subscription;
     columnHeaders: string [] = ['company', 'contact', 'signed', 'type', 'value', 'status', 'edit', 'remove'];
 
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
-    dataSource;
+    dataSource: Contract[];
 
     dropRow(event) {
         const previousIndex = this.contracts.findIndex((d) => d === event.item.data);
@@ -36,15 +37,11 @@ export class ContractsComponent implements OnInit {
         return obj.company;
     }
 
-    filterProduct(arr: { company: any; }) {
-
-        if (this.selected.length !== 0) {
-            for (const value of this.selected) {
-                if (value.company === arr.company) {
-                    return true;
-                }
-            }
-        } else { return true; }
+    refresh() {
+        if (this.selected.length === 0) {
+            this.filteredDataSource = this.dataSource;
+            } else { this.filteredDataSource = this.selected; }
+        this.table.renderRows();
     }
 
 
@@ -53,6 +50,7 @@ export class ContractsComponent implements OnInit {
         this.subscription = db.collection('contracts').valueChanges().subscribe(data => {
             this.contracts = data;
             this.dataSource = data;
+            this.filteredDataSource = data;
         });
 }
 

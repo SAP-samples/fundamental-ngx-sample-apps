@@ -45,6 +45,7 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         DashboardComponent,
         CreateProductModalComponent,
         CreateProductModalDetailedComponent
+        
 
     ],
     imports: [
@@ -73,7 +74,8 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         ShellbarModule,
         IconModule
     ],
-    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
+        ],
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,
