@@ -22,14 +22,14 @@
         [dropdownValues]="products"
         [placeholder]="'Search here...'"
         [(ngModel)]="selected"
-        (ngModelChange)="clickMe()"
+        (ngModelChange)="refresh()"
         [displayFn]="displayFunc">
         </fd-multi-input>
                 <span *ngFor="let item of selected; let i = index"></span>
     </div>
     <fd-table-wrapper *ngIf="selected && dataSource">
-        <table cdk-table [dataSource]="dataSource|filterDataByName:selected" #table cdkDropList [cdkDropListData]="dataSource|filterDataByName:selected" (cdkDropListDropped)="dropRow($event)">
-        <!-- <table cdk-table [dataSource]="filteredDatasource" #table cdkDropList [cdkDropListData]="filteredDatasource" (cdkDropListDropped)="dropRow($event)"> -->
+        <!-- <table cdk-table [dataSource]="dataSource|filterDataByName:selected" #table cdkDropList [cdkDropListData]="dataSource|filterDataByName:selected" (cdkDropListDropped)="dropRow($event)"> -->
+        <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
                 <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 
             <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr>

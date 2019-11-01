@@ -19,14 +19,33 @@ export class ProductsComponent implements  OnDestroy {
 
     products: any;
     selected: Product[] = [];
+    filteredDataSource: Product[] = [];
     subscription: Subscription;
     columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove'];
 
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
-    dataSource;
+    dataSource: Product[];
     filteredDatasource;
+
+    copySelected(oldSelected) {
+        let i = 0;
+        const copiedSelected: Product [] = oldSelected;
+        oldSelected.forEach(product => {
+            console.log(product);
+            if (product !== undefined) {
+                console.log(copiedSelected[0].name);
+                // copiedSelected[i++].name = product.name;
+            }
+            // copiedSelected[i].contact = product.contact;
+            // copiedSelected[i].lob = product.lob;
+            // copiedSelected[i].user_number = product.user_number;
+            // copiedSelected[i].status = product.status;
+        });
+        i = 0;
+        return copiedSelected;
+    }
 
     dropRow(event) {
         const previousIndex = this.products.findIndex((d) => d === event.item.data);
@@ -34,7 +53,15 @@ export class ProductsComponent implements  OnDestroy {
         this.table.renderRows();
     }
 
-    clickMe() {
+    refresh() {
+        console.log(this.selected);
+        // if (this.selected) {
+        //     this.selected = this.copySelected(this.selected);
+        // }
+        console.log(this.selected);
+        if (this.selected.length === 0) {
+            this.filteredDataSource = this.dataSource;
+            } else { this.filteredDataSource = this.selected; }
         this.table.renderRows();
     }
 
@@ -48,6 +75,7 @@ export class ProductsComponent implements  OnDestroy {
         this.subscription = db.collection('products').valueChanges().subscribe(data => {
             this.products = data;
             this.dataSource = data;
+            this.filteredDataSource = data;
         });
     }
 
