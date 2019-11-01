@@ -28,7 +28,6 @@
                 <span *ngFor="let item of selected; let i = index"></span>
     </div>
     <fd-table-wrapper *ngIf="selected && dataSource">
-        <!-- <table cdk-table [dataSource]="dataSource|filterDataByName:selected" #table cdkDropList [cdkDropListData]="dataSource|filterDataByName:selected" (cdkDropListDropped)="dropRow($event)"> -->
         <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
                 <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 

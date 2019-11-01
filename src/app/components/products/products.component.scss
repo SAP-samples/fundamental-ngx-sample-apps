@@ -33,9 +33,7 @@
     0 8px 10px 1px rgba(0, 0, 0, 0.14),
     0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
-.cdk-drag-preview td {
-    padding: 16px;
-}
+
 
 @media screen and (max-width: 600px) {
     .action-button {
@@ -52,7 +50,12 @@
         height: 50px;
         &.cdk-drag-preview{
             height: 20px;
-            padding-right: 32px;
+            td {
+                padding: 8px 60px;
+                font-weight: lighter;
+                font-size: 14px;
+                font-family: '72', sans-serif;
+            }
         }
     }
 }

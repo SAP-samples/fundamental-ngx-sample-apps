@@ -27,25 +27,7 @@ export class ProductsComponent implements  OnDestroy {
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
     dataSource: Product[];
-    filteredDatasource;
-
-    copySelected(oldSelected) {
-        let i = 0;
-        const copiedSelected: Product [] = oldSelected;
-        oldSelected.forEach(product => {
-            console.log(product);
-            if (product !== undefined) {
-                console.log(copiedSelected[0].name);
-                // copiedSelected[i++].name = product.name;
-            }
-            // copiedSelected[i].contact = product.contact;
-            // copiedSelected[i].lob = product.lob;
-            // copiedSelected[i].user_number = product.user_number;
-            // copiedSelected[i].status = product.status;
-        });
-        i = 0;
-        return copiedSelected;
-    }
+    filteredDatasource: Product[];
 
     dropRow(event) {
         const previousIndex = this.products.findIndex((d) => d === event.item.data);
@@ -54,11 +36,6 @@ export class ProductsComponent implements  OnDestroy {
     }
 
     refresh() {
-        console.log(this.selected);
-        // if (this.selected) {
-        //     this.selected = this.copySelected(this.selected);
-        // }
-        console.log(this.selected);
         if (this.selected.length === 0) {
             this.filteredDataSource = this.dataSource;
             } else { this.filteredDataSource = this.selected; }
