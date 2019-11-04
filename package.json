@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --base-href=\"/fd-ngx-firebase-example/\" && npx ngh --dir dist/ngx-sample-app"
+    "deploy": "ng build --prod --base-href=\"/fundamental-ngx-sample-apps/\" && npx ngh --dir dist/ngx-sample-app"
   },
   "private": true,
   "dependencies": {
