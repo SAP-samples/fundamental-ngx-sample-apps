@@ -74,8 +74,7 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         ShellbarModule,
         IconModule
     ],
-    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
-        ],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,
