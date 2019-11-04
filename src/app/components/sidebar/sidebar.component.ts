@@ -12,6 +12,17 @@ export class SidebarComponent implements OnInit {
 
     collapsed = false;
 
+   getSize() {
+        if (this.collapsed === true) {
+            return '5px';
+        }
+    }
+
+    changeCollapsed() {
+        this.collapsed = !this.collapsed;
+        console.log(this.collapsed);
+    }
+
     constructor() {
     }
 
