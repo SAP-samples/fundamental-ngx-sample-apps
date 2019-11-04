@@ -1,8 +1,8 @@
 
 <fd-side-nav [collapsed]="collapsed">
-    <div fd-side-nav-list>
+    <div fd-side-nav-list >
         <fd-side-nav-item>
-                <a [routerLink]="'/dashboard'" fd-side-nav-link>
+            <a [routerLink]="'/dashboard'" fd-side-nav-link>
                 <fd-icon [glyph]="'Chart-Tree-Map'" [size]="'l'"></fd-icon>Dashboard
             </a>
         </fd-side-nav-item>
@@ -18,7 +18,7 @@
         </fd-side-nav-item>
     </div>
     <div class="bottom-content">
-        <button fd-button fdType="light" [glyph]="collapsed ? 'navigation-right-arrow' : 'navigation-left-arrow'" (click)="collapsed = !collapsed"></button>
+        <button fd-button fdType="light" [glyph]="collapsed ? 'navigation-right-arrow' : 'navigation-left-arrow'" (click)="changeCollapsed()"></button>
     </div>
 </fd-side-nav>
     
