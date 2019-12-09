@@ -1,24 +1,24 @@
-
-<fd-side-nav [collapsed]="collapsed">
-    <div fd-side-nav-list >
-        <fd-side-nav-item>
-            <a [routerLink]="'/dashboard'" fd-side-nav-link>
-                <fd-icon [glyph]="'Chart-Tree-Map'" [size]="'l'"></fd-icon>Dashboard
-            </a>
-        </fd-side-nav-item>
-        <fd-side-nav-item>
-            <a [routerLink]="'/contracts'" fd-side-nav-link>
-                <fd-icon [glyph]="'customer-order-entry'" [size]="'l'"></fd-icon>Contracts
-            </a>
-        </fd-side-nav-item>
-        <fd-side-nav-item>
-            <a [routerLink]="'/products'" fd-side-nav-link>
-                <fd-icon [glyph]="'product'" [size]="'l'"></fd-icon>Products
-            </a>
-        </fd-side-nav-item>
-    </div>
-    <div class="bottom-content">
-        <button fd-button fdType="light" [glyph]="collapsed ? 'navigation-right-arrow' : 'navigation-left-arrow'" (click)="changeCollapsed()"></button>
+<fd-side-nav>
+    <div fd-side-nav-main>
+        <ul fd-nested-list [textOnly]="false">
+            <li fd-nested-list-item>
+                <a fd-nested-list-link [routerLink]="'/dashboard'" >
+                    <span fd-nested-list-icon [glyph]="'Chart-Tree-Map'"></span>
+                    <span fd-nested-list-title>Dashboard</span>
+                </a>
+            </li>
+            <li fd-nested-list-item>
+                <a fd-nested-list-link [routerLink]="'/contracts'">
+                    <span fd-nested-list-icon [glyph]="'customer-order-entry'"></span>
+                    <span fd-nested-list-title>Contracts</span>
+                </a>
+            </li>
+            <li fd-nested-list-item>
+                <a fd-nested-list-link [routerLink]="'/products'">
+                    <span fd-nested-list-icon [glyph]="'product'"></span>
+                    <span fd-nested-list-title>Products</span>
+                </a>
+            </li>
+        </ul>
     </div>
 </fd-side-nav>
-    
