@@ -98,5 +98,8 @@
       }
     }
   },
-  "defaultProject": "ngx-sample-app"
+  "defaultProject": "ngx-sample-app",
+  "cli": {
+    "analytics": false
+  }
 }
