@@ -28,7 +28,7 @@
                 <span *ngFor="let item of selected; let i = index"></span>
     </div>
     <fd-table-wrapper *ngIf="selected && dataSource">
-        <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
+        <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)" class="custom-table">
                 <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 
             <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status']" style="cursor: grab;"></tr>
@@ -38,9 +38,6 @@
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                     <td>
                                 {{product.name}}
-                            <fd-inline-help [placement]="'right'">
-                                Information about {{product.name}}
-                            </fd-inline-help>
                         </td>
                     </ng-container>                    
                 </ng-container>
