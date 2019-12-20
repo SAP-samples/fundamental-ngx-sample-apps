@@ -14,7 +14,7 @@
                     <td>{{contract.company}}</td>
                     <td>{{contract.contact}}</td>
                     <td>{{contract.value}}</td>
-                    <td class="badge-cell">
+                    <td>
                         <span fd-badge [status]="contract.status | status"
                                   modifier="pill">
                             {{contract.status}}
@@ -46,7 +46,7 @@
                     <td>{{product.name}}</td>
                     <td>{{product.contact}}</td>
                     <td>{{product.lob}}</td>
-                    <td class="badge-cell">
+                    <td>
                         <span fd-badge [status]="product.status | status  "
                                   modifier="pill">
                             {{product.status | uppercase}}
