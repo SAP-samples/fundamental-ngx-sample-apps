@@ -27,10 +27,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
               "node_modules/fundamental-styles/dist/fonts.css",
               "node_modules/fundamental-styles/dist/icon.css",
-              "node_modules/fundamental-styles/dist/fundamental-styles.css"
+              "node_modules/fundamental-styles/dist/fundamental-styles.css",
+              "src/styles.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true

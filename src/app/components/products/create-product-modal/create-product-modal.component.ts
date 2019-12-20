@@ -55,7 +55,9 @@ export class CreateProductModalComponent implements OnInit {
 
     openModal() {
         this.modalService.open(CreateProductModalDetailedComponent, {
-            width: '300px'
+            minWidth: '300px',
+            maxWidth: '600px',
+            maxHeight: '600px'
         });
     }
 

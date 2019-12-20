@@ -21,7 +21,7 @@ export class ProductsComponent implements  OnDestroy {
     selected: Product[] = [];
     filteredDataSource: Product[] = [];
     subscription: Subscription;
-    columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove'];
+    columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status'];
 
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
@@ -61,7 +61,9 @@ export class ProductsComponent implements  OnDestroy {
     }
     openCreateModal(): void {
         this.modalService.open(CreateProductModalComponent, {
-            data: {}
+            data: {},
+            minWidth: '300px',
+            maxWidth: '600px'
         }).afterClosed.subscribe(result => {
             if (result) {
                 this.alertService.open('Create not allowed in this version.', {

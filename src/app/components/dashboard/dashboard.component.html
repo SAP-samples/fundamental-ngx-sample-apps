@@ -47,9 +47,9 @@
                     <td>{{product.contact}}</td>
                     <td>{{product.lob}}</td>
                     <td class="badge-cell">
-                        <span fd-badge [status]="product.status | status"
+                        <span fd-badge [status]="product.status | status  "
                                   modifier="pill">
-                            {{product.status}}
+                            {{product.status | uppercase}}
                     </span>
                     </td>
                 </tr>

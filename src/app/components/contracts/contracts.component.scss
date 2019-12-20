@@ -62,3 +62,31 @@
 .cdk-header-row{
     text-align: left;
 }
+
+
+.fd-badge{
+    &--error{
+        background-color: #f9e6e6;
+        border-color: var(--sapUiAccent3, #d04343);
+    }
+
+    &--warning{
+        background-color: #fdf3e6;
+        border-color: var(--sapUiAccent1, #d08014);
+    }
+
+    &--success{
+        background-color: #f8fde7;
+        border-color: var(--sapUiAccent1, #7ca10c);
+    }
+}
+
+td, th {
+    padding: 0 0.5rem !important;
+}
+
+tr {
+    &:first-child {
+        padding: 0 0.5rem 0 1rem !important;
+    }
+}

@@ -1,0 +1,11 @@
+.fd-nested-list {
+    :last-child{
+        a {
+            border-bottom: none;
+        }
+    }
+}
+
+.fd-side-nav__main-navigation {
+    height: 100vh;
+}

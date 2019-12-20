@@ -7,7 +7,7 @@
     <form [formGroup]="productForm"
           (ngSubmit)="submitForm()"
           id="main-form"
-          class="row">
+          class="form">
         <div class="column">
             <div fd-form-set
                  class="form-element">
@@ -22,8 +22,6 @@
                             [state]="nameValid.state"
                            (blur)="changeValueState('nameValid')">
                 </div>
-                <fd-form-message [hidden]="nameValid.hidden" [type]="nameValid.warningType">Required name</fd-form-message>
-
             </div>
             <div fd-form-set
                  class="form-element">
@@ -38,7 +36,6 @@
                             [state]="contactValid.state"
                            (blur)="changeValueState('contactValid')">
                 </div>
-                <fd-form-message [hidden]="contactValid.hidden" [type]="contactValid.warningType">Required contact information</fd-form-message>
 
             </div>
             <div fd-form-set
@@ -54,7 +51,6 @@
                             [state]="lobValid.state"
                            (blur)="changeValueState('lobValid')">
                 </div>
-                <fd-form-message [hidden]="lobValid.hidden" [type]="lobValid.warningType">Required line of business</fd-form-message>
                 
             </div>
         </div>
@@ -70,9 +66,7 @@
                            placeholder="Enter a number"
                            formControlName="user_number"
                             [state]="user_numberValid.state"
-                           (blur)="changeValueState('user_numberValid')">
-                    <fd-form-message [hidden]="user_numberValid.hidden" [type]="user_numberValid.warningType">Required number of users</fd-form-message>
-                           
+                           (blur)="changeValueState('user_numberValid')">                           
                 </div>
             </div>
             <div fd-form-set
@@ -92,8 +86,6 @@
                         <option value="in progress">In Progress</option>
                         <option value="dropped">Dropped</option>
                     </select>
-                    <fd-form-message [hidden]="statusValid.hidden" [type]="statusValid.warningType">Required status</fd-form-message>
-
                 </div>
             </div>
         </div>
