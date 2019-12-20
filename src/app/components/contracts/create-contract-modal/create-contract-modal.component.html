@@ -22,7 +22,6 @@
                            formControlName="company"
                            [state]="companyValid.state"
                            (blur)="changeValueState('companyValid')">
-                           <fd-form-message [hidden]="companyValid.hidden" [type]="companyValid.warningType">Required Contact Name</fd-form-message>
                 </div>
             </div>
             <div fd-form-set
@@ -37,24 +36,8 @@
                            formControlName="contact"
                            [state]="contactValid.state"
                            (blur)="changeValueState('contactValid')">
-                           <fd-form-message [hidden]="contactValid.hidden" [type]="contactValid.warningType">Required Contact Name</fd-form-message>
                 </div>
                 
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="datepicker-input">Date signed: </label>
-                    <fd-date-picker formControlName="date_signed"
-                                    [type]="'single'"
-                                    [blockFunction]="myBlockFunction"
-                                    [disableFunction]="myDisableFunction"
-                                    id="datepicker-input"
-                                    (click)="changeValueState('dateValid')">
-                    </fd-date-picker>
-                    <fd-form-message [hidden]="dateValid.hidden" [type]="dateValid.warningType">Must enter a date</fd-form-message>
-                </div>
             </div>
         </div>
         <div class="column">
@@ -68,14 +51,12 @@
                     <select fd-form-control
                             id="type-1"
                             formControlName="type"
-                            [state]="companyValid.state"
+                            [state]="typeValid.state"
                             (blur)="changeValueState('typeValid')">
                         <option value="premium">Premium</option>
                         <option value="gold">Gold</option>
                         <option value="silver">Silver</option>
                     </select>
-                    <fd-form-message [hidden]="typeValid.hidden" [type]="typeValid.warningType">Must enter a type</fd-form-message>
-
                 </div>
             </div>
             <div fd-form-set
@@ -90,8 +71,6 @@
                            formControlName="value"
                            [state]="valueValid.state"
                            (blur)="changeValueState('valueValid')">
-                           <fd-form-message [hidden]="valueValid.hidden" [type]="valueValid.warningType">Value must be more than 0</fd-form-message>
-
                 </div>
             </div>
             <div fd-form-set
@@ -111,7 +90,6 @@
                         <option value="dropped">Dropped</option>
                         
                     </select>
-                    <fd-form-message [hidden]="statusValid.hidden" [type]="statusValid.warningType">Required Status</fd-form-message>
                 </div>
             </div>
         </div>

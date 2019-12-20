@@ -3,15 +3,13 @@
     flex-grow: 1;
 }
 
-.row {
+.form {
     display: flex;
     flex-wrap: wrap;
-    border: none !important;
+    // justify-content: center;
 }
 
-.column {
-    flex: 50%;
-}
+
 
 .form-element {
     margin: 16px;

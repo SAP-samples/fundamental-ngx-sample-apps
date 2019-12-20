@@ -20,7 +20,7 @@ export class ContractsComponent implements OnInit {
     selected: Contract[] = [];
     filteredDataSource: Contract[];
     subscription: Subscription;
-    columnHeaders: string [] = ['company', 'contact', 'signed', 'type', 'value', 'status', 'edit', 'remove'];
+    columnHeaders: string [] = ['company', 'contact', 'signed', 'type', 'value', 'status'];
 
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;

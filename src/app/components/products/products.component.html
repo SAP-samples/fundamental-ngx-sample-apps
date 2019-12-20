@@ -31,7 +31,7 @@
         <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
                 <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 
-            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr>
+            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status']" style="cursor: grab;"></tr>
 
             <ng-container   cdkColumnDef="name">
                 <th cdk-header-cell *cdkHeaderCellDef>Name</th> 
@@ -76,40 +76,11 @@
                 <th cdk-header-cell *cdkHeaderCellDef>Status</th>
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                         <td>
-                        <span fd-badge [status]="product.status | status" modifier="pill"> {{product.status}} </span>
+                        <span fd-badge [status]="product.status | status" modifier="pill"> {{product.status | uppercase}} </span>
                     </td>
                 </ng-container>
             </ng-container> 
 
-            <ng-container   cdkColumnDef="glyph">
-                <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
-                <ng-container cdk-cell *cdkCellDef="let product">                       
-                        <td>
-                        <fd-icon glyph="edit"
-                                class="action-button"
-                                tabindex="0"
-                                size="m"
-                                title="Edit Contract"
-                                (click)="openEditModal(product)">
-                        </fd-icon>
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container   cdkColumnDef="remove">
-                    <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
-                    <ng-container cdk-cell *cdkCellDef="let product">                       
-                            <td>
-                        <fd-icon glyph="delete"
-                                class="action-button"
-                                tabindex="0"
-                                size="m"
-                                title="Delete Contract"
-                                (click)="openConfirmModal()">
-                            </fd-icon>
-                        </td>
-                    </ng-container>
-            </ng-container>
             <!-- <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 
             <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr> -->

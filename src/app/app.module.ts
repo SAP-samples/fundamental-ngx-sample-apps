@@ -8,20 +8,21 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
-import {SidebarComponent} from './components/sidebar/sidebar.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
     BadgeLabelModule,
     ButtonModule, DatePickerModule, FormModule, IconModule,
-    LoadingSpinnerModule, ModalModule,NestedListModule,
+    LoadingSpinnerModule, ModalModule, 
     PanelModule,
     ProductSwitchModule,
     ShellbarModule,
     SideNavigationModule,
     TableModule,
     InlineHelpModule,
-    MultiInputModule
+    MultiInputModule,
+    TileModule,
+    FundamentalNgxCoreModule
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -36,7 +37,6 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
 @NgModule({
     declarations: [
         AppComponent,
-        SidebarComponent,
         ContractsComponent,
         ProductsComponent,
         StatusPipe,
@@ -66,14 +66,15 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         FormsModule,
         ProductSwitchModule,
         MultiInputModule,
-        NestedListModule,
         InlineHelpModule,
         ReactiveFormsModule,
         FormModule,
         DatePickerModule,
         BrowserAnimationsModule,
+        FundamentalNgxCoreModule,
         ShellbarModule,
-        IconModule
+        IconModule,
+        TileModule
     ],
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     entryComponents: [

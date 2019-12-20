@@ -1,8 +1,6 @@
         <form [formGroup]="detailedProductForm"
           id="main-form"
           class="row">
-            <div class="column">
-
             <fd-modal-header>
                 <h1 fd-modal-title>Detailed Options</h1>
                 <button fd-modal-close-btn (click)="closeModal()"></button>
@@ -26,5 +24,4 @@
             <fd-modal-footer>
                 <button fd-button (click)="closeModal()" [options]="'emphasized'">Close</button>
             </fd-modal-footer>
-            </div>
         </form>

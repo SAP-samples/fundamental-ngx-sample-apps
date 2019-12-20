@@ -8,6 +8,7 @@ import { ProductSwitchItem } from '@fundamental-ngx/core';
 })
 export class AppComponent {
   title = 'ngx-sample-app';
+  condensed= false;
 
   list: ProductSwitchItem[] = [
     {
