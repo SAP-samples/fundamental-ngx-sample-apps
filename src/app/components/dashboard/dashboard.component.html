@@ -43,10 +43,10 @@
         <ng-container *ngIf="products | async as productList">
             <table class="table-custom">
                 <tr *ngFor="let product of productList.slice(0, 3)">
-                    <td>{{product.name}}</td>
-                    <td>{{product.contact}}</td>
-                    <td>{{product.lob}}</td>
-                    <td>
+                    <td class="">{{product.name}}</td>
+                    <td class="">{{product.contact}}</td>
+                    <td class="">{{product.lob}}</td>
+                    <td class="">
                         <span fd-badge [status]="product.status | status  "
                                   modifier="pill">
                             {{product.status | uppercase}}
