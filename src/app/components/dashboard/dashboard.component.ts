@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     constructor(db: AngularFirestore) {
         this.contracts = db.collection('contracts').valueChanges();
         this.products = db.collection('products').valueChanges();
+        console.log(this.contracts);
     }
 
     ngOnInit() {

@@ -8,6 +8,9 @@ import { CreateProductModalComponent } from './create-product-modal/create-produ
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { Behavior } from 'popper.js';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CreateContractModalComponent } from '../contracts/create-contract-modal/create-contract-modal.component';
 
 @Component({
     selector: 'app-products',
@@ -30,8 +33,8 @@ export class ProductsComponent implements  OnDestroy {
     filteredDatasource: Product[];
 
     dropRow(event) {
-        const previousIndex = this.products.findIndex((d) => d === event.item.data);
-        moveItemInArray(this.products, previousIndex, event.currentIndex);
+        const prevIndex = this.filteredDataSource.findIndex((d) => d === event.item.data);
+        moveItemInArray(this.filteredDataSource, prevIndex, event.currentIndex);
         this.table.renderRows();
     }
 
@@ -48,7 +51,7 @@ export class ProductsComponent implements  OnDestroy {
     }
 
 
-    constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
+    constructor(db: AngularFirestore, public dialog: MatDialog, private _snackBar: MatSnackBar) {
         this.subscription = db.collection('products').valueChanges().subscribe(data => {
             this.products = data;
             this.dataSource = data;
@@ -59,43 +62,21 @@ export class ProductsComponent implements  OnDestroy {
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
+
+
     openCreateModal(): void {
-        this.modalService.open(CreateProductModalComponent, {
-            data: {},
-            minWidth: '300px',
-            maxWidth: '600px'
-        }).afterClosed.subscribe(result => {
+        const dialogRef = this.dialog.open(CreateProductModalComponent,{
+            width: '30rem'
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+            
             if (result) {
-                this.alertService.open('Create not allowed in this version.', {
-                    type: 'warning'
-                });
+                this._snackBar.open('Create not allowed in this version.', '', {
+                    duration: 2000,
+                  });
             }
-        }, () => { });
-    }
-
-    openEditModal(newProduct: Product): void {
-        this.modalService.open(CreateProductModalComponent, {
-            data: {
-                editMode: true,
-                product: newProduct
-            }
-        }).afterClosed.subscribe(result => {
-            if (result) {
-                this.alertService.open('Edit not allowed in this version.', {
-                    type: 'warning'
-                });
-            }
-        }, () => { });
-    }
-
-    openConfirmModal(): void {
-        this.modalService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
-            if (result) {
-                this.alertService.open('Delete not allowed in this version.', {
-                    type: 'warning'
-                });
-            }
-        }, () => { });
-    }
+        });
+      }
 
 }

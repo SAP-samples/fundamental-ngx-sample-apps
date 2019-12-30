@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {ModalRef, ModalModule, ModalService} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MyValidation } from './../../contracts/create-contract-modal/create-contract-modal-int';
-import {CreateProductModalDetailedComponent} from './create-product-modal-detailed/create-product-modal-detailed.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CreateContractModalComponent } from '../../contracts/create-contract-modal/create-contract-modal.component';
 
 @Component({
     selector: 'app-create-product-modal',
@@ -53,32 +54,14 @@ export class CreateProductModalComponent implements OnInit {
         }
     }
 
-    openModal() {
-        this.modalService.open(CreateProductModalDetailedComponent, {
-            minWidth: '300px',
-            maxWidth: '600px',
-            maxHeight: '600px'
-        });
-    }
-
-    constructor(public modalRef: ModalRef, private modalService: ModalService) {
+    constructor(public dialogRef: MatDialogRef<CreateContractModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     }
 
     ngOnInit() {
-        this.editMode = this.modalRef.data.editMode;
-        const product = this.modalRef.data.product;
-
-        if (this.editMode && product) {
-            Object.keys(product).forEach(key => {
-                if (this.productForm.controls[key]) {
-                    this.productForm.controls[key].setValue(product[key]);
-                }
-            });
-        }
     }
 
     submitForm(): void {
-        this.modalRef.close(this.productForm.getRawValue());
-    }
+        const tmpObj = this.productForm.getRawValue();
+        this.dialogRef.close(tmpObj);    }
 
 }

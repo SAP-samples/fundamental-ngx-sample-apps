@@ -33,7 +33,19 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateProductModalComponent } from './components/products/create-product-modal/create-product-modal.component';
-import { CreateProductModalDetailedComponent } from './components/products/create-product-modal/create-product-modal-detailed/create-product-modal-detailed.component';
+
+
+import { HttpClientModule } from '@angular/common/http';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTableModule} from '@angular/material/table';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -43,10 +55,7 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         CreateContractModalComponent,
         ConfirmModalComponent,
         DashboardComponent,
-        CreateProductModalComponent,
-        CreateProductModalDetailedComponent
-        
-
+        CreateProductModalComponent
     ],
     imports: [
         BrowserModule,
@@ -74,14 +83,26 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         FundamentalNgxCoreModule,
         ShellbarModule,
         IconModule,
-        TileModule
+        TileModule,
+
+        HttpClientModule,
+        MatButtonModule,
+        MatCardModule,
+        MatChipsModule,
+        MatDialogModule,
+        MatIconModule,
+        MatInputModule,
+        MatSelectModule,
+        MatSnackBarModule,
+        MatTableModule,
+        
+        
     ],
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,
         CreateProductModalComponent,
-        CreateProductModalDetailedComponent
     ],
     bootstrap: [AppComponent]
 })

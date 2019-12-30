@@ -1,92 +1,63 @@
-<fd-panel>
-    <fd-panel-header>
-        <fd-panel-head>
-            <h2>Contracts</h2>
-            <fd-panel-description>Manage the contracts recorded by various company representatives.
-            </fd-panel-description>
-        </fd-panel-head>
-        <fd-panel-actions>
-            <button fd-button
-                    fdType="light"
-                    glyph="add"
-                    (click)="openCreateModal()"></button>
-        </fd-panel-actions>
-    </fd-panel-header>
-</fd-panel>
+<mat-card>
+        <mat-card-title>Contracts</mat-card-title>
+        <mat-card-subtitle>Manage the contracts recorded by various company representatives.</mat-card-subtitle>
+                <button mat-icon-button (click)="openCreateModal()">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+                </button>
+</mat-card>
 <div class="fd-has-padding-m">
-    <div *ngIf="contracts">
-        <fd-multi-input 
-        [dropdownValues]="contracts"
-        [placeholder]="'Search here...'"
-        [(ngModel)]="selected"
-        (ngModelChange)="refresh()"
-        [displayFn]="displayFunc">
-        </fd-multi-input>
-                <span *ngFor="let item of selected; let i = index">
-        </span>
-    </div>
-    <fd-table-wrapper>
-        <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)" class="custom-table">
-            <ng-container  cdkColumnDef="company">
-                <th cdk-header-cell *cdkHeaderCellDef>Company</th> 
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        {{contract.company}}
-                    </td>
-                    </ng-container>                    
-                </ng-container>
-
-            <ng-container   cdkColumnDef="contact">
-                <th cdk-header-cell *cdkHeaderCellDef>Contact</th> 
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        {{contract.contact}}
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container   cdkColumnDef="signed">
-                <th cdk-header-cell *cdkHeaderCellDef>Signed</th>                            
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        {{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container   cdkColumnDef="type">
-                <th cdk-header-cell *cdkHeaderCellDef>Type</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        {{contract.type | uppercase}}
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container   cdkColumnDef="value">
-                <th cdk-header-cell *cdkHeaderCellDef>Value</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        {{contract.value | currency}}
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container  cdkColumnDef="status">
-                <th cdk-header-cell *cdkHeaderCellDef>Status</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        <span fd-badge [status]="contract.status | status" modifier="pill"> {{contract.status}} </span>
-                    </td>
-                </ng-container>
-            </ng-container> 
-
-
-            <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
-
-            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['company', 'contact', 'signed', 'type', 'value', 'status']" style="cursor: grab;"></tr>
+    <mat-card
+    [routerLink]="'/contracts'"
+    style="margin-right: 18px;">
+<ng-container *ngIf="contracts">
+    <mat-form-field> 
+    <mat-label>Company</mat-label>
+    <mat-select 
+    [(ngModel)]="selected"
+    (ngModelChange)="refresh()" 
+    multiple>
+        <mat-option *ngFor="let contract of contracts" [value]="contract">
+            {{contract.company}}
+        </mat-option>
+    </mat-select>
+            <span *ngFor="let item of selected; let i = index"></span>
+    </mat-form-field>
+    
+    <table mat-table #table cdkDropList [dataSource]="filteredDataSource" class="mat-elevation-z8" (cdkDropListDropped)="dropRow($event)">
+        <ng-container matColumnDef="company">
+            <th mat-header-cell *matHeaderCellDef> Company </th>
+            <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="contact">
+            <th mat-header-cell *matHeaderCellDef> Contact </th>
+            <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef> Value </th>
+            <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-chip-list>
+                        <mat-chip selected="true" [color]="element.status=='dropped'? 'warn': '' || element.status=='on hold'? 'accent': '' || element.status=='completed'? 'primary': ''">
+                            {{element.status}} 
+                        </mat-chip>
+                </mat-chip-list>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['company', 'contact', 'value', 'status']"></tr>
+        <tr mat-row cdkDrag [cdkDragData]="row" *matRowDef="let row; columns: ['company', 'contact', 'value', 'status'];"></tr>
         </table>
-    </fd-table-wrapper>
+</ng-container>
+<div *ngIf="!(filteredDataSource)"
+        class="spinner-container">
+    <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+</div>
+</mat-card>
 
     
     <div *ngIf="!(contracts)"

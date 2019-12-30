@@ -1,108 +1,83 @@
-<fd-modal-header>
-    <h1 fd-modal-title>{{ editMode ? 'Edit' : 'Create'}} a Product</h1>
-    <button fd-modal-close-btn
-            (click)="modalRef.dismiss()"></button>
-</fd-modal-header>
-<fd-modal-body class="modal-body">
+<h1 mat-dialog-title>{{ editMode ? 'Edit' : 'Create'}} a Product</h1>
+<div mat-dialog-content>
     <form [formGroup]="productForm"
           (ngSubmit)="submitForm()"
           id="main-form"
           class="form">
-        <div class="column">
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="name-input">Name: </label>
-                    <input fd-form-control
+            <mat-form-field class="form-element">
+                    <mat-label for="company-input">
+                            Name: 
+                    </mat-label>
+                    <input matInput 
                            type="text"
-                           id="name-input"
+                           id="company-input"
                            placeholder="Enter a name"
-                           formControlName="name"
-                            [state]="nameValid.state"
-                           (blur)="changeValueState('nameValid')">
-                </div>
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="contact-input">Contact: </label>
-                    <input fd-form-control
+                           [formControlName]="'name'"
+                           [errorStateMatcher]="matcher"
+                           >
+            </mat-form-field>
+            <mat-form-field class="form-element">
+                    <mat-label for="contact-input">
+                        Contact: 
+                    </mat-label>
+                    <input matInput
                            type="text"
                            id="contact-input"
                            placeholder="Enter a contact"
-                           formControlName="contact"
-                            [state]="contactValid.state"
-                           (blur)="changeValueState('contactValid')">
-                </div>
-
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="lob-input">Line of Business: </label>
-                    <input fd-form-control
-                           type="text"
-                           id="lob-input"
-                           placeholder="Enter a line of business"
-                           formControlName="lob"
-                            [state]="lobValid.state"
-                           (blur)="changeValueState('lobValid')">
-                </div>
-                
-            </div>
-        </div>
-        <div class="column">
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="users-input">Number of Users: </label>
-                    <input fd-form-control
+                           [formControlName]="'contact'"
+                           [errorStateMatcher]="matcher"
+                           >                
+            </mat-form-field>
+            <mat-form-field class="form-element">
+                    <mat-label for="value-input">
+                        User number: 
+                    </mat-label>
+                    <input matInput
                            type="number"
-                           id="users-input"
+                           id="value-input"
                            placeholder="Enter a number"
-                           formControlName="user_number"
-                            [state]="user_numberValid.state"
-                           (blur)="changeValueState('user_numberValid')">                           
-                </div>
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           [for]="'status-1'">
+                           [formControlName]="'user_number'"
+                           [errorStateMatcher]="matcher"
+                          >
+            </mat-form-field>
+            <mat-form-field class="form-element">
+                    <mat-label for="value-input">
+                        Line Of Business: 
+                    </mat-label>
+                    <input matInput
+                           type="text"
+                           id="value-input"
+                           placeholder="Enter a number"
+                           [formControlName]="'lob'"
+                           [errorStateMatcher]="matcher"
+                          >
+            </mat-form-field>
+            <mat-form-field class="form-element">
+                    <mat-label for="'status-1'">
                         Status:
-                    </label>
-                    <select fd-form-control
+                    </mat-label>
+                    <mat-select
                             id="status-1"
-                            formControlName="status"
-                            [state]="statusValid.state"
-                           (blur)="changeValueState('statusValid')"
-                           >
-                        <option value="completed">Completed</option>
-                        <option value="in progress">In Progress</option>
-                        <option value="dropped">Dropped</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+                            [formControlName]="'status'"
+                         >
+                        <mat-option value="completed">Completed</mat-option>
+                        <mat-option value="on hold">On Hold</mat-option>
+                        <mat-option value="dropped">Dropped</mat-option>
+                        
+                    </mat-select>
+            </mat-form-field>
     </form>
-</fd-modal-body>
-<fd-modal-footer>
-    <button fd-button (click)="openModal()" [options]="'light'">*Detailed</button>
-
-    <button fd-button
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button
             fdType="main"
-            style="margin-left: 16px;"
             type="submit"
+            (click)="submitForm()"
             form="main-form"
-            style="margin-left: 16px;"
-            [disabled]="!productForm.dirty || productForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
-    <button fd-button
+            [disabled]="!productForm.dirty || productForm.invalid">{{editMode ? 'Edit' : 'Create'}}
+    </button>
+    <button mat-raised-button
             fdType="light"
             style="margin-left: 16px;"
-            (click)="this.modalRef.dismiss()">Cancel</button>
-</fd-modal-footer>
+            (click)="this.dialogRef.close()">Cancel</button>
+</div>
