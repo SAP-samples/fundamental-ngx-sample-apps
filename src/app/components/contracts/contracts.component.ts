@@ -7,7 +7,9 @@ import {CreateContractModalComponent} from './create-contract-modal/create-contr
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import { Product } from 'src/app/models/product.model';
 import { CdkTable } from '@angular/cdk/table';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-contracts',
@@ -28,8 +30,8 @@ export class ContractsComponent implements OnInit {
     dataSource: Contract[];
 
     dropRow(event) {
-        const previousIndex = this.contracts.findIndex((d) => d === event.item.data);
-        moveItemInArray(this.contracts, previousIndex, event.currentIndex);
+        const prevIndex = this.filteredDataSource.findIndex((d) => d === event.item.data);
+        moveItemInArray(this.filteredDataSource, prevIndex, event.currentIndex);
         this.table.renderRows();
     }
 
@@ -44,9 +46,12 @@ export class ContractsComponent implements OnInit {
         this.table.renderRows();
     }
 
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.filteredDataSource, event.previousIndex, event.currentIndex);
+        this.table.renderRows();
+    }
 
-
-    constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
+    constructor(db: AngularFirestore, public dialog: MatDialog, private _snackBar: MatSnackBar) {
         this.subscription = db.collection('contracts').valueChanges().subscribe(data => {
             this.contracts = data;
             this.dataSource = data;
@@ -57,43 +62,41 @@ export class ContractsComponent implements OnInit {
     ngOnInit() {
     }
 
+
+
     openCreateModal(): void {
-        this.modalService.open(CreateContractModalComponent, {
-            data: {}
-        }).afterClosed.subscribe(result => {
+        const dialogRef = this.dialog.open(CreateContractModalComponent,{
+            width: '30rem'
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+            
             if (result) {
-                this.alertService.open('Create not allowed in this version.', {
-                    type: 'warning'
-                });
+                this._snackBar.open('Create not allowed in this version.', '', {
+                    duration: 2000,
+                  });
             }
-        }, () => {});
-    }
+        });
+      }
 
-    openEditModal(newContract: Contract): void {
-        const copyObj = Object.assign({}, newContract);
-        copyObj.date_signed = newContract.date_signed.toDate();
-        this.modalService.open(CreateContractModalComponent, {
-            data: {
-                editMode: true,
-                contract: copyObj
-            }
-        }).afterClosed.subscribe(result => {
-            if (result) {
-                this.alertService.open('Edit not allowed in this version.', {
-                    type: 'warning'
-                });
-            }
-        }, () => {});
-    }
+      openSnackBar(message: string, action: string) {
+        this._snackBar.open(message, action, {
+          duration: 2000,
+          verticalPosition: 'top'
+        });
+      }
 
-    openConfirmModal(): void {
-        this.modalService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
+      openConfirmModal(): void {
+        const dialogRef = this.dialog.open(ConfirmModalComponent);
+    
+        dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.alertService.open('Delete not allowed in this version.', {
-                    type: 'warning'
-                });
+                this._snackBar.open('Create not allowed in this version.', '', {
+                    duration: 2000,
+                  });
             }
-        }, () => {});
-    }
+        });
+      }
+
 
 }

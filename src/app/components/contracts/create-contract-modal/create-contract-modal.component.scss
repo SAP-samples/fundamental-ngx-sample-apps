@@ -3,10 +3,11 @@
     flex-grow: 1;
 }
 
-.row {
+.form {
     display: flex;
     flex-wrap: wrap;
     border: none !important;
+    justify-content: center;
 }
 
 .form-element {

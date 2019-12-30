@@ -40,9 +40,6 @@
     }
 }
 
-.fd-table {
-    border: none;
-}
 
 .cdk-row {
     &.cdk-drag{
@@ -81,3 +78,18 @@
     }
 }
 
+.mat-cell,
+.mat-header-cell {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.mat-table {
+    width: 100%;
+}
+
+.mat-icon-button {
+    position: absolute;
+    top:5px;
+    left: 95%;
+}
