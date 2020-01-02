@@ -56,7 +56,7 @@ export class ContractsComponent implements OnInit {
             this.contracts = data;
             this.dataSource = data;
             this.filteredDataSource = data;
-            console.log(this.filteredDataSource);
+            console.log(this.filteredDataSource[0].date_signed.seconds);
         });
 }
 
