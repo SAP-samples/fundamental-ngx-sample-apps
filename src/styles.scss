@@ -239,3 +239,15 @@ tr {
     --sapBadgeColor2: #fdf3e6;
     --sapBadgeColor3: #f8fde7;
 }
+
+.cdk-drag-preview {
+    background-color: var(--sapGroup_ContentBackground) !important;
+    color: white;
+    height: 2.3rem !important;
+    display: flex;
+
+    td {
+        padding-left: 0.5rem !important;
+        flex: 1;
+    }
+}
