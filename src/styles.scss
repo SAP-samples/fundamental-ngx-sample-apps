@@ -160,9 +160,6 @@ fd-modal {
     align-items: center!important;
 }
 
-td, th {
-    // padding: 0 0.5rem !important;
-}
 tr {
     border-color: var(--sapList_BorderColor);
     border-width: 1px !important;
@@ -192,11 +189,6 @@ td {
     border-style: solid;
 }
 
-// th {
-//     background-color: var(--sapList_TableGroupHeaderBackground) !important;
-//     color: var(--sapList_TextColor) !important;
-//     font-weight: normal !important;
-// }
 .cdk-header-row {
     height: 2.75rem;
     background-color: var(--sapList_TableGroupHeaderBackground) !important;
@@ -242,7 +234,7 @@ tr {
 
 .cdk-drag-preview {
     background-color: var(--sapGroup_ContentBackground) !important;
-    color: white;
+    color: var(--sapTextColor) !important;
     height: 2.3rem !important;
     display: flex;
 
