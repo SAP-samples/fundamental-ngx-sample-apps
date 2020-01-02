@@ -93,3 +93,12 @@
     top:5px;
     left: 95%;
 }
+
+.cdk-drag-preview {
+    height: 2rem !important;
+    padding: 1rem;
+    .mat-cell {
+        padding-left: 1rem;
+        padding-right: 26rem;
+    }
+}
