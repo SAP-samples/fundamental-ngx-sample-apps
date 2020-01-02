@@ -9,3 +9,18 @@
 .fd-side-nav__main-navigation {
     height: 100vh;
 }
+
+.menu-items {
+    padding-top:0.25rem;
+    position: absolute;
+    right: 3%;
+
+    a {
+        padding: 0 0.25rem;
+        color: black;
+
+        &:active {
+            color: red;
+        } 
+    }
+}
