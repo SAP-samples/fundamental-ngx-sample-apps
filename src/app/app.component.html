@@ -1,10 +1,16 @@
-<mat-toolbar>My App</mat-toolbar>
+<mat-toolbar>Sample Fundamental-NGX Application</mat-toolbar>
 <mat-sidenav-container class="example-container">
     <mat-sidenav mode="side" role="navigation" opened>
             <mat-list role="navigation">
-                    <mat-list-item role="navigation" [routerLink]="'/dashboard'">Dashboard</mat-list-item>
-                    <mat-list-item role="navigation" [routerLink]="'/contracts'">Contracts</mat-list-item>
-                    <mat-list-item role="navigation" [routerLink]="'/products'">Products</mat-list-item>
+                    <mat-list-item role="navigation" [routerLink]="'/dashboard'">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">dashboard</mat-icon>
+                        Dashboard</mat-list-item>
+                    <mat-list-item role="navigation" [routerLink]="'/contracts'">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">ballot</mat-icon>
+                        Contracts</mat-list-item>
+                    <mat-list-item role="navigation" [routerLink]="'/products'">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">sim_card</mat-icon>
+                        Products</mat-list-item>
             </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
