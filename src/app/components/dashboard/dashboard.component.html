@@ -13,6 +13,8 @@
                 <tr *ngFor="let contract of contractList.slice(0, 3)">
                     <td>{{contract.company}}</td>
                     <td>{{contract.contact}}</td>
+                    <td>{{contract.date_signed.seconds | date}}</td>
+                    <td>{{contract.type | uppercase}}</td>
                     <td>{{contract.value}}</td>
                     <td>
                         <span fd-badge [status]="contract.status | status"
@@ -43,10 +45,11 @@
         <ng-container *ngIf="products | async as productList">
             <table class="table-custom">
                 <tr *ngFor="let product of productList.slice(0, 3)">
-                    <td class="">{{product.name}}</td>
-                    <td class="">{{product.contact}}</td>
-                    <td class="">{{product.lob}}</td>
-                    <td class="">
+                    <td>{{product.name}}</td>
+                    <td>{{product.contact}}</td>
+                    <td>{{product.lob}}</td>
+                    <td>{{product.user_number}}</td>
+                    <td>
                         <span fd-badge [status]="product.status | status  "
                                   modifier="pill">
                             {{product.status | uppercase}}
