@@ -11,3 +11,14 @@
     --sapBadgeColor2: #fdf3e6;
     --sapBadgeColor3: #f8fde7;
 }
+
+.cdk-drag-preview {
+    height: 2.5rem !important;
+    display: flex;
+    align-items: center;
+    .mat-cell {
+        flex: 1;
+        border: none;
+        font-family: '72', sans-serif;
+    }
+}
