@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<mat-toolbar>My App</mat-toolbar>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" role="navigation" opened>
+            <mat-list role="navigation">
+                    <mat-list-item role="navigation" [routerLink]="'/dashboard'">Dashboard</mat-list-item>
+                    <mat-list-item role="navigation" [routerLink]="'/contracts'">Contracts</mat-list-item>
+                    <mat-list-item role="navigation" [routerLink]="'/products'">Products</mat-list-item>
+            </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
