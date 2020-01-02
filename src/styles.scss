@@ -125,6 +125,10 @@ fd-alert-container {
     box-shadow: var(--sapContent_Shadow3) !important; //theming variable is not working
 }
 
+fd-modal {
+    box-shadow: var(--sapContent_Shadow3) !important;
+}
+
 .fd-input-group {
     &--after {
         background-color: var(--sapField_Background) !important;
