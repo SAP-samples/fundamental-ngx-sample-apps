@@ -1,4 +1,13 @@
-<mat-toolbar>Sample Fundamental-NGX Application</mat-toolbar>
+<mat-toolbar>Sample Fundamental-NGX Application
+    <div class="menu-items">
+        <a [routerLink]="'/'">
+            <mat-icon>accessibility</mat-icon>
+        </a>
+        <a [routerLink]="'/'">
+            <mat-icon>account_circle</mat-icon>
+        </a>
+    </div>
+</mat-toolbar>
 <mat-sidenav-container class="example-container">
     <mat-sidenav mode="side" role="navigation" opened>
             <mat-list role="navigation">
