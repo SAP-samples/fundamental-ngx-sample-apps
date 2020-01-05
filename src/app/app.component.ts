@@ -1,14 +1,26 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductSwitchItem } from '@fundamental-ngx/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'ngx-sample-app';
+export class AppComponent implements OnInit {
+  title = 'Customers Insights';
   condensed= false;
+    // Dynamic parameters for this component's route: /example-params/:first/:second
+    routeParams: Params;
+
+    // Query parameters found in the URL: /example-params/one/two?query1=one&query2=two
+    queryParams: Params;
+
+    name: any;
+
+    constructor(private activatedRoute: ActivatedRoute){
+
+    }
 
   list: ProductSwitchItem[] = [
     {
@@ -68,7 +80,55 @@ export class AppComponent {
     },
 ];
 
-productChangeHandle(products: ProductSwitchItem[]): void {
-    this.list = products;
-}
+    ngOnInit() {
+        this.activatedRoute.params.subscribe( params => {
+            this.routeParams = params;
+            console.log("routeParams:", this.routeParams);
+        });
+
+        // URL query parameters
+        this.activatedRoute.queryParams.subscribe( params => {
+            this.queryParams = params;
+            console.log("queryParams", this.queryParams);
+            if(this.queryParams && this.queryParams[`sap-theme`]){
+                var a: any = document.getElementById("themes");
+                console.log(">>>", a);
+                if(this.queryParams[`sap-theme`] === 'sap_fiori3'){
+                    a.x = '/assets/light.css';
+                } else if (this.queryParams[`sap-theme`] === 'sap_fiori3_dark'){
+                    a.x = '/assets/dark.css';
+                }
+                a.href = a.x;
+            }
+            // var a: any = document.getElementById("themes");
+            // a.x = '/assets/light.css' == a.x ? '/assets/dark.css' : '/assets/light.css'; 
+            // a.href = a.x;
+        });
+
+    }
+
+    getRouteParams() {
+
+        // Route parameters
+        // this.activatedRoute.params.subscribe( params => {
+        //     this.routeParams = params;
+        //     console.log("routeParams:", this.routeParams);
+        // });
+
+        // // URL query parameters
+        // this.activatedRoute.queryParams.subscribe( params => {
+        //     this.queryParams = params;
+        //     console.log("queryParams", this.queryParams);
+        // });
+    }
+
+    productChangeHandle(products: ProductSwitchItem[]): void {
+        this.list = products;
+    }
+
+    toggle(){
+        var a: any = document.getElementById("themes");
+        a.x = '/assets/light.css' == a.x ? '/assets/dark.css' : '/assets/light.css'; 
+        a.href = a.x;
+    }
 }

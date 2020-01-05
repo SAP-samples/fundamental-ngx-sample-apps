@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import { Params, RouterModule, Routes } from '@angular/router';
 import {CdkTableModule } from '@angular/cdk/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AppRoutingModule} from './app-routing.module';
@@ -34,6 +35,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateProductModalComponent } from './components/products/create-product-modal/create-product-modal.component';
 import { CreateProductModalDetailedComponent } from './components/products/create-product-modal/create-product-modal-detailed/create-product-modal-detailed.component';
+
+const routes: Routes = [ {
+    path: '*/:first/:second',
+    component: AppComponent,
+} ]
 @NgModule({
     declarations: [
         AppComponent,
@@ -74,7 +80,8 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         FundamentalNgxCoreModule,
         ShellbarModule,
         IconModule,
-        TileModule
+        TileModule,
+        RouterModule.forRoot( routes ),
     ],
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     entryComponents: [

@@ -46,18 +46,18 @@ fd-alert-container {
     text-transform: uppercase;
     color: var(--sapTextColor) !important;
     &--error{
-        background-color: var(--sapAccentColor2) !important;
-        border-color: var(--sapAccentColor2) !important;
+        background-color: var(--sapBadgeColor1) !important;
+        //border-color: var(--sapAccentColor2) !important;
     }
 
     &--warning{
-        background-color: var(--sapAccentColor1) !important;
-        border-color: var(--sapAccentColor1) !important;
+        background-color: var(--sapBadgeColor2) !important;
+        //border-color: var(--sapAccentColor1) !important;
     }
 
     &--success{
-        background-color: var(--sapAccentColor8) !important;
-        border-color: var(--sapAccentColor8) !important;
+        background-color: var(--sapBadgeColor3) !important;
+        //border-color: var(--sapAccentColor8) !important;
     }
 }
 
@@ -221,16 +221,16 @@ tr {
     color: var(--sapContent_IconColor) !important;
 }
 
-:root { //dark background
-    --sapBadgeColor1:#3C0F0F;
-    --sapBadgeColor2: #473200;
-    --sapBadgeColor3: #22390c;
-}
-:root { //light background
-    --sapBadgeColor1:#f9e6e6;
-    --sapBadgeColor2: #fdf3e6;
-    --sapBadgeColor3: #f8fde7;
-}
+// :root { //dark background
+//     --sapBadgeColor1:#3C0F0F;
+//     --sapBadgeColor2: #473200;
+//     --sapBadgeColor3: #22390c;
+// }
+// :root { //light background
+//     --sapBadgeColor1:#f9e6e6;
+//     --sapBadgeColor2: #fdf3e6;
+//     --sapBadgeColor3: #f8fde7;
+// }
 
 .cdk-drag-preview {
     background-color: var(--sapGroup_ContentBackground) !important;

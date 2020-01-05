@@ -62,20 +62,20 @@
     text-align: left;
 }
 
-.fd-badge{
-    &--error{
-        background-color: #f9e6e6;
-        border-color: var(--sapUiAccent3, #d04343);
-    }
+// .fd-badge{
+//     &--error{
+//         background-color: #f9e6e6;
+//         border-color: var(--sapUiAccent3, #d04343);
+//     }
 
-    &--warning{
-        background-color: #fdf3e6;
-        border-color: var(--sapUiAccent1, #d08014);
-    }
+//     &--warning{
+//         background-color: #fdf3e6;
+//         border-color: var(--sapUiAccent1, #d08014);
+//     }
 
-    &--success{
-        background-color: #f8fde7;
-        border-color: var(--sapUiAccent1, #7ca10c);
-    }
-}
+//     &--success{
+//         background-color: #f8fde7;
+//         border-color: var(--sapUiAccent1, #7ca10c);
+//     }
+// }
 
