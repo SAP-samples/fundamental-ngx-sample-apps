@@ -93,9 +93,9 @@ export class AppComponent implements OnInit {
             if(this.queryParams && this.queryParams[`sap-theme`]){
                 var a: any = document.getElementById("themes");
                 console.log(">>>", a);
-                if(this.queryParams[`sap-theme`] === 'sap_fiori3'){
+                if(this.queryParams[`sap-theme`] === 'sap_fiori_3'){
                     a.x = '/assets/light.css';
-                } else if (this.queryParams[`sap-theme`] === 'sap_fiori3_dark'){
+                } else if (this.queryParams[`sap-theme`] === 'sap_fiori_3_dark'){
                     a.x = '/assets/dark.css';
                 }
                 a.href = a.x;
