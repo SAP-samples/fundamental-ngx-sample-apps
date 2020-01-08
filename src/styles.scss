@@ -1,16 +1,6 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-:root { //dark background
-    --sapBadgeColor1:#3C0F0F;
-    --sapBadgeColor2: #473200;
-    --sapBadgeColor3: #22390c;
-}
-:root { //light background
-    --sapBadgeColor1:#f9e6e6;
-    --sapBadgeColor2: #fdf3e6;
-    --sapBadgeColor3: #f8fde7;
-}
 
 .cdk-drag-preview {
     height: 2.5rem !important;
@@ -21,4 +11,14 @@
         border: none;
         font-family: '72', sans-serif;
     }
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0!important; 
+}
+
+.example-container{
+    height: calc(100vh - 64px);
 }
