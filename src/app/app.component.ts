@@ -100,9 +100,6 @@ export class AppComponent implements OnInit {
                 }
                 a.href = a.x;
             }
-            // var a: any = document.getElementById("themes");
-            // a.x = '/assets/light.css' == a.x ? '/assets/dark.css' : '/assets/light.css'; 
-            // a.href = a.x;
         });
 
     }

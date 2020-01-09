@@ -22,6 +22,7 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     min-width: 320px;
+    margin-left: 18px;
 
     @media (max-width: 1000px) {
         margin: 0 !important;

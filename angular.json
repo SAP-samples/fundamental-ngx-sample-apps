@@ -30,8 +30,6 @@
               "node_modules/fundamental-styles/dist/fonts.css",
               "node_modules/fundamental-styles/dist/icon.css",
               "node_modules/fundamental-styles/dist/fundamental-styles.css",
-              "node_modules/@sap-theming/theming-base-content/content/Base/baseLib/sap_fiori_3/css_variables.css",
-              "node_modules/@sap-theming/theming-base-content/content/Base/baseLib/sap_fiori_3_dark/css_variables.css",
               "src/styles.scss"
             ],
             "scripts": [],
