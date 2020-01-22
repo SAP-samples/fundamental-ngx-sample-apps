@@ -22,7 +22,7 @@ export class ContractsComponent implements OnInit {
     selected: Contract[] = [];
     filteredDataSource: Contract[];
     subscription: Subscription;
-    columnHeaders: string [] = ['company', 'contact', 'signed', 'type', 'value', 'status'];
+    columnHeaders: string [] = ['company', 'contact', 'type', 'value', 'status'];
 
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
@@ -52,11 +52,51 @@ export class ContractsComponent implements OnInit {
     }
 
     constructor(db: AngularFirestore, public dialog: MatDialog, private _snackBar: MatSnackBar) {
-        this.subscription = db.collection('contracts').valueChanges().subscribe(data => {
+
+        (Observable.create((observer:any) => {
+            setTimeout(() => {
+                observer.next([{
+                    company: 'Uber',
+                    contact: 'Evangeline Barber',
+                    status: 'completed',
+                    type: '3',
+                    value: '12 000'
+                },{
+                    company: 'Airbnb',
+                    contact: 'Danica Carpenter',
+                    status: 'on hold',
+                    type: '3',
+                    value: '16 443'
+                },{
+                    company: 'Google',
+                    contact: 'Cassie Mayo',
+                    status: 'dropped',
+                    type: '3',
+                    value: '34 000'
+                },{
+                    company: 'Apple',
+                    contact: 'Alisa Herring',
+                    status: 'completed',
+                    type: '3',
+                    value: '10 000'
+                },{
+                    company: 'SAP',
+                    contact: 'Alonzo Ramirez',
+                    status: 'completed',
+                    type: '3',
+                    value: '45 300'
+                }])
+            }, 500);
+        })).subscribe(data => {
             this.contracts = data;
             this.dataSource = data;
             this.filteredDataSource = data;
         });
+        // this.subscription = db.collection('contracts').valueChanges().subscribe(data => {
+        //     this.contracts = data;
+        //     this.dataSource = data;
+        //     this.filteredDataSource = data;
+        // });
 }
 
     ngOnInit() {

@@ -1,12 +1,10 @@
-<mat-card
-        [routerLink]="'/contracts'"
-        style="margin-right: 18px;">
-        <mat-card-title>{{labels.contracts}}</mat-card-title>
-        <mat-card-subtitle>{{labels.contractsDescription}}</mat-card-subtitle>
+<mat-card [routerLink]="'/contracts'">
+    <mat-card-title>{{labels.contracts}}</mat-card-title>
+    <mat-card-subtitle>{{labels.contractsDescription}}</mat-card-subtitle>
     <ng-container *ngIf="contracts | async as contractList">
-        <table mat-table [dataSource]="contractList.slice(0, 3)" class="mat-elevation-z8">
-            <tr mat-header-row *matHeaderRowDef="['company', 'contact','signed','type', 'value', 'status']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['company', 'contact','signed','type', 'value', 'status'];"></tr>
+        <table mat-table [dataSource]="contractList.slice(0, 5)" class="mat-elevation-z8">
+            <tr mat-header-row *matHeaderRowDef="['company', 'contact','type', 'value', 'status']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['company', 'contact','type', 'value', 'status'];"></tr>
             <ng-container matColumnDef="company">
                 <th mat-header-cell *matHeaderCellDef> Company </th>
                 <td mat-cell *matCellDef="let element"> {{element.company}} </td>
@@ -15,11 +13,6 @@
             <ng-container matColumnDef="contact">
                 <th mat-header-cell *matHeaderCellDef> Contact </th>
                 <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="signed">
-                <th mat-header-cell *matHeaderCellDef> Signed </th>
-                <td mat-cell *matCellDef="let element"> {{element.date_signed.seconds | date}} </td>
             </ng-container> 
     
             <ng-container matColumnDef="type">
@@ -46,17 +39,15 @@
     </ng-container>
     <div *ngIf="!(contracts | async)"
             class="spinner-container">
-        <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+        <fd-busy-indicator [loading]="true"></fd-busy-indicator>
     </div>
 </mat-card>
 
-<mat-card
-        [routerLink]="'/products'"
-        style="margin-right: 18px;">
-        <mat-card-title>{{labels.products}}</mat-card-title>
-        <mat-card-subtitle>{{labels.productsDescription}}</mat-card-subtitle>
+<mat-card [routerLink]="'/products'">
+    <mat-card-title>{{labels.products}}</mat-card-title>
+    <mat-card-subtitle>{{labels.productsDescription}}</mat-card-subtitle>
     <ng-container *ngIf="products | async as productList">
-        <table mat-table [dataSource]="productList.slice(0, 3)" class="mat-elevation-z8">
+        <table mat-table [dataSource]="productList.slice(0, 5)" class="mat-elevation-z8">
             <tr mat-header-row *matHeaderRowDef="['name', 'contact', 'lob', 'user_number', 'status']"></tr>
             <tr mat-row *matRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status'];"></tr>
             <ng-container matColumnDef="name">
@@ -93,11 +84,11 @@
     </ng-container>
     <div *ngIf="!(products | async)"
             class="spinner-container">
-        <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+        <fd-busy-indicator [loading]="true"></fd-busy-indicator>
     </div>
 </mat-card>
-
-<!-- <fd-panel class="panel-custom"
+<!-- 
+<fd-panel class="panel-custom"
           [routerLink]="'/products'">
     <fd-panel-header>
         <fd-panel-head>
@@ -114,12 +105,12 @@
                     </tr>
                 </thead>
                 <tbody fd-table-body>
-                    <tr fd-table-row *ngFor="let product of productList.slice(0, 3)">
+                    <tr fd-table-row *ngFor="let product of productList.slice(0, 4)">
                         <td fd-table-cell>{{product.name}}</td>
                         <td fd-table-cell>{{product.contact}}</td>
                         <td fd-table-cell>{{product.lob}}</td>
                         <td fd-table-cell>
-                            <span fd-badge [status]="product.status | status  "
+                            <span fd-badge [status]="product.status | status "
                                       modifier="pill">
                                 {{product.status | uppercase}}
                         </span>
@@ -128,9 +119,9 @@
                 </tbody>
             </table>
         </ng-container>
-        <div *ngIf="!(contracts | async)"
+        <div *ngIf="!(products | async)"
              class="spinner-container">
-            <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+            <fd-busy-indicator [loading]="true"></fd-busy-indicator>
         </div>
     </fd-panel-body>
 </fd-panel> -->

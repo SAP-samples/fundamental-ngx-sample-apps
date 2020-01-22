@@ -34,10 +34,10 @@
             <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
         </ng-container>
         
-        <ng-container matColumnDef="signed">
+        <!-- <ng-container matColumnDef="signed">
             <th mat-header-cell *matHeaderCellDef> Signed </th>
             <td mat-cell *matCellDef="let element"> {{element.date_signed.seconds | date}} </td>
-        </ng-container> 
+        </ng-container>  -->
 
         <ng-container matColumnDef="type">
             <th mat-header-cell *matHeaderCellDef> Type </th>
@@ -59,19 +59,19 @@
                 </mat-chip-list>
             </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="['company', 'contact','signed','type', 'value', 'status']"></tr>
-        <tr mat-row cdkDrag [cdkDragData]="row" *matRowDef="let row; columns: ['company', 'contact','signed','type', 'value', 'status'];"></tr>
+        <tr mat-header-row *matHeaderRowDef="['company', 'contact', 'type', 'value', 'status']"></tr>
+        <tr mat-row cdkDrag [cdkDragData]="row" *matRowDef="let row; columns: ['company', 'contact', 'type', 'value', 'status'];"></tr>
         </table>
 </ng-container>
 <div *ngIf="!(filteredDataSource)"
         class="spinner-container">
-    <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+        <fd-busy-indicator [loading]="true"></fd-busy-indicator>
 </div>
 </mat-card>
 
     
     <div *ngIf="!(contracts)"
          class="spinner-container">
-        <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+         <fd-busy-indicator [loading]="true"></fd-busy-indicator>
     </div>
 </div>

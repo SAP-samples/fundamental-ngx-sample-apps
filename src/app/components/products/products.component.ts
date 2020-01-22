@@ -6,7 +6,7 @@ import { Product } from '../../models/product.model';
 import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { Behavior } from 'popper.js';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -52,15 +52,56 @@ export class ProductsComponent implements  OnDestroy {
 
 
     constructor(db: AngularFirestore, public dialog: MatDialog, private _snackBar: MatSnackBar) {
-        this.subscription = db.collection('products').valueChanges().subscribe(data => {
+        (Observable.create((observer:any)=> {
+            setTimeout(() => {
+                observer.next([{
+                    contact: 'Kristina Chambers',
+                    lob: 'C/4HANA',
+                    name: 'SAP',
+                    status: 'completed',
+                    user_number: 1
+                }, {
+                    contact: 'Caitlin Duncan',
+                    lob: 'C/4HANA',
+                    name: 'IBM',
+                    status: 'on hold',
+                    user_number: 1
+                }, {
+                    contact: 'Melody Nixon',
+                    lob: 'S/4HANA',
+                    name: 'Nestle',
+                    status: 'dropped',
+                    user_number: 1
+                }, {
+                    contact: 'Riley Raymond',
+                    lob: 'SAP Concur',
+                    name: 'Nike',
+                    status: 'completed',
+                    user_number: 1
+                }, {
+                    contact: 'Dante Duran',
+                    lob: 'SAP Ariba',
+                    name: 'Adidas',
+                    status: 'in progress',
+                    user_number: 1
+                }]);
+                
+            }, 400);
+        })).subscribe(data => {
             this.products = data;
             this.dataSource = data;
             this.filteredDataSource = data;
         });
+        
+        // this.subscription = db.collection('products').valueChanges().subscribe(data => {
+        //     this.products = data;
+        //     this.dataSource = data;
+        //     this.filteredDataSource = data;
+        // });
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        //this.subscription.unsubscribe();
     }
 
 
