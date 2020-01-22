@@ -20,7 +20,7 @@ export class ContractsComponent implements OnInit {
     selected: Contract[] = [];
     filteredDataSource: Contract[];
     subscription: Subscription;
-    columnHeaders: string [] = ['company', 'contact', 'signed', 'type', 'value', 'status'];
+    columnHeaders: string [] = ['company', 'contact', 'type', 'value', 'status'];
 
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
@@ -47,7 +47,41 @@ export class ContractsComponent implements OnInit {
 
 
     constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-        this.subscription = db.collection('contracts').valueChanges().subscribe(data => {
+        (Observable.create((observer:any) => {
+            setTimeout(() => {
+                observer.next([{
+                    company: 'Uber',
+                    contact: 'Evangeline Barber',
+                    status: 'completed',
+                    type: '3',
+                    value: '12000'
+                },{
+                    company: 'Airbnb',
+                    contact: 'Danica Carpenter',
+                    status: 'on hold',
+                    type: '3',
+                    value: '16443'
+                },{
+                    company: 'Google',
+                    contact: 'Cassie Mayo',
+                    status: 'dropped',
+                    type: '3',
+                    value: '34000'
+                },{
+                    company: 'Apple',
+                    contact: 'Alisa Herring',
+                    status: 'completed',
+                    type: '3',
+                    value: '10000'
+                },{
+                    company: 'SAP',
+                    contact: 'Alonzo Ramirez',
+                    status: 'completed',
+                    type: '3',
+                    value: '45300'
+                }])
+            }, 500);
+        })).subscribe(data => {
             this.contracts = data;
             this.dataSource = data;
             this.filteredDataSource = data;

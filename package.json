@@ -23,11 +23,11 @@
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
-    "@fundamental-ngx/core": "v0.13.0-rc.90",
+    "@fundamental-ngx/core": "v0.13.0",
     "angular-draggable-droppable": "^4.3.8",
     "core-js": "^3.6.1",
     "firebase": "^6.6.2",
-    "fundamental-styles": "v0.4.0-rc.29",
+    "fundamental-styles": "v0.5.0",
     "rxjs": "^6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "^0.10.2"
