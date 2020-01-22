@@ -45,14 +45,14 @@
                 </ng-container>
             </ng-container>
 
-            <ng-container   cdkColumnDef="signed">
+            <!-- <ng-container   cdkColumnDef="signed">
                 <th cdk-header-cell *cdkHeaderCellDef>Signed</th>                            
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                     <td>
                         {{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}
                     </td>
                 </ng-container>
-            </ng-container>
+            </ng-container> -->
 
             <ng-container   cdkColumnDef="type">
                 <th cdk-header-cell *cdkHeaderCellDef>Type</th>
@@ -84,7 +84,7 @@
 
             <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 
-            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['company', 'contact', 'signed', 'type', 'value', 'status']" style="cursor: grab;"></tr>
+            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['company', 'contact', 'type', 'value', 'status']" style="cursor: grab;"></tr>
         </table>
     </fd-table-wrapper>
 
