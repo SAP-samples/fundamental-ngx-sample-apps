@@ -52,7 +52,7 @@
                 <th cdk-header-cell *cdkHeaderCellDef>Signed</th>                            
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                     <td>
-                        {{contract.date_signed.toDate() | date : 'dd/MM/yyyy'}}
+                      {{contract.signed.seconds | date:'yyyy/MM/dd h:mm:ss a'}}
                     </td>
                 </ng-container>
             </ng-container>
