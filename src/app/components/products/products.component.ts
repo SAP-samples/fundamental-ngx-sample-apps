@@ -1,4 +1,4 @@
-import { Component,  ViewChild, OnDestroy } from '@angular/core';
+import { Component,  ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -6,8 +6,9 @@ import { Product } from '../../models/product.model';
 import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject, Subject } from 'rxjs';
 import {ProductsService} from 'src/app/services/products/products.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-products',
@@ -15,8 +16,9 @@ import {ProductsService} from 'src/app/services/products/products.service';
     styleUrls: ['./Products.component.scss']
 })
 
-export class ProductsComponent{
+export class ProductsComponent implements OnDestroy, OnInit {
 
+    subscription: Subscription;
     products: any;
     selected: Product[] = [];
     filteredDataSource: Product[] = [];
@@ -47,14 +49,7 @@ export class ProductsComponent{
     }
 
 
-    constructor(private productService: ProductsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-      this.productService.getItems().subscribe(data => {
-        const databaseData = Object.keys(data).map(i => data[i]);
-        this.products = databaseData;
-        this.dataSource = databaseData;
-        this.filteredDataSource = databaseData;
-      });
-    }
+    constructor(public productService: ProductsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {}
 
     openCreateModal(): void {
         this.modalService.open(CreateProductModalComponent, {
@@ -93,4 +88,17 @@ export class ProductsComponent{
         }, () => { });
     }
 
+    
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.subscription = this.productService.getItems().subscribe(data => {
+      const databaseData = Object.keys(data).map(i => data[i]);
+      this.products = databaseData;
+      this.dataSource = databaseData;
+      this.filteredDataSource = databaseData;
+    });
+  }
 }
