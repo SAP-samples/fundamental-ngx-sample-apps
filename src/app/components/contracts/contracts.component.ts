@@ -8,6 +8,7 @@ import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import { Product } from 'src/app/models/product.model';
 import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
+import {ContractsService} from 'src/app/services/contracts/contracts.service';
 
 @Component({
     selector: 'app-contracts',
@@ -46,11 +47,12 @@ export class ContractsComponent implements OnInit {
 
 
 
-    constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-        this.subscription = db.collection('contracts').valueChanges().subscribe(data => {
-            this.contracts = data;
-            this.dataSource = data;
-            this.filteredDataSource = data;
+    constructor(private contractService: ContractsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
+      this.contractService.getContractsObservable().subscribe(data => {
+        const databaseData = Object.keys(data).map(i => data[i]);
+        this.contracts = databaseData;
+        this.dataSource = databaseData;
+        this.filteredDataSource = databaseData;
         });
 }
 
@@ -71,7 +73,7 @@ export class ContractsComponent implements OnInit {
 
     openEditModal(newContract: Contract): void {
         const copyObj = Object.assign({}, newContract);
-        copyObj.date_signed = newContract.date_signed.toDate();
+        copyObj.signed = newContract.signed.toDate();
         this.modalService.open(CreateContractModalComponent, {
             data: {
                 editMode: true,

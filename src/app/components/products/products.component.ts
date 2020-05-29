@@ -7,7 +7,7 @@ import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@f
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { Subscription, BehaviorSubject } from 'rxjs';
-import { Behavior } from 'popper.js';
+import {ProductsService} from 'src/app/services/products/products.service';
 
 @Component({
     selector: 'app-products',
@@ -15,12 +15,11 @@ import { Behavior } from 'popper.js';
     styleUrls: ['./Products.component.scss']
 })
 
-export class ProductsComponent implements  OnDestroy {
+export class ProductsComponent{
 
     products: any;
     selected: Product[] = [];
     filteredDataSource: Product[] = [];
-    subscription: Subscription;
     columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove'];
 
 
@@ -48,17 +47,15 @@ export class ProductsComponent implements  OnDestroy {
     }
 
 
-    constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-        this.subscription = db.collection('products').valueChanges().subscribe(data => {
-            this.products = data;
-            this.dataSource = data;
-            this.filteredDataSource = data;
-        });
+    constructor(private productService: ProductsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
+      this.productService.getItems().subscribe(data => {
+        const databaseData = Object.keys(data).map(i => data[i]);
+        this.products = databaseData;
+        this.dataSource = databaseData;
+        this.filteredDataSource = databaseData;
+      });
     }
 
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-    }
     openCreateModal(): void {
         this.modalService.open(CreateProductModalComponent, {
             data: {}
