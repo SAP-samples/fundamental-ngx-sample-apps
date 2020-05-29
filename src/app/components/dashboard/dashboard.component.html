@@ -8,9 +8,9 @@
         </fd-panel-head>
     </fd-panel-header>
     <fd-panel-body>
-        <ng-container *ngIf="contracts | async as contractList">
+        <ng-container *ngIf="contracts">
             <table class="table-custom">
-                <tr *ngFor="let contract of contractList.slice(0, 3)">
+                <tr *ngFor="let contract of contracts.slice(0, 3)">
                     <td>{{contract.company}}</td>
                     <td>{{contract.contact}}</td>
                     <td>{{contract.value}}</td>
@@ -23,7 +23,7 @@
                 </tr>
             </table>
         </ng-container>
-        <div *ngIf="!(contracts | async)"
+        <div *ngIf="!(contracts)"
              class="spinner-container">
             <fd-loading-spinner [loading]="true"></fd-loading-spinner>
         </div>
@@ -40,9 +40,9 @@
         </fd-panel-head>
     </fd-panel-header>
     <fd-panel-body>
-        <ng-container *ngIf="products | async as productList">
+        <ng-container *ngIf="products">
             <table class="table-custom">
-                <tr *ngFor="let product of productList.slice(0, 3)">
+                <tr *ngFor="let product of products.slice(0, 3)">
                     <td>{{product.name}}</td>
                     <td>{{product.contact}}</td>
                     <td>{{product.lob}}</td>
@@ -55,7 +55,7 @@
                 </tr>
             </table>
         </ng-container>
-        <div *ngIf="!(contracts | async)"
+        <div *ngIf="!(contracts)"
              class="spinner-container">
             <fd-loading-spinner [loading]="true"></fd-loading-spinner>
         </div>

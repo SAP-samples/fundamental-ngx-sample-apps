@@ -33,6 +33,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateProductModalComponent } from './components/products/create-product-modal/create-product-modal.component';
 import { CreateProductModalDetailedComponent } from './components/products/create-product-modal/create-product-modal-detailed/create-product-modal-detailed.component';
+import {ProductsService} from './services/products/products.service';
+import {ContractsService} from './services/contracts/contracts.service';
+
+
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -75,7 +80,7 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
         ShellbarModule,
         IconModule
     ],
-    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ProductsService, ContractsService],
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,

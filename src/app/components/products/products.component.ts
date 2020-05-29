@@ -1,4 +1,4 @@
-import { Component,  ViewChild, OnDestroy } from '@angular/core';
+import { Component,  ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -6,8 +6,9 @@ import { Product } from '../../models/product.model';
 import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { Subscription, BehaviorSubject } from 'rxjs';
-import { Behavior } from 'popper.js';
+import { Subscription, BehaviorSubject, Subject } from 'rxjs';
+import {ProductsService} from 'src/app/services/products/products.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-products',
@@ -15,12 +16,12 @@ import { Behavior } from 'popper.js';
     styleUrls: ['./Products.component.scss']
 })
 
-export class ProductsComponent implements  OnDestroy {
+export class ProductsComponent implements OnDestroy, OnInit {
 
+    subscription: Subscription;
     products: any;
     selected: Product[] = [];
     filteredDataSource: Product[] = [];
-    subscription: Subscription;
     columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove'];
 
 
@@ -48,17 +49,8 @@ export class ProductsComponent implements  OnDestroy {
     }
 
 
-    constructor(db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-        this.subscription = db.collection('products').valueChanges().subscribe(data => {
-            this.products = data;
-            this.dataSource = data;
-            this.filteredDataSource = data;
-        });
-    }
+    constructor(public productService: ProductsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {}
 
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-    }
     openCreateModal(): void {
         this.modalService.open(CreateProductModalComponent, {
             data: {}
@@ -96,4 +88,17 @@ export class ProductsComponent implements  OnDestroy {
         }, () => { });
     }
 
+    
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.subscription = this.productService.getItems().subscribe(data => {
+      const databaseData = Object.keys(data).map(i => data[i]);
+      this.products = databaseData;
+      this.dataSource = databaseData;
+      this.filteredDataSource = databaseData;
+    });
+  }
 }

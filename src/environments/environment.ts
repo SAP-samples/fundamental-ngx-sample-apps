@@ -5,15 +5,16 @@
 export const environment = {
     production: false,
     firebase: {
-        apiKey: 'REDACTED_GCP_API_KEY',
-        authDomain: 'ngx-sample-app.firebaseapp.com',
-        databaseURL: 'https://ngx-sample-app.firebaseio.com',
-        projectId: 'ngx-sample-app',
-        storageBucket: 'ngx-sample-app.appspot.com',
-        messagingSenderId: '705320551229'
+      apiKey: "REDACTED_GCP_API_KEY",
+      authDomain: "sapdemoapp-af617.firebaseapp.com",
+      databaseURL: "https://sapdemoapp-af617.firebaseio.com",
+      projectId: "sapdemoapp-af617",
+      storageBucket: "sapdemoapp-af617.appspot.com",
+      messagingSenderId: "906977258657",
+      appId: "1:906977258657:web:52b83e2ceefe50c8a894e0",
+      measurementId: "G-ZB8L7CWNZK"
     }
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
