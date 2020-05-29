@@ -10,7 +10,7 @@ export class ProductsService {
   itemsRef;
   items: Observable<Product[]>;
 
-  constructor( private db:AngularFirestore) {
+  constructor(private db: AngularFirestore) {
     this.itemsRef = db.collection('products').doc('ahvJ6z4p5z6vbrPsIidI');
     this.items = this.itemsRef.valueChanges();
   }

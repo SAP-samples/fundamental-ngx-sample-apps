@@ -47,8 +47,8 @@ export class ContractsComponent implements OnInit {
 
 
 
-    constructor(private contractService: ContractsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
-      this.contractService.getContractsObservable().subscribe(data => {
+    constructor(contractService: ContractsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
+      contractService.getContractsObservable().subscribe(data => {
         const databaseData = Object.keys(data).map(i => data[i]);
         this.contracts = databaseData;
         this.dataSource = databaseData;
@@ -57,6 +57,10 @@ export class ContractsComponent implements OnInit {
 }
 
     ngOnInit() {
+    }
+
+    ngAfterViewInit () {
+      
     }
 
     openCreateModal(): void {
