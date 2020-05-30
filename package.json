@@ -23,7 +23,7 @@
     "@angular/platform-browser": "~8.2.7",
     "@angular/platform-browser-dynamic": "~8.2.7",
     "@angular/router": "~8.2.7",
-    "@fundamental-ngx/core": "v0.13.0-rc.90",
+    "@fundamental-ngx/core": "v0.13.0-rc.102",
     "@types/jest": "^25.2.3",
     "angular-draggable-droppable": "^4.3.2",
     "angularfire2": "^5.4.2",
