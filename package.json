@@ -27,7 +27,7 @@
     "@types/jest": "^25.2.3",
     "angular-draggable-droppable": "^4.4.6",
     "angularfire2": "^5.4.2",
-    "core-js": "^3.2.1",
+    "core-js": "^3.6.5",
     "firebase": "^6.6.2",
     "fundamental-styles": "prerelease",
     "rxjs": "^6.5.3",
