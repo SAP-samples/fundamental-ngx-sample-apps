@@ -30,7 +30,7 @@
     "core-js": "^3.6.5",
     "firebase": "^6.6.2",
     "fundamental-styles": "prerelease",
-    "rxjs": "^6.5.3",
+    "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "^0.10.2"
   },
