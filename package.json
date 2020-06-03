@@ -41,7 +41,7 @@
     "@angular/language-service": "~8.2.7",
     "@types/node": "^12.7.5",
     "angular-cli-ghpages": "^0.6.2",
-    "codelyzer": "^5.1.1",
+    "codelyzer": "^5.2.2",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.1",
     "typescript": "~3.5.3"
