@@ -1,233 +1,188 @@
-<fd-modal-header>
-    <h1 fd-modal-title>{{ editMode ? 'Edit' : 'Create'}} a Contract</h1>
-    <button fd-modal-close-btn
-            (click)="modalRef.dismiss()"></button>
-            <!-- <button fd-button (click)="openModal()" [options]="'emphasized'">Open Second Modal</button> -->
-</fd-modal-header>
-<fd-modal-body class="modal-body">
+<fd-dialog>
+  <fd-dialog-header>
+      <h1 fd-dialog-title>{{ editMode ? 'Edit' : 'Create'}} a Contract</h1>
+      <button fd-dialog-close-btn
+              (click)="dialogRef.dismiss()"></button>
+              <!-- <button fd-button (click)="openModal()" [options]="'emphasized'">Open Second Modal</button> -->
+  </fd-dialog-header>
+  <fd-dialog-body>
     <form [formGroup]="contractForm"
           (ngSubmit)="submitForm()"
           id="main-form"
-          class="row">
-      <fd-layout-grid [col]="2">
+          autocomplete="off">
         <div fd-form-set>
-          <div fd-form-item>
-              <label fd-form-label
-                      for="company-input">Company: </label>
+
+      <fd-layout-grid [col]="2" [nogap]="true">
+        <fd-panel>
+          <fd-panel-body>
+            <div fd-form-item>
+              <label fd-form-label for="company-input">Company: </label>
+            <fd-form-input-message-group>
               <input fd-form-control 
-                      type="text"
-                      id="company-input"
-                      placeholder="Enter a company"
-                      formControlName="company"
-                      [state]="companyValid.state"
-                      (blur)="changeValueState('companyValid')">
-                      <fd-form-message [hidden]="companyValid.hidden" [type]="companyValid.warningType">Required Contact Name</fd-form-message>
+              type="text"
+              id="company-input"
+              placeholder="Enter a company"
+              formControlName="company"
+              [state]="contractForm.get('company').touched ? 
+              (contractForm.get('company').valid ? 'success' : 'error'):
+              (contractForm.get('company').valid ? '' : '')">
+              <fd-form-message 
+              *ngIf="contractForm.get('company').invalid && contractForm.get('company').touched"
+              [type]="contractForm.get('company').touched ? 
+              (contractForm.get('company').valid ? 'success' : 'error'):
+              (contractForm.get('company').valid ? '' : '')">
+              Required Contact Name
+              </fd-form-message>
+            </fd-form-input-message-group>
           </div>
-      </div>
-      <div fd-form-set>
+          </fd-panel-body>
+        </fd-panel>
+        <fd-panel>
+          <fd-panel-body>
+            <div fd-form-item>
+              <label fd-form-label for="contact-input">Contact: </label>
+              <fd-form-input-message-group>
+                <input fd-form-control
+                type="text"
+                id="contact-input"
+                placeholder="Enter a contact"
+                formControlName="contact"
+                [state]="contractForm.get('contact').touched ? 
+              (contractForm.get('contact').valid ? 'success' : 'error'):
+              (contractForm.get('contact').valid ? '' : '')">
+              <fd-form-message 
+              *ngIf="contractForm.get('contact').invalid && contractForm.get('contact').touched"
+              [type]="contractForm.get('contact').touched ? 
+              (contractForm.get('contact').valid ? 'success' : 'error'):
+              (contractForm.get('contact').valid ? '' : '')">
+              Required Contact Name</fd-form-message>
+              </fd-form-input-message-group>          
+            </div>
+          </fd-panel-body>
+        </fd-panel>
+      <fd-panel>
+        <fd-panel-body>
           <div fd-form-item>
-              <label fd-form-label
-                      for="contact-input">Contact: </label>
-              <input fd-form-control
-                      type="text"
-                      id="contact-input"
-                      placeholder="Enter a contact"
-                      formControlName="contact"
-                      [state]="contactValid.state"
-                      (blur)="changeValueState('contactValid')">
-                      <fd-form-message [hidden]="contactValid.hidden" [type]="contactValid.warningType">Required Contact Name</fd-form-message>
-          </div>
-          
-      </div>
-      <div fd-form-set>
-          <div fd-form-item>
-              <label fd-form-label
-                      for="datepicker-input">Date signed: </label>
+            <label fd-form-label for="datepicker-input">Date signed: </label>
               <fd-date-picker formControlName="date_signed"
-                              [type]="'single'"
-                              [blockFunction]="myBlockFunction"
-                              [disableFunction]="myDisableFunction"
-                              id="datepicker-input"
-                              (click)="changeValueState('dateValid')">
+                [type]="'single'"
+                [disableFunction]="myBlockFunction && myDisableFunction"
+                id="datepicker-input"
+                [state]="contractForm.get('date_signed').touched ? 
+                (contractForm.get('date_signed').valid ? 'success' : 'error'):
+                (contractForm.get('date_signed').valid ? '' : '')">
               </fd-date-picker>
-              <fd-form-message [hidden]="dateValid.hidden" [type]="dateValid.warningType">Must enter a date</fd-form-message>
+              <fd-form-message 
+              *ngIf="contractForm.get('date_signed').invalid && contractForm.get('date_signed').touched"
+              [type]="contractForm.get('date_signed').touched ? 
+              (contractForm.get('date_signed').valid ? 'success' : 'error'):
+              (contractForm.get('date_signed').valid ? '' : '')">Must enter a date</fd-form-message>
           </div>
-      </div>
-      <div fd-form-set>
+        </fd-panel-body>
+      </fd-panel>
+      <fd-panel>
+        <fd-panel-body>
           <div fd-form-item>
-              <label fd-form-label
-                      [for]="'type-1'">
-                  Contract Type:
-              </label>
-              <select fd-form-control
-                      id="type-1"
-                      formControlName="type"
-                      [state]="typeValid.state"
-                      (blur)="changeValueState('typeValid')">
+            <label fd-form-label [for]="'type-1'">Contract Type:</label>
+              <fd-form-input-message-group>
+                <select fd-form-control
+                id="type-1"
+                formControlName="type"
+                [state]="contractForm.get('type').touched ? 
+                (contractForm.get('type').valid ? 'success' : 'error'):
+                (contractForm.get('type').valid ? '' : '')">
                   <option value="premium">Premium</option>
                   <option value="gold">Gold</option>
                   <option value="silver">Silver</option>
               </select>
-              <fd-form-message [hidden]="typeValid.hidden" [type]="typeValid.warningType">Must enter a type</fd-form-message>
-
+              <fd-form-message
+              *ngIf="contractForm.get('type').invalid && contractForm.get('type').touched" 
+              [type]="contractForm.get('type').touched ? 
+              (contractForm.get('type').valid ? 'success' : 'error'):
+              (contractForm.get('type').valid ? '' : '')">
+              Must enter a type
+              </fd-form-message>
+            </fd-form-input-message-group>
           </div>
-      </div>
-      <div fd-form-set>
+        </fd-panel-body>
+        </fd-panel>
+      <fd-panel>
+        <fd-panel-body>
           <div fd-form-item>
-              <label fd-form-label
-                      for="value-input">Value: </label>
+            <label fd-form-label for="value-input">Value: </label>
+            <fd-form-input-message-group>
               <input fd-form-control
-                      type="number"
-                      id="value-input"
-                      placeholder="Enter a number"
-                      formControlName="value"
-                      [state]="valueValid.state"
-                      (blur)="changeValueState('valueValid')">
-                      <fd-form-message [hidden]="valueValid.hidden" [type]="valueValid.warningType">Value must be more than 0</fd-form-message>
-
+              type="number"
+              id="value-input"
+              placeholder="Enter a number"
+              formControlName="value"
+              [state]="contractForm.get('value').touched ? 
+              (contractForm.get('value').valid ? 'success' : 'error'):
+              (contractForm.get('value').valid ? '' : '')">
+              <fd-form-message
+              *ngIf="contractForm.get('value').invalid && contractForm.get('value').touched"
+              [type]="contractForm.get('value').touched ? 
+              (contractForm.get('value').valid ? 'success' : 'error'):
+              (contractForm.get('value').valid ? '' : '')">
+                Value must be more than 0
+              </fd-form-message>
+            </fd-form-input-message-group>
           </div>
-      </div>
-      <div fd-form-set>
+        </fd-panel-body>
+      </fd-panel>
+      <fd-panel>
+        <fd-panel-body>
           <div fd-form-item>
-              <label fd-form-label
-                      [for]="'status-1'">
-                  Status:
-              </label>
-              <select fd-form-control
-                      id="status-1"
-                      formControlName="status"
-                      [state]="statusValid.state"
-                      (blur)="changeValueState('statusValid')">
+            <label fd-form-label [for]="'status-1'">Status:</label>
+            <fd-form-input-message-group>
+                <select fd-form-control
+                id="status-1"
+                formControlName="status"
+                [state]="contractForm.get('status').touched ? 
+                (contractForm.get('status').valid ? 'success' : 'error'):
+                (contractForm.get('status').valid ? '' : '')">
                   <option value="completed">Completed</option>
                   <option value="on hold">On Hold</option>
                   <option value="dropped">Dropped</option>
-                  
               </select>
-              <fd-form-message [hidden]="statusValid.hidden" [type]="statusValid.warningType">Required Status</fd-form-message>
+              <fd-form-message
+              *ngIf="contractForm.get('status').invalid && contractForm.get('status').touched"
+              [type]="contractForm.get('status').touched ? 
+              (contractForm.get('status').valid ? 'success' : 'error'):
+              (contractForm.get('status').valid ? '' : '')">
+              Required Status
+              </fd-form-message>
+            </fd-form-input-message-group>
           </div>
-      </div>
+        </fd-panel-body>
+      </fd-panel>
       </fd-layout-grid>
+      </div>
     </form>
-
-<!-- 
-
-        <div class="column">
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="company-input">Company: </label>
-                    <input fd-form-control 
-                           type="text"
-                           id="company-input"
-                           placeholder="Enter a company"
-                           formControlName="company"
-                           [state]="companyValid.state"
-                           (blur)="changeValueState('companyValid')">
-                           <fd-form-message [hidden]="companyValid.hidden" [type]="companyValid.warningType">Required Contact Name</fd-form-message>
-                </div>
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="contact-input">Contact: </label>
-                    <input fd-form-control
-                           type="text"
-                           id="contact-input"
-                           placeholder="Enter a contact"
-                           formControlName="contact"
-                           [state]="contactValid.state"
-                           (blur)="changeValueState('contactValid')">
-                           <fd-form-message [hidden]="contactValid.hidden" [type]="contactValid.warningType">Required Contact Name</fd-form-message>
-                </div>
-                
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="datepicker-input">Date signed: </label>
-                    <fd-date-picker formControlName="date_signed"
-                                    [type]="'single'"
-                                    [blockFunction]="myBlockFunction"
-                                    [disableFunction]="myDisableFunction"
-                                    id="datepicker-input"
-                                    (click)="changeValueState('dateValid')">
-                    </fd-date-picker>
-                    <fd-form-message [hidden]="dateValid.hidden" [type]="dateValid.warningType">Must enter a date</fd-form-message>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           [for]="'type-1'">
-                        Contract Type:
-                    </label>
-                    <select fd-form-control
-                            id="type-1"
-                            formControlName="type"
-                            [state]="companyValid.state"
-                            (blur)="changeValueState('typeValid')">
-                        <option value="premium">Premium</option>
-                        <option value="gold">Gold</option>
-                        <option value="silver">Silver</option>
-                    </select>
-                    <fd-form-message [hidden]="typeValid.hidden" [type]="typeValid.warningType">Must enter a type</fd-form-message>
-
-                </div>
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="value-input">Value: </label>
-                    <input fd-form-control
-                           type="number"
-                           id="value-input"
-                           placeholder="Enter a number"
-                           formControlName="value"
-                           [state]="valueValid.state"
-                           (blur)="changeValueState('valueValid')">
-                           <fd-form-message [hidden]="valueValid.hidden" [type]="valueValid.warningType">Value must be more than 0</fd-form-message>
-
-                </div>
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           [for]="'status-1'">
-                        Status:
-                    </label>
-                    <select fd-form-control
-                            id="status-1"
-                            formControlName="status"
-                            [state]="statusValid.state"
-                            (blur)="changeValueState('statusValid')">
-                        <option value="completed">Completed</option>
-                        <option value="on hold">On Hold</option>
-                        <option value="dropped">Dropped</option>
-                        
-                    </select>
-                    <fd-form-message [hidden]="statusValid.hidden" [type]="statusValid.warningType">Required Status</fd-form-message>
-                </div>
-            </div>
-        </div> 
-
-    </form>  -->
-</fd-modal-body>
-<fd-modal-footer>
-    <button fd-button
-            fdType="main"
-            type="submit"
-            form="main-form"
-            [disabled]="!contractForm.dirty || contractForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
-    <button fd-button
-            fdType="light"
-            style="margin-left: 16px;"
-            (click)="this.modalRef.dismiss()">Cancel</button>
-</fd-modal-footer>
+  </fd-dialog-body>
+  <fd-dialog-footer>
+    <fd-dialog-footer-button>
+      <button 
+      fd-button
+      fd-dialog-decisive-button
+      [compact]="true"
+      fdType="main"
+      type="submit"
+      form="main-form"
+      [disabled]="!contractForm.dirty || contractForm.invalid">
+        {{editMode ? 'Edit' : 'Create'}}
+      </button>
+    </fd-dialog-footer-button>
+    <fd-dialog-footer-button>
+      <button 
+      fd-button
+      fd-dialog-decisive-button
+      [compact]="true"
+      fdType="transparent"
+      style="margin-left: 16px;"
+      (click)="this.dialogRef.dismiss()">
+      Cancel
+    </button>
+    </fd-dialog-footer-button>
+  </fd-dialog-footer>
+</fd-dialog>
