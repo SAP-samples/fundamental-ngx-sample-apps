@@ -3,7 +3,7 @@ import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Product } from '../../models/product.model';
-import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
+import { AlertService, DialogService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { Subscription, BehaviorSubject, Subject } from 'rxjs';
@@ -49,11 +49,13 @@ export class ProductsComponent implements OnDestroy, OnInit {
     }
 
 
-    constructor(public productService: ProductsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {}
+    constructor(public productService: ProductsService, db: AngularFirestore, private dialogService: DialogService, private alertService: AlertService) {}
 
     openCreateModal(): void {
-        this.modalService.open(CreateProductModalComponent, {
-            data: {}
+        this.dialogService.open(CreateProductModalComponent, {
+            data: {
+              editMode: false,
+            }
         }).afterClosed.subscribe(result => {
             if (result) {
                 this.alertService.open('Create not allowed in this version.', {
@@ -64,7 +66,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
     }
 
     openEditModal(newProduct: Product): void {
-        this.modalService.open(CreateProductModalComponent, {
+        this.dialogService.open(CreateProductModalComponent, {
             data: {
                 editMode: true,
                 product: newProduct
@@ -79,7 +81,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
     }
 
     openConfirmModal(): void {
-        this.modalService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
+        this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
             if (result) {
                 this.alertService.open('Delete not allowed in this version.', {
                     type: 'warning'

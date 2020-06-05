@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ModalRef} from '@fundamental-ngx/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import {DialogRef, DIALOG_REF} from '@fundamental-ngx/core';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -8,7 +8,7 @@ import {ModalRef} from '@fundamental-ngx/core';
 })
 export class ConfirmModalComponent implements OnInit {
 
-  constructor(public modalRef: ModalRef) { }
+  constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef) { }
 
   ngOnInit() {
   }

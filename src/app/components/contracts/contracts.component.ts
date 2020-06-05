@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, Subscription} from 'rxjs';
 import {Contract} from '../../models/contract.model';
-import {AlertService, ModalService, CalendarModule} from '@fundamental-ngx/core';
+import {AlertService, DialogService, CalendarModule} from '@fundamental-ngx/core';
 import {CreateContractModalComponent} from './create-contract-modal/create-contract-modal.component';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import { Product } from 'src/app/models/product.model';
@@ -47,7 +47,7 @@ export class ContractsComponent implements OnInit {
 
 
 
-    constructor(contractService: ContractsService, db: AngularFirestore, private modalService: ModalService, private alertService: AlertService) {
+    constructor(contractService: ContractsService, db: AngularFirestore, private dialogService: DialogService, private alertService: AlertService) {
       contractService.getContractsObservable().subscribe(data => {
         const databaseData = Object.keys(data).map(i => data[i]);
         this.contracts = databaseData;
@@ -64,8 +64,10 @@ export class ContractsComponent implements OnInit {
     }
 
     openCreateModal(): void {
-        this.modalService.open(CreateContractModalComponent, {
-            data: {}
+        this.dialogService.open(CreateContractModalComponent, {
+            data: {
+              editMode: "false"
+            }
         }).afterClosed.subscribe(result => {
             if (result) {
                 this.alertService.open('Create not allowed in this version.', {
@@ -78,7 +80,7 @@ export class ContractsComponent implements OnInit {
     openEditModal(newContract: Contract): void {
         const copyObj = Object.assign({}, newContract);
         copyObj.signed = newContract.signed.toDate();
-        this.modalService.open(CreateContractModalComponent, {
+        this.dialogService.open(CreateContractModalComponent, {
             data: {
                 editMode: true,
                 contract: copyObj
@@ -93,7 +95,7 @@ export class ContractsComponent implements OnInit {
     }
 
     openConfirmModal(): void {
-        this.modalService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
+        this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
             if (result) {
                 this.alertService.open('Delete not allowed in this version.', {
                     type: 'warning'

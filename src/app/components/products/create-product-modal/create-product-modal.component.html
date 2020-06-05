@@ -1,116 +1,175 @@
-<fd-modal-header>
-    <h1 fd-modal-title>{{ editMode ? 'Edit' : 'Create'}} a Product</h1>
-    <button fd-modal-close-btn
-            (click)="modalRef.dismiss()"></button>
-</fd-modal-header>
-<fd-modal-body class="modal-body">
-    <form [formGroup]="productForm"
-          (ngSubmit)="submitForm()"
-          id="main-form"
-          class="row">
-        <div class="column">
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="name-input">Name: </label>
+<fd-dialog>
+  <fd-dialog-header>
+      <h1 fd-dialog-title>{{ editMode ? 'Edit' : 'Create'}} a Product</h1>
+      <button fd-dialog-close-btn
+              (click)="dialogRef.dismiss()"></button>
+  </fd-dialog-header>
+  <fd-dialog-body class="modal-body">
+      <form [formGroup]="productForm"
+            (ngSubmit)="submitForm()"
+            id="main-form">
+        <div fd-form-set>
+            <fd-layout-grid [col]="2" [nogap]="true">
+              <fd-panel>
+                <fd-panel-body>
+                  <div fd-form-item>
+                    <label fd-form-label for="name-input">Name: </label>
+                    <fd-form-input-message-group>
                     <input fd-form-control
-                           type="text"
-                           id="name-input"
-                           placeholder="Enter a name"
-                           formControlName="name"
-                            [state]="nameValid.state"
-                           (blur)="changeValueState('nameValid')">
-                </div>
-                <fd-form-message [hidden]="nameValid.hidden" [type]="nameValid.warningType">Required name</fd-form-message>
-
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="contact-input">Contact: </label>
-                    <input fd-form-control
-                           type="text"
-                           id="contact-input"
-                           placeholder="Enter a contact"
-                           formControlName="contact"
-                            [state]="contactValid.state"
-                           (blur)="changeValueState('contactValid')">
-                </div>
-                <fd-form-message [hidden]="contactValid.hidden" [type]="contactValid.warningType">Required contact information</fd-form-message>
-
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="lob-input">Line of Business: </label>
-                    <input fd-form-control
-                           type="text"
-                           id="lob-input"
-                           placeholder="Enter a line of business"
-                           formControlName="lob"
-                            [state]="lobValid.state"
-                           (blur)="changeValueState('lobValid')">
-                </div>
-                <fd-form-message [hidden]="lobValid.hidden" [type]="lobValid.warningType">Required line of business</fd-form-message>
-                
-            </div>
+                          type="text"
+                          id="name-input"
+                          placeholder="Enter a name"
+                          formControlName="name"
+                          [state]="productForm.get('name').touched ? 
+                          (productForm.get('name').valid ? 'success' : 'error'):
+                          (productForm.get('name').valid ? '' : '')">
+                      <fd-form-message *ngIf="productForm.get('name').invalid && productForm.get('name').touched"
+                      [type]="productForm.get('name').touched ? 
+                      (productForm.get('name').valid ? 'success' : 'error'):
+                      (productForm.get('name').valid ? '' : '')">
+                      Required name
+                      </fd-form-message>
+                    </fd-form-input-message-group>
+                  </div>
+                </fd-panel-body>
+              </fd-panel>
+              <fd-panel>
+                <fd-panel-body>
+                  <div fd-form-item>
+                    <label fd-form-label for="contact-input">Contact: </label>
+                    <fd-form-input-message-group>
+                      <input fd-form-control
+                      type="text"
+                      id="contact-input"
+                      placeholder="Enter a contact"
+                      formControlName="contact"
+                        [state]="productForm.get('contact').touched ? 
+                        (productForm.get('contact').valid ? 'success' : 'error'):
+                        (productForm.get('contact').valid ? '' : '')">
+                      <fd-form-message 
+                      *ngIf="productForm.get('contact').invalid && productForm.get('contact').touched"
+                      [type]="productForm.get('contact').touched ? 
+                      (productForm.get('contact').valid ? 'success' : 'error'):
+                      (productForm.get('contact').valid ? '' : '')">
+                      Required contact information
+                      </fd-form-message>
+                    </fd-form-input-message-group>
+                  </div>
+                </fd-panel-body>
+              </fd-panel>
+              <fd-panel>
+                <fd-panel-body>
+                  <div fd-form-item>
+                    <label fd-form-label for="lob-input">Line of Business: </label>
+                    <fd-form-input-message-group>
+                      <input fd-form-control
+                      type="text"
+                      id="lob-input"
+                      placeholder="Enter a line of business"
+                      formControlName="lob"
+                        [state]="productForm.get('lob').touched ? 
+                        (productForm.get('lob').valid ? 'success' : 'error'):
+                        (productForm.get('lob').valid ? '' : '')">
+                      <fd-form-message 
+                      *ngIf="productForm.get('lob').invalid && productForm.get('lob').touched"
+                      [type]="productForm.get('lob').touched ? 
+                      (productForm.get('lob').valid ? 'success' : 'error'):
+                      (productForm.get('lob').valid ? '' : '')">
+                      Required line of business
+                    </fd-form-message>
+                    </fd-form-input-message-group>
+                  </div>
+                </fd-panel-body>
+              </fd-panel>
+              <fd-panel>
+                <fd-panel-body>
+                  <div fd-form-item>
+                    <label fd-form-label for="users-input">Number of Users: </label>
+                    <fd-form-input-message-group>
+                      <input fd-form-control
+                      type="number"
+                      id="users-input"
+                      placeholder="Enter a number"
+                      formControlName="user_number"
+                        [state]="productForm.get('user_number').touched ? 
+                        (productForm.get('user_number').valid ? 'success' : 'error'):
+                        (productForm.get('user_number').valid ? '' : '')">
+                      <fd-form-message 
+                      *ngIf="productForm.get('user_number').invalid && productForm.get('user_number').touched"
+                      [type]="productForm.get('user_number').touched ? 
+                      (productForm.get('user_number').valid ? 'success' : 'error'):
+                      (productForm.get('user_number').valid ? '' : '')">
+                        Required number of users
+                      </fd-form-message>
+                    </fd-form-input-message-group>
+                  </div>
+                </fd-panel-body>
+              </fd-panel>
+              <fd-panel>
+                <fd-panel-body>
+                  <div fd-form-item>
+                    <label fd-form-label [for]="'status-1'"> Status: </label>
+                    <fd-form-input-message-group>
+                      <select fd-form-control
+                      id="status-1"
+                      formControlName="status"
+                      [state]="productForm.get('status').touched ? 
+                      (productForm.get('status').valid ? 'success' : 'error'):
+                      (productForm.get('status').valid ? '' : '')">
+                          <option value="completed">Completed</option>
+                          <option value="in progress">In Progress</option>
+                          <option value="dropped">Dropped</option>
+                      </select>
+                      <fd-form-message 
+                      *ngIf="productForm.get('status').invalid && productForm.get('status').touched"
+                      [type]="productForm.get('status').touched ? 
+                      (productForm.get('status').valid ? 'success' : 'error'):
+                      (productForm.get('status').valid ? '' : '')">
+                        Required status
+                      </fd-form-message>
+                    </fd-form-input-message-group>
+                  </div>
+                </fd-panel-body>
+              </fd-panel>
+          </fd-layout-grid>
         </div>
-        <div class="column">
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           for="users-input">Number of Users: </label>
-                    <input fd-form-control
-                           type="number"
-                           id="users-input"
-                           placeholder="Enter a number"
-                           formControlName="user_number"
-                            [state]="user_numberValid.state"
-                           (blur)="changeValueState('user_numberValid')">
-                    <fd-form-message [hidden]="user_numberValid.hidden" [type]="user_numberValid.warningType">Required number of users</fd-form-message>
-                           
-                </div>
-            </div>
-            <div fd-form-set
-                 class="form-element">
-                <div fd-form-item>
-                    <label fd-form-label
-                           [for]="'status-1'">
-                        Status:
-                    </label>
-                    <select fd-form-control
-                            id="status-1"
-                            formControlName="status"
-                            [state]="statusValid.state"
-                           (blur)="changeValueState('statusValid')"
-                           >
-                        <option value="completed">Completed</option>
-                        <option value="in progress">In Progress</option>
-                        <option value="dropped">Dropped</option>
-                    </select>
-                    <fd-form-message [hidden]="statusValid.hidden" [type]="statusValid.warningType">Required status</fd-form-message>
-
-                </div>
-            </div>
-        </div>
-    </form>
-</fd-modal-body>
-<fd-modal-footer>
-    <button fd-button (click)="openModal()" [options]="'light'">*Detailed</button>
-
-    <button fd-button
-            fdType="main"
-            style="margin-left: 16px;"
-            type="submit"
-            form="main-form"
-            style="margin-left: 16px;"
-            [disabled]="!productForm.dirty || productForm.invalid">{{editMode ? 'Edit' : 'Create'}}</button>
-    <button fd-button
-            fdType="light"
-            style="margin-left: 16px;"
-            (click)="this.modalRef.dismiss()">Cancel</button>
-</fd-modal-footer>
+      </form>
+  </fd-dialog-body>
+  <fd-dialog-footer>
+    <fd-dialog-footer-button>
+      <button 
+      fd-button 
+      fd-dialog-decisive-button
+      (click)="openModal()" 
+      fdType="transparent"
+      [compact]="true">
+        *Detailed
+      </button>
+    </fd-dialog-footer-button>
+    <fd-dialog-footer-button>
+      <button 
+      fd-button
+      fd-dialog-decisive-button
+      fdType="main"
+      style="margin-left: 16px;"
+      type="submit"
+      form="main-form"
+      style="margin-left: 16px;"
+      [disabled]="!productForm.dirty || productForm.invalid"
+      [compact]="true">
+      {{editMode ? 'Edit' : 'Create'}}
+      </button>
+    </fd-dialog-footer-button>
+    <fd-dialog-footer-button>
+      <button 
+      fd-button
+      fd-dialog-decisive-button
+      fdType="transparent"
+      style="margin-left: 16px;"
+      (click)="this.dialogRef.dismiss()"
+      [compact]="true">
+        Cancel
+      </button>
+    </fd-dialog-footer-button>
+  </fd-dialog-footer>
+</fd-dialog>
