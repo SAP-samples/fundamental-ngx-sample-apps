@@ -86,13 +86,13 @@
                     <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
                             <td>
-                            <fd-icon glyph="edit"
-                                    class="action-button"
-                                    tabindex="0"
-                                    size="m"
-                                    title="Edit Contract"
-                                    (click)="openEditModal(contract)">
-                            </fd-icon>
+                              <button 
+                              fd-button
+                              [glyph]="'edit'"
+                              title="Edit Contract"
+                              (click)="openEditModal(contract)"
+                              [fdType]="'transparent'">
+                            </button>
                         </td>
                     </ng-container>
                 </ng-container>
@@ -100,14 +100,14 @@
                 <ng-container   cdkColumnDef="remove">
                         <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
                         <ng-container cdk-cell *cdkCellDef="let contract">                       
-                                <td>
-                            <fd-icon glyph="delete"
-                                    class="action-button"
-                                    tabindex="0"
-                                    size="m"
-                                    title="Delete Contract"
-                                    (click)="openConfirmModal()">
-                                </fd-icon>
+                            <td>
+                            <button 
+                              fd-button
+                              [glyph]="'delete'"
+                              title="Delete Contract"
+                              (click)="openConfirmModal()"
+                              [fdType]="'transparent'">
+                            </button>
                             </td>
                         </ng-container>
                 </ng-container>
@@ -120,7 +120,7 @@
         
         <div *ngIf="!(contracts)"
              class="spinner-container">
-            <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+            <fd-busy-indicator [loading]="true"></fd-busy-indicator>
         </div>
     </fd-panel-body>
 </fd-panel>
