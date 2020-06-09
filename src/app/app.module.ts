@@ -15,14 +15,15 @@ import {
     BadgeLabelModule,
     ButtonModule, DatePickerModule, FormModule, IconModule,
     LayoutGridModule,
-    LoadingSpinnerModule, ModalModule,NestedListModule,
+    BusyIndicatorModule, DialogModule, NestedListModule,
     PanelModule,
     ProductSwitchModule,
     ShellbarModule,
     SideNavigationModule,
     TableModule,
     InlineHelpModule,
-    MultiInputModule
+    MultiInputModule,
+    DialogRef
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -67,8 +68,8 @@ import {ContractsService} from './services/contracts/contracts.service';
         TableModule,
         BadgeLabelModule,
         LayoutGridModule,
-        LoadingSpinnerModule,
-        ModalModule,
+        BusyIndicatorModule,
+        DialogModule,
         AlertModule,
         FormsModule,
         ProductSwitchModule,
@@ -89,7 +90,7 @@ import {ContractsService} from './services/contracts/contracts.service';
         CreateProductModalComponent,
         CreateProductModalDetailedComponent
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {
 }

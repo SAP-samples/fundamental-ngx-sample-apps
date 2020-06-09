@@ -27,6 +27,20 @@ fd-alert-container {
 .fd-product-switch__control:hover{
     background-color:var(--sapShell_Hover_Background,#283848) !important;
 }
+
+@font-face {
+  font-family: "72";
+  src: url("./fonts/72_Desktop/72-Regular.ttf") format("woff"); // Bold, Light, Regular available in woff and woff2
+  font-weight: normal;
+  font-style: normal;
+};
+
+@font-face {
+  font-family: "SAP-icons";
+  src: url("./fonts/sap-icon/Fonts/SAP-icons.woff") format("woff"); // available in woff, woff2 and ttf
+  font-weight: normal;
+  font-style: normal;
+}
 // :root {
 //     --sapBrandColor: #91c8f6;
 //     --sapHighlightColor: #91c8f6;

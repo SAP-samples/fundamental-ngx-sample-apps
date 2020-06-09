@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ModalRef, FdDate } from '@fundamental-ngx/core';
+import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import { DialogRef, FdDate, DIALOG_REF } from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MyValidation } from './../../../contracts/create-contract-modal/create-contract-modal-int';
 
@@ -26,11 +26,11 @@ changeValueState(validity: string) {
         }
 
         if (this.validityName.formControl.status === 'INVALID') {
-            this.validityName.state = 'invalid';
+            this.validityName.state = 'error';
             this.validityName.warningType = 'error';
             this.validityName.hidden = false;
         } else {
-            this.validityName.state = 'normal';
+            this.validityName.state = 'success';
             this.validityName.warningType = '';
             this.validityName.hidden = true;
         }
@@ -50,12 +50,12 @@ changeValueState(validity: string) {
         return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
     }
 
-    constructor(public modalRef: ModalRef) {
+    constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef) {
     }
 
     closeModal() {
       event.preventDefault();
-      this.modalRef.close();
+      this.dialogRef.close();
     }
 
 

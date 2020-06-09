@@ -7,121 +7,120 @@
         </fd-panel-head>
         <fd-panel-actions>
             <button fd-button
-                    fdType="light"
+                    fdType="transparent"
                     glyph="add"
                     (click)="openCreateModal()"></button>
         </fd-panel-actions>
     </fd-panel-header>
-</fd-panel>
-<div class="fd-has-padding-m">
-    <div *ngIf="contracts">
-        <fd-multi-input 
-        [dropdownValues]="contracts"
-        [placeholder]="'Search here...'"
-        [(ngModel)]="selected"
-        (ngModelChange)="refresh()"
-        [displayFn]="displayFunc">
-        </fd-multi-input>
-                <span *ngFor="let item of selected; let i = index">
-        </span>
-    </div>
-    <fd-table-wrapper>
-        <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
-            <ng-container  cdkColumnDef="company">
-                <th cdk-header-cell *cdkHeaderCellDef>Company</th> 
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                            {{contract.company}}
-                        <fd-inline-help [placement]="'right'">
-                            Information about {{contract.company}}
-                        </fd-inline-help>
-                    </td>
-                    </ng-container>                    
-                </ng-container>
-
-            <ng-container   cdkColumnDef="contact">
-                <th cdk-header-cell *cdkHeaderCellDef>Contact</th> 
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        {{contract.contact}}
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container   cdkColumnDef="signed">
-                <th cdk-header-cell *cdkHeaderCellDef>Signed</th>                            
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                      {{contract.signed.seconds | date:'yyyy/MM/dd h:mm:ss a'}}
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container   cdkColumnDef="type">
-                <th cdk-header-cell *cdkHeaderCellDef>Type</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        {{contract.type | uppercase}}
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container   cdkColumnDef="value">
-                <th cdk-header-cell *cdkHeaderCellDef>Value</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        {{contract.value | currency}}
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container  cdkColumnDef="status">
-                <th cdk-header-cell *cdkHeaderCellDef>Status</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                    <td>
-                        <span fd-badge [status]="contract.status | status" modifier="pill"> {{contract.status}} </span>
-                    </td>
-                </ng-container>
-            </ng-container> 
-
-            <ng-container   cdkColumnDef="edit">
-                <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                        <td>
-                        <fd-icon glyph="edit"
-                                class="action-button"
-                                tabindex="0"
-                                size="m"
-                                title="Edit Contract"
-                                (click)="openEditModal(contract)">
-                        </fd-icon>
-                    </td>
-                </ng-container>
-            </ng-container>
-
-            <ng-container   cdkColumnDef="remove">
-                    <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
+    <fd-panel-filters *ngIf="contracts">
+      <fd-multi-input 
+      [dropdownValues]="contracts"
+      [placeholder]="'Search here...'"
+      [(ngModel)]="selected"
+      (ngModelChange)="refresh()"
+      [displayFn]="displayFunc">
+      </fd-multi-input>
+        <span *ngFor="let item of selected; let i = index"></span>
+      </fd-panel-filters>
+    <fd-panel-body>
+        <fd-table-wrapper>
+            <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
+                <ng-container  cdkColumnDef="company">
+                    <th cdk-header-cell *cdkHeaderCellDef>Company</th> 
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
-                            <td>
-                        <fd-icon glyph="delete"
-                                class="action-button"
-                                tabindex="0"
-                                size="m"
-                                title="Delete Contract"
-                                (click)="openConfirmModal()">
-                            </fd-icon>
+                        <td>
+                                {{contract.company}}
+                            <fd-inline-help [placement]="'right'">
+                                Information about {{contract.company}}
+                            </fd-inline-help>
+                        </td>
+                        </ng-container>                    
+                    </ng-container>
+    
+                <ng-container   cdkColumnDef="contact">
+                    <th cdk-header-cell *cdkHeaderCellDef>Contact</th> 
+                    <ng-container cdk-cell *cdkCellDef="let contract">                       
+                        <td>
+                            {{contract.contact}}
                         </td>
                     </ng-container>
-            </ng-container>
-            <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
-
-            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['company', 'contact', 'signed', 'type', 'value', 'status','edit', 'remove']" style="cursor: grab;"></tr>
-        </table>
-    </fd-table-wrapper>
-
+                </ng-container>
     
-    <div *ngIf="!(contracts)"
-         class="spinner-container">
-        <fd-loading-spinner [loading]="true"></fd-loading-spinner>
-    </div>
-</div>
+                <ng-container   cdkColumnDef="signed">
+                    <th cdk-header-cell *cdkHeaderCellDef>Signed</th>                            
+                    <ng-container cdk-cell *cdkCellDef="let contract">                       
+                        <td>
+                          {{contract.signed.seconds | date:'yyyy/MM/dd h:mm:ss a'}}
+                        </td>
+                    </ng-container>
+                </ng-container>
+    
+                <ng-container   cdkColumnDef="type">
+                    <th cdk-header-cell *cdkHeaderCellDef>Type</th>
+                    <ng-container cdk-cell *cdkCellDef="let contract">                       
+                        <td>
+                            {{contract.type | uppercase}}
+                        </td>
+                    </ng-container>
+                </ng-container>
+    
+                <ng-container   cdkColumnDef="value">
+                    <th cdk-header-cell *cdkHeaderCellDef>Value</th>
+                    <ng-container cdk-cell *cdkCellDef="let contract">                       
+                        <td>
+                            {{contract.value | currency}}
+                        </td>
+                    </ng-container>
+                </ng-container>
+    
+                <ng-container  cdkColumnDef="status">
+                    <th cdk-header-cell *cdkHeaderCellDef>Status</th>
+                    <ng-container cdk-cell *cdkCellDef="let contract">                       
+                        <td>
+                            <span fd-badge [status]="contract.status | status" modifier="pill"> {{contract.status}} </span>
+                        </td>
+                    </ng-container>
+                </ng-container> 
+    
+                <ng-container   cdkColumnDef="edit">
+                    <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
+                    <ng-container cdk-cell *cdkCellDef="let contract">                       
+                            <td>
+                              <button 
+                              fd-button
+                              [glyph]="'edit'"
+                              title="Edit Contract"
+                              (click)="openEditModal(contract)"
+                              [fdType]="'transparent'">
+                            </button>
+                        </td>
+                    </ng-container>
+                </ng-container>
+    
+                <ng-container   cdkColumnDef="remove">
+                        <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
+                        <ng-container cdk-cell *cdkCellDef="let contract">                       
+                            <td>
+                            <button 
+                              fd-button
+                              [glyph]="'delete'"
+                              title="Delete Contract"
+                              (click)="openConfirmModal()"
+                              [fdType]="'transparent'">
+                            </button>
+                            </td>
+                        </ng-container>
+                </ng-container>
+                <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
+    
+                <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['company', 'contact', 'signed', 'type', 'value', 'status','edit', 'remove']" style="cursor: grab;"></tr>
+            </table>
+        </fd-table-wrapper>
+    
+        
+        <div *ngIf="!(contracts)"
+             class="spinner-container">
+            <fd-busy-indicator [loading]="true"></fd-busy-indicator>
+        </div>
+    </fd-panel-body>
+</fd-panel>

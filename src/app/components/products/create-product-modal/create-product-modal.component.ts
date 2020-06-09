@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {ModalRef, ModalModule, ModalService} from '@fundamental-ngx/core';
+import {Component, OnInit, Inject} from '@angular/core';
+import {DialogRef, DialogModule, DialogService, DIALOG_REF} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MyValidation } from './../../contracts/create-contract-modal/create-contract-modal-int';
 import {CreateProductModalDetailedComponent} from './create-product-modal-detailed/create-product-modal-detailed.component';
@@ -54,17 +54,17 @@ export class CreateProductModalComponent implements OnInit {
     }
 
     openModal() {
-        this.modalService.open(CreateProductModalDetailedComponent, {
+        this.dialogService.open(CreateProductModalDetailedComponent, {
             width: '300px'
         });
     }
 
-    constructor(public modalRef: ModalRef, private modalService: ModalService) {
+    constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef, private dialogService: DialogService) {
     }
 
     ngOnInit() {
-        this.editMode = this.modalRef.data.editMode;
-        const product = this.modalRef.data.product;
+        this.editMode = this.dialogRef.data.editMode;
+        const product = this.dialogRef.data.product;
 
         if (this.editMode && product) {
             Object.keys(product).forEach(key => {
@@ -76,7 +76,7 @@ export class CreateProductModalComponent implements OnInit {
     }
 
     submitForm(): void {
-        this.modalRef.close(this.productForm.getRawValue());
+        this.dialogRef.close(this.productForm.getRawValue());
     }
 
 }
