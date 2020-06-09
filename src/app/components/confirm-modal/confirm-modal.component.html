@@ -1,11 +1,35 @@
-<fd-modal-header>
-    <h1 fd-modal-title>Are you sure?</h1>
-    <button fd-modal-close-btn (click)="modalRef.dismiss()"></button>
-</fd-modal-header>
-<fd-modal-body>
-    This action is permanent and cannot be reversed. Are you sure you want to continue?
-</fd-modal-body>
-<fd-modal-footer>
-    <button fd-button fdType="main" (click)="modalRef.close(true)">Delete</button>
-    <button fd-button fdType="light" (click)="modalRef.close(false)">Cancel</button>
-</fd-modal-footer>
+<fd-dialog>
+  <fd-dialog-header>
+    <h1 fd-dialog-title>Are you sure?</h1>
+    <button fd-dialog-close-btn (click)="dialogRef.dismiss()"></button>
+  </fd-dialog-header>
+  <fd-dialog-body>
+    <fd-panel>
+      <fd-panel-body>
+        This action is permanent and cannot be reversed. Are you sure you want to continue?
+      </fd-panel-body>
+    </fd-panel>
+  </fd-dialog-body>
+  <fd-dialog-footer>
+    <fd-dialog-footer-button>
+      <button 
+      fd-button
+      fd-dialog-decisive-button  
+      fdType="main"
+      [compact]="true"
+      (click)="dialogRef.close(true)">
+      Delete
+      </button>
+      </fd-dialog-footer-button>
+      <fd-dialog-footer-button>
+      <button
+      fd-dialog-decisive-button 
+      fd-button 
+      fdType="transparent" 
+      [compact]="true"
+      (click)="dialogRef.close(false)">
+        Cancel
+      </button>
+      </fd-dialog-footer-button>
+  </fd-dialog-footer>
+</fd-dialog>
