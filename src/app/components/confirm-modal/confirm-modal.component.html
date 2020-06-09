@@ -4,10 +4,32 @@
     <button fd-dialog-close-btn (click)="dialogRef.dismiss()"></button>
   </fd-dialog-header>
   <fd-dialog-body>
-      This action is permanent and cannot be reversed. Are you sure you want to continue?
+    <fd-panel>
+      <fd-panel-body>
+        This action is permanent and cannot be reversed. Are you sure you want to continue?
+      </fd-panel-body>
+    </fd-panel>
   </fd-dialog-body>
   <fd-dialog-footer>
-      <button fd-button fdType="main" (click)="dialogRef.close(true)">Delete</button>
-      <button fd-button fdType="transparent" (click)="dialogRef.close(false)">Cancel</button>
+    <fd-dialog-footer-button>
+      <button 
+      fd-button
+      fd-dialog-decisive-button  
+      fdType="main"
+      [compact]="true"
+      (click)="dialogRef.close(true)">
+      Delete
+      </button>
+      </fd-dialog-footer-button>
+      <fd-dialog-footer-button>
+      <button
+      fd-dialog-decisive-button 
+      fd-button 
+      fdType="transparent" 
+      [compact]="true"
+      (click)="dialogRef.close(false)">
+        Cancel
+      </button>
+      </fd-dialog-footer-button>
   </fd-dialog-footer>
 </fd-dialog>

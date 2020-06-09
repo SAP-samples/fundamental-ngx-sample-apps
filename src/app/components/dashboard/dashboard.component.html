@@ -25,7 +25,7 @@
         </ng-container>
         <div *ngIf="!(contracts)"
              class="spinner-container">
-            <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+            <fd-busy-indicator [loading]="true"></fd-busy-indicator>
         </div>
     </fd-panel-body>
 </fd-panel>
@@ -57,7 +57,7 @@
         </ng-container>
         <div *ngIf="!(contracts)"
              class="spinner-container">
-            <fd-loading-spinner [loading]="true"></fd-loading-spinner>
+            <fd-busy-indicator [loading]="true"></fd-busy-indicator>
         </div>
     </fd-panel-body>
 </fd-panel>

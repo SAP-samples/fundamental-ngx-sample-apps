@@ -1,6 +1,6 @@
 <fd-dialog>
   <fd-dialog-header>
-      <h1 fd-dialog-title>{{ editMode ? 'Edit' : 'Create'}} a Contract</h1>
+      <h1 fd-dialog-title>{{ editMode == true ? 'Edit' : 'Create'}} a Contract</h1>
       <button fd-dialog-close-btn
               (click)="dialogRef.dismiss()"></button>
               <!-- <button fd-button (click)="openModal()" [options]="'emphasized'">Open Second Modal</button> -->
@@ -64,19 +64,18 @@
         <fd-panel-body>
           <div fd-form-item>
             <label fd-form-label for="datepicker-input">Date signed: </label>
-              <fd-date-picker formControlName="date_signed"
+              <fd-date-picker formControlName="signed"
                 [type]="'single'"
-                [disableFunction]="myBlockFunction && myDisableFunction"
                 id="datepicker-input"
-                [state]="contractForm.get('date_signed').touched ? 
-                (contractForm.get('date_signed').valid ? 'success' : 'error'):
-                (contractForm.get('date_signed').valid ? '' : '')">
+                [state]="contractForm.get('signed').touched ? 
+                (contractForm.get('signed').valid ? 'success' : 'error'):
+                (contractForm.get('signed').valid ? '' : '')">
               </fd-date-picker>
               <fd-form-message 
-              *ngIf="contractForm.get('date_signed').invalid && contractForm.get('date_signed').touched"
-              [type]="contractForm.get('date_signed').touched ? 
-              (contractForm.get('date_signed').valid ? 'success' : 'error'):
-              (contractForm.get('date_signed').valid ? '' : '')">Must enter a date</fd-form-message>
+              *ngIf="contractForm.get('signed').invalid && contractForm.get('signed').touched"
+              [type]="contractForm.get('signed').touched ? 
+              (contractForm.get('signed').valid ? 'success' : 'error'):
+              (contractForm.get('signed').valid ? '' : '')">Must enter a date</fd-form-message>
           </div>
         </fd-panel-body>
       </fd-panel>
@@ -170,7 +169,7 @@
       type="submit"
       form="main-form"
       [disabled]="!contractForm.dirty || contractForm.invalid">
-        {{editMode ? 'Edit' : 'Create'}}
+        {{editMode == true? 'Edit' : 'Create'}}
       </button>
     </fd-dialog-footer-button>
     <fd-dialog-footer-button>

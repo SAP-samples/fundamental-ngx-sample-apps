@@ -16,7 +16,7 @@ export class CreateContractModalComponent implements OnInit {
     contractForm = new FormGroup({
         company: new FormControl('', [Validators.required]),
         contact: new FormControl('', [Validators.required]),
-        date_signed: new FormControl('', [Validators.required]),
+        signed: new FormControl('', [Validators.required]),
         type: new FormControl('', [Validators.required]),
         value: new FormControl('', [Validators.required, Validators.min(1)]),
         status: new FormControl('', [Validators.required]),
@@ -26,15 +26,15 @@ export class CreateContractModalComponent implements OnInit {
     date: FdDate = FdDate.getToday();
     validityName;
 
-    myDisableFunction = (d: FdDate) => {
-        const day = d.getDay();
-        return day === 6 || day === 0;
-    }
-    myBlockFunction =  (d: FdDate) => {
-        const firstDay = FdDate.getToday();
-        const lastDay = new FdDate(firstDay.year, firstDay.month, firstDay.day);
-        return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
-    }
+    // myDisableFunction = (d: FdDate) => {
+    //     const day = d.getDay();
+    //     return day === 6 || day === 0;
+    // }
+    // myBlockFunction =  (d: FdDate) => {
+    //     const firstDay = FdDate.getToday();
+    //     const lastDay = new FdDate(firstDay.year, firstDay.month, firstDay.day);
+    //     return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
+    // }
 
     constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef, private dialogService: DialogService) {
 
@@ -46,7 +46,7 @@ export class CreateContractModalComponent implements OnInit {
 
         if (this.editMode && contract) {
             Object.keys(contract).forEach(key => {
-                if (key === 'date_signed') {
+                if (key === 'signed') {
                     this.date = contract[key];
                 }
                 if (this.contractForm.controls[key]) {
@@ -58,7 +58,7 @@ export class CreateContractModalComponent implements OnInit {
 
     submitForm(): void {
         const tmpObj = this.contractForm.getRawValue();
-        tmpObj.date_signed = this.date;
+        tmpObj.signed = this.date;
         this.dialogRef.close(tmpObj);
     }
 
