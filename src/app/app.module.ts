@@ -23,7 +23,9 @@ import {
     TableModule,
     InlineHelpModule,
     MultiInputModule,
-    DialogRef
+    DialogRef,
+    NotificationModule,
+    IdentifierModule
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -37,6 +39,7 @@ import { CreateProductModalComponent } from './components/products/create-produc
 import { CreateProductModalDetailedComponent } from './components/products/create-product-modal/create-product-modal-detailed/create-product-modal-detailed.component';
 import {ProductsService} from './services/products/products.service';
 import {ContractsService} from './services/contracts/contracts.service';
+import { NotificationConfirmationComponent } from './shared/notification-confirmation/notification-confirmation.component';
 
 
 
@@ -51,7 +54,8 @@ import {ContractsService} from './services/contracts/contracts.service';
         ConfirmModalComponent,
         DashboardComponent,
         CreateProductModalComponent,
-        CreateProductModalDetailedComponent
+        CreateProductModalDetailedComponent,
+        NotificationConfirmationComponent
         
 
     ],
@@ -74,7 +78,9 @@ import {ContractsService} from './services/contracts/contracts.service';
         FormsModule,
         ProductSwitchModule,
         MultiInputModule,
+        NotificationModule,
         NestedListModule,
+        IdentifierModule,
         InlineHelpModule,
         ReactiveFormsModule,
         FormModule,
@@ -88,7 +94,8 @@ import {ContractsService} from './services/contracts/contracts.service';
         CreateContractModalComponent,
         ConfirmModalComponent,
         CreateProductModalComponent,
-        CreateProductModalDetailedComponent
+        CreateProductModalDetailedComponent,
+        NotificationConfirmationComponent
     ],
     bootstrap: [AppComponent],
 })

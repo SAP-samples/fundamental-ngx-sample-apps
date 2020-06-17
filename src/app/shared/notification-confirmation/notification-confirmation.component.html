@@ -1,0 +1,30 @@
+<fd-notification-header
+  (closeButtonClick)="notificationRef.dismiss('Close Icon Click')"
+  [type]="notificationRef.data.type">
+  <h3 fd-notification-title>{{ notificationRef.data.company }} Added</h3>
+</fd-notification-header>
+<fd-notification-body>
+    <div fd-notification-content>
+        <div fd-notification-avatar>
+            <span fd-identifier [size]="'s'" [circle]="true" aria-label="notificationRef.data.company">{{notificationRef.data.company.charAt(0)}}</span>
+        </div>
+        <div fd-notification-text>
+            <div fd-notification-description>
+              <p>
+                {{ notificationRef.data.contact }} 
+                {{ notificationRef.data.status }}  
+              </p>
+            </div>
+        </div>
+    </div>
+    <fd-notification-footer>
+        <div fd-notification-actions>
+            <button fd-button [fdType]="'positive'" (click)="notificationRef.close('OK')">
+                Ok
+            </button>
+            <button fd-button [fdType]="'negative'" (click)="notificationRef.dismiss()">
+                Undo
+            </button>
+        </div>
+    </fd-notification-footer>
+</fd-notification-body>
