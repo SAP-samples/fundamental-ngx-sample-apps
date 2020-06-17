@@ -2,13 +2,14 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, Subscription} from 'rxjs';
 import {Contract} from '../../models/contract.model';
-import {AlertService, DialogService, CalendarModule, FdDate} from '@fundamental-ngx/core';
+import {AlertService, DialogService, CalendarModule, FdDate, NotificationService} from '@fundamental-ngx/core';
 import {CreateContractModalComponent} from './create-contract-modal/create-contract-modal.component';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import { Product } from 'src/app/models/product.model';
 import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import {ContractsService} from 'src/app/services/contracts/contracts.service';
+import {NotificationConfirmationComponent} from 'src/app/shared/notification-confirmation/notification-confirmation.component';
 
 @Component({
     selector: 'app-contracts',
@@ -22,7 +23,7 @@ export class ContractsComponent implements OnInit {
     filteredDataSource: Contract[];
     subscription: Subscription;
     columnHeaders: string [] = ['company', 'contact', 'signed', 'type', 'value', 'status', 'edit', 'remove'];
-
+    contract: Contract = null;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
@@ -47,7 +48,12 @@ export class ContractsComponent implements OnInit {
 
 
 
-    constructor(contractService: ContractsService, db: AngularFirestore, private dialogService: DialogService, public alertService: AlertService) {
+    constructor(
+      private contractService: ContractsService, 
+      private dialogService: DialogService, 
+      public alertService: AlertService,
+      private notificationService: NotificationService
+      ) {
       contractService.getContractsObservable().subscribe(data => {
         const databaseData = Object.keys(data).map(i => data[i]);
         this.contracts = databaseData;
@@ -70,10 +76,28 @@ export class ContractsComponent implements OnInit {
             }
         }).afterClosed.subscribe(result => {
             if (result) {
-                this.alertService.open('Create not allowed in this version.', {
-                    type: 'warning'
-                });
-            }
+              // this.contractService.addContract(result);
+              this.contract = result;
+              const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                data: {
+                    company: result.company,
+                    contact: result.contact,
+                    status: result.status,
+                },
+                size: 'm',
+                type: 'success'
+            });
+    
+            notificationService.afterClosed.subscribe(
+                (result) => {
+                    if(result == 'OK'){
+                      this.contractService.addContract(this.contract);
+                    }
+                },
+                (error) => {
+                  this.contractService.deleteContract(this.contract.company);
+                }
+            );}
         }, () => {});
     }
 
@@ -95,12 +119,10 @@ export class ContractsComponent implements OnInit {
         }, () => {});
     }
 
-    openConfirmModal(): void {
+    openConfirmModal(company): void {
         this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
             if (result) {
-                this.alertService.open('Delete not allowed in this version.', {
-                    type: 'warning'
-                });
+              this.contractService.deleteContract(company);
             }
         }, () => {});
     }
