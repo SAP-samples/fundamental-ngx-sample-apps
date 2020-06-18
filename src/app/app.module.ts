@@ -40,6 +40,9 @@ import { CreateProductModalDetailedComponent } from './components/products/creat
 import {ProductsService} from './services/products/products.service';
 import {ContractsService} from './services/contracts/contracts.service';
 import { NotificationConfirmationComponent } from './shared/notification-confirmation/notification-confirmation.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { ForgotPasswordComponent } from './components/auth/login/forgot-password/forgot-password.component';
 
 
 
@@ -55,7 +58,10 @@ import { NotificationConfirmationComponent } from './shared/notification-confirm
         DashboardComponent,
         CreateProductModalComponent,
         CreateProductModalDetailedComponent,
-        NotificationConfirmationComponent
+        NotificationConfirmationComponent,
+        LoginComponent,
+        ForgotPasswordComponent,
+        
         
 
     ],
@@ -65,6 +71,7 @@ import { NotificationConfirmationComponent } from './shared/notification-confirm
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireDatabaseModule,
+        AngularFireAuthModule,
         CdkTableModule, DragDropModule,
         SideNavigationModule,
         PanelModule,
