@@ -71,9 +71,11 @@ export class ContractsComponent implements OnInit {
 
     openCreateModal(): void {
         this.dialogService.open(CreateContractModalComponent, {
+            responsivePadding: true,
             data: {
               editMode: false
             }
+            
         }).afterClosed.subscribe(result => {
             if (result) {
               // this.contractService.addContract(result);
