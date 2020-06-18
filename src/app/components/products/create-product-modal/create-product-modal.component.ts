@@ -55,7 +55,7 @@ export class CreateProductModalComponent implements OnInit {
 
     openModal() {
         this.dialogService.open(CreateProductModalDetailedComponent, {
-            width: '300px'
+          responsivePadding:true
         });
     }
 

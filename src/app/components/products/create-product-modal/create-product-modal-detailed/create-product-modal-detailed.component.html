@@ -9,8 +9,6 @@
       <form 
       [formGroup]="detailedProductForm"
       id="main-form">
-        <div fd-form-set>
-            <div fd-form-item>
               <label fd-form-label for="datepicker-input">Date signed: </label>
               <fd-date-picker 
               formControlName="product_date_signed"
@@ -28,8 +26,6 @@
               (detailedProductForm.get('product_date_signed').valid ? '' : '')">
                 Must enter a date
               </fd-form-message>
-            </div>
-        </div>
         </form>
       </fd-panel-body>
     </fd-panel>
