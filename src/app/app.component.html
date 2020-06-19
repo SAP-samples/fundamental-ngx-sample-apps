@@ -1,27 +1,49 @@
 <fd-shellbar>
+    <button
+        fd-shellbar-side-nav
+        fd-button
+        [fdType]="'transparent'"
+        [glyph]="'menu2'"
+        (click)="condensed = !condensed"></button>
     <fd-shellbar-logo>
         <a href="#" class="fd-shellbar__logo fd-shellbar__logo--image-replaced" aria-label="SAP"></a>
     </fd-shellbar-logo>
     <fd-shellbar-title>
-        Sample Fundamental-NGX Application
+        Angular Demo Application
     </fd-shellbar-title>
-    <fd-shellbar-actions>
+    <fd-shellbar-actions [user]="user" [userMenu]="userMenu" [closePopoverOnSelect]="true">
         <fd-product-switch>
             <fd-product-switch-body
                 [products]="list"
                 (productsChange)="productChangeHandle($event)">
             </fd-product-switch-body>
         </fd-product-switch>
-      <fd-shellbar-action
-      *ngFor="let action of actions"
-      [glyph]="action.glyph"
-      [callback]="action.callback"
-      [label]="action.label"
-  >
-  </fd-shellbar-action>
     </fd-shellbar-actions>
 </fd-shellbar>
 <div class="main-container-div" style="display: flex;">
-    <app-sidebar></app-sidebar>
+    <fd-side-nav  [condensed]="condensed">
+        <div fd-side-nav-main>
+            <ul fd-nested-list [textOnly]="false">
+                <li fd-nested-list-item>
+                    <a fd-nested-list-link [routerLink]="'/dashboard'" >
+                        <span fd-nested-list-icon [glyph]="'Chart-Tree-Map'"></span>
+                        <span fd-nested-list-title>Dashboard</span>
+                    </a>
+                </li>
+                <li fd-nested-list-item>
+                    <a fd-nested-list-link [routerLink]="'/contracts'">
+                        <span fd-nested-list-icon [glyph]="'customer-order-entry'"></span>
+                        <span fd-nested-list-title>Contracts</span>
+                    </a>
+                </li>
+                <li fd-nested-list-item>
+                    <a fd-nested-list-link [routerLink]="'/products'">
+                        <span fd-nested-list-icon [glyph]="'product'"></span>
+                        <span fd-nested-list-title>Products</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </fd-side-nav>
     <router-outlet></router-outlet>
 </div>
