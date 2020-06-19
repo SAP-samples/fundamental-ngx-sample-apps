@@ -4,39 +4,25 @@ import { auth } from  'firebase/app';
 import { AngularFireAuth } from  "@angular/fire/auth";
 import { User } from  'firebase';
 import {Observable, Observer, Subject} from 'rxjs';
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: User;
-
-
   private readonly _loggedIn: Subject<any> = new Subject<any>();
   private _userObserLoginObservable = this._loggedIn.asObservable();
 
-  userSubscription = this._userObserLoginObservable.subscribe((emitedValue) => {
-    console.log(emitedValue);
-  })
-
-  constructor(public  afAuth:  AngularFireAuth, public  router:  Router) {
-    this.afAuth.authState.subscribe(userFromAuth => {
-      if (userFromAuth) {
-        this.user = userFromAuth;
-        localStorage.setItem('user', JSON.stringify(this.user)); //store a user in local storage
-      } else {
-        localStorage.setItem('user', null);
-      }
-    })
-   }
+  constructor( public  afAuth:  AngularFireAuth, public  router:  Router, private cookie: CookieService) {}
    
    get userObserLoginObservable() {
      return this._userObserLoginObservable;
    }
 
    async login(email: string, password: string) {
-    var result = await this.afAuth.signInWithEmailAndPassword(email, password).then(() => {
+    var result = await this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
       this._loggedIn.next(true);
+      this.cookie.set("userid", loginInfo.user.uid);
       this.router.navigate(['/dashboard']);
     }).catch((error) => {
       console.log('invalid username and password')
@@ -45,8 +31,9 @@ export class AuthService {
 
   async register(email: string, password: string) {
     var result = await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
-        this.afAuth.signInWithEmailAndPassword(email, password).then(() => {
+        this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
           this._loggedIn.next(true);
+          this.cookie.set("userid", loginInfo.user.uid);
         this.router.navigate(['/dashboard']);
       }).catch((error) => {
         console.log('invalid username and password')
@@ -74,13 +61,14 @@ export class AuthService {
   async logout(){
     await this.afAuth.signOut();
     localStorage.removeItem('user');
+    this.cookie.delete('userid','/');
     this._loggedIn.next(false);
     this.router.navigate(['auth']);
   }
 
   get isLoggedIn(): boolean {
-    const  user  =  JSON.parse(localStorage.getItem('user'));
-    return  user  !==  null;
+    const user = this.cookie.get("userid");
+    return  user != '';
   }
 
   async  loginWithGoogle(){
