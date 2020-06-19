@@ -45,7 +45,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { ForgotPasswordComponent } from './components/auth/login/forgot-password/forgot-password.component';
 import { StatusToColorPipe } from './shared/status-to-color.pipe';
-
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -100,7 +100,12 @@ import { StatusToColorPipe } from './shared/status-to-color.pipe';
         ShellbarModule,
         IconModule
     ],
-    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ProductsService, ContractsService, StatusToColorPipe],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
+      CookieService,
+      ContractsService,
+      ProductsService, 
+      StatusToColorPipe
+    ],
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,

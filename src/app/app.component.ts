@@ -83,7 +83,15 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit() {
-
+    if(this.authService.isLoggedIn){
+      this.actions  = [
+        {
+            glyph: 'employee-rejections',
+            callback: () => {this.router.navigate(['auth']);},
+            label: 'Sign Out'
+        },
+      ];
+    }
     this.authService.userObserLoginObservable.subscribe(value => {
       if(!value) {
         this.actions = [
