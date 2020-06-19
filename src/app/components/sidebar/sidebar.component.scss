@@ -1,10 +1,10 @@
 :host {
     display: inline-block;
-    width: 255px;
     flex-shrink: 0;
     z-index: 2;
     background-color: var(--fd-color-background-2);
     transition: all 0.25s ease-in-out;
+    height: 100vh;
 }
 
 .bottom-content {
@@ -17,4 +17,12 @@
 
 fd-icon {
     padding-right:10px;
+}
+
+fd-side-nav {
+  height: 100vh;
+}
+
+.fd-side-nav__main-navigation {
+  height: 100vh;
 }

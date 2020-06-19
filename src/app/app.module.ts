@@ -14,9 +14,10 @@ import {
     AlertModule,
     BadgeLabelModule,
     ButtonModule, DatePickerModule, FormModule, IconModule,
+    InfoLabelModule,
     LayoutGridModule,
     BusyIndicatorModule, DialogModule, NestedListModule,
-    PanelModule,
+    LayoutPanelModule,
     ProductSwitchModule,
     ShellbarModule,
     SideNavigationModule,
@@ -43,6 +44,7 @@ import { NotificationConfirmationComponent } from './shared/notification-confirm
 import { LoginComponent } from './components/auth/login/login.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { ForgotPasswordComponent } from './components/auth/login/forgot-password/forgot-password.component';
+import { StatusToColorPipe } from './shared/status-to-color.pipe';
 
 
 
@@ -61,6 +63,7 @@ import { ForgotPasswordComponent } from './components/auth/login/forgot-password
         NotificationConfirmationComponent,
         LoginComponent,
         ForgotPasswordComponent,
+        StatusToColorPipe,
         
         
 
@@ -74,7 +77,7 @@ import { ForgotPasswordComponent } from './components/auth/login/forgot-password
         AngularFireAuthModule,
         CdkTableModule, DragDropModule,
         SideNavigationModule,
-        PanelModule,
+        LayoutPanelModule,
         ButtonModule,
         TableModule,
         BadgeLabelModule,
@@ -83,6 +86,7 @@ import { ForgotPasswordComponent } from './components/auth/login/forgot-password
         DialogModule,
         AlertModule,
         FormsModule,
+        InfoLabelModule,
         ProductSwitchModule,
         MultiInputModule,
         NotificationModule,
@@ -96,7 +100,7 @@ import { ForgotPasswordComponent } from './components/auth/login/forgot-password
         ShellbarModule,
         IconModule
     ],
-    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ProductsService, ContractsService],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ProductsService, ContractsService, StatusToColorPipe],
     entryComponents: [
         CreateContractModalComponent,
         ConfirmModalComponent,
