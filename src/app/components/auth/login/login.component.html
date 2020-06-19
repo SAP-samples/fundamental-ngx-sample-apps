@@ -1,0 +1,97 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="header">  
+    <h3>Login</h3>
+    <button glyph="account" fd-button fdType="positive" (click)="loginWithGoogle()">Sign In with google</button>
+  </div>
+  <div fd-form-item>
+    <label fd-form-label for="company-input">Email: </label>
+    <fd-form-input-message-group>
+      <input fd-form-control 
+      type="text"
+      id="company-input"
+      placeholder="Enter email"
+      formControlName="email"
+      [state]="loginForm.get('email').touched ? 
+      (loginForm.get('email').valid ? 'success' : 'error'):
+      (loginForm.get('email').valid ? '' : '')">
+      <fd-form-message 
+      *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched"
+      [type]="loginForm.get('email').touched ? 
+      (loginForm.get('email').valid ? 'success' : 'error'):
+      (loginForm.get('email').valid ? '' : '')">
+      Required Contact Name
+      </fd-form-message>
+    </fd-form-input-message-group>
+  </div>
+  <div fd-form-item>
+    <label fd-form-label for="company-input">Password: </label>
+    <fd-form-input-message-group>
+      <input fd-form-control 
+      type="password"
+      id="company-input"
+      placeholder="Enter password"
+      formControlName="password"
+      [state]="loginForm.get('password').touched ? 
+      (loginForm.get('password').valid ? 'success' : 'error'):
+      (loginForm.get('password').valid ? '' : '')">
+      <fd-form-message 
+      *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched"
+      [type]="loginForm.get('password').touched ? 
+      (loginForm.get('password').valid ? 'success' : 'error'):
+      (loginForm.get('password').valid ? '' : '')">
+      Required Contact Name
+      </fd-form-message>
+    </fd-form-input-message-group>
+  </div>
+    <div class="button-grouping">
+      <button [disabled]="loginForm.invalid" type="submit" fd-button [fdType]="'emphasized'">Login</button>
+      <button fd-button fdType="transparent" (click)="forgotPassword()">Forgot Password</button>
+    </div>
+</form>
+
+<form [formGroup]="signupForm" (ngSubmit)="signup()">
+  <h3>Sign Up</h3>
+  <div fd-form-item>
+    <label fd-form-label for="company-input">Email: </label>
+    <fd-form-input-message-group>
+      <input fd-form-control 
+      type="text"
+      id="company-input"
+      placeholder="Enter email"
+      formControlName="email"
+      [state]="signupForm.get('email').touched ? 
+      (signupForm.get('email').valid ? 'success' : 'error'):
+      (signupForm.get('email').valid ? '' : '')">
+      <fd-form-message 
+      *ngIf="signupForm.get('email').invalid && signupForm.get('email').touched"
+      [type]="signupForm.get('email').touched ? 
+      (signupForm.get('email').valid ? 'success' : 'error'):
+      (signupForm.get('email').valid ? '' : '')">
+      Required Contact Name
+      </fd-form-message>
+    </fd-form-input-message-group>
+  </div>
+  <div fd-form-item>
+    <label fd-form-label for="company-input">Password: </label>
+    <fd-form-input-message-group>
+      <input fd-form-control 
+      type="text"
+      id="company-input"
+      placeholder="Enter password"
+      formControlName="password"
+      [state]="signupForm.get('password').touched ? 
+      (signupForm.get('password').valid ? 'success' : 'error'):
+      (signupForm.get('password').valid ? '' : '')">
+      <fd-form-message 
+      *ngIf="signupForm.get('password').invalid && signupForm.get('password').touched"
+      [type]="signupForm.get('password').touched ? 
+      (signupForm.get('password').valid ? 'success' : 'error'):
+      (signupForm.get('password').valid ? '' : '')">
+      Required Contact Name
+      </fd-form-message>
+    </fd-form-input-message-group>
+  </div>
+  <div class="button-grouping">
+    <button [disabled]="signupForm.invalid" type="submit" fd-button [fdType]="'emphasized'">Sign Up</button>
+  </div>
+</form>
