@@ -12,6 +12,13 @@
                 (productsChange)="productChangeHandle($event)">
             </fd-product-switch-body>
         </fd-product-switch>
+      <fd-shellbar-action
+      *ngFor="let action of actions"
+      [glyph]="action.glyph"
+      [callback]="action.callback"
+      [label]="action.label"
+  >
+  </fd-shellbar-action>
     </fd-shellbar-actions>
 </fd-shellbar>
 <div class="main-container-div" style="display: flex;">

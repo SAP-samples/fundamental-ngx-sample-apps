@@ -10,6 +10,7 @@ import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import {ContractsService} from 'src/app/services/contracts/contracts.service';
 import {NotificationConfirmationComponent} from 'src/app/shared/notification-confirmation/notification-confirmation.component';
+import {AuthService} from 'src/app/services/auth/auth.service';
 
 @Component({
     selector: 'app-contracts',
@@ -49,6 +50,7 @@ export class ContractsComponent implements OnInit {
 
 
     constructor(
+      authService: AuthService,
       private contractService: ContractsService, 
       private dialogService: DialogService, 
       public alertService: AlertService,

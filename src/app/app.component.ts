@@ -1,13 +1,26 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { ProductSwitchItem } from '@fundamental-ngx/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { ProductSwitchItem, ShellbarUser, ShellbarUserMenu } from '@fundamental-ngx/core';
+import {AuthService} from './services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  constructor(private authService: AuthService, private router:  Router) {}
   title = 'ngx-sample-app';
+  userMenu: ShellbarUserMenu[];
+  user: ShellbarUser;
+  actions = [
+    {
+        glyph: 'customer',
+        callback: () => {this.router.navigate(['auth']);},
+        label: 'Authentication'
+    },
+  ];
 
   list: ProductSwitchItem[] = [
     {
@@ -67,7 +80,36 @@ export class AppComponent {
     },
 ];
 
-productChangeHandle(products: ProductSwitchItem[]): void {
-    this.list = products;
-}
+
+
+  ngOnInit() {
+
+    this.authService.userObserLoginObservable.subscribe(value => {
+      if(!value) {
+        this.actions = [
+          {
+              glyph: 'customer',
+              callback: () => {this.router.navigate(['auth']);},
+              label: 'Authentication'
+          },
+      ];
+      } else if (value) {
+        this.actions = [
+          {
+              glyph: 'employee-rejections',
+              callback: () => {this.authService.logout()},
+              label: 'Sign Out'
+          }
+        ];
+      }
+    })
+  }
+
+  auth() {
+    // this.router.navigate(['auth']);
+  }
+
+  productChangeHandle(products: ProductSwitchItem[]): void {
+      this.list = products;
+  }
 }
