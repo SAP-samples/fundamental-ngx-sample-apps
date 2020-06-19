@@ -3,7 +3,7 @@ import { Router } from  "@angular/router";
 import { auth } from  'firebase/app';
 import { AngularFireAuth } from  "@angular/fire/auth";
 import { User } from  'firebase';
-import {Observable, Observer} from 'rxjs';
+import {Observable, Observer, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +11,11 @@ import {Observable, Observer} from 'rxjs';
 export class AuthService {
   private user: User;
 
-  private _userObserLoginvable = new Observable ((observer)=> {
-    observer.next('Login');
-  })
 
-  private _userLogoutObservable = new Observable ((observer)=> {
-    observer.next('Logout');
-  })
+  private readonly _loggedIn: Subject<any> = new Subject<any>();
+  private _userObserLoginObservable = this._loggedIn.asObservable();
 
-  private _userSignUpObservable = new Observable ((observer)=> {
-    observer.next('SignUp');
-  })
-
-  userSubscription = this.userObservable.subscribe((emitedValue) => {
+  userSubscription = this._userObserLoginObservable.subscribe((emitedValue) => {
     console.log(emitedValue);
   })
 
@@ -38,20 +30,13 @@ export class AuthService {
     })
    }
    
-   get userObservable() {
-     return this._userObserLoginvable;
+   get userObserLoginObservable() {
+     return this._userObserLoginObservable;
    }
-
-   get userLogoutObservable() {
-    return this._userLogoutObservable;
-  }
-
-  get userSignUpObservable() {
-    return this._userSignUpObservable;
-  }
 
    async login(email: string, password: string) {
     var result = await this.afAuth.signInWithEmailAndPassword(email, password).then(() => {
+      this._loggedIn.next(true);
       this.router.navigate(['/dashboard']);
     }).catch((error) => {
       console.log('invalid username and password')
@@ -61,6 +46,7 @@ export class AuthService {
   async register(email: string, password: string) {
     var result = await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
         this.afAuth.signInWithEmailAndPassword(email, password).then(() => {
+          this._loggedIn.next(true);
         this.router.navigate(['/dashboard']);
       }).catch((error) => {
         console.log('invalid username and password')
@@ -88,6 +74,7 @@ export class AuthService {
   async logout(){
     await this.afAuth.signOut();
     localStorage.removeItem('user');
+    this._loggedIn.next(false);
     this.router.navigate(['auth']);
   }
 
@@ -98,6 +85,7 @@ export class AuthService {
 
   async  loginWithGoogle(){
     await  this.afAuth.signInWithPopup(new auth.GoogleAuthProvider()).then(() => {
+      this._loggedIn.next(true);
       this.router.navigate(['/dashboard']);
     }).catch((error) => {
       console.log('Action did not get completed with google')
