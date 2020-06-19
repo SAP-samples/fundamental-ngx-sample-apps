@@ -10,10 +10,9 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private authService: AuthService, private router:  Router) {}
-  title = 'ngx-sample-app';
-  userMenu: ShellbarUserMenu[];
-  user: ShellbarUser;
+  constructor(private authService: AuthService, private router: Router) {}
+  title = 'Fundamental NGX Demo';
+  condensed: boolean = false;
   actions = [
     {
         glyph: 'customer',
@@ -120,4 +119,20 @@ export class AppComponent implements OnInit{
   productChangeHandle(products: ProductSwitchItem[]): void {
       this.list = products;
   }
+
+  user: ShellbarUser = {
+    initials: 'WW',
+    image: 'https://placeimg.com/400/400/people'
+    // colorAccent: 11
+  };
+
+  userMenu: ShellbarUserMenu[] = [
+      { text: 'Settings', callback: this.settingsCallback },
+      { text: 'Sign Out', callback: () => this.router.navigate(['auth'])}
+  ];
+
+  settingsCallback() {
+      alert('Settings Clicked');
+  }
+
 }

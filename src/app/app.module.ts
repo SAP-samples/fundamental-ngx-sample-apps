@@ -8,7 +8,6 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
-import {SidebarComponent} from './components/sidebar/sidebar.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
@@ -51,7 +50,6 @@ import { CookieService } from 'ngx-cookie-service';
 @NgModule({
     declarations: [
         AppComponent,
-        SidebarComponent,
         ContractsComponent,
         ProductsComponent,
         StatusPipe,
