@@ -4,8 +4,8 @@
         <button fd-dialog-close-btn (click)="closeModal()"></button>
     </fd-dialog-header>
     <fd-dialog-body>
-      <fd-panel>
-        <fd-panel-body>
+      <fd-layout-panel>
+        <fd-layout-panel-body>
       <form 
       [formGroup]="detailedProductForm"
       id="main-form">
@@ -27,8 +27,8 @@
                 Must enter a date
               </fd-form-message>
         </form>
-      </fd-panel-body>
-    </fd-panel>
+      </fd-layout-panel-body>
+    </fd-layout-panel>
     </fd-dialog-body>
     <fd-dialog-footer>
       <fd-dialog-footer-button>

@@ -1,19 +1,19 @@
-<fd-panel>
-    <fd-panel-header>
-        <fd-panel-head>
+<fd-layout-panel>
+    <fd-layout-panel-header>
+        <fd-layout-panel-head>
             <h2>Products</h2>
-            <fd-panel-description>Manage the products recorded by various company representatives.
-            </fd-panel-description>
-        </fd-panel-head>
-        <fd-panel-actions>
+            <fd-layout-panel-description>Manage the products recorded by various company representatives.
+            </fd-layout-panel-description>
+        </fd-layout-panel-head>
+        <fd-layout-panel-actions>
             <button fd-button
                     fdType="transparent"
                     glyph="add"
                     (click)="openCreateModal()">
             </button>
-        </fd-panel-actions>
-    </fd-panel-header>
-    <fd-panel-filters *ngIf="products">
+        </fd-layout-panel-actions>
+    </fd-layout-panel-header>
+    <fd-layout-panel-filters *ngIf="products">
       <fd-multi-input 
       [dropdownValues]="products"
       [placeholder]="'Search here...'"
@@ -21,8 +21,8 @@
       (ngModelChange)="refresh()"
       [displayFn]="displayFunc">
       </fd-multi-input><span *ngFor="let item of selected; let i = index"></span>
-    </fd-panel-filters>
-    <fd-panel-body *ngIf="products">
+    </fd-layout-panel-filters>
+    <fd-layout-panel-body *ngIf="products">
       <fd-table-wrapper *ngIf="selected && dataSource">
         <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
                 <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
@@ -72,7 +72,7 @@
                 <th cdk-header-cell *cdkHeaderCellDef>Status</th>
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                         <td>
-                        <span fd-badge [status]="product.status | status" modifier="pill"> {{product.status}} </span>
+                        <span fd-info-label [color]="product.status | statusToColor" modifier="pill"> {{product.status}} </span>
                     </td>
                 </ng-container>
             </ng-container> 
@@ -106,13 +106,10 @@
                         </td>
                     </ng-container>
             </ng-container>
-            <!-- <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
-
-            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr> -->
         </table>
     </fd-table-wrapper>
-    </fd-panel-body>
-</fd-panel>
+    </fd-layout-panel-body>
+</fd-layout-panel>
 <div *ngIf="!(products)"
       class="spinner-container">
     <fd-busy-indicator [loading]="true"></fd-busy-indicator>
