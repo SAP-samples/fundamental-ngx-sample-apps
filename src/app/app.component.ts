@@ -10,14 +10,17 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private authService: AuthService, private router:  Router) {
-    this.authenticated = authService.isLoggedIn;
-  }
+  constructor(private authService: AuthService, private router:  Router) {}
   title = 'ngx-sample-app';
-  authenticated = false;
   userMenu: ShellbarUserMenu[];
   user: ShellbarUser;
-  actions = [];
+  actions = [
+    {
+        glyph: 'customer',
+        callback: () => {this.router.navigate(['auth']);},
+        label: 'Authentication'
+    },
+  ];
 
   list: ProductSwitchItem[] = [
     {
@@ -80,25 +83,26 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit() {
-    this.authenticated = this.authService.isLoggedIn;
-    if(!this.authenticated) {
 
-      this.actions = [
-        {
-            glyph: 'customer',
-            callback: () => {this.router.navigate(['auth']);},
-            label: 'Authentication'
-        },
-    ];
-    } else if (this.authenticated) {
-      this.actions = [
-        {
-            glyph: 'employee-rejections',
-            callback: () => {this.authService.logout()},
-            label: 'Sign Out'
-        }
+    this.authService.userObserLoginObservable.subscribe(value => {
+      if(!value) {
+        this.actions = [
+          {
+              glyph: 'customer',
+              callback: () => {this.router.navigate(['auth']);},
+              label: 'Authentication'
+          },
       ];
-    }
+      } else if (value) {
+        this.actions = [
+          {
+              glyph: 'employee-rejections',
+              callback: () => {this.authService.logout()},
+              label: 'Sign Out'
+          }
+        ];
+      }
+    })
   }
 
   auth() {
