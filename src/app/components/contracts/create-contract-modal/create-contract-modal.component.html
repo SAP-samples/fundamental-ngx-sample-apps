@@ -3,7 +3,6 @@
       <h1 fd-dialog-title>{{ editMode == true ? 'Edit' : 'Create'}} a Contract</h1>
       <button fd-dialog-close-btn
               (click)="dialogRef.dismiss()"></button>
-              <!-- <button fd-button (click)="openModal()" [options]="'emphasized'">Open Second Modal</button> -->
   </fd-dialog-header>
   <fd-dialog-body>
     <form [formGroup]="contractForm"
