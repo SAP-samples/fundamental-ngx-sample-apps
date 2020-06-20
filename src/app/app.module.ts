@@ -1,13 +1,13 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {CdkTableModule } from '@angular/cdk/table';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {environment} from '../environments/environment';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
@@ -32,13 +32,13 @@ import { ProductsComponent } from './components/products/products.component';
 import { StatusPipe } from './components/contracts/status.pipe';
 import { CreateContractModalComponent } from './components/contracts/create-contract-modal/create-contract-modal.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateProductModalComponent } from './components/products/create-product-modal/create-product-modal.component';
 import { CreateProductModalDetailedComponent } from './components/products/create-product-modal/create-product-modal-detailed/create-product-modal-detailed.component';
-import {ProductsService} from './services/products/products.service';
-import {ContractsService} from './services/contracts/contracts.service';
+import { ProductsService } from './services/products/products.service';
+import { ContractsService } from './services/contracts/contracts.service';
 import { NotificationConfirmationComponent } from './shared/notification-confirmation/notification-confirmation.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -61,10 +61,7 @@ import { CookieService } from 'ngx-cookie-service';
         NotificationConfirmationComponent,
         LoginComponent,
         ForgotPasswordComponent,
-        StatusToColorPipe,
-        
-        
-
+        StatusToColorPipe
     ],
     imports: [
         BrowserModule,
