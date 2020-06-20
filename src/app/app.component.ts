@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ProductSwitchItem, ShellbarUser, ShellbarUserMenu } from '@fundamental-ngx/core';
-import {AuthService} from './services/auth/auth.service';
-import {Router} from '@angular/router';
+import { AuthService } from './services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +12,8 @@ export class AppComponent implements OnInit{
 
   constructor(private authService: AuthService, private router: Router) {}
   title = 'Fundamental NGX Demo';
+  actions = [];
   condensed: boolean = false;
-  actions = [
-    {
-        glyph: 'customer',
-        callback: () => {this.router.navigate(['auth']);},
-        label: 'Authentication'
-    },
-  ];
 
   list: ProductSwitchItem[] = [
     {
@@ -79,8 +73,6 @@ export class AppComponent implements OnInit{
     },
 ];
 
-
-
   ngOnInit() {
     if(this.authService.isLoggedIn){
       this.actions  = [
@@ -110,20 +102,15 @@ export class AppComponent implements OnInit{
         ];
       }
     })
-  }
-
-  auth() {
-    // this.router.navigate(['auth']);
-  }
+  };
 
   productChangeHandle(products: ProductSwitchItem[]): void {
       this.list = products;
-  }
+  };
 
   user: ShellbarUser = {
     initials: 'WW',
     image: 'https://placeimg.com/400/400/people'
-    // colorAccent: 11
   };
 
   userMenu: ShellbarUserMenu[] = [

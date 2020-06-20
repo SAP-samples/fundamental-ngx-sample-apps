@@ -9,7 +9,7 @@
         <a href="#" class="fd-shellbar__logo fd-shellbar__logo--image-replaced" aria-label="SAP"></a>
     </fd-shellbar-logo>
     <fd-shellbar-title>
-        Angular Demo Application
+        Customer Insights
     </fd-shellbar-title>
     <fd-shellbar-actions [user]="user" [userMenu]="userMenu" [closePopoverOnSelect]="true">
         <fd-product-switch>
@@ -26,13 +26,13 @@
             <ul fd-nested-list [textOnly]="false">
                 <li fd-nested-list-item>
                     <a fd-nested-list-link [routerLink]="'/dashboard'" >
-                        <span fd-nested-list-icon [glyph]="'Chart-Tree-Map'"></span>
+                        <span fd-nested-list-icon [glyph]="'business-by-design'"></span>
                         <span fd-nested-list-title>Dashboard</span>
                     </a>
                 </li>
                 <li fd-nested-list-item>
                     <a fd-nested-list-link [routerLink]="'/contracts'">
-                        <span fd-nested-list-icon [glyph]="'customer-order-entry'"></span>
+                        <span fd-nested-list-icon [glyph]="'work-history'"></span>
                         <span fd-nested-list-title>Contracts</span>
                     </a>
                 </li>
@@ -40,6 +40,16 @@
                     <a fd-nested-list-link [routerLink]="'/products'">
                         <span fd-nested-list-icon [glyph]="'product'"></span>
                         <span fd-nested-list-title>Products</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div fd-side-nav-utility>
+            <ul fd-nested-list [textOnly]="false">
+                <li fd-nested-list-item>
+                    <a fd-nested-list-link [routerLink]="'/users'" >
+                        <span fd-nested-list-icon [glyph]="'user-settings'"></span>
+                        <span fd-nested-list-title>Users</span>
                     </a>
                 </li>
             </ul>
