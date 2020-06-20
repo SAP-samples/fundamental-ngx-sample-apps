@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background-color: var(--fd-color-background-2);
+    background-color: var(--fd-color-background-2);//TODO
 }
 
 .action-button {
@@ -17,7 +17,7 @@
     margin-left: 24px;
     display: inline-block;
     cursor: pointer;
-    color: var(--fd-color-action-1);
+    color: var(--fd-color-action-1);//TODO
 
     &:hover {
         transform: scale(1.25);
