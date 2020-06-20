@@ -25,5 +25,5 @@ Please post an issue on this repository's issues section.
 
 ## License
 
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. 
+Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. 
 This file is licensed under the SAP Sample Code License Agreement except as noted otherwise in the [LICENSE file](LICENSE).
