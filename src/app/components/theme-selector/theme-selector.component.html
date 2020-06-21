@@ -1,0 +1,59 @@
+<fd-dialog>
+    <fd-dialog-header>
+        <h1 fd-dialog-title>User Settings</h1>
+        <button fd-dialog-close-button (click)="closeModal()"></button>
+    </fd-dialog-header>
+    <fd-dialog-body>
+        <form [formGroup]="customForm" class="flex-form">
+            <fd-layout-grid [col]="1" [nogap]="true">
+                <fd-layout-panel>
+                    <fd-layout-panel-body>
+                        <div fd-form-item>
+                            <label fd-form-label for="themeSelector">Theme:</label>
+                            <fd-select id="themeSelector" formControlName="selectControl1">
+                                <fd-option *ngFor="let option of options1" [value]="option">{{option}}</fd-option>
+                            </fd-select>
+                        </div>
+                    </fd-layout-panel-body>
+                </fd-layout-panel>
+                <fd-layout-panel>
+                    <fd-layout-panel-body>
+                        <div fd-form-item>
+                            <label fd-form-label for="densitySelector">Content Density:</label>
+                            <fd-select fd-form-control id="densitySelector" formControlName="selectControl2">
+                                <fd-option *ngFor="let option of options2" [value]="option">{{option}}</fd-option>
+                            </fd-select>
+                        </div>
+                    </fd-layout-panel-body>
+                </fd-layout-panel>
+            </fd-layout-grid>
+            <!-- <fieldset fd-fieldset>
+                <div fd-form-item>
+                    <label fd-form-label for="themeSelector">Theme:</label>
+                    <fd-select id="themeSelector" formControlName="selectControl1">
+                        <fd-option *ngFor="let option of options1" [value]="option">{{option}}</fd-option>
+                    </fd-select>
+                </div>
+                <div fd-form-item>
+                    <label fd-form-label for="densitySelector">Content Density:</label>
+                    <fd-select id="densitySelector" formControlName="selectControl2">
+                        <fd-option *ngFor="let option of options2" [value]="option">{{option}}</fd-option>
+                    </fd-select>
+                </div>
+            </fieldset> -->
+        </form>
+    </fd-dialog-body>
+    <fd-dialog-footer>
+        <fd-dialog-footer-button>
+            <button 
+            fd-button 
+            fd-dialog-decisive-button
+            (click)="closeModal()" 
+            [compact]="true"
+            [fdType]="'emphasized'">
+              Close
+            </button>
+        </fd-dialog-footer-button>
+    </fd-dialog-footer>
+</fd-dialog>
+

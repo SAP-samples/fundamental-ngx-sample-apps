@@ -1,7 +1,9 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ProductSwitchItem, ShellbarUser, ShellbarUserMenu } from '@fundamental-ngx/core';
+import { ProductSwitchItem, ShellbarUser, ShellbarUserMenu, DialogService } from '@fundamental-ngx/core';
 import { AuthService } from './services/auth/auth.service';
 import { Router } from '@angular/router';
+
+import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private dialogService: DialogService,) {}
   title = 'Fundamental NGX Demo';
   actions = [];
   condensed: boolean = false;
@@ -114,12 +116,29 @@ export class AppComponent implements OnInit{
   };
 
   userMenu: ShellbarUserMenu[] = [
-      { text: 'Settings', callback: this.settingsCallback },
+      { text: 'Settings', callback: () => {
+        console.log('before open');
+        this.dialogService.open(ThemeSelectorComponent).afterClosed.subscribe(result => {
+          if (result) {
+            console.log("Closed theme selector");
+          }
+      }, () => { });
+      } },
       { text: 'Sign Out', callback: () => this.router.navigate(['auth'])}
   ];
 
   settingsCallback() {
       alert('Settings Clicked');
   }
+
+  openCreateModal(): void {
+    this.dialogService.open(
+        ThemeSelectorComponent, 
+        {responsivePadding:true}).afterClosed.subscribe(result => {
+        if (result) {
+          console.log("Closed theme selector");
+        }
+    }, () => { });
+}
 
 }
