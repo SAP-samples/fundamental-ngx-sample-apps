@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ProductSwitchItem, ShellbarUser, ShellbarUserMenu, DialogService } from '@fundamental-ngx/core';
 import { AuthService } from './services/auth/auth.service';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 
@@ -12,10 +13,20 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
 })
 export class AppComponent implements OnInit{
 
-  constructor(private authService: AuthService, private router: Router, private dialogService: DialogService,) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private dialogService: DialogService, 
+    private sanitizer: DomSanitizer) {}
   title = 'Fundamental NGX Demo';
   actions = [];
+  settings = {
+    theme: 'sap_fiori_3', 
+    mode: 'cozy'
+  };
   condensed: boolean = false;
+
+  cssUrl: SafeResourceUrl;
 
   list: ProductSwitchItem[] = [
     {
@@ -76,6 +87,7 @@ export class AppComponent implements OnInit{
 ];
 
   ngOnInit() {
+    this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/sap_fiori_3.css');
     if(this.authService.isLoggedIn){
       this.actions  = [
         {
@@ -117,28 +129,18 @@ export class AppComponent implements OnInit{
 
   userMenu: ShellbarUserMenu[] = [
       { text: 'Settings', callback: () => {
-        console.log('before open');
-        this.dialogService.open(ThemeSelectorComponent).afterClosed.subscribe(result => {
-          if (result) {
-            console.log("Closed theme selector");
-          }
-      }, () => { });
-      } },
+        this.dialogService.open(
+          ThemeSelectorComponent, 
+          { responsivePadding:true, 
+            data: this.settings})
+          .afterClosed.subscribe(result => {
+            if (result) {
+              this.settings = result;
+              this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/' + this.settings.theme + '.css');
+            }
+          }, () => { });
+          } },
       { text: 'Sign Out', callback: () => this.router.navigate(['auth'])}
   ];
-
-  settingsCallback() {
-      alert('Settings Clicked');
-  }
-
-  openCreateModal(): void {
-    this.dialogService.open(
-        ThemeSelectorComponent, 
-        {responsivePadding:true}).afterClosed.subscribe(result => {
-        if (result) {
-          console.log("Closed theme selector");
-        }
-    }, () => { });
-}
 
 }

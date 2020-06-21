@@ -11,7 +11,7 @@
                         <div fd-form-item>
                             <label fd-form-label for="themeSelector">Theme:</label>
                             <fd-select id="themeSelector" formControlName="selectControl1">
-                                <fd-option *ngFor="let option of options1" [value]="option">{{option}}</fd-option>
+                                <fd-option *ngFor="let option of themes" [value]="option.id">{{option.name}}</fd-option>
                             </fd-select>
                         </div>
                     </fd-layout-panel-body>
@@ -21,7 +21,7 @@
                         <div fd-form-item>
                             <label fd-form-label for="densitySelector">Content Density:</label>
                             <fd-select fd-form-control id="densitySelector" formControlName="selectControl2">
-                                <fd-option *ngFor="let option of options2" [value]="option">{{option}}</fd-option>
+                                <fd-option *ngFor="let option of modes" [value]="option.id">{{option.name}}</fd-option>
                             </fd-select>
                         </div>
                     </fd-layout-panel-body>
