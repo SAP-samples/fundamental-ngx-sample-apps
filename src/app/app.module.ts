@@ -12,20 +12,26 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
     BadgeLabelModule,
-    ButtonModule, DatePickerModule, FormModule, IconModule,
+    BusyIndicatorModule,
+    ButtonModule, 
+    DatePickerModule,  
+    DialogModule,
+    DialogRef,
+    FormModule, 
+    IconModule,
+    IdentifierModule,
     InfoLabelModule,
-    LayoutGridModule,
-    BusyIndicatorModule, DialogModule, NestedListModule,
+    InlineHelpModule,
+    LayoutGridModule, 
     LayoutPanelModule,
+    MultiInputModule,
+    NestedListModule,
+    NotificationModule,
     ProductSwitchModule,
+    SelectModule,
     ShellbarModule,
     SideNavigationModule,
     TableModule,
-    InlineHelpModule,
-    MultiInputModule,
-    DialogRef,
-    NotificationModule,
-    IdentifierModule
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -45,7 +51,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { ForgotPasswordComponent } from './components/auth/login/forgot-password/forgot-password.component';
 import { StatusToColorPipe } from './shared/status-to-color.pipe';
 import { CookieService } from 'ngx-cookie-service';
-
+import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 
 @NgModule({
     declarations: [
@@ -61,39 +67,42 @@ import { CookieService } from 'ngx-cookie-service';
         NotificationConfirmationComponent,
         LoginComponent,
         ForgotPasswordComponent,
-        StatusToColorPipe
+        StatusToColorPipe,
+        ThemeSelectorComponent
     ],
     imports: [
+        AlertModule,
+        BadgeLabelModule,
+        BrowserAnimationsModule,
         BrowserModule,
-        AppRoutingModule,
+        BusyIndicatorModule,
+        ButtonModule,
+        AngularFireAuthModule,
+        AngularFireDatabaseModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
-        AngularFireDatabaseModule,
-        AngularFireAuthModule,
-        CdkTableModule, DragDropModule,
-        SideNavigationModule,
-        LayoutPanelModule,
-        ButtonModule,
-        TableModule,
-        BadgeLabelModule,
-        LayoutGridModule,
-        BusyIndicatorModule,
-        DialogModule,
-        AlertModule,
-        FormsModule,
-        InfoLabelModule,
-        ProductSwitchModule,
-        MultiInputModule,
-        NotificationModule,
-        NestedListModule,
-        IdentifierModule,
-        InlineHelpModule,
-        ReactiveFormsModule,
-        FormModule,
+        AppRoutingModule,
+        CdkTableModule, 
         DatePickerModule,
-        BrowserAnimationsModule,
+        DialogModule,
+        DragDropModule,
+        FormModule,
+        FormsModule,
+        IconModule,
+        IdentifierModule,
+        InfoLabelModule,
+        InlineHelpModule,
+        LayoutGridModule,
+        LayoutPanelModule,
+        MultiInputModule,
+        NestedListModule,
+        NotificationModule,
+        ProductSwitchModule,
+        ReactiveFormsModule,
+        SelectModule,
+        SideNavigationModule,
         ShellbarModule,
-        IconModule
+        TableModule
     ],
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
       CookieService,
@@ -106,7 +115,9 @@ import { CookieService } from 'ngx-cookie-service';
         ConfirmModalComponent,
         CreateProductModalComponent,
         CreateProductModalDetailedComponent,
-        NotificationConfirmationComponent
+        NotificationConfirmationComponent,
+        ThemeSelectorComponent
+
     ],
     bootstrap: [AppComponent],
 })
