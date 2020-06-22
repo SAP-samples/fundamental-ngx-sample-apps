@@ -52,12 +52,13 @@ export class ThemeSelectorComponent implements OnInit {
     this.customForm = new FormGroup({
       selectControl1: new FormControl(this.dialogRef.data.theme, Validators.required),
       selectControl2: new FormControl(this.dialogRef.data.mode, Validators.required),
+      luigiUi: new FormControl(false),
   });
   };
 
   closeModal() {
     event.preventDefault();
-    this.dialogRef.close( {theme: this.customForm.controls.selectControl1.value, mode: this.customForm.controls.selectControl2.value});
+    this.dialogRef.close( {theme: this.customForm.controls.selectControl1.value, mode: this.customForm.controls.selectControl2.value, luigi: this.customForm.controls.luigiUi.value});
   };
 
 

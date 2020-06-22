@@ -16,7 +16,6 @@ import {
     ButtonModule, 
     DatePickerModule,  
     DialogModule,
-    DialogRef,
     FormModule, 
     IconModule,
     IdentifierModule,
@@ -32,6 +31,7 @@ import {
     ShellbarModule,
     SideNavigationModule,
     TableModule,
+    CheckboxModule,
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -52,6 +52,7 @@ import { ForgotPasswordComponent } from './components/auth/login/forgot-password
 import { StatusToColorPipe } from './shared/status-to-color.pipe';
 import { CookieService } from 'ngx-cookie-service';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import {LuigiUiService} from './services/luigi-ui/luigi-ui.service';
 
 @NgModule({
     declarations: [
@@ -82,7 +83,8 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AppRoutingModule,
-        CdkTableModule, 
+        CdkTableModule,
+        CheckboxModule,
         DatePickerModule,
         DialogModule,
         DragDropModule,
@@ -108,7 +110,8 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
       CookieService,
       ContractsService,
       ProductsService, 
-      StatusToColorPipe
+      StatusToColorPipe,
+      LuigiUiService
     ],
     entryComponents: [
         CreateContractModalComponent,

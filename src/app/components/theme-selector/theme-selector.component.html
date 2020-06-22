@@ -5,28 +5,27 @@
     </fd-dialog-header>
     <fd-dialog-body>
         <form [formGroup]="customForm" class="flex-form">
-            <fd-layout-grid [col]="1" [nogap]="true">
-                <fd-layout-panel>
-                    <fd-layout-panel-body>
-                        <div fd-form-item>
-                            <label fd-form-label for="themeSelector">Theme:</label>
-                            <fd-select id="themeSelector" formControlName="selectControl1">
-                                <fd-option *ngFor="let option of themes" [value]="option.id">{{option.name}}</fd-option>
-                            </fd-select>
-                        </div>
-                    </fd-layout-panel-body>
-                </fd-layout-panel>
-                <fd-layout-panel>
-                    <fd-layout-panel-body>
-                        <div fd-form-item>
-                            <label fd-form-label for="densitySelector">Content Density:</label>
-                            <fd-select fd-form-control id="densitySelector" formControlName="selectControl2">
-                                <fd-option *ngFor="let option of modes" [value]="option.id">{{option.name}}</fd-option>
-                            </fd-select>
-                        </div>
-                    </fd-layout-panel-body>
-                </fd-layout-panel>
-            </fd-layout-grid>
+          <div fd-form-item>
+              <label fd-form-label for="themeSelector">Theme:</label>
+              <fd-select id="themeSelector" formControlName="selectControl1">
+                  <fd-option *ngFor="let option of themes" [value]="option.id">{{option.name}}</fd-option>
+              </fd-select>
+          </div>
+
+          <div fd-form-item>
+              <label fd-form-label for="densitySelector">Content Density:</label>
+              <fd-select fd-form-control id="densitySelector" formControlName="selectControl2">
+                  <fd-option *ngFor="let option of modes" [value]="option.id">{{option.name}}</fd-option>
+              </fd-select>
+          </div>
+
+
+          <div fd-form-item>
+            <label fd-form-label for="luigi">Luigi Ui:</label>
+            <fd-checkbox label="luigi" formControlName="luigiUi"></fd-checkbox>
+
+          </div>
+
             <!-- <fieldset fd-fieldset>
                 <div fd-form-item>
                     <label fd-form-label for="themeSelector">Theme:</label>

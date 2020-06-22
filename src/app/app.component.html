@@ -1,4 +1,4 @@
-<fd-shellbar>
+<fd-shellbar *ngIf="!luigiOption">
     <button
         fd-shellbar-side-nav
         fd-button
@@ -21,7 +21,7 @@
     </fd-shellbar-actions>
 </fd-shellbar>
 <div class="main-container-div">
-    <fd-side-nav  [condensed]="condensed">
+    <fd-side-nav  [condensed]="condensed" *ngIf="!luigiOption">
         <div fd-side-nav-main>
             <ul fd-nested-list [textOnly]="false">
                 <li fd-nested-list-item>
