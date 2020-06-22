@@ -18,6 +18,8 @@ export class AppComponent implements OnInit{
     private router: Router, 
     private dialogService: DialogService, 
     private sanitizer: DomSanitizer) {}
+;
+;
   title = 'Fundamental NGX Demo';
   actions = [];
   settings = {
@@ -86,42 +88,6 @@ export class AppComponent implements OnInit{
     },
 ];
 
-  ngOnInit() {
-    this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/sap_fiori_3.css');
-    if(this.authService.isLoggedIn){
-      this.actions  = [
-        {
-            glyph: 'employee-rejections',
-            callback: () => {this.router.navigate(['auth']);},
-            label: 'Sign Out'
-        },
-      ];
-    }
-    this.authService.userObserLoginObservable.subscribe(value => {
-      if(!value) {
-        this.actions = [
-          {
-              glyph: 'customer',
-              callback: () => {this.router.navigate(['auth']);},
-              label: 'Authentication'
-          },
-      ];
-      } else if (value) {
-        this.actions = [
-          {
-              glyph: 'employee-rejections',
-              callback: () => {this.authService.logout()},
-              label: 'Sign Out'
-          }
-        ];
-      }
-    })
-  };
-
-  productChangeHandle(products: ProductSwitchItem[]): void {
-      this.list = products;
-  };
-
   user: ShellbarUser = {
     initials: 'WW',
     image: 'https://placeimg.com/400/400/people'
@@ -140,7 +106,26 @@ export class AppComponent implements OnInit{
             }
           }, () => { });
           } },
-      { text: 'Sign Out', callback: () => this.router.navigate(['auth'])}
-  ];
+          { text: 'Sign In', callback: () => this.router.navigate(['auth'])}
+        ];
 
+  ngOnInit() {
+    this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/sap_fiori_3.css');
+    if(this.authService.isLoggedIn){
+      this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
+    } else {
+      this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
+    }
+    this.authService.userObserLoginObservable.subscribe(value => {
+      console.log(this.userMenu[1])
+      if(!value) {
+        this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
+      } else {
+        this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
+      }
+    })
+  }
+  productChangeHandle(products: ProductSwitchItem[]): void {
+      this.list = products;
+  }
 }
