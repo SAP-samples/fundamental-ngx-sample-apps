@@ -27,6 +27,10 @@ export class ThemeSelectorComponent implements OnInit {
     {
         id: 'sap_fiori_3_hcw',
         name: 'High Contrast White'
+    },
+    {
+        id: 'sap_belize',
+        name: 'Belize'
     }
   ];
 
