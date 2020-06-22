@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import {LuigiUiService} from './services/luigi-ui/luigi-ui.service';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +15,15 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
 export class AppComponent implements OnInit{
 
   constructor(
-    private authService: AuthService, 
-    private router: Router, 
-    private dialogService: DialogService, 
+    private luigiUiService: LuigiUiService,
+    private authService: AuthService,
+    private router: Router,
+    private dialogService: DialogService,
     private sanitizer: DomSanitizer) {}
 ;
 ;
   title = 'Fundamental NGX Demo';
-  actions = [];
+  luigiOption: boolean = false;
   settings = {
     theme: 'sap_fiori_3', 
     mode: 'cozy'
@@ -101,6 +103,8 @@ export class AppComponent implements OnInit{
             data: this.settings})
           .afterClosed.subscribe(result => {
             if (result) {
+              console.log(result);
+             this.luigiUiService.updateLuigiUi(result.luigi);
               this.settings = result;
               this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/' + this.settings.theme + '.css');
             }
@@ -117,13 +121,20 @@ export class AppComponent implements OnInit{
       this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
     }
     this.authService.userObserLoginObservable.subscribe(value => {
-      console.log(this.userMenu[1])
       if(!value) {
         this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
       } else {
         this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
       }
-    })
+    });
+
+    this.luigiUiService.luigiOption.subscribe(luigiOption => {
+      this.luigiOption = luigiOption;
+    });
+  }
+
+  ngOnDestroy() {
+    
   }
   productChangeHandle(products: ProductSwitchItem[]): void {
       this.list = products;
