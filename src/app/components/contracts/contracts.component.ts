@@ -11,6 +11,7 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 import {ContractsService} from 'src/app/services/contracts/contracts.service';
 import {NotificationConfirmationComponent} from 'src/app/shared/notification-confirmation/notification-confirmation.component';
 import {AuthService} from 'src/app/services/auth/auth.service';
+import {CompactService} from 'src/app/services/compact/compact.service';
 
 @Component({
     selector: 'app-contracts',
@@ -19,6 +20,7 @@ import {AuthService} from 'src/app/services/auth/auth.service';
 })
 export class ContractsComponent implements OnInit {
 
+    globalCompact: boolean;
     contracts: any;
     selected: Contract[] = [];
     filteredDataSource: Contract[];
@@ -52,6 +54,7 @@ export class ContractsComponent implements OnInit {
     constructor(
       authService: AuthService,
       private contractService: ContractsService, 
+      compactService: CompactService,
       private dialogService: DialogService, 
       public alertService: AlertService,
       private notificationService: NotificationService
@@ -62,6 +65,9 @@ export class ContractsComponent implements OnInit {
         this.dataSource = databaseData;
         this.filteredDataSource = databaseData;
         });
+        compactService.compact.subscribe(result => {
+          this.globalCompact = result;
+        })
 }
 
     ngOnInit() {

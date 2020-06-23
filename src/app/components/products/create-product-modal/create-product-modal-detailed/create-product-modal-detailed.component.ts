@@ -10,6 +10,8 @@ import { MyValidation } from './../../../contracts/create-contract-modal/create-
 })
 export class CreateProductModalDetailedComponent implements OnInit, AfterViewInit {
 
+  globalCompact: boolean = false;
+
    detailedProductForm = new FormGroup({
         product_date_signed: new FormControl('', [Validators.required]),
     });
@@ -37,6 +39,7 @@ changeValueState(validity: string) {
     }
 
     ngOnInit() {
+      this.globalCompact = this.dialogRef.data.compact;
     }
     ngAfterViewInit() {
     }

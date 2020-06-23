@@ -15,20 +15,22 @@
                   <div fd-form-item>
                     <label fd-form-label for="name-input">Name: </label>
                     <fd-form-input-message-group>
-                    <input fd-form-control
-                          type="text"
-                          id="name-input"
-                          placeholder="Enter a name"
-                          formControlName="name"
-                          [state]="productForm.get('name').touched ? 
-                          (productForm.get('name').valid ? 'success' : 'error'):
-                          (productForm.get('name').valid ? '' : '')">
-                      <fd-form-message *ngIf="productForm.get('name').invalid && productForm.get('name').touched"
-                      [type]="productForm.get('name').touched ? 
-                      (productForm.get('name').valid ? 'success' : 'error'):
-                      (productForm.get('name').valid ? '' : '')">
-                      Required name
-                      </fd-form-message>
+                    <input 
+                    [compact]="globalCompact"
+                    fd-form-control
+                    type="text"
+                    id="name-input"
+                    placeholder="Enter a name"
+                    formControlName="name"
+                    [state]="productForm.get('name').touched ? 
+                    (productForm.get('name').valid ? 'success' : 'error'):
+                    (productForm.get('name').valid ? '' : '')">
+                    <fd-form-message *ngIf="productForm.get('name').invalid && productForm.get('name').touched"
+                    [type]="productForm.get('name').touched ? 
+                    (productForm.get('name').valid ? 'success' : 'error'):
+                    (productForm.get('name').valid ? '' : '')">
+                    Required name
+                    </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
                 </fd-layout-panel-body>
@@ -38,7 +40,9 @@
                   <div fd-form-item>
                     <label fd-form-label for="contact-input">Contact: </label>
                     <fd-form-input-message-group>
-                      <input fd-form-control
+                      <input 
+                      [compact]="globalCompact"
+                      fd-form-control
                       type="text"
                       id="contact-input"
                       placeholder="Enter a contact"
@@ -62,7 +66,9 @@
                   <div fd-form-item>
                     <label fd-form-label for="lob-input">Line of Business: </label>
                     <fd-form-input-message-group>
-                      <input fd-form-control
+                      <input 
+                      [compact]="globalCompact"
+                      fd-form-control
                       type="text"
                       id="lob-input"
                       placeholder="Enter a line of business"
@@ -86,7 +92,9 @@
                   <div fd-form-item>
                     <label fd-form-label for="users-input">Number of Users: </label>
                     <fd-form-input-message-group>
-                      <input fd-form-control
+                      <input 
+                      [compact]="globalCompact"
+                      fd-form-control
                       type="number"
                       id="users-input"
                       placeholder="Enter a number"
@@ -110,7 +118,9 @@
                   <div fd-form-item>
                     <label fd-form-label [for]="'status-1'"> Status: </label>
                     <fd-form-input-message-group>
-                      <select fd-form-control
+                      <select 
+                      [compact]="globalCompact"
+                      fd-form-control
                       id="status-1"
                       formControlName="status"
                       [state]="productForm.get('status').touched ? 
@@ -139,10 +149,10 @@
     <fd-dialog-footer-button>
       <button 
       fd-button 
+      [compact]="globalCompact"
       fd-dialog-decisive-button
       (click)="openModal()" 
-      fdType="transparent"
-      [compact]="true">
+      fdType="transparent">
         *Detailed
       </button>
     </fd-dialog-footer-button>
@@ -156,7 +166,7 @@
       form="main-form"
       style="margin-left: 16px;"
       [disabled]="!productForm.dirty || productForm.invalid"
-      [compact]="true">
+      [compact]="globalCompact">
       {{editMode ? 'Edit' : 'Create'}}
       </button>
     </fd-dialog-footer-button>
@@ -167,7 +177,7 @@
       fdType="transparent"
       style="margin-left: 16px;"
       (click)="this.dialogRef.dismiss()"
-      [compact]="true">
+      [compact]="globalCompact">
         Cancel
       </button>
     </fd-dialog-footer-button>
