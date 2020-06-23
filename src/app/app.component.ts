@@ -103,7 +103,6 @@ export class AppComponent implements OnInit{
             data: this.settings})
           .afterClosed.subscribe(result => {
             if (result) {
-              console.log(result);
              this.luigiUiService.updateLuigiUi(result.luigi);
               this.settings = result;
               this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/' + this.settings.theme + '.css');
