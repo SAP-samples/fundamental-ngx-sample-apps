@@ -9,6 +9,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 import { Subscription, BehaviorSubject, Subject } from 'rxjs';
 import {ProductsService} from 'src/app/services/products/products.service';
 import { takeUntil } from 'rxjs/operators';
+import {CompactService} from 'src/app/services/compact/compact.service';
 
 @Component({
     selector: 'app-products',
@@ -18,6 +19,7 @@ import { takeUntil } from 'rxjs/operators';
 
 export class ProductsComponent implements OnDestroy, OnInit {
 
+    globalCompact: boolean;
     subscription: Subscription;
     products: any;
     selected: Product[] = [];
@@ -49,12 +51,22 @@ export class ProductsComponent implements OnDestroy, OnInit {
     }
 
 
-    constructor(public productService: ProductsService, db: AngularFirestore, private dialogService: DialogService, private alertService: AlertService) {}
+    constructor(
+      public productService: ProductsService, 
+      db: AngularFirestore, 
+      private dialogService: DialogService, 
+      private alertService: AlertService,
+      compactService: CompactService) {
+        compactService.compact.subscribe(result => {
+          this.globalCompact = result;
+        })
+    }
 
     openCreateModal(): void {
         this.dialogService.open(CreateProductModalComponent, {
             data: {
               editMode: false,
+              compact: this.globalCompact
             }
         }).afterClosed.subscribe(result => {
             if (result) {
