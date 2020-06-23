@@ -12,6 +12,7 @@ import {CreateProductModalDetailedComponent} from './create-product-modal-detail
 export class CreateProductModalComponent implements OnInit {
 
     editMode = false;
+    globalCompact:boolean = false;
 
     productForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
@@ -55,6 +56,9 @@ export class CreateProductModalComponent implements OnInit {
 
     openModal() {
         this.dialogService.open(CreateProductModalDetailedComponent, {
+          data: {
+            compact: this.globalCompact
+          },
           responsivePadding:true
         });
     }
@@ -63,6 +67,7 @@ export class CreateProductModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.globalCompact = this.dialogRef.data.compact;
         this.editMode = this.dialogRef.data.editMode;
         const product = this.dialogRef.data.product;
 

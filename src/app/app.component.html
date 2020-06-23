@@ -23,7 +23,7 @@
 <div class="main-container-div">
     <fd-side-nav  [condensed]="condensed" *ngIf="!luigiOption">
         <div fd-side-nav-main>
-            <ul fd-nested-list [textOnly]="false">
+            <ul fd-nested-list [compact]="globalCompact" [textOnly]="false">
                 <li fd-nested-list-item>
                     <a fd-nested-list-link [routerLink]="'/dashboard'" >
                         <span fd-nested-list-icon [glyph]="'business-by-design'"></span>

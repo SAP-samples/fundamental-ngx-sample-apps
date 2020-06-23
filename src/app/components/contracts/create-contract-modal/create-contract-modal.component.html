@@ -1,8 +1,9 @@
 <fd-dialog>
   <fd-dialog-header>
       <h1 fd-dialog-title>{{ editMode == true ? 'Edit' : 'Create'}} a Contract</h1>
-      <button fd-dialog-close-button
-              (click)="dialogRef.dismiss()"></button>
+      <button
+       fd-dialog-close-button
+        (click)="dialogRef.dismiss()"></button>
   </fd-dialog-header>
   <fd-dialog-body>
     <form [formGroup]="contractForm"
@@ -16,6 +17,7 @@
                 <label fd-form-label for="company-input">Company: </label>
               <fd-form-input-message-group>
                 <input fd-form-control 
+                [compact]="globalCompact"
                 type="text"
                 id="company-input"
                 placeholder="Enter a company"
@@ -40,6 +42,7 @@
                 <label fd-form-label for="contact-input">Contact: </label>
                 <fd-form-input-message-group>
                   <input fd-form-control
+                  [compact]="globalCompact"
                   type="text"
                   id="contact-input"
                   placeholder="Enter a contact"
@@ -60,7 +63,9 @@
         <fd-layout-panel>
           <fd-layout-panel-body>
               <label fd-form-label for="datepicker-input">Date signed: </label><br>
-                <fd-date-picker formControlName="signed"
+                <fd-date-picker 
+                  [compact]="globalCompact"
+                  formControlName="signed"
                   [type]="'single'"
                   id="datepicker-input"
                   [state]="contractForm.get('signed').touched ? 
@@ -79,7 +84,9 @@
             <div fd-form-item>
               <label fd-form-label [for]="'type-1'">Contract Type:</label>
                 <fd-form-input-message-group>
-                  <select fd-form-control
+                  <select 
+                  fd-form-control
+                  [compact]="globalCompact"
                   id="type-1"
                   formControlName="type"
                   [state]="contractForm.get('type').touched ? 
@@ -105,7 +112,9 @@
             <div fd-form-item>
               <label fd-form-label for="value-input">Value: </label>
               <fd-form-input-message-group>
-                <input fd-form-control
+                <input 
+                [compact]="globalCompact"
+                fd-form-control
                 type="number"
                 id="value-input"
                 placeholder="Enter a number"
@@ -129,7 +138,9 @@
             <div fd-form-item>
               <label fd-form-label [for]="'status-1'">Status:</label>
               <fd-form-input-message-group>
-                  <select fd-form-control
+                  <select 
+                  [compact]="globalCompact"
+                  fd-form-control
                   id="status-1"
                   formControlName="status"
                   [state]="contractForm.get('status').touched ? 
@@ -158,7 +169,7 @@
       <button 
       fd-button
       fd-dialog-decisive-button
-      [compact]="true"
+      [compact]="globalCompact"
       fdType="main"
       type="submit"
       form="main-form"
@@ -170,7 +181,7 @@
       <button 
       fd-button
       fd-dialog-decisive-button
-      [compact]="true"
+      [compact]="globalCompact"
       fdType="transparent"
       style="margin-left: 16px;"
       (click)="this.dialogRef.dismiss()">
