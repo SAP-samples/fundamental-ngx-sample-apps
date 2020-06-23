@@ -11,6 +11,7 @@
       id="main-form">
               <label fd-form-label for="datepicker-input">Date signed: </label>
               <fd-date-picker 
+              [compact]="globalCompact"
               formControlName="product_date_signed"
               [type]="'single'"
               [disableFunction]="myBlockFunction && myDisableFunction"

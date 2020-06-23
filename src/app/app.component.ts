@@ -6,6 +6,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 import {LuigiUiService} from './services/luigi-ui/luigi-ui.service';
+import {CompactService} from './services/compact/compact.service';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,12 @@ import {LuigiUiService} from './services/luigi-ui/luigi-ui.service';
 })
 export class AppComponent implements OnInit{
 
+  globalCompact:boolean = false;
+
   constructor(
     private luigiUiService: LuigiUiService,
     private authService: AuthService,
+    private compactService: CompactService,
     private router: Router,
     private dialogService: DialogService,
     private sanitizer: DomSanitizer) {}
@@ -98,12 +102,14 @@ export class AppComponent implements OnInit{
   userMenu: ShellbarUserMenu[] = [
       { text: 'Settings', callback: () => {
         this.dialogService.open(
-          ThemeSelectorComponent, 
-          { responsivePadding:true, 
+          ThemeSelectorComponent,
+          { responsivePadding:true,
             data: this.settings})
           .afterClosed.subscribe(result => {
             if (result) {
              this.luigiUiService.updateLuigiUi(result.luigi);
+             this.globalCompact = result.compact;
+             this.compactService.updateCompact(result.compact);
               this.settings = result;
               this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/' + this.settings.theme + '.css');
             }

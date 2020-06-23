@@ -6,14 +6,17 @@
             </fd-layout-panel-description>
         </fd-layout-panel-head>
         <fd-layout-panel-actions>
-            <button fd-button
-                    fdType="transparent"
-                    glyph="add"
-                    (click)="openCreateModal()"></button>
+            <button 
+              [compact]="globalCompact"
+              fd-button
+              fdType="transparent"
+              glyph="add"
+              (click)="openCreateModal()"></button>
         </fd-layout-panel-actions>
     </fd-layout-panel-header>
     <fd-layout-panel-filters *ngIf="contracts">
       <fd-multi-input 
+      [compact]="globalCompact"
       [dropdownValues]="contracts"
       [placeholder]="'Search here...'"
       [(ngModel)]="selected"

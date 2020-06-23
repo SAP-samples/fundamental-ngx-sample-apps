@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { invalid } from '@angular/compiler/src/render3/view/util';
 import { MyValidation } from './create-contract-modal-int';
+import {CompactService} from 'src/app/services/compact/compact.service';
 @Component({
     selector: 'app-create-contract-modal',
     templateUrl: './create-contract-modal.component.html',
@@ -12,7 +13,8 @@ import { MyValidation } from './create-contract-modal-int';
 export class CreateContractModalComponent implements OnInit {
 
     editMode = false;
-
+    globalCompact = false;
+    
     contractForm = new FormGroup({
         company: new FormControl('', [Validators.required]),
         contact: new FormControl('', [Validators.required]),
@@ -36,8 +38,13 @@ export class CreateContractModalComponent implements OnInit {
     //     return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
     // }
 
-    constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef, private dialogService: DialogService) {
-
+    constructor(
+    @Inject(DIALOG_REF) public dialogRef: DialogRef, 
+    private dialogService: DialogService,
+    compactService: CompactService) {
+      compactService.compact.subscribe(result => {
+        this.globalCompact = result;
+      })
     }
 
     ngOnInit() {
