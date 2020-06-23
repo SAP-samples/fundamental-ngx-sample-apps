@@ -13,7 +13,10 @@ export class AuthService {
   private readonly _loggedIn: Subject<any> = new Subject<any>();
   private _userObserLoginObservable = this._loggedIn.asObservable();
 
-  constructor( public  afAuth:  AngularFireAuth, public  router:  Router, private cookie: CookieService) {}
+  constructor( 
+    public  afAuth:  AngularFireAuth, 
+    public  router:  Router, 
+    private cookie: CookieService) {}
    
    get userObserLoginObservable() {
      return this._userObserLoginObservable;
