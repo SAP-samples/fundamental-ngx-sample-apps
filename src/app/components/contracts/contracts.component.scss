@@ -25,12 +25,14 @@
 }
 
 .cdk-drag-preview {
-    background-color: white;
+    background-color: #F2F2F2;
+    background-color: var(--sapList_HeaderBackground);
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
     0 8px 10px 1px rgba(0, 0, 0, 0.14),
     0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    color: var(--sapList_HeaderTextColor);
 }
 
 
@@ -40,17 +42,95 @@
     }
 }
 
-.fd-table {
-    border: none;
+table {
+  border: none;
+  tr.cdk-row.cdk-drag {
+    > :first-child {
+      padding-left: 1rem;
+      padding-right: 0.5rem;
+    }
+    
+    > :not(:first-child) {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    background-color: #FFFFFF;
+    background-color: var(--sapList_Background);
+    color: #32363A;
+    color: var(--sapList_TextColor);
+    &:hover {
+      background-color: #F5F5F5;
+      background-color: var(--sapList_Hover_Background);
+    }
+  
+    &:active {
+      color: #FFFFFF;
+      color: var(--sapList_Active_TextColor);
+      background-color: #0854A0;
+      background-color: var(--sapList_Active_Background);
+
+      .fd-button.fd-button--transparent {
+        color: #FFFFFF;
+        color: var(--sapList_Active_TextColor);
+      }
+    }
+    .is-selected {
+      background-color: #E5F0FA;
+      background-color: var(--sapList_SelectionBackgroundColor);
+      border-color: #0854A0;
+      border-color: var(--sapList_SelectionBorderColor);
+  
+      &:hover {
+        background-color: #D8E9F8;
+        background-color: var(--sapList_Hover_SelectionBackground);
+      }
+    }
 }
+
+.cdk-header-row {
+  background-color: #F2F2F2;
+  background-color: var(--sapList_HeaderBackground);
+  color: #32363A;
+  color: var(--sapList_HeaderTextColor);
+  border-bottom: solid 1px #E5E5E5;
+  border-bottom: solid 1px var(--sapList_BorderColor);
+  height: 2.75rem;
+
+  :hover{
+    cursor: [pointer];
+  }
+
+  > :first-child {
+    padding-left: 1rem;
+    padding-right: 0.5rem;
+  }
+
+  > :not(:first-child) {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+}
+
 
 .cdk-row {
     &.cdk-drag{
         height: 50px;
         &.cdk-drag-preview{
-            height: 20px;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            :first-child {
+              padding-left: 1rem;
+            }
+            
+            :not(:first-child) {
+              padding-left: 0.5rem;
+            }
+
             td {
-                padding: 8px 0 8px 60px;
                 font-weight: lighter;
                 font-size: 14px;
                 font-family: '72', sans-serif;
