@@ -34,7 +34,7 @@
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                     <td>
                                 {{product.name}}
-                            <fd-inline-help [placement]="'right'">
+                            <fd-inline-help [inlineHelpContentStyle]="{ 'background-color': 'var(--sapGroup_ContentBackground)', color: 'var(--sapTextColor)', 'border-color': 'var(--sapGroup_ContentBorderColor)'}" [placement]="'right'">
                                 Information about {{product.name}}
                             </fd-inline-help>
                         </td>
