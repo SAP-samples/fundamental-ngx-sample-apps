@@ -12,6 +12,7 @@ import {ContractsService} from 'src/app/services/contracts/contracts.service';
 import {NotificationConfirmationComponent} from 'src/app/shared/notification-confirmation/notification-confirmation.component';
 import {AuthService} from 'src/app/services/auth/auth.service';
 import {CompactService} from 'src/app/services/compact/compact.service';
+import {ContractPageService} from 'src/app/services/contract-page/contract-page.service';
 
 @Component({
     selector: 'app-contracts',
@@ -25,7 +26,8 @@ export class ContractsComponent implements OnInit {
     selected: Contract[] = [];
     filteredDataSource: Contract[];
     subscription: Subscription;
-    columnHeaders: string [] = ['company', 'contact', 'signed', 'type', 'value', 'status', 'edit', 'remove'];
+    columnHeaders: string [] = [];
+    contractPage: {title: string, description: string} = {title:'', description: ''};
     contract: Contract = null;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
@@ -54,8 +56,9 @@ export class ContractsComponent implements OnInit {
     constructor(
       authService: AuthService,
       private contractService: ContractsService, 
-      compactService: CompactService,
+      private compactService: CompactService,
       private dialogService: DialogService, 
+      private contractPageData: ContractPageService,
       public alertService: AlertService,
       private notificationService: NotificationService
       ) {
@@ -71,17 +74,23 @@ export class ContractsComponent implements OnInit {
 }
 
     ngOnInit() {
+      this.compactService.compact.subscribe(result => {
+        this.globalCompact = result;
+      })
+
+      this.contractPageData.contractData.subscribe(data => {
+        this.contractPage = {title: data.title, description: data.description};
+        this.columnHeaders = data.columns;
+      });
     }
 
-    ngAfterViewInit () {
-      
-    }
 
     openCreateModal(): void {
         this.dialogService.open(CreateContractModalComponent, {
             responsivePadding: true,
             data: {
-              editMode: false
+              editMode: false,
+              fields: this.columnHeaders
             }
             
         }).afterClosed.subscribe(result => {

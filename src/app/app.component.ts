@@ -7,6 +7,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 import {LuigiUiService} from './services/luigi-ui/luigi-ui.service';
 import {CompactService} from './services/compact/compact.service';
+import {ProductSwitchDataService} from './services/product-switch/product-switch.service';
+import {SideNavigationService} from './services/side-navigation/side-navigation.service';
+import {SideNavModel} from './services/side-navigation/side-navigation.model';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +24,17 @@ export class AppComponent implements OnInit{
     private luigiUiService: LuigiUiService,
     private authService: AuthService,
     private compactService: CompactService,
+    private productSwitchData: ProductSwitchDataService,
+    private sideNavData: SideNavigationService,
     private router: Router,
     private dialogService: DialogService,
-    private sanitizer: DomSanitizer) {}
+    private sanitizer: DomSanitizer,
+    ) {}
 ;
 ;
   title = 'Fundamental NGX Demo';
+  sideNavMain: SideNavModel[] = [];
+  sideNavSecondary: SideNavModel[] = [];
   luigiOption: boolean = false;
   settings = {
     theme: 'sap_fiori_3', 
@@ -36,63 +44,7 @@ export class AppComponent implements OnInit{
 
   cssUrl: SafeResourceUrl;
 
-  list: ProductSwitchItem[] = [
-    {
-        title: 'Home',
-        subtitle: 'Central Home',
-        icon: 'home',
-    },
-    {
-        title: 'Analytics Cloud',
-        subtitle: 'Analytics Cloud',
-        icon: 'business-objects-experience'
-    },
-    {
-        title: 'Catalog',
-        subtitle: 'Ariba',
-        icon: 'contacts'
-    },
-    {
-        title: 'Guided Buying',
-        icon: 'credit-card'
-    },
-    {
-        title: 'Strategic Procurement',
-        icon: 'cart-3'
-    },
-    {
-        title: 'Vendor Managemen',
-        subtitle: 'Fieldglass',
-        icon: 'shipping-status'
-    },
-    {
-        title: 'Human Capital Management',
-        icon: 'customer'
-    },
-    {
-        title: 'Sales Cloud',
-        subtitle: 'Sales Cloud',
-        icon: 'sales-notification'
-    },
-    {
-        title: 'Commerce Cloud',
-        subtitle: 'Commerce Cloud',
-        icon: 'retail-store'
-    },
-    {
-        title: 'Marketing Cloud',
-        subtitle: 'Marketing Cloud',
-        icon: 'marketing-campaign'
-    },
-    {
-        title: 'Service Cloud',
-        icon: 'family-care'
-    },
-    {
-        title: 'S/4HANA',
-        icon: 'batch-payments'
-    },
-];
+  list: ProductSwitchItem[] = [];
 
   user: ShellbarUser = {
     initials: 'WW',
@@ -133,14 +85,21 @@ export class AppComponent implements OnInit{
       }
     });
 
+    this.productSwitchData.productSwitchData.subscribe(data => {
+      const productSwitchDataFromDb = Object.keys(data).map(i => data[i]);
+      this.list = productSwitchDataFromDb;
+    });
+
+    this.sideNavData.sideNavigationData.subscribe(sideNav => {
+      this.sideNavMain = sideNav.main;
+      this.sideNavSecondary = sideNav.secondary;
+    })
+
     this.luigiUiService.luigiOption.subscribe(luigiOption => {
       this.luigiOption = luigiOption;
     });
   }
 
-  ngOnDestroy() {
-    
-  }
   productChangeHandle(products: ProductSwitchItem[]): void {
       this.list = products;
   }

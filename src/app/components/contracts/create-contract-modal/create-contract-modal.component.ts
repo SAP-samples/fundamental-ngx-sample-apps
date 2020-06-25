@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { invalid } from '@angular/compiler/src/render3/view/util';
 import { MyValidation } from './create-contract-modal-int';
 import {CompactService} from 'src/app/services/compact/compact.service';
+import {ContractPageService} from 'src/app/services/contract-page/contract-page.service';
 @Component({
     selector: 'app-create-contract-modal',
     templateUrl: './create-contract-modal.component.html',
@@ -14,6 +15,7 @@ export class CreateContractModalComponent implements OnInit {
 
     editMode = false;
     globalCompact = false;
+    fields: string [] = [];
     
     contractForm = new FormGroup({
         company: new FormControl('', [Validators.required]),
@@ -41,7 +43,8 @@ export class CreateContractModalComponent implements OnInit {
     constructor(
     @Inject(DIALOG_REF) public dialogRef: DialogRef, 
     private dialogService: DialogService,
-    compactService: CompactService) {
+    compactService: CompactService
+    ) {
       compactService.compact.subscribe(result => {
         this.globalCompact = result;
       })
@@ -50,6 +53,7 @@ export class CreateContractModalComponent implements OnInit {
     ngOnInit() {
         this.editMode = this.dialogRef.data.editMode;
         const contract = this.dialogRef.data.contract;
+        this.fields = this.dialogRef.data.fields;
 
         if (this.editMode && contract) {
             Object.keys(contract).forEach(key => {

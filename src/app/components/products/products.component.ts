@@ -10,6 +10,7 @@ import { Subscription, BehaviorSubject, Subject } from 'rxjs';
 import {ProductsService} from 'src/app/services/products/products.service';
 import { takeUntil } from 'rxjs/operators';
 import {CompactService} from 'src/app/services/compact/compact.service';
+import {ProductPageService} from 'src/app/services/product-page/product-page.service';
 
 @Component({
     selector: 'app-products',
@@ -22,9 +23,10 @@ export class ProductsComponent implements OnDestroy, OnInit {
     globalCompact: boolean;
     subscription: Subscription;
     products: any;
+    productsPage: {title: string, description: string} = {title: '', description: ''};
     selected: Product[] = [];
     filteredDataSource: Product[] = [];
-    columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove'];
+    columnHeaders: string [];
 
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
@@ -53,9 +55,9 @@ export class ProductsComponent implements OnDestroy, OnInit {
 
     constructor(
       public productService: ProductsService, 
-      db: AngularFirestore, 
       private dialogService: DialogService, 
       private alertService: AlertService,
+      private productPageService: ProductPageService,
       compactService: CompactService) {
         compactService.compact.subscribe(result => {
           this.globalCompact = result;
@@ -66,6 +68,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
         this.dialogService.open(CreateProductModalComponent, {
             data: {
               editMode: false,
+              fields: this.columnHeaders,
               compact: this.globalCompact
             }
         }).afterClosed.subscribe(result => {
@@ -114,5 +117,10 @@ export class ProductsComponent implements OnDestroy, OnInit {
       this.dataSource = databaseData;
       this.filteredDataSource = databaseData;
     });
+
+    this.productPageService.productData.subscribe(data => {
+      this.productsPage = {title: data.title, description: data.description};
+      this.columnHeaders = data.columns;
+    })
   }
 }
