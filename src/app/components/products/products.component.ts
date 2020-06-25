@@ -84,6 +84,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
         this.dialogService.open(CreateProductModalComponent, {
             data: {
                 editMode: true,
+                fields: this.columnHeaders,
                 product: newProduct
             }
         }).afterClosed.subscribe(result => {
