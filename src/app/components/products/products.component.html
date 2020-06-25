@@ -1,9 +1,8 @@
 <fd-layout-panel>
     <fd-layout-panel-header>
         <fd-layout-panel-head>
-            <h2>Products</h2>
-            <fd-layout-panel-description>Manage the products recorded by various company representatives.
-            </fd-layout-panel-description>
+            <h2>{{productsPage.title}}</h2>
+            <fd-layout-panel-description>{{productsPage.description}}</fd-layout-panel-description>
         </fd-layout-panel-head>
         <fd-layout-panel-actions>
             <button 
@@ -30,10 +29,10 @@
         <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
                 <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 
-            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['name', 'contact', 'lob', 'user_number', 'status', 'glyph', 'remove']" style="cursor: grab;"></tr>
+            <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: columnHeaders" style="cursor: grab;"></tr>
 
             <ng-container   cdkColumnDef="name">
-                <th cdk-header-cell *cdkHeaderCellDef>Name</th> 
+                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[0] | titlecase}}</th> 
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                     <td>
                                 {{product.name}}
@@ -45,7 +44,7 @@
                 </ng-container>
 
             <ng-container   cdkColumnDef="contact">
-                <th cdk-header-cell *cdkHeaderCellDef>Contact</th> 
+                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[1] | titlecase}}</th> 
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                     <td>
                         {{product.contact}}
@@ -54,7 +53,7 @@
             </ng-container>
 
             <ng-container   cdkColumnDef="lob">
-                <th cdk-header-cell *cdkHeaderCellDef>LoB</th>                            
+                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[2] | uppercase}}</th>                            
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                     <td>
                     {{product.lob}}
@@ -63,7 +62,7 @@
             </ng-container>
 
             <ng-container   cdkColumnDef="user_number">
-                <th cdk-header-cell *cdkHeaderCellDef>User Number</th>
+                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[3] | titlecase | snakeCase}}</th>
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                     <td>
                         {{product.user_number}}
@@ -72,7 +71,7 @@
             </ng-container>
 
             <ng-container  cdkColumnDef="status">
-                <th cdk-header-cell *cdkHeaderCellDef>Status</th>
+                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[4] | titlecase}}</th>
                 <ng-container cdk-cell *cdkCellDef="let product">                       
                         <td>
                         <span fd-info-label [color]="product.status | statusToColor" modifier="pill"> {{product.status}} </span>
@@ -80,32 +79,28 @@
                 </ng-container>
             </ng-container> 
 
-            <ng-container   cdkColumnDef="glyph">
-                <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
+            <ng-container   cdkColumnDef="edit">
+                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[5] | titlecase}}</th>
                 <ng-container cdk-cell *cdkCellDef="let product">                       
-                        <td>
-                        <fd-icon glyph="edit"
-                                class="action-button"
-                                tabindex="0"
-                                size="m"
-                                title="Edit Contract"
-                                (click)="openEditModal(product)">
-                        </fd-icon>
+                      <td>
+                        <button [compact]="globalCompact"
+                        fd-button fdType="transparent" 
+                        glyph="edit" 
+                        (click)="openEditModal(product)">
+                      </button>
                     </td>
                 </ng-container>
             </ng-container>
 
             <ng-container   cdkColumnDef="remove">
-                    <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
+                    <th cdk-header-cell *cdkHeaderCellDef >{{columnHeaders[6] | titlecase}}</th>
                     <ng-container cdk-cell *cdkCellDef="let product">                       
-                            <td>
-                        <fd-icon glyph="delete"
-                                class="action-button"
-                                tabindex="0"
-                                size="m"
-                                title="Delete Contract"
-                                (click)="openConfirmModal()">
-                            </fd-icon>
+                          <td>
+                            <button [compact]="globalCompact"
+                            fd-button fdType="transparent" 
+                            glyph="delete" 
+                            (click)="openConfirmModal()">
+                          </button>
                         </td>
                     </ng-container>
             </ng-container>

@@ -1,8 +1,7 @@
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {Product} from 'src/app/models/product.model';
-import {Subscription, Observable} from 'rxjs';
+import { Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 
 @Injectable()
 export class ProductsService {

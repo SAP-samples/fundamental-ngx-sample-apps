@@ -15,7 +15,6 @@ export class CompactService {
   }
 
   updateCompact(bool:boolean) {
-    console.log(bool);
     this._compact.next(bool);
   }
 }

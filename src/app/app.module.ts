@@ -54,6 +54,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 import {LuigiUiService} from './services/luigi-ui/luigi-ui.service';
 import {CompactService} from './services/compact/compact.service';
+import { SnakeCasePipe } from './pipes/snake-case.pipe';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import {CompactService} from './services/compact/compact.service';
         LoginComponent,
         ForgotPasswordComponent,
         StatusToColorPipe,
-        ThemeSelectorComponent
+        ThemeSelectorComponent,
+        SnakeCasePipe
     ],
     imports: [
         AlertModule,
@@ -113,7 +115,8 @@ import {CompactService} from './services/compact/compact.service';
       ContractsService,
       ProductsService, 
       StatusToColorPipe,
-      LuigiUiService
+      LuigiUiService,
+      SnakeCasePipe
     ],
     entryComponents: [
         CreateContractModalComponent,
