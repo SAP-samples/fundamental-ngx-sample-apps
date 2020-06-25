@@ -127,6 +127,7 @@ export class ContractsComponent implements OnInit {
         this.dialogService.open(CreateContractModalComponent, {
             data: {
                 editMode: true,
+                fields: this.columnHeaders,
                 contract: copyObj
             }
         }).afterClosed.subscribe(result => {
