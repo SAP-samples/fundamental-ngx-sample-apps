@@ -24,34 +24,22 @@
     <fd-side-nav  [condensed]="condensed" *ngIf="!luigiOption">
         <div fd-side-nav-main>
             <ul fd-nested-list [compact]="globalCompact" [textOnly]="false">
-                <li fd-nested-list-item>
-                    <a fd-nested-list-link [routerLink]="'/dashboard'" >
-                        <span fd-nested-list-icon [glyph]="'business-by-design'"></span>
-                        <span fd-nested-list-title>Dashboard</span>
-                    </a>
-                </li>
-                <li fd-nested-list-item>
-                    <a fd-nested-list-link [routerLink]="'/contracts'">
-                        <span fd-nested-list-icon [glyph]="'work-history'"></span>
-                        <span fd-nested-list-title>Contracts</span>
-                    </a>
-                </li>
-                <li fd-nested-list-item>
-                    <a fd-nested-list-link [routerLink]="'/products'">
-                        <span fd-nested-list-icon [glyph]="'product'"></span>
-                        <span fd-nested-list-title>Products</span>
+                <li fd-nested-list-item *ngFor="let mainItem of sideNavMain">
+                    <a fd-nested-list-link [routerLink]="mainItem.route" >
+                        <span fd-nested-list-icon [glyph]="mainItem.icon"></span>
+                        <span fd-nested-list-title>{{mainItem.title}}</span>
                     </a>
                 </li>
             </ul>
         </div>
         <div fd-side-nav-utility>
             <ul fd-nested-list [textOnly]="false">
-                <li fd-nested-list-item>
-                    <a fd-nested-list-link [routerLink]="'/users'" >
-                        <span fd-nested-list-icon [glyph]="'user-settings'"></span>
-                        <span fd-nested-list-title>Users</span>
-                    </a>
-                </li>
+              <li fd-nested-list-item *ngFor="let secondItem of sideNavSecondary">
+                <a fd-nested-list-link [routerLink]="secondItem.route" >
+                    <span fd-nested-list-icon [glyph]="secondItem.icon"></span>
+                    <span fd-nested-list-title>{{secondItem.title}}</span>
+                </a>
+              </li>
             </ul>
         </div>
     </fd-side-nav>

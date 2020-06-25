@@ -13,6 +13,7 @@ export class CreateProductModalComponent implements OnInit {
 
     editMode = false;
     globalCompact:boolean = false;
+    fields: string[]= [];
 
     productForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
@@ -69,6 +70,7 @@ export class CreateProductModalComponent implements OnInit {
     ngOnInit() {
         this.globalCompact = this.dialogRef.data.compact;
         this.editMode = this.dialogRef.data.editMode;
+        this.fields = this.dialogRef.data.fields;
         const product = this.dialogRef.data.product;
 
         if (this.editMode && product) {

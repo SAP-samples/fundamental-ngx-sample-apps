@@ -29,19 +29,19 @@
         <fd-table-wrapper>
             <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
                 <ng-container  cdkColumnDef="company">
-                    <th cdk-header-cell *cdkHeaderCellDef>Company</th> 
-                    <ng-container cdk-cell *cdkCellDef="let contract">                       
-                        <td>
-                                {{contract.company}}
-                            <fd-inline-help [inlineHelpContentStyle]="{ 'background-color': 'var(--sapGroup_ContentBackground)', color: 'var(--sapTextColor)', 'border-color': 'var(--sapGroup_ContentBorderColor)'}" [placement]="'right'">
-                                Information about {{contract.company}}
-                            </fd-inline-help>
-                        </td>
-                        </ng-container>                    
-                    </ng-container>
+                  <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[0] | titlecase}}</th> 
+                  <ng-container cdk-cell *cdkCellDef="let contract">                       
+                    <td>
+                      {{contract.company}}
+                      <fd-inline-help [inlineHelpContentStyle]="{ 'background-color': 'var(--sapGroup_ContentBackground)', color: 'var(--sapTextColor)', 'border-color': 'var(--sapGroup_ContentBorderColor)'}" [placement]="'right'">
+                          Information about {{contract.company}}
+                      </fd-inline-help>
+                    </td>
+                    </ng-container>                    
+                  </ng-container>
     
                 <ng-container   cdkColumnDef="contact">
-                    <th cdk-header-cell *cdkHeaderCellDef>Contact</th> 
+                    <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[1] | titlecase}}</th> 
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
                         <td>
                             {{contract.contact}}
@@ -50,7 +50,7 @@
                 </ng-container>
     
                 <ng-container   cdkColumnDef="signed">
-                    <th cdk-header-cell *cdkHeaderCellDef>Signed</th>                            
+                    <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[2] | titlecase}}</th>                            
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
                         <td>
                           {{contract.signed.seconds | date:'yyyy/MM/dd h:mm:ss a'}}
@@ -59,7 +59,7 @@
                 </ng-container>
     
                 <ng-container   cdkColumnDef="type">
-                    <th cdk-header-cell *cdkHeaderCellDef>Type</th>
+                    <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[3] | titlecase}}</th>
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
                         <td>
                             {{contract.type | uppercase}}
@@ -68,7 +68,7 @@
                 </ng-container>
     
                 <ng-container   cdkColumnDef="value">
-                    <th cdk-header-cell *cdkHeaderCellDef>Value</th>
+                    <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[4] | titlecase}}</th>
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
                         <td>
                             {{contract.value | currency}}
@@ -77,7 +77,7 @@
                 </ng-container>
     
                 <ng-container  cdkColumnDef="status">
-                    <th cdk-header-cell *cdkHeaderCellDef>Status</th>
+                    <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[5] | titlecase}}</th>
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
                         <td>
                             <span fd-info-label [color]="contract.status | statusToColor" > {{contract.status}} </span>
@@ -86,7 +86,7 @@
                 </ng-container> 
     
                 <ng-container   cdkColumnDef="edit">
-                    <th cdk-header-cell *cdkHeaderCellDef>Edit</th>
+                    <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[6] | titlecase}}</th>
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
                             <td>
                               <button 
@@ -101,7 +101,7 @@
                 </ng-container>
     
                 <ng-container   cdkColumnDef="remove">
-                        <th cdk-header-cell *cdkHeaderCellDef >Remove</th>
+                        <th cdk-header-cell *cdkHeaderCellDef >{{columnHeaders[7] | titlecase}}</th>
                         <ng-container cdk-cell *cdkCellDef="let contract">                       
                             <td>
                             <button 
@@ -116,7 +116,7 @@
                 </ng-container>
                 <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
     
-                <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: ['company', 'contact', 'signed', 'type', 'value', 'status','edit', 'remove']" style="cursor: grab;"></tr>
+                <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: columnHeaders" style="cursor: grab;"></tr>
             </table>
         </fd-table-wrapper>
     
