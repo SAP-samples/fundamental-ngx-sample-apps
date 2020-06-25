@@ -13,7 +13,7 @@
               <fd-layout-panel>
                 <fd-layout-panel-body>
                   <div fd-form-item>
-                    <label fd-form-label for="name-input">Name: </label>
+                    <label fd-form-label for="name-input">{{fields[0] | titlecase}}: </label>
                     <fd-form-input-message-group>
                     <input 
                     [compact]="globalCompact"
@@ -29,7 +29,7 @@
                     [type]="productForm.get('name').touched ? 
                     (productForm.get('name').valid ? 'success' : 'error'):
                     (productForm.get('name').valid ? '' : '')">
-                    Required name
+                    Required {{fields[0]}}
                     </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
@@ -38,7 +38,7 @@
               <fd-layout-panel>
                 <fd-layout-panel-body>
                   <div fd-form-item>
-                    <label fd-form-label for="contact-input">Contact: </label>
+                    <label fd-form-label for="contact-input">{{fields[1] | titlecase}}: </label>
                     <fd-form-input-message-group>
                       <input 
                       [compact]="globalCompact"
@@ -55,7 +55,7 @@
                       [type]="productForm.get('contact').touched ? 
                       (productForm.get('contact').valid ? 'success' : 'error'):
                       (productForm.get('contact').valid ? '' : '')">
-                      Required contact information
+                      Required {{fields[1]}} information
                       </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
@@ -64,7 +64,7 @@
               <fd-layout-panel>
                 <fd-layout-panel-body>
                   <div fd-form-item>
-                    <label fd-form-label for="lob-input">Line of Business: </label>
+                    <label fd-form-label for="lob-input">{{fields[2] | uppercase}}: </label>
                     <fd-form-input-message-group>
                       <input 
                       [compact]="globalCompact"
@@ -81,7 +81,7 @@
                       [type]="productForm.get('lob').touched ? 
                       (productForm.get('lob').valid ? 'success' : 'error'):
                       (productForm.get('lob').valid ? '' : '')">
-                      Required line of business
+                      Required {{fields[2] | uppercase}}
                     </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
@@ -90,7 +90,7 @@
               <fd-layout-panel>
                 <fd-layout-panel-body>
                   <div fd-form-item>
-                    <label fd-form-label for="users-input">Number of Users: </label>
+                    <label fd-form-label for="users-input">{{fields[3] | titlecase | snakeCase}}: </label>
                     <fd-form-input-message-group>
                       <input 
                       [compact]="globalCompact"
@@ -107,7 +107,7 @@
                       [type]="productForm.get('user_number').touched ? 
                       (productForm.get('user_number').valid ? 'success' : 'error'):
                       (productForm.get('user_number').valid ? '' : '')">
-                        Required number of users
+                        Required {{fields[3] | snakeCase}}
                       </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
@@ -116,7 +116,7 @@
               <fd-layout-panel>
                 <fd-layout-panel-body>
                   <div fd-form-item>
-                    <label fd-form-label [for]="'status-1'"> Status: </label>
+                    <label fd-form-label [for]="'status-1'"> {{fields[4] | titlecase}}: </label>
                     <fd-form-input-message-group>
                       <select 
                       [compact]="globalCompact"
@@ -135,7 +135,7 @@
                       [type]="productForm.get('status').touched ? 
                       (productForm.get('status').valid ? 'success' : 'error'):
                       (productForm.get('status').valid ? '' : '')">
-                        Required status
+                        Required {{fields[4]}}
                       </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
