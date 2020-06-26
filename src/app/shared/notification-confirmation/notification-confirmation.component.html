@@ -1,7 +1,8 @@
 <fd-notification-header
   (closeButtonClick)="notificationRef.dismiss('Close Icon Click')"
   [type]="notificationRef.data.type">
-  <h3 fd-notification-title>{{ notificationRef.data.company }} {{notificationRef.data.type === 'success'? 'Added': 'Not Added'}}</h3>
+  <h3 *ngIf="!notificationRef.data.update" fd-notification-title>{{ notificationRef.data.company }} {{notificationRef.data.type === 'error'? 'Not Added': 'Added'}}</h3>
+  <h3 *ngIf="notificationRef.data.update" fd-notification-title>{{ notificationRef.data.company }} {{notificationRef.data.type === 'error'?'Not Updated': 'Updated'}}</h3>
 </fd-notification-header>
 <fd-notification-body>
     <div fd-notification-content>

@@ -37,4 +37,14 @@ export class ProductsService {
       [`${productName}`]: firebase.firestore.FieldValue.delete()
     });
   }
+
+  updateProduct (product:Product) {
+    const contact = product.contact;
+    const lob = product.lob;
+    const name = product.name;
+    const status = product.status;
+    const user_number = product.user_number;
+    const obj = {[`${name}`]: {contact, lob, name, status, user_number}};
+    let productCollection = this.db.collection('products').doc('ahvJ6z4p5z6vbrPsIidI').update(obj).catch(error => {});
+  }
 }

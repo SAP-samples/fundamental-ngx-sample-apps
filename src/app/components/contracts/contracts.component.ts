@@ -52,8 +52,6 @@ export class ContractsComponent implements OnInit {
         this.table.renderRows();
     }
 
-
-
     constructor(
       private authService: AuthService,
       private contractService: ContractsService, 
@@ -107,6 +105,7 @@ export class ContractsComponent implements OnInit {
                       company: result.company,
                       contact: result.contact,
                       status: result.status,
+                      update: false
                   },
                   size: 'm',
                   type: 'success'
@@ -129,6 +128,7 @@ export class ContractsComponent implements OnInit {
                       company: result.company,
                       contact: 'User has not been signed in!',
                       status: 'In order to add a contract, please register or sign in.',
+                      update: false
                     },
                     size: 'm',
                     type: 'error'
@@ -159,11 +159,55 @@ export class ContractsComponent implements OnInit {
             }
         }).afterClosed.subscribe(result => {
             if (result) {
-                this.alertService.open('Edit not allowed in this version.', {
+                // this.alertService.open('Edit not allowed in this version.', {
+                //     type: 'warning'
+                // });
+                if(this.loggedIn) {
+                  this.contract = result;
+                  const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                    data: {
+                        company: result.company,
+                        contact: result.contact,
+                        status: result.status,
+                        update: true
+                    },
+                    size: 'm',
                     type: 'warning'
                 });
+        
+                notificationService.afterClosed.subscribe(
+                    (result) => {
+                        if(result == 'OK'){
+                          this.contractService.updateContract(this.contract);
+                        }
+                    },
+                    (error) => {
+                    }
+                  );}
+                  else {
+                    this.contract = result;
+                    const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                      data: {
+                        company: result.company,
+                        contact: 'User has not been signed in!',
+                        status: 'In order to add a contract, please register or sign in.',
+                        update: false
+                      },
+                      size: 'm',
+                      type: 'error'
+                  });
+          
+                  notificationService.afterClosed.subscribe(
+                      (result) => {
+                          if(result == 'OK'){
+                          }
+                      },
+                      (error) => {
+                      }
+                    );
+                  }
             }
-        }, () => {});
+        });
     }
 
     openConfirmModal(company): void {
