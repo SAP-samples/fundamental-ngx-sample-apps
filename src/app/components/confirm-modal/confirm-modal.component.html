@@ -4,11 +4,16 @@
     <button fd-dialog-close-button (click)="dialogRef.dismiss()"></button>
   </fd-dialog-header>
   <fd-dialog-body>
-    <fd-layout-panel>
-      <fd-layout-panel-body>
-        This action is permanent and cannot be reversed. Are you sure you want to continue?
-      </fd-layout-panel-body>
-    </fd-layout-panel>
+    <fd-layout-grid [col]="1" [nogap]="true">
+      <fd-layout-panel>
+        <fd-layout-panel-body *ngIf="dialogRef.data.auth">
+          This action is permanent and cannot be reversed. Are you sure you want to continue?
+        </fd-layout-panel-body>
+        <fd-layout-panel-body *ngIf="!dialogRef.data.auth">
+          Sorry, you do not have permissions. Please login in or register.
+        </fd-layout-panel-body>
+      </fd-layout-panel>
+    </fd-layout-grid>
   </fd-dialog-body>
   <fd-dialog-footer>
     <fd-dialog-footer-button>

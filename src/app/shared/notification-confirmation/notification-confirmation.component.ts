@@ -11,6 +11,7 @@ export class NotificationConfirmationComponent implements OnInit {
   constructor(public notificationRef: NotificationRef) { }
 
   ngOnInit(): void {
+    console.log(this.notificationRef.data);
   }
 
 }
