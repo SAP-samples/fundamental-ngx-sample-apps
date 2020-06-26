@@ -27,7 +27,7 @@
                 <li fd-nested-list-item *ngFor="let mainItem of sideNavMain">
                     <a fd-nested-list-link [routerLink]="mainItem.route" >
                         <span fd-nested-list-icon [glyph]="mainItem.icon"></span>
-                        <span fd-nested-list-title>{{mainItem.title}}</span>
+                        <span fd-nested-list-title>{{mainItem.title | titlecase}}</span>
                     </a>
                 </li>
             </ul>
@@ -37,7 +37,7 @@
               <li fd-nested-list-item *ngFor="let secondItem of sideNavSecondary">
                 <a fd-nested-list-link [routerLink]="secondItem.route" >
                     <span fd-nested-list-icon [glyph]="secondItem.icon"></span>
-                    <span fd-nested-list-title>{{secondItem.title}}</span>
+                    <span fd-nested-list-title>{{secondItem.title | titlecase}}</span>
                 </a>
               </li>
             </ul>

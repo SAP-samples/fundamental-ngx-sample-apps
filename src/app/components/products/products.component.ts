@@ -3,7 +3,7 @@ import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Product } from '../../models/product.model';
-import { AlertService, DialogService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
+import { AlertService, DialogService, MultiInputModule, CalendarModule, NotificationService } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { Subscription, BehaviorSubject, Subject } from 'rxjs';
@@ -11,6 +11,8 @@ import {ProductsService} from 'src/app/services/products/products.service';
 import { takeUntil } from 'rxjs/operators';
 import {CompactService} from 'src/app/services/compact/compact.service';
 import {ProductPageService} from 'src/app/services/product-page/product-page.service';
+import {AuthService} from 'src/app/services/auth/auth.service';
+import {NotificationConfirmationComponent} from 'src/app/shared/notification-confirmation/notification-confirmation.component';
 
 @Component({
     selector: 'app-products',
@@ -27,6 +29,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
     selected: Product[] = [];
     filteredDataSource: Product[] = [];
     columnHeaders: string [];
+    loggedIn: boolean = false;
 
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
@@ -57,8 +60,11 @@ export class ProductsComponent implements OnDestroy, OnInit {
       public productService: ProductsService, 
       private dialogService: DialogService, 
       private alertService: AlertService,
+      private authService: AuthService,
+      private notificationService: NotificationService,
       private productPageService: ProductPageService,
-      compactService: CompactService) {
+      compactService: CompactService
+      ) {
         compactService.compact.subscribe(result => {
           this.globalCompact = result;
         })
@@ -72,12 +78,52 @@ export class ProductsComponent implements OnDestroy, OnInit {
               compact: this.globalCompact
             }
         }).afterClosed.subscribe(result => {
-            if (result) {
-                this.alertService.open('Create not allowed in this version.', {
-                    type: 'warning'
-                });
+          console.log(result);
+          if (result) {
+            const product = result;
+            if(this.loggedIn) {
+              const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                data: {
+                    company: result.name,
+                    contact: result.contact,
+                    status: result.status,
+                },
+                size: 'm',
+                type: 'success'
+            });
+    
+            notificationService.afterClosed.subscribe(
+                (result) => {
+                    if(result == 'OK'){
+                      this.productService.addProduct(product);
+                    }
+                },
+                (error) => {
+                  this.productService.deleteProduct(product.company);
+                }
+              );}
+              else {
+                const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                  data: {
+                    company: product.name,
+                    contact: 'User has not been signed in!',
+                    status: 'In order to add a product, please register or sign in.',
+                  },
+                  size: 'm',
+                  type: 'error'
+              });
+      
+              notificationService.afterClosed.subscribe(
+                  (result) => {
+                      if(result == 'OK'){
+                      }
+                  },
+                  (error) => {
+                  }
+                );
+              }
             }
-        }, () => { });
+        });
     }
 
     openEditModal(newProduct: Product): void {
@@ -93,17 +139,20 @@ export class ProductsComponent implements OnDestroy, OnInit {
                     type: 'warning'
                 });
             }
-        }, () => { });
+        });
     }
 
-    openConfirmModal(): void {
-        this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
+    openConfirmModal(name): void {
+      if(this.loggedIn){
+        this.dialogService.open(ConfirmModalComponent, {data:{auth: true}}).afterClosed.subscribe(result => {
             if (result) {
-                this.alertService.open('Delete not allowed in this version.', {
-                    type: 'warning'
-                });
+              this.productService.deleteProduct(name);
             }
-        }, () => { });
+        });
+      } else {
+        this.dialogService.open(ConfirmModalComponent, {data:{auth: false}}).afterClosed.subscribe(result => {
+      });
+      }
     }
 
     
@@ -112,6 +161,9 @@ export class ProductsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
+    this.loggedIn = this.authService.isLoggedIn
+    this.authService.userObserLoginObservable.subscribe(loggedIn => {this.loggedIn = loggedIn;})
+
     this.subscription = this.productService.getItems().subscribe(data => {
       const databaseData = Object.keys(data).map(i => data[i]);
       this.products = databaseData;

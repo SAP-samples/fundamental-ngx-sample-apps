@@ -21,6 +21,7 @@ import {ContractPageService} from 'src/app/services/contract-page/contract-page.
 })
 export class ContractsComponent implements OnInit {
 
+    loggedIn: boolean = false;
     globalCompact: boolean;
     contracts: any;
     selected: Contract[] = [];
@@ -54,7 +55,7 @@ export class ContractsComponent implements OnInit {
 
 
     constructor(
-      authService: AuthService,
+      private authService: AuthService,
       private contractService: ContractsService, 
       private compactService: CompactService,
       private dialogService: DialogService, 
@@ -62,18 +63,22 @@ export class ContractsComponent implements OnInit {
       public alertService: AlertService,
       private notificationService: NotificationService
       ) {
-      contractService.getContractsObservable().subscribe(data => {
+
+}
+
+    ngOnInit() {
+      this.loggedIn = this.authService.isLoggedIn;
+      this.authService.userObserLoginObservable.subscribe(isLoggedIn => {
+        this.loggedIn = isLoggedIn;
+      })
+
+      this.contractService.getContractsObservable().subscribe(data => {
         const databaseData = Object.keys(data).map(i => data[i]);
         this.contracts = databaseData;
         this.dataSource = databaseData;
         this.filteredDataSource = databaseData;
         });
-        compactService.compact.subscribe(result => {
-          this.globalCompact = result;
-        })
-}
 
-    ngOnInit() {
       this.compactService.compact.subscribe(result => {
         this.globalCompact = result;
       })
@@ -95,29 +100,51 @@ export class ContractsComponent implements OnInit {
             
         }).afterClosed.subscribe(result => {
             if (result) {
-              // this.contractService.addContract(result);
-              this.contract = result;
-              const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
-                data: {
-                    company: result.company,
-                    contact: result.contact,
-                    status: result.status,
-                },
-                size: 'm',
-                type: 'success'
-            });
-    
-            notificationService.afterClosed.subscribe(
-                (result) => {
-                    if(result == 'OK'){
-                      this.contractService.addContract(this.contract);
+              if(this.loggedIn) {
+                this.contract = result;
+                const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                  data: {
+                      company: result.company,
+                      contact: result.contact,
+                      status: result.status,
+                  },
+                  size: 'm',
+                  type: 'success'
+              });
+      
+              notificationService.afterClosed.subscribe(
+                  (result) => {
+                      if(result == 'OK'){
+                        this.contractService.addContract(this.contract);
+                      }
+                  },
+                  (error) => {
+                    this.contractService.deleteContract(this.contract.company);
+                  }
+                );}
+                else {
+                  this.contract = result;
+                  const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                    data: {
+                      company: result.company,
+                      contact: 'User has not been signed in!',
+                      status: 'In order to add a contract, please register or sign in.',
+                    },
+                    size: 'm',
+                    type: 'error'
+                });
+        
+                notificationService.afterClosed.subscribe(
+                    (result) => {
+                        if(result == 'OK'){
+                        }
+                    },
+                    (error) => {
                     }
-                },
-                (error) => {
-                  this.contractService.deleteContract(this.contract.company);
+                  );
                 }
-            );}
-        }, () => {});
+              }
+        });
     }
 
     openEditModal(newContract: Contract): void {
@@ -140,11 +167,16 @@ export class ContractsComponent implements OnInit {
     }
 
     openConfirmModal(company): void {
-        this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
+      if(this.loggedIn){
+        this.dialogService.open(ConfirmModalComponent, {data:{auth: true}}).afterClosed.subscribe(result => {
             if (result) {
               this.contractService.deleteContract(company);
             }
-        }, () => {});
+        });
+      } else {
+        this.dialogService.open(ConfirmModalComponent, {data:{auth: false}}).afterClosed.subscribe(result => {
+      });
+      }
     }
 
 }

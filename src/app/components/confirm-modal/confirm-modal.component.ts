@@ -11,6 +11,7 @@ export class ConfirmModalComponent implements OnInit {
   constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef) { }
 
   ngOnInit() {
+    
   }
 
 }
