@@ -30,19 +30,8 @@ export class CreateContractModalComponent implements OnInit {
     date: FdDate = FdDate.getToday();
     validityName;
 
-    // myDisableFunction = (d: FdDate) => {
-    //     const day = d.getDay();
-    //     return day === 6 || day === 0;
-    // }
-    // myBlockFunction =  (d: FdDate) => {
-    //     const firstDay = FdDate.getToday();
-    //     const lastDay = new FdDate(firstDay.year, firstDay.month, firstDay.day);
-    //     return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
-    // }
-
     constructor(
     @Inject(DIALOG_REF) public dialogRef: DialogRef, 
-    private dialogService: DialogService,
     compactService: CompactService
     ) {
       compactService.compact.subscribe(result => {
@@ -69,7 +58,6 @@ export class CreateContractModalComponent implements OnInit {
 
     submitForm(): void {
         const tmpObj = this.contractForm.getRawValue();
-        tmpObj.signed = this.date;
         this.dialogRef.close(tmpObj);
     }
 

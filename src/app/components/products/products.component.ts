@@ -78,7 +78,6 @@ export class ProductsComponent implements OnDestroy, OnInit {
               compact: this.globalCompact
             }
         }).afterClosed.subscribe(result => {
-          console.log(result);
           if (result) {
             const product = result;
             if(this.loggedIn) {
@@ -87,6 +86,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
                     company: result.name,
                     contact: result.contact,
                     status: result.status,
+                    update: false
                 },
                 size: 'm',
                 type: 'success'
@@ -108,6 +108,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
                     company: product.name,
                     contact: 'User has not been signed in!',
                     status: 'In order to add a product, please register or sign in.',
+                    update: false
                   },
                   size: 'm',
                   type: 'error'
@@ -135,9 +136,47 @@ export class ProductsComponent implements OnDestroy, OnInit {
             }
         }).afterClosed.subscribe(result => {
             if (result) {
-                this.alertService.open('Edit not allowed in this version.', {
-                    type: 'warning'
+              const product = result;
+                if(this.loggedIn) {
+                  const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                    data: {
+                        company: result.name,
+                        contact: result.contact,
+                        status: result.status,
+                        update: true
+                    },
+                    size: 'm',
+                    type: 'warning',
                 });
+        
+                notificationService.afterClosed.subscribe(
+                    (result) => {
+                        if(result == 'OK'){
+                          this.productService.updateProduct(product);
+                        }
+                    },
+                    (error) => {
+                    }
+                  );}
+                  else {
+                    const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                      data: {
+                        company: result.name,
+                        contact: 'User has not been signed in!',
+                        status: 'In order to update a product, please register or sign in.',
+                        update: true
+                      },
+                      size: 'm',
+                      type: 'error'
+                  });
+          
+                  notificationService.afterClosed.subscribe(
+                      (result) => {
+                      },
+                      (error) => {
+                      }
+                    );
+                  }
             }
         });
     }

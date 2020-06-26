@@ -37,6 +37,17 @@ export class ContractsService {
     });
   }
 
+  updateContract (contract:Contract) {
+    const company = contract.company;
+    const contact = contract.contact;
+    const signed: Date =  contract.signed.toDate();
+    const status = contract.status;
+    const type = contract.type;
+    const value = contract.value;
+    const obj = {[`${company}`]: {company, contact, signed, status, type, value}};
+    let contractCollection = this.db.collection('products').doc('contracts').update(obj).catch(error => {});
+  }
+
   getContractsObservable() {
     return this.contractObservable;
   }
