@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, Subscription} from 'rxjs';
 import {Contract} from '../../models/contract.model';
-import {AlertService, ModalService, CalendarModule} from '@fundamental-ngx/core';
+import {AlertService, CalendarModule} from '@fundamental-ngx/core';
 import {CreateContractModalComponent} from './create-contract-modal/create-contract-modal.component';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import { Product } from 'src/app/models/product.model';

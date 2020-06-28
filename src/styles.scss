@@ -22,3 +22,25 @@ body {
 .example-container{
     height: calc(100vh - 64px);
 }
+
+// body {
+//     height: 100vh;
+//     width: 100vw;
+//     margin: 0;
+//     background-color: var(--sapBackgroundColor);
+//     font-family: var(--sapFontFamily);
+// }
+
+// @font-face {
+//   font-family: "72";
+//   src: url("./fonts/72_Desktop/72-Regular.ttf") format("woff"); // Bold, Light, Regular available in woff and woff2
+//   font-weight: normal;
+//   font-style: normal;
+// };
+
+// @font-face {
+//   font-family: "SAP-icons";
+//   src: url("./fonts/sap-icon/Fonts/SAP-icons.woff") format("woff"); // available in woff, woff2 and ttf
+//   font-weight: normal;
+//   font-style: normal;
+// }
