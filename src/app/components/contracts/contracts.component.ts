@@ -25,7 +25,7 @@ export class ContractsComponent implements OnInit {
     columnHeaders: string [] = ['company', 'contact', 'type', 'value', 'status'];
 
 
-    @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
+    @ViewChild('table') table: CdkTable<{}[]>;
 
     dataSource: Contract[];
 

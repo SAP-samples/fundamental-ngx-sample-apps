@@ -27,7 +27,7 @@ export class ProductsComponent implements  OnDestroy {
     columnHeaders: string [] = ['name', 'contact', 'lob', 'user_number', 'status'];
 
 
-    @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
+    @ViewChild('table') table: CdkTable<{}[]>;
 
     dataSource: Product[];
     filteredDatasource: Product[];
