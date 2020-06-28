@@ -1,5 +1,4 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {ModalRef, ModalModule, ModalService} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MyValidation } from './../../contracts/create-contract-modal/create-contract-modal-int';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';

@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {ModalRef, ModalModule, ModalService, FdDate} from '@fundamental-ngx/core';
+import {FdDate} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators, FormGroupDirective, NgForm} from '@angular/forms';
 
 import { invalid } from '@angular/compiler/src/render3/view/util';

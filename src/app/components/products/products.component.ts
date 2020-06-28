@@ -3,7 +3,7 @@ import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Product } from '../../models/product.model';
-import { AlertService, ModalService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
+import { AlertService, MultiInputModule, CalendarModule } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
