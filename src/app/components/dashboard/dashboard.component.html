@@ -88,15 +88,15 @@
     </div>
 </mat-card>
 <!-- 
-<fd-panel class="panel-custom"
+<fd-layout-panel class="panel-custom"
           [routerLink]="'/products'">
-    <fd-panel-header>
-        <fd-panel-head>
+    <fd-layout-panel-header>
+        <fd-layout-panel-head>
             <h2>{{labels.products}}</h2>
-            <fd-panel-description>{{labels.productsDescription}}</fd-panel-description>
-        </fd-panel-head>
-    </fd-panel-header>
-    <fd-panel-body>
+            <fd-layout-panel-description>{{labels.productsDescription}}</fd-layout-panel-description>
+        </fd-layout-panel-head>
+    </fd-layout-panel-header>
+    <fd-layout-panel-body>
         <ng-container *ngIf="products | async as productList">
             <table fd-table>
                 <thead fd-table-header>
@@ -110,7 +110,7 @@
                         <td fd-table-cell>{{product.contact}}</td>
                         <td fd-table-cell>{{product.lob}}</td>
                         <td fd-table-cell>
-                            <span fd-badge [status]="product.status | status "
+                            <span fd-info-label [color]="product.status | status "
                                       modifier="pill">
                                 {{product.status | uppercase}}
                         </span>
@@ -123,5 +123,5 @@
              class="spinner-container">
             <fd-busy-indicator [loading]="true"></fd-busy-indicator>
         </div>
-    </fd-panel-body>
-</fd-panel> -->
+    </fd-layout-panel-body>
+</fd-layout-panel> -->

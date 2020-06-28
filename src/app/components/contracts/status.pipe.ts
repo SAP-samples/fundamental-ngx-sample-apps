@@ -7,11 +7,11 @@ export class StatusPipe implements PipeTransform {
 
     transform(value: string): string {
         switch (value) {
-            case 'completed': return 'success';
-            case 'on hold': return 'warning';
-            case 'dropped': return 'error';
-            case 'ready': return 'success';
-            case 'in progress': return 'warning';
+            case 'completed': return '8';
+            case 'on hold': return '1';
+            case 'dropped': return '3';
+            case 'ready': return '10';
+            case 'in progress': return '6';
         }
     }
 
