@@ -89,10 +89,49 @@
 </mat-card>
 <!-- 
 <fd-layout-panel class="panel-custom"
+        [routerLink]="'/contracts'">
+    <fd-layout-panel-header>
+        <fd-layout-panel-head>
+            <h2 fd-layout-panel-title>{{labels.contracts}}</h2>
+            <fd-layout-panel-description>{{labels.contractsDescription}}</fd-layout-panel-description>
+        </fd-layout-panel-head>
+    </fd-layout-panel-header>
+    <fd-layout-panel-body>
+        <ng-container *ngIf="contracts | async as contractList">
+            <table fd-table>
+                <thead fd-table-header>
+                    <tr fd-table-row>
+                        <th fd-table-cell *ngFor="let title of contractHeaders">{{title}}</th>
+                    </tr>
+                </thead>
+                <tbody fd-table-body>
+                    <tr fd-table-row *ngFor="let contract of contractList.slice(0,4)">
+                        <td fd-table-cell>{{contract.company}}</td>
+                        <td fd-table-cell>{{contract.contact}}</td>
+                        <td fd-table-cell>{{contract.type}}</td>
+                        <td fd-table-cell>{{contract.value}}</td>
+                        <td fd-table-cell>
+                            <span fd-info-label [color]="contract.status | status "
+                                      modifier="pill">
+                                {{contract.status | uppercase}}
+                        </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+        <div *ngIf="!(products | async)"
+            class="spinner-container">
+            <fd-busy-indicator [loading]="true"></fd-busy-indicator>
+        </div>
+    </fd-layout-panel-body>
+</fd-layout-panel>
+
+<fd-layout-panel class="panel-custom"
           [routerLink]="'/products'">
     <fd-layout-panel-header>
         <fd-layout-panel-head>
-            <h2>{{labels.products}}</h2>
+            <h2 fd-layout-panel-title>{{labels.products}}</h2>
             <fd-layout-panel-description>{{labels.productsDescription}}</fd-layout-panel-description>
         </fd-layout-panel-head>
     </fd-layout-panel-header>

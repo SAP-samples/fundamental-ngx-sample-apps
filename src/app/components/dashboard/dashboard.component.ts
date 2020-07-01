@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
     products: Observable<Product[]>;
 
     headers = ['Company', 'Contact', 'Line of Business', 'Status'];
+    contractHeaders = ['Company', 'Contact', 'Type', 'Value', 'Status'];
     labels = {
         products: "Products",
         productsDescription: "Quick information about company products.",
@@ -67,31 +68,31 @@ export class DashboardComponent implements OnInit {
                     contact: 'Evangeline Barber',
                     status: 'completed',
                     type: '3',
-                    value: '12 000'
+                    value: '12,000'
                 },{
                     company: 'Airbnb',
                     contact: 'Danica Carpenter',
                     status: 'on hold',
                     type: '3',
-                    value: '16 443'
+                    value: '16,443'
                 },{
                     company: 'Google',
                     contact: 'Cassie Mayo',
                     status: 'dropped',
                     type: '3',
-                    value: '34 000'
+                    value: '34,000'
                 },{
                     company: 'Apple',
                     contact: 'Alisa Herring',
                     status: 'completed',
                     type: '3',
-                    value: '10 000'
+                    value: '10,000'
                 },{
                     company: 'SAP',
                     contact: 'Alonzo Ramirez',
                     status: 'completed',
                     type: '3',
-                    value: '45 300'
+                    value: '45,300'
                 }])
             }, 900);
         });
