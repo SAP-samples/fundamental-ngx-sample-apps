@@ -30,8 +30,7 @@
               "node_modules/fundamental-styles/dist/fundamental-styles.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
           },
           "configurations": {
             "production": {
