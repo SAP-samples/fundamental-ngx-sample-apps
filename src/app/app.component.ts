@@ -86,13 +86,16 @@ export class AppComponent implements OnInit{
     });
 
     this.productSwitchData.productSwitchData.subscribe(data => {
-      const productSwitchDataFromDb = Object.keys(data).map(i => data[i]);
+      console.log(data);
+      const productSwitchDataFromDb = Object.keys(data.products).map(i => data.products[i]);
       this.list = productSwitchDataFromDb;
     });
 
     this.sideNavData.sideNavigationData.subscribe(sideNav => {
       this.sideNavMain = sideNav.main;
       this.sideNavSecondary = sideNav.secondary;
+    }, error => {
+      console.log(error);
     })
 
     this.luigiUiService.luigiOption.subscribe(luigiOption => {
