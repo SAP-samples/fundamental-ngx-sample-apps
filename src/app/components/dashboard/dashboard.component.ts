@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
       this.subscriptionProduct = this.productService.getItems().subscribe(data => {
-        const databaseData = Object.keys(data).map(i => data[i]);
+        const databaseData = Object.keys(data).map(i => data[i]); // to transfer a json object into an array
         this.products = databaseData;
       });
       this.subscriptionContract = this.contractService.getContractsObservable().subscribe(data => {
@@ -38,11 +38,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.contracts = databaseData;
       });
 
-      this.contractPageData.contractData.subscribe(data => {
+      this.contractPageData.contractHeader.subscribe(data => {
         this.contract = {title: data.title, description: data.description};
       });
 
-      this.productPageData.productData.subscribe(data => {
+      this.productPageData.productHeader.subscribe(data => {
         this.product = {title: data.title, description: data.description};
       });
     }

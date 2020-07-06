@@ -7,13 +7,21 @@ import {AngularFirestore} from '@angular/fire/firestore';
 })
 export class ProductPageService {
 
-  private _productData = new Observable<any>();
+  private _productHeader = new Observable<any>();
+  private _productPageData = new Observable<any>();
 
   constructor(private db: AngularFirestore){
-    this._productData = this.db.collection('products').doc('productData').valueChanges();
+    this._productHeader = this.db.collection('main').doc('en').collection('productsPage').doc('header').valueChanges();
+    this._productPageData = this.db.collection('main').doc('en').collection('productsPage').doc('columns').valueChanges();
   }
 
-  get productData() {
-    return this._productData;
+  get productHeader() {
+    return this._productHeader;
   }
+
+  get productPageData() {
+    return this._productPageData;
+  }
+
+
 }

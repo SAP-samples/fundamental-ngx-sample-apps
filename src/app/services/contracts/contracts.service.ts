@@ -3,21 +3,20 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Contract} from 'src/app/models/contract.model';
 import {Subscription, Observable} from 'rxjs';
 import * as firebase from 'firebase';
+import {ContractPageService} from '../contract-page/contract-page.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractsService {
 
-  itemsRef;
   contractObservable: Observable<Contract[]>;
 
-  constructor(private db: AngularFirestore) {
-    this.itemsRef = db.collection('products').doc('contracts');
-    this.contractObservable = this.itemsRef.valueChanges();
+  constructor(private db: AngularFirestore, private _contractPageService: ContractPageService) {
+    this.contractObservable = db.collection('main').doc('en').collection('contracts').valueChanges();
   }
 
-  addContract(contract: Contract) {
+  addContract(contract: Contract, numOfContract:number) {
     const company = contract.company;
     const contact = contract.contact;
     const signed: Date =  contract.signed.toDate();
@@ -28,13 +27,15 @@ export class ContractsService {
 
     let contractCollection = this.db.collection('products').doc('contracts');
     contractCollection.update(Object.assign({}, obj));
+    this._contractPageService.addContract(numOfContract);
   }
 
-  deleteContract(contractName) {
+  deleteContract(contractName, numOfContract:number) {
     let contractCollection = this.db.collection('products').doc('contracts');
-    var removeContract = contractCollection.update({
+    contractCollection.update({
       [`${contractName}`]: firebase.firestore.FieldValue.delete()
     });
+    this._contractPageService.deleteContract(numOfContract);
   }
 
   getContractsObservable() {
