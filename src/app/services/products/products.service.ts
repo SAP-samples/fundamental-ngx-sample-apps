@@ -6,12 +6,10 @@ import {AngularFirestore} from '@angular/fire/firestore';
 @Injectable()
 export class ProductsService {
 
-  itemsRef;
   items: Observable<Product[]>;
 
   constructor(private db: AngularFirestore) {
-    this.itemsRef = db.collection('products').doc('ahvJ6z4p5z6vbrPsIidI');
-    this.items = this.itemsRef.valueChanges();
+    this.items = db.collection('main').doc('en').collection('products').valueChanges();
   }
 
   getItems() {

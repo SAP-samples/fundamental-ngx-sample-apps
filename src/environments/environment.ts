@@ -6,13 +6,13 @@ export const environment = {
     production: false,
     firebase: {
       apiKey: "REDACTED_GCP_API_KEY",
-      authDomain: "sapdemoapp-af617.firebaseapp.com",
-      databaseURL: "https://sapdemoapp-af617.firebaseio.com",
-      projectId: "sapdemoapp-af617",
-      storageBucket: "sapdemoapp-af617.appspot.com",
-      messagingSenderId: "906977258657",
-      appId: "1:906977258657:web:52b83e2ceefe50c8a894e0",
-      measurementId: "G-ZB8L7CWNZK"
+      authDomain: "fundamental-demo-app.firebaseapp.com",
+      databaseURL: "https://fundamental-demo-app.firebaseio.com",
+      projectId: "fundamental-demo-app",
+      storageBucket: "fundamental-demo-app.appspot.com",
+      messagingSenderId: "267773100353",
+      appId: "1:267773100353:web:e5464549cff013a51ea1c0",
+      measurementId: "G-HPGDYLM0FG"
     }
 };
 /*
