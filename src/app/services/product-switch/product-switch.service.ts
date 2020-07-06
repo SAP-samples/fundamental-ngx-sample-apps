@@ -11,7 +11,7 @@ export class ProductSwitchDataService {
   private _productSwitchData = new Observable<any>();
 
   constructor(private db: AngularFirestore){
-    this._productSwitchData = this.db.collection('products').doc('productSwitchData').valueChanges();
+    this._productSwitchData = this.db.collection('main').doc('en').collection('navigation').doc('productSwitch').valueChanges();
   }
 
   get productSwitchData() {

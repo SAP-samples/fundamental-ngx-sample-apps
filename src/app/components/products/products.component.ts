@@ -27,7 +27,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
     selected: Product[] = [];
     filteredDataSource: Product[] = [];
     columnHeaders: string [];
-
+    totalProducts: number;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
@@ -119,9 +119,17 @@ export class ProductsComponent implements OnDestroy, OnInit {
       this.filteredDataSource = databaseData;
     });
 
-    this.productPageService.productData.subscribe(data => {
+    this.productPageService.productHeader.subscribe(data => {
       this.productsPage = {title: data.title, description: data.description};
+      this.totalProducts = data.numOfProducts;
+
+    });
+    this.productPageService.productPageData.subscribe(data => {
       this.columnHeaders = data.columns;
-    })
+    });
+  }
+
+
+  newPageClicked(event) {
   }
 }

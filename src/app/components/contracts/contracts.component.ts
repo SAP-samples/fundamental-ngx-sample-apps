@@ -29,6 +29,7 @@ export class ContractsComponent implements OnInit {
     columnHeaders: string [] = [];
     contractPage: {title: string, description: string} = {title:'', description: ''};
     contract: Contract = null;
+    totalContracts: number;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
@@ -62,24 +63,27 @@ export class ContractsComponent implements OnInit {
       public alertService: AlertService,
       private notificationService: NotificationService
       ) {
-      contractService.getContractsObservable().subscribe(data => {
+}
+
+    ngOnInit() {
+      this.contractService.getContractsObservable().subscribe(data => {
         const databaseData = Object.keys(data).map(i => data[i]);
         this.contracts = databaseData;
         this.dataSource = databaseData;
         this.filteredDataSource = databaseData;
-        });
-        compactService.compact.subscribe(result => {
-          this.globalCompact = result;
-        })
-}
+      }, error => {
 
-    ngOnInit() {
+      });
+
       this.compactService.compact.subscribe(result => {
         this.globalCompact = result;
       })
 
-      this.contractPageData.contractData.subscribe(data => {
+      this.contractPageData.contractHeader.subscribe(data => {
         this.contractPage = {title: data.title, description: data.description};
+        this.totalContracts = data.numOfContracts;
+      });
+      this.contractPageData.contractColumns.subscribe(data => {
         this.columnHeaders = data.columns;
       });
     }
@@ -95,7 +99,6 @@ export class ContractsComponent implements OnInit {
             
         }).afterClosed.subscribe(result => {
             if (result) {
-              // this.contractService.addContract(result);
               this.contract = result;
               const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
                 data: {
@@ -110,11 +113,11 @@ export class ContractsComponent implements OnInit {
             notificationService.afterClosed.subscribe(
                 (result) => {
                     if(result == 'OK'){
-                      this.contractService.addContract(this.contract);
+                      this.contractService.addContract(this.contract, this.totalContracts);
                     }
                 },
                 (error) => {
-                  this.contractService.deleteContract(this.contract.company);
+                  this.contractService.deleteContract(this.contract.company, this.totalContracts);
                 }
             );}
         }, () => {});
@@ -142,9 +145,11 @@ export class ContractsComponent implements OnInit {
     openConfirmModal(company): void {
         this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
             if (result) {
-              this.contractService.deleteContract(company);
+              this.contractService.deleteContract(company, this.totalContracts);
             }
         }, () => {});
     }
 
+    newPageClicked(event) {
+    }
 }
