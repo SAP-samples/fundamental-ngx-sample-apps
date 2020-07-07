@@ -59,7 +59,7 @@
                     <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[2] | titlecase}}</th>                            
                     <ng-container cdk-cell *cdkCellDef="let contract">                       
                         <td>
-                          {{contract.signed.seconds | date:'yyyy/MM/dd h:mm:ss a'}}
+                          {{contract.signed.seconds | date:'yyyy/MM/dd'}}
                         </td>
                     </ng-container>
                 </ng-container>
