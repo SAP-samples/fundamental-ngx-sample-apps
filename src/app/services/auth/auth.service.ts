@@ -3,23 +3,28 @@ import { Router } from  "@angular/router";
 import { auth } from  'firebase/app';
 import { AngularFireAuth } from  "@angular/fire/auth";
 import { User } from  'firebase';
-import {Observable, Observer, Subject} from 'rxjs';
+import {Observable, Observer, BehaviorSubject} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly _loggedIn: Subject<any> = new Subject<any>();
-  private _userObserLoginObservable = this._loggedIn.asObservable();
+  private readonly _loggedIn: BehaviorSubject<any> = new BehaviorSubject<any>(false);
 
   constructor( 
     public  afAuth:  AngularFireAuth, 
     public  router:  Router, 
-    private cookie: CookieService) {}
+    private cookie: CookieService) {
+      afAuth.setPersistence('session');
+      const user = this.cookie.get("userid");
+      if (user) {
+        this._loggedIn.next(true);
+      }
+    }
    
    get userObserLoginObservable() {
-     return this._userObserLoginObservable;
+     return this._loggedIn;
    }
 
    async login(email: string, password: string) {

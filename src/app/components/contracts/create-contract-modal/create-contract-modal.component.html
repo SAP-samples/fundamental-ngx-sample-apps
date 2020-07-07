@@ -16,7 +16,7 @@
               <div fd-form-item>
                 <label fd-form-label for="company-input">{{fields[0] | titlecase}}: </label>
               <fd-form-input-message-group>
-                <input fd-form-control 
+                <input fd-form-control [readOnly]="editMode"
                 [compact]="globalCompact"
                 type="text"
                 id="company-input"

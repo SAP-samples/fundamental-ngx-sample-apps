@@ -27,9 +27,10 @@ export class ContractsComponent implements OnInit {
     filteredDataSource: Contract[];
     subscription: Subscription;
     columnHeaders: string [] = [];
-    contractPage: {title: string, description: string} = {title:'', description: ''};
+    contractPage: {title: string, description: string} = {title: '', description: ''};
     contract: Contract = null;
     totalContracts: number;
+    isLoggedIn = false;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
@@ -55,10 +56,10 @@ export class ContractsComponent implements OnInit {
 
 
     constructor(
-      authService: AuthService,
-      private contractService: ContractsService, 
+      private authService: AuthService,
+      private contractService: ContractsService,
       private compactService: CompactService,
-      private dialogService: DialogService, 
+      private dialogService: DialogService,
       private contractPageData: ContractPageService,
       public alertService: AlertService,
       private notificationService: NotificationService
@@ -66,6 +67,7 @@ export class ContractsComponent implements OnInit {
 }
 
     ngOnInit() {
+      this.isLoggedIn = this.authService.isLoggedIn;
       this.contractService.getContractsObservable().subscribe(data => {
         const databaseData = Object.keys(data).map(i => data[i]);
         this.contracts = databaseData;
@@ -77,7 +79,7 @@ export class ContractsComponent implements OnInit {
 
       this.compactService.compact.subscribe(result => {
         this.globalCompact = result;
-      })
+      });
 
       this.contractPageData.contractHeader.subscribe(data => {
         this.contractPage = {title: data.title, description: data.description};
@@ -86,6 +88,8 @@ export class ContractsComponent implements OnInit {
       this.contractPageData.contractColumns.subscribe(data => {
         this.columnHeaders = data.columns;
       });
+
+      this.authService.userObserLoginObservable.subscribe(loggedIn => {this.isLoggedIn = loggedIn; });
     }
 
 
@@ -96,8 +100,9 @@ export class ContractsComponent implements OnInit {
               editMode: false,
               fields: this.columnHeaders
             }
-            
+
         }).afterClosed.subscribe(result => {
+          if (this.isLoggedIn){
             if (result) {
               this.contract = result;
               const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
@@ -109,23 +114,31 @@ export class ContractsComponent implements OnInit {
                 size: 'm',
                 type: 'success'
             });
-    
-            notificationService.afterClosed.subscribe(
+
+              notificationService.afterClosed.subscribe(
                 (result) => {
-                    if(result == 'OK'){
+                    if (result == 'OK'){
                       this.contractService.addContract(this.contract, this.totalContracts);
                     }
                 },
                 (error) => {
-                  this.contractService.deleteContract(this.contract.company, this.totalContracts);
                 }
-            );}
+            ); }
+          } else {
+            this.notificationService.open(NotificationConfirmationComponent, {
+              data: {
+                  invalid: true
+              },
+              size: 'm',
+              type: 'error'
+            });
+          }
         }, () => {});
     }
 
     openEditModal(newContract: Contract): void {
         const copyObj = Object.assign({}, newContract);
-        const tempDate = new Date(newContract.signed.seconds*1000);
+        const tempDate = new Date(newContract.signed.seconds * 1000);
         copyObj.signed = new FdDate(tempDate.getFullYear(), tempDate.getMonth() + 1, tempDate.getDate());
         this.dialogService.open(CreateContractModalComponent, {
             data: {
@@ -134,18 +147,55 @@ export class ContractsComponent implements OnInit {
                 contract: copyObj
             }
         }).afterClosed.subscribe(result => {
+          if (this.isLoggedIn){
             if (result) {
-                this.alertService.open('Edit not allowed in this version.', {
-                    type: 'warning'
-                });
-            }
+                this.contract = result;
+                const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
+                  data: {
+                      company: result.company,
+                      contact: result.contact,
+                      status: result.status,
+                  },
+                  size: 'm',
+                  type: 'warning'
+              });
+  
+                notificationService.afterClosed.subscribe(
+                  (result) => {
+                      if (result == 'OK'){
+                        this.contractService.updateContract(this.contract);
+                      }
+                  },
+                  (error) => {
+                  }
+              ); }
+
+              } else {
+                this.notificationService.open(NotificationConfirmationComponent, {
+                  data: {
+                      invalid: true
+                  },
+                  size: 'm',
+                  type: 'error'
+              });
+              }
         }, () => {});
     }
 
     openConfirmModal(company): void {
         this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
             if (result) {
-              this.contractService.deleteContract(company, this.totalContracts);
+              if (this.isLoggedIn){
+                this.contractService.deleteContract(company, this.totalContracts);
+              } else {
+                this.notificationService.open(NotificationConfirmationComponent, {
+                  data: {
+                      invalid: true
+                  },
+                  size: 'm',
+                  type: 'error'
+              });
+              }
             }
         }, () => {});
     }

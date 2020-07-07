@@ -23,19 +23,28 @@ export class ContractsService {
     const status = contract.status;
     const type = contract.type;
     const value = contract.value;
-    const obj = {[`${company}`]: {company, contact, signed, status, type, value}};
+    const obj = {company, contact, signed, status, type, value};
 
-    let contractCollection = this.db.collection('products').doc('contracts');
-    contractCollection.update(Object.assign({}, obj));
+    let contractCollection = this.db.collection('main').doc('en').collection('contracts').doc(company);
+    contractCollection.set(Object.assign({}, obj));
     this._contractPageService.addContract(numOfContract);
   }
 
   deleteContract(contractName, numOfContract:number) {
-    let contractCollection = this.db.collection('products').doc('contracts');
-    contractCollection.update({
-      [`${contractName}`]: firebase.firestore.FieldValue.delete()
-    });
+    this.db.collection('main').doc('en').collection('contracts').doc(contractName).delete();
     this._contractPageService.deleteContract(numOfContract);
+  }
+
+  updateContract(contract: Contract) {
+    const company = contract.company;
+    const contact = contract.contact;
+    const signed: Date =  contract.signed.toDate();
+    const status = contract.status;
+    const type = contract.type;
+    const value = contract.value;
+    const obj = {company, contact, signed, status, type, value};
+    let contractCollection = this.db.collection('main').doc('en').collection('contracts').doc(company);
+    contractCollection.update(Object.assign({}, obj));
   }
 
   getContractsObservable() {
