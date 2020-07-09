@@ -9,6 +9,7 @@ export class ContractPageService {
 
   private _contractHeader = new Observable<any>();
   private _contractCol = new Observable<any>();
+  private contractTotal: number;
 
 
   constructor(private db: AngularFirestore){
