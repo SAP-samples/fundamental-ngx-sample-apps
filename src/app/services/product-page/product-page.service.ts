@@ -22,16 +22,4 @@ export class ProductPageService {
   get productPageData() {
     return this._productPageData;
   }
-
-  addProduct(numOfProducts) {
-    let productCollection = this.db.collection('main').doc('en').collection('productsPage').doc('header');
-    const obj = {numOfContracts: numOfProducts+1};
-    productCollection.update(Object.assign({}, obj));
-  }
-  deleteProduct(numOfProducts) {
-    let productCollection = this.db.collection('main').doc('en').collection('productsPage').doc('header');
-    const obj = {numOfContracts: numOfProducts-1};
-    productCollection.update(Object.assign({}, obj));
-  }
-
 }

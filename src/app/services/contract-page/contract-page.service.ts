@@ -9,7 +9,6 @@ export class ContractPageService {
 
   private _contractHeader = new Observable<any>();
   private _contractCol = new Observable<any>();
-  private contractTotal: number;
 
 
   constructor(private db: AngularFirestore){
@@ -23,17 +22,5 @@ export class ContractPageService {
 
   get contractColumns() {
     return this._contractCol;
-  }
-
-  addContract(numOfContract:number) {
-    let contractCollection = this.db.collection('main').doc('en').collection('contractsPage').doc('header');
-    const obj = {numOfContracts: numOfContract+1};
-    contractCollection.update(Object.assign({}, obj));
-  }
-
-  deleteContract(numOfContract:number) {
-    let contractCollection = this.db.collection('main').doc('en').collection('contractsPage').doc('header');
-    const obj = {numOfContracts: numOfContract-1};
-    contractCollection.update(Object.assign({}, obj));
   }
 }

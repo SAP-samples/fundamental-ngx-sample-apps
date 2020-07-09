@@ -68,7 +68,7 @@ export class ContractsService {
     this._totalQueryContract = query.get();
   }
 
-  addContract(contract: Contract, numOfContract:number) {
+  addContract(contract: Contract) {
     const company = contract.company;
     const contact = contract.contact;
     const signed: Date =  contract.signed.toDate();
@@ -79,12 +79,10 @@ export class ContractsService {
 
     let contractCollection = this.db.collection('main').doc('en').collection('contracts').doc(company);
     contractCollection.set(Object.assign({}, obj));
-    this._contractPageService.addContract(numOfContract);
   }
 
-  deleteContract(contractName, numOfContract:number) {
+  deleteContract(contractName) {
     this.db.collection('main').doc('en').collection('contracts').doc(contractName).delete();
-    this._contractPageService.deleteContract(numOfContract);
   }
 
   updateContract(contract: Contract) {
