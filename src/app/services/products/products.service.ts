@@ -8,14 +8,20 @@ import * as firebase from 'firebase';
 @Injectable()
 export class ProductsService {
 
-  items: Observable<Product[]>;
+  _products: Observable<Product[]>;
+  private _totalQueryProduct: Observable<any>
 
   constructor(private db: AngularFirestore, private _productPageService: ProductPageService) {
-    this.items = db.collection('main').doc('en').collection('products').valueChanges();
+    this._products = db.collection('main').doc('en').collection('products',
+    ref => ref.orderBy('name', 'asc').limit(1)).valueChanges();
+
+    let query = db.collection('main').doc('en').collection('products',
+    ref => ref.orderBy('name', 'asc'));
+    this._totalQueryProduct = query.get();
   }
 
-  getItems() {
-    return this.items;
+  get products() {
+    return this._products;
   }
 
   addProduct(product: Product, numOfProducts:number) {
@@ -42,5 +48,55 @@ export class ProductsService {
 
   deleteProduct(productName, numOfProduct:number) {
     this.db.collection('main').doc('en').collection('products').doc(productName).delete();
+  }
+
+  searchQuery(queryValue, limit) {
+    this._products = this.db.collection('main').doc('en')
+    .collection('products', ref => ref.where('name' , 'in' , queryValue)
+    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(limit)).valueChanges();
+
+    let query = this.db.collection('main').doc('en')
+    .collection('products', ref => ref.where('name' , 'in' , queryValue));
+    this._totalQueryProduct = query.get();
+  }
+
+  nextSearch(lastDoc, queryValue, limit) {
+    this._products = this.db.collection('main').doc('en')
+    .collection('products', ref => ref.where('name' , 'in' , queryValue)
+    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(limit).startAfter(lastDoc)).valueChanges();
+
+    let query = this.db.collection('main').doc('en')
+    .collection('products', ref => ref.where('name' , 'in' , queryValue));
+    this._totalQueryProduct = query.get();
+  }
+
+  prevSearch(firstDoc, queryValue, limit) {
+    this._products = this.db.collection('main').doc('en')
+    .collection('products', ref => ref.where('name' , 'in' , queryValue)
+    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limitToLast(limit).endBefore(firstDoc)).valueChanges();
+
+    let query = this.db.collection('main').doc('en')
+    .collection('products', ref => ref.where('name' , 'in' , queryValue));
+    this._totalQueryProduct = query.get();
+  }
+
+  next(lastDoc, limit) {
+    this._products = this.db.collection('main').doc('en')
+    .collection('products', ref => ref.orderBy('name', 'asc').limit(limit).startAfter(lastDoc)).valueChanges();
+
+    let query = this.db.collection('main').doc('en').collection('products', ref => ref.orderBy('name', 'asc'));
+    this._totalQueryProduct = query.get();
+  }
+
+  prev(firstDoc, limit) {
+    this._products = this.db.collection('main').doc('en')
+    .collection('products', ref => ref.orderBy('name', 'asc').limitToLast(limit).endBefore(firstDoc)).valueChanges();
+
+    let query = this.db.collection('main').doc('en').collection('products', ref => ref.orderBy('name', 'asc'));
+    this._totalQueryProduct = query.get();
+  }
+
+  get totalQueryProduct () {
+    return this._totalQueryProduct;
   }
 }
