@@ -17,22 +17,23 @@
     <fd-layout-panel-filters *ngIf="products">
       <fd-multi-input 
       [compact]="globalCompact"
-      [dropdownValues]="products"
+      [dropdownValues]="multiInputProducts"
       [placeholder]="'Search here...'"
       [(ngModel)]="selected"
       (ngModelChange)="refresh()"
-      [displayFn]="displayFunc">
+      >
+      
       </fd-multi-input><span *ngFor="let item of selected; let i = index"></span>
-      <!-- <fd-pagination
+      <fd-pagination
       [totalItems]="totalProducts"
       (pageChangeStart)="newPageClicked($event)"
-      [itemsPerPage]="10"
-      [currentPage]="1"
-      ></fd-pagination> -->
+      [itemsPerPage]="limit"
+      [currentPage]="currentPage"
+      ></fd-pagination>
     </fd-layout-panel-filters>
     <fd-layout-panel-body *ngIf="products">
-      <fd-table-wrapper *ngIf="selected && dataSource">
-        <table cdk-table [dataSource]="filteredDataSource" #table cdkDropList [cdkDropListData]="filteredDataSource" (cdkDropListDropped)="dropRow($event)">
+      <fd-table-wrapper>
+        <table cdk-table [dataSource]="products" #table cdkDropList [cdkDropListData]="products" (cdkDropListDropped)="dropRow($event)">
                 <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
 
             <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: columnHeaders" style="cursor: grab;"></tr>

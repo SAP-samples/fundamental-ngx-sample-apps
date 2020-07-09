@@ -30,32 +30,20 @@ export class ProductsComponent implements OnDestroy, OnInit {
     filteredDataSource: Product[] = [];
     columnHeaders: string [];
     totalProducts: number;
+    loading: boolean = false;
+    multiInputProducts: string[];
+    searching: boolean = false;
     loggedIn: boolean = false;
     product: Product;
+    currentPage = 1;
+    firstInArray: string;
+    lastInArray: string;
+    limit = 5;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
     dataSource: Product[];
     filteredDatasource: Product[];
-
-    dropRow(event) {
-        const previousIndex = this.products.findIndex((d) => d === event.item.data);
-        moveItemInArray(this.products, previousIndex, event.currentIndex);
-        this.table.renderRows();
-    }
-
-    refresh() {
-        if (this.selected.length === 0) {
-            this.filteredDataSource = this.dataSource;
-            } else { this.filteredDataSource = this.selected; }
-        this.table.renderRows();
-    }
-
-
-    displayFunc(obj: any): string {
-        return obj.name;
-    }
-
 
     constructor(
       public productService: ProductsService, 
@@ -179,17 +167,21 @@ export class ProductsComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.loggedIn = this.auth.isLoggedIn;
-    this.subscription = this.productService.getItems().subscribe(data => {
+    this.subscription = this.productService.products.subscribe(data => {
+      this.lastInArray = data[(data.length - 1)].name;
+      this.firstInArray = data[0].name;
       const databaseData = Object.keys(data).map(i => data[i]);
       this.products = databaseData;
-      this.dataSource = databaseData;
-      this.filteredDataSource = databaseData;
-    });
+  });
+
+    this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
+
 
     this.productPageService.productHeader.subscribe(data => {
       this.productsPage = {title: data.title, description: data.description};
-      this.totalProducts = data.numOfProducts;
+      this.multiInputProducts = data.products;
     });
+
     this.productPageService.productPageData.subscribe(data => {
       this.columnHeaders = data.columns;
     });
@@ -199,7 +191,79 @@ export class ProductsComponent implements OnDestroy, OnInit {
     });
   }
 
-
   newPageClicked(event) {
+    this.loading = true;
+    if (event === this.currentPage + 1 || event === this.currentPage - 1 ) {
+      if (this.currentPage === event) {
+
+      } else {
+        if (this.searching === false) {
+          if (event === this.currentPage + 1) {
+            this.paginator('plus', this.productService.next(this.lastInArray, this.limit));
+          } else if (event === this.currentPage - 1) {
+            this.paginator('minus', this.productService.prev(this.lastInArray, this.limit));
+          }
+          this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
+        } else {
+          if (event === this.currentPage + 1) {
+            this.paginator('plus', this.productService.nextSearch(this.lastInArray, this.selected, this.limit));
+          } else if (event === this.currentPage - 1) {
+            this.paginator('minus', this.productService.prevSearch(this.firstInArray, this.selected, this.limit));
+          }
+          this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
+        }
+      }
+    }
+    this.loading = false;
   }
+
+  private paginator(operator: string, callback: void) {
+    if (operator === 'plus') {
+      this.subscription.unsubscribe();
+      this.currentPage = this.currentPage + 1;
+      callback;
+      this.subscription = this.productService.products.subscribe(data => {
+        this.lastInArray = data[(data.length - 1)].name;
+        this.firstInArray = data[0].name;
+        const databaseData = Object.keys(data).map(i => data[i]);
+        this.products = databaseData;
+      });
+    } else if (operator === 'minus') {
+      this.currentPage = this.currentPage - 1;
+      callback;
+      this.subscription.unsubscribe();
+      this.subscription = this.productService.products.subscribe(data => {
+        this.lastInArray = data[(data.length - 1)].name;
+        this.firstInArray = data[0].name;
+        const databaseData = Object.keys(data).map(i => data[i]);
+        this.products = databaseData;
+      });
+    }
+  }
+
+  dropRow(event) {
+    const previousIndex = this.products.findIndex((d) => d === event.item.data);
+    moveItemInArray(this.products, previousIndex, event.currentIndex);
+    this.table.renderRows();
+}
+
+refresh() {
+  if (this.selected.length === 0) {
+      this.currentPage = 1;
+      this.filteredDataSource = this.dataSource;
+      this.searching = false;
+      } else {
+        this.searching = true;
+        this.subscription.unsubscribe();
+        this.productService.searchQuery(this.selected, this.limit);
+        this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
+        this.subscription =  this.productService.products.subscribe(data => {
+          this.lastInArray = data[(data.length - 1)].name;
+          this.firstInArray = data[0].name;
+          const databaseData = Object.keys(data).map(i => data[i]);
+          this.products = databaseData;
+        });
+      }
+  this.table.renderRows();
+}
 }

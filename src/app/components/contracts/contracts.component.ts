@@ -37,7 +37,7 @@ export class ContractsComponent implements OnInit {
   lastInArray: string;
   searching:boolean = false;
   currentPage = 1;
-  limit = 1;
+  limit = 5;
   loading = false;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
@@ -65,7 +65,6 @@ export class ContractsComponent implements OnInit {
           const databaseData = Object.keys(data).map(i => data[i]);
           this.contracts = databaseData;
           this.dataSource = databaseData;
-          this.filteredDataSource = databaseData;
       });
 
         this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });

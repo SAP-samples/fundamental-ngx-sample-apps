@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-      this.subscriptionProduct = this.productService.getItems().subscribe(data => {
+      this.subscriptionProduct = this.productService.products.subscribe(data => {
         const databaseData = Object.keys(data).map(i => data[i]); // to transfer a json object into an array
         this.products = databaseData;
       });
