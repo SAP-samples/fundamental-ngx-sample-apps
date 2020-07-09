@@ -138,7 +138,7 @@ export class ContractsComponent implements OnInit {
               notificationService.afterClosed.subscribe(
                 (result) => {
                     if (result == 'OK'){
-                      this.contractService.addContract(this.contract, this.totalContracts);
+                      this.contractService.addContract(this.contract);
                     }
                 },
                 (error) => {
@@ -206,7 +206,7 @@ export class ContractsComponent implements OnInit {
         this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
             if (result) {
               if (this.isLoggedIn){
-                this.contractService.deleteContract(company, this.totalContracts);
+                this.contractService.deleteContract(company);
               } else {
                 this.notificationService.open(NotificationConfirmationComponent, {
                   data: {

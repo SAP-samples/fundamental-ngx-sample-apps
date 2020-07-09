@@ -27,7 +27,6 @@ export class ProductsService {
     const obj = {name, contact, user_number, status, lob};
     let productCollection = this.db.collection('main').doc('en').collection('products').doc(name);
     productCollection.set(Object.assign({}, obj));
-    this._productPageService.addProduct(numOfProducts);
   }
 
   updateProduct(product: Product) {
@@ -43,6 +42,5 @@ export class ProductsService {
 
   deleteProduct(productName, numOfProduct:number) {
     this.db.collection('main').doc('en').collection('products').doc(productName).delete();
-    this._productPageService.deleteProduct(numOfProduct);
   }
 }
