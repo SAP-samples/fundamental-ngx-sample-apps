@@ -13,7 +13,7 @@ export class ProductsService {
 
   constructor(private db: AngularFirestore, private _productPageService: ProductPageService) {
     this._products = db.collection('main').doc('en').collection('products',
-    ref => ref.orderBy('name', 'asc').limit(1)).valueChanges();
+    ref => ref.orderBy('name', 'asc').limit(5)).valueChanges();
 
     let query = db.collection('main').doc('en').collection('products',
     ref => ref.orderBy('name', 'asc'));
@@ -24,7 +24,7 @@ export class ProductsService {
     return this._products;
   }
 
-  addProduct(product: Product, numOfProducts:number) {
+  addProduct(product: Product) {
     const name = product.name;
     const contact = product.contact;
     const status = product.status;
@@ -46,7 +46,7 @@ export class ProductsService {
     productCollection.update(Object.assign({}, obj));
   }
 
-  deleteProduct(productName, numOfProduct:number) {
+  deleteProduct(productName) {
     this.db.collection('main').doc('en').collection('products').doc(productName).delete();
   }
 
