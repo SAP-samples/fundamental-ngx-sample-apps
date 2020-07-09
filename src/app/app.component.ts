@@ -86,7 +86,6 @@ export class AppComponent implements OnInit{
     });
 
     this.productSwitchData.productSwitchData.subscribe(data => {
-      console.log(data);
       const productSwitchDataFromDb = Object.keys(data.products).map(i => data.products[i]);
       this.list = productSwitchDataFromDb;
     });
