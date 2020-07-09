@@ -1,18 +1,22 @@
 <fd-notification-header
   (closeButtonClick)="notificationRef.dismiss('Close Icon Click')"
   [type]="notificationRef.data.type">
-  <h3 fd-notification-title>{{ notificationRef.data.company }} Added</h3>
+  <h3  *ngIf="!notificationRef.data.invalid" fd-notification-title>{{ notificationRef.data.company }} Added</h3>
+  <h3  *ngIf="notificationRef.data.invalid" fd-notification-title>No Account</h3>
 </fd-notification-header>
 <fd-notification-body>
     <div fd-notification-content>
-        <div fd-notification-avatar>
+        <div fd-notification-avatar *ngIf="!notificationRef.data.invalid">
             <span fd-identifier [size]="'s'" [circle]="true" aria-label="notificationRef.data.company">{{notificationRef.data.company.charAt(0)}}</span>
         </div>
         <div fd-notification-text>
             <div fd-notification-description>
-              <p>
+              <p *ngIf="!notificationRef.data.invalid">
                 {{ notificationRef.data.contact }} 
                 {{ notificationRef.data.status }}  
+              </p>
+              <p *ngIf="notificationRef.data.invalid">
+                Not logged in! Sign up or login.
               </p>
             </div>
         </div>
