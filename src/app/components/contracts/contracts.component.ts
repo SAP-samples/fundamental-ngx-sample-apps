@@ -26,7 +26,6 @@ export class ContractsComponent implements OnInit {
   contracts: any;
   multiInputContracts: any;
   selected: Contract[] = [];
-  filteredDataSource: Contract[];
   subscription: Subscription;
   columnHeaders: string [] = [];
   contractPage: {title: string, description: string} = {title: '', description: ''};
@@ -41,9 +40,6 @@ export class ContractsComponent implements OnInit {
   loading = false;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
-
-    dataSource: Contract[];
-
     
     constructor(
       private authService: AuthService,
@@ -60,11 +56,11 @@ export class ContractsComponent implements OnInit {
         this.loading = true;
         this.isLoggedIn = this.authService.isLoggedIn;
         this.subscription = this.contractService.getContractsObservable().subscribe(data => {
+          console.log(data);
           this.lastInArray = data[(data.length - 1)].company;
           this.firstInArray = data[0].company;
           const databaseData = Object.keys(data).map(i => data[i]);
           this.contracts = databaseData;
-          this.dataSource = databaseData;
       });
 
         this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
@@ -95,7 +91,6 @@ export class ContractsComponent implements OnInit {
   refresh() {
       if (this.selected.length === 0) {
           this.currentPage = 1;
-          this.filteredDataSource = this.dataSource;
           this.searching = false;
           } else {
             this.searching = true;
@@ -255,8 +250,6 @@ export class ContractsComponent implements OnInit {
           this.firstInArray = data[0].company;
           const databaseData = Object.keys(data).map(i => data[i]);
           this.contracts = databaseData;
-          this.dataSource = databaseData;
-          this.contracts = databaseData;
         });
       } else if (operator === 'minus') {
         this.currentPage = this.currentPage - 1;
@@ -267,8 +260,7 @@ export class ContractsComponent implements OnInit {
           this.firstInArray = data[0].company;
           const databaseData = Object.keys(data).map(i => data[i]);
           this.contracts = databaseData;
-          this.dataSource = databaseData;
-          this.contracts = databaseData;
+
         });
       }
     }

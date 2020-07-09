@@ -79,7 +79,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
                   type: 'success'
                 });
               notif.afterClosed.subscribe( result => {
-                  this.productService.addProduct(this.product, this.totalProducts);
+                  this.productService.addProduct(this.product);
                 });
             }
           } else {
@@ -144,7 +144,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
               if (this.loggedIn) {
                 this.dialogService.open(ConfirmModalComponent).afterClosed.subscribe(result => {
                   if (result) {
-                    this.productService.deleteProduct(name, this.totalProducts);
+                    this.productService.deleteProduct(name);
                   }
                 });
               } else {

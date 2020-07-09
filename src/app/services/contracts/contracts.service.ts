@@ -15,7 +15,7 @@ export class ContractsService {
 
   constructor(private db: AngularFirestore, private _contractPageService: ContractPageService) {
     this.contractObservable = db.collection('main').doc('en').collection('contracts',
-    ref => ref.orderBy('company', 'asc').limit(1)).valueChanges();
+    ref => ref.orderBy('company', 'asc').limit(5)).valueChanges();
 
     let query = db.collection('main').doc('en').collection('contracts',
     ref => ref.orderBy('company', 'asc'));
