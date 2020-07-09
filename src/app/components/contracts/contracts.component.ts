@@ -13,6 +13,7 @@ import {NotificationConfirmationComponent} from 'src/app/shared/notification-con
 import {AuthService} from 'src/app/services/auth/auth.service';
 import {CompactService} from 'src/app/services/compact/compact.service';
 import {ContractPageService} from 'src/app/services/contract-page/contract-page.service';
+import {BinaryOperator, FunctionCall} from '@angular/compiler';
 
 @Component({
     selector: 'app-contracts',
@@ -21,40 +22,29 @@ import {ContractPageService} from 'src/app/services/contract-page/contract-page.
 })
 export class ContractsComponent implements OnInit {
 
-    globalCompact: boolean;
-    contracts: any;
-    selected: Contract[] = [];
-    filteredDataSource: Contract[];
-    subscription: Subscription;
-    columnHeaders: string [] = [];
-    contractPage: {title: string, description: string} = {title: '', description: ''};
-    contract: Contract = null;
-    totalContracts: number;
-    isLoggedIn = false;
+  globalCompact: boolean;
+  contracts: any;
+  multiInputContracts: any;
+  selected: Contract[] = [];
+  filteredDataSource: Contract[];
+  subscription: Subscription;
+  columnHeaders: string [] = [];
+  contractPage: {title: string, description: string} = {title: '', description: ''};
+  contract: Contract = null;
+  totalContracts: number;
+  isLoggedIn = false;
+  firstInArray: string;
+  lastInArray: string;
+  searching:boolean = false;
+  currentPage = 1;
+  limit = 1;
+  loading = false;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
     dataSource: Contract[];
 
-    dropRow(event) {
-        const previousIndex = this.contracts.findIndex((d) => d === event.item.data);
-        moveItemInArray(this.contracts, previousIndex, event.currentIndex);
-        this.table.renderRows();
-    }
-
-    displayFunc(obj: any): string {
-        return obj.company;
-    }
-
-    refresh() {
-        if (this.selected.length === 0) {
-            this.filteredDataSource = this.dataSource;
-            } else { this.filteredDataSource = this.selected; }
-        this.table.renderRows();
-    }
-
-
-
+    
     constructor(
       private authService: AuthService,
       private contractService: ContractsService,
@@ -64,34 +54,64 @@ export class ContractsComponent implements OnInit {
       public alertService: AlertService,
       private notificationService: NotificationService
       ) {
-}
-
-    ngOnInit() {
-      this.isLoggedIn = this.authService.isLoggedIn;
-      this.contractService.getContractsObservable().subscribe(data => {
-        const databaseData = Object.keys(data).map(i => data[i]);
-        this.contracts = databaseData;
-        this.dataSource = databaseData;
-        this.filteredDataSource = databaseData;
-      }, error => {
-
+      }
+      
+      ngOnInit() {
+        this.loading = true;
+        this.isLoggedIn = this.authService.isLoggedIn;
+        this.subscription = this.contractService.getContractsObservable().subscribe(data => {
+          this.lastInArray = data[(data.length - 1)].company;
+          this.firstInArray = data[0].company;
+          const databaseData = Object.keys(data).map(i => data[i]);
+          this.contracts = databaseData;
+          this.dataSource = databaseData;
+          this.filteredDataSource = databaseData;
       });
 
-      this.compactService.compact.subscribe(result => {
+        this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
+
+        this.compactService.compact.subscribe(result => {
         this.globalCompact = result;
       });
 
-      this.contractPageData.contractHeader.subscribe(data => {
+        this.contractPageData.contractHeader.subscribe(data => {
         this.contractPage = {title: data.title, description: data.description};
-        this.totalContracts = data.numOfContracts;
+        this.multiInputContracts = data.contracts;
       });
-      this.contractPageData.contractColumns.subscribe(data => {
+        this.contractPageData.contractColumns.subscribe(data => {
         this.columnHeaders = data.columns;
       });
 
-      this.authService.userObserLoginObservable.subscribe(loggedIn => {this.isLoggedIn = loggedIn; });
+        this.authService.userObserLoginObservable.subscribe(loggedIn => {this.isLoggedIn = loggedIn; });
+        this.loading = false;
     }
 
+
+    dropRow(event) {
+      const previousIndex = this.contracts.findIndex((d) => d === event.item.data);
+      moveItemInArray(this.contracts, previousIndex, event.currentIndex);
+      this.table.renderRows();
+  }
+
+  refresh() {
+      if (this.selected.length === 0) {
+          this.currentPage = 1;
+          this.filteredDataSource = this.dataSource;
+          this.searching = false;
+          } else {
+            this.searching = true;
+            this.subscription.unsubscribe();
+            this.contractService.searchQuery(this.selected, this.limit);
+            this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
+            this.subscription =  this.contractService.contractObservable.subscribe(data => {
+              this.lastInArray = data[(data.length - 1)].company;
+              this.firstInArray = data[0].company;
+              const databaseData = Object.keys(data).map(i => data[i]);
+              this.contracts = databaseData;
+            });
+          }
+      this.table.renderRows();
+  }
 
     openCreateModal(): void {
         this.dialogService.open(CreateContractModalComponent, {
@@ -201,5 +221,56 @@ export class ContractsComponent implements OnInit {
     }
 
     newPageClicked(event) {
+      this.loading = true;
+      if (event === this.currentPage + 1 || event === this.currentPage - 1 ) {
+        if (this.currentPage === event) {
+
+        } else {
+          if (this.searching === false) {
+            if (event === this.currentPage + 1) {
+              this.paginator('plus', this.contractService.next(this.lastInArray, this.limit));
+            } else if (event === this.currentPage - 1) {
+              this.paginator('minus', this.contractService.prev(this.lastInArray, this.limit));
+            }
+            this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
+          } else {
+            if (event === this.currentPage + 1) {
+              this.paginator('plus', this.contractService.nextSearch(this.lastInArray, this.selected, this.limit));
+            } else if (event === this.currentPage - 1) {
+              this.paginator('minus', this.contractService.prevSearch(this.firstInArray, this.selected, this.limit));
+            }
+            this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
+          }
+        }
+      }
+      this.loading = false;
+    }
+
+    private paginator(operator: string, callback: void) {
+      if (operator === 'plus') {
+        this.subscription.unsubscribe();
+        this.currentPage = this.currentPage + 1;
+        callback;
+        this.subscription = this.contractService.getContractsObservable().subscribe(data => {
+          this.lastInArray = data[(data.length - 1)].company;
+          this.firstInArray = data[0].company;
+          const databaseData = Object.keys(data).map(i => data[i]);
+          this.contracts = databaseData;
+          this.dataSource = databaseData;
+          this.contracts = databaseData;
+        });
+      } else if (operator === 'minus') {
+        this.currentPage = this.currentPage - 1;
+        callback;
+        this.subscription.unsubscribe();
+        this.subscription = this.contractService.getContractsObservable().subscribe(data => {
+          this.lastInArray = data[(data.length - 1)].company;
+          this.firstInArray = data[0].company;
+          const databaseData = Object.keys(data).map(i => data[i]);
+          this.contracts = databaseData;
+          this.dataSource = databaseData;
+          this.contracts = databaseData;
+        });
+      }
     }
 }

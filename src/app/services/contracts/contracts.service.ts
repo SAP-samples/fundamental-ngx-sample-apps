@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFirestore, QuerySnapshot} from '@angular/fire/firestore';
 import {Contract} from 'src/app/models/contract.model';
 import {Subscription, Observable} from 'rxjs';
 import * as firebase from 'firebase';
@@ -11,9 +11,61 @@ import {ContractPageService} from '../contract-page/contract-page.service';
 export class ContractsService {
 
   contractObservable: Observable<Contract[]>;
+  private _totalQueryContract: Observable<any>
 
   constructor(private db: AngularFirestore, private _contractPageService: ContractPageService) {
-    this.contractObservable = db.collection('main').doc('en').collection('contracts').valueChanges();
+    this.contractObservable = db.collection('main').doc('en').collection('contracts',
+    ref => ref.orderBy('company', 'asc').limit(1)).valueChanges();
+
+    let query = db.collection('main').doc('en').collection('contracts',
+    ref => ref.orderBy('company', 'asc'));
+    this._totalQueryContract = query.get();
+  }
+
+  searchQuery(queryValue, limit) {
+    this.contractObservable = this.db.collection('main').doc('en')
+    .collection('contracts', ref => ref.where('company' , 'in' , queryValue)
+    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(limit)).valueChanges();
+
+    let query = this.db.collection('main').doc('en')
+    .collection('contracts', ref => ref.where('company' , 'in' , queryValue));
+    this._totalQueryContract = query.get();
+  }
+
+  nextSearch(lastDoc, queryValue, limit) {
+    this.contractObservable = this.db.collection('main').doc('en')
+    .collection('contracts', ref => ref.where('company' , 'in' , queryValue)
+    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(limit).startAfter(lastDoc)).valueChanges();
+
+    let query = this.db.collection('main').doc('en')
+    .collection('contracts', ref => ref.where('company' , 'in' , queryValue));
+    this._totalQueryContract = query.get();
+  }
+
+  prevSearch(firstDoc, queryValue, limit) {
+    this.contractObservable = this.db.collection('main').doc('en')
+    .collection('contracts', ref => ref.where('company' , 'in' , queryValue)
+    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limitToLast(limit).endBefore(firstDoc)).valueChanges();
+
+    let query = this.db.collection('main').doc('en')
+    .collection('contracts', ref => ref.where('company' , 'in' , queryValue));
+    this._totalQueryContract = query.get();
+  }
+
+  next(lastDoc, limit) {
+    this.contractObservable = this.db.collection('main').doc('en')
+    .collection('contracts', ref => ref.orderBy('company', 'asc').limit(limit).startAfter(lastDoc)).valueChanges();
+
+    let query = this.db.collection('main').doc('en').collection('contracts', ref => ref.orderBy('company', 'asc'));
+    this._totalQueryContract = query.get();
+  }
+
+  prev(firstDoc, limit) {
+    this.contractObservable = this.db.collection('main').doc('en')
+    .collection('contracts', ref => ref.orderBy('company', 'asc').limitToLast(limit).endBefore(firstDoc)).valueChanges();
+
+    let query = this.db.collection('main').doc('en').collection('contracts', ref => ref.orderBy('company', 'asc'));
+    this._totalQueryContract = query.get();
   }
 
   addContract(contract: Contract, numOfContract:number) {
@@ -49,5 +101,9 @@ export class ContractsService {
 
   getContractsObservable() {
     return this.contractObservable;
+  }
+
+  get totalQueryContract () {
+    return this._totalQueryContract;
   }
 }
