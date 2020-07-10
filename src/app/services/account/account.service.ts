@@ -16,8 +16,7 @@ export class AccountService {
     const user = this.cookie.get('userid');
     if (user) {
       this.id = user;
-      this._account = this._db.collection('main').doc('en')
-      .collection('contracts', ref => ref.where('id' , '==' , this.id)).valueChanges();
+      this._account = this._db.collection('users', ref => ref.where('id' , '==' , this.id)).valueChanges();
     }
   }
 
