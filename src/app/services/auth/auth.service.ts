@@ -115,28 +115,23 @@ export class AuthService {
     });
   }
 
-  private addImage(file: File, id) {
+  private async addImage(file: any, id) {
     const date = new Date();
     let downloadUrl;
 
-    let task: AngularFireUploadTask;
-    let snapshot: Observable<any>;
-    let percentage: Observable<number>;
-
-    const path = date.getMilliseconds().toString() + '_' + file.name; //path
+    const path = date.getMilliseconds().toString()+".jpg"; //path
+    console.log(path);
     const ref = this._storage.ref(path);
-    task = this._storage.upload(path, file);
-    
-    percentage = task.percentageChanges();
-
-    snapshot = task.snapshotChanges().pipe(
-      tap(console.log),
-      finalize( async () => {
-        let regular = this._db.collection('users').doc(id);
-        downloadUrl = await ref.getDownloadURL().toPromise();
-        console.log('enter');
-        regular.update({"images": firebase.firestore.FieldValue.arrayUnion({download: downloadUrl, path: path})});
-      })
-    );
+    // task = this._storage.upload(path, file);
+    ref.put(file).then(() => {
+      let regular = this._db.collection('users').doc(id);
+      // downloadUrl = ref.getDownloadURL().toPromise();
+      let storageUrl;
+      downloadUrl = ref.getDownloadURL().subscribe(url => {storageUrl = url});
+      regular.update({
+        images: firestore.FieldValue.arrayUnion({path: path})
+      });
+    });
+    alert('uploaded');
   }
 }
