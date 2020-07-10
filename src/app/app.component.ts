@@ -10,6 +10,7 @@ import {CompactService} from './services/compact/compact.service';
 import {ProductSwitchDataService} from './services/product-switch/product-switch.service';
 import {SideNavigationService} from './services/side-navigation/side-navigation.service';
 import {SideNavModel} from './services/side-navigation/side-navigation.model';
+import {AccountService} from './services/account/account.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit{
 
   constructor(
     private luigiUiService: LuigiUiService,
+    private accountService: AccountService,
     private authService: AuthService,
     private compactService: CompactService,
     private productSwitchData: ProductSwitchDataService,
@@ -30,8 +32,7 @@ export class AppComponent implements OnInit{
     private dialogService: DialogService,
     private sanitizer: DomSanitizer,
     ) {}
-;
-;
+
   title = 'Fundamental NGX Demo';
   sideNavMain: SideNavModel[] = [];
   sideNavSecondary: SideNavModel[] = [];
@@ -72,13 +73,23 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/sap_fiori_3.css');
-    if(this.authService.isLoggedIn){
+
+    this.accountService.account.subscribe(account => {
+      this.user = {
+        initials: 'WW',
+        image: account.images[0].images
+      };
+    });
+    
+    if (!this.authService.isLoggedIn) {
       this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
     } else {
+      this.user.initials = 'd';
+      this.user.image = '';
       this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
     }
     this.authService.userObserLoginObservable.subscribe(value => {
-      if(!value) {
+      if (!value) {
         this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
       } else {
         this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};

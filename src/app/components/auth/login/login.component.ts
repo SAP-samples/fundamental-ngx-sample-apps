@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   signupForm: FormGroup = new FormGroup ({
     email: new FormControl ('', [Validators.required, Validators.email]),
-    password: new FormControl ('', [Validators.required, Validators.minLength(8)])
+    password: new FormControl ('', [Validators.required, Validators.minLength(8)]),
+    file: new FormControl ([Validators.required])
   });
 
   ngOnInit(): void {
@@ -46,11 +47,19 @@ export class LoginComponent implements OnInit {
   );
   }
 
-  signup () {
-    this.authService.register(this.signupForm.get('email').value, this.signupForm.get('password').value);
+  signup() {
+    this.authService.register(this.signupForm.get('email').value, this.signupForm.get('password').value, this.signupForm.get('file').value);
   }
 
   loginWithGoogle(){
     this.authService.loginWithGoogle();
+  }
+
+  picturesSelected($event) {
+    console.log($event);
+  }
+
+  invalidFile() {
+    console.log("File not valid. Use a .jpg!")
   }
 }
