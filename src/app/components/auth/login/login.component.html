@@ -1,8 +1,5 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
-  <div class="header">  
     <h3>Login</h3>
-    <button glyph="account" fd-button fdType="positive" (click)="loginWithGoogle()">Sign In with google</button>
-  </div>
   <div fd-form-item>
     <label fd-form-label for="company-input">Email: </label>
     <fd-form-input-message-group>
