@@ -9,15 +9,17 @@ import {AngularFireUploadTask, AngularFireStorage} from '@angular/fire/storage';
 import {finalize, tap} from 'rxjs/operators';
 import { firestore } from 'firebase/app';
 import * as firebase from 'firebase';
+import {Account} from '../../models/account.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly _loggedIn: BehaviorSubject<any> = new BehaviorSubject<any>(false);
-  snapshot: Observable<any>;
+  private _account: BehaviorSubject<{images, email}> = new BehaviorSubject<{images, email}>({images: null, email: null});
+  percentage: Observable<any>;
   private task: AngularFireUploadTask;
-  downloadURL: string;
+  private downloadURL: string;
 
   constructor( 
     public  afAuth: AngularFireAuth,
@@ -40,22 +42,44 @@ export class AuthService {
     var result = await this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
       this._loggedIn.next(true);
       this.cookie.set("userid", loginInfo.user.uid);
+      const user = this._db.collection('users', ref => ref.where('id' , '==' , loginInfo.user.uid)).valueChanges();
+      user.subscribe((account: Account[]) => {
+        const userAccount: Account = account[0];
+        this._account.next(
+          {
+            email: userAccount.email.charAt(0).toUpperCase(),
+            images: userAccount.images[0].path
+          }
+        );
+      }, error => {
+      });
+
       this.router.navigate(['/dashboard']);
     }).catch((error) => {
-      console.log('invalid username and password')
-    })
+      console.log('invalid username and password');
+    });
   }
 
   async register(email: string, password: string, images) {
     var result = await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
         this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
-          debugger;
           this._loggedIn.next(true);
           this.cookie.set("userid", loginInfo.user.uid);
-          this.addProfile(email, loginInfo.user.uid, images);
-        // this.router.navigate(['/dashboard']);
-
-
+          this.addProfile(email, loginInfo.user.uid, images).then(res => {
+            alert('helloInnder');
+            const user = this._db.collection('users', ref => ref.where('id' , '==' , loginInfo.user.uid)).valueChanges();
+            user.subscribe((account: Account[]) => {
+              const userAccount: Account = account[0];
+              this._account.next(
+                {
+                  email: userAccount.email.charAt(0).toUpperCase(),
+                  images: userAccount.images[0].path
+                }
+              );
+              this.router.navigate(['/dashboard']);
+            }, error => {
+            });
+          });
       }).catch((error) => {
         console.log('invalid username and password');
       });
@@ -81,14 +105,33 @@ export class AuthService {
 
   async logout(){
     await this.afAuth.signOut();
-    localStorage.removeItem('user');
     this.cookie.delete('userid','/');
+    this.cookie.delete('email','/');
+    this._account.next(
+      {
+        email: null,
+        images: null
+      }
+    );
     this._loggedIn.next(false);
     this.router.navigate(['auth']);
   }
 
   get isLoggedIn(): boolean {
     const user = this.cookie.get("userid");
+    if (user != '') {
+      const user = this._db.collection('users', ref => ref.where('id' , '==' , this.cookie.get("userid"))).valueChanges();
+      user.subscribe((account: Account[]) => {
+        const userAccount: Account = account[0];
+        this._account.next(
+          {
+            email: userAccount.email.charAt(0).toUpperCase(),
+            images: userAccount.images[0].path
+          }
+        );
+      }, error => {
+      });
+    }
     return  user != '';
   }
 
@@ -101,7 +144,7 @@ export class AuthService {
     });
   }
 
-  addProfile(userEmail, userid, profileImages) {
+  async addProfile(userEmail, userid, profileImages) {
     const id = userid;
     const email = userEmail;
     let images = [];
@@ -109,29 +152,58 @@ export class AuthService {
     let regular = this._db.collection('users').doc(id);
     regular.set(Object.assign({}, obj));
 
-    profileImages.forEach(element => {
+    for await (const element of profileImages) {
       this.addImage(element, id);
       alert("Image uploaded");
+    }
+    alert('image finish');
+
+    return new Promise(resolve => {
+      resolve(true);
     });
   }
 
   private async addImage(file: any, id) {
     const date = new Date();
-    let downloadUrl;
-
-    const path = date.getMilliseconds().toString()+".jpg"; //path
-    console.log(path);
+    const path = file.name + date.getMilliseconds().toString()+".jpg"; //path
+    const snap = await this._storage.upload(id + '/' + path, file);
+    this.getUrl(snap, id);
     const ref = this._storage.ref(path);
-    // task = this._storage.upload(path, file);
-    ref.put(file).then(() => {
-      let regular = this._db.collection('users').doc(id);
-      // downloadUrl = ref.getDownloadURL().toPromise();
-      let storageUrl;
-      downloadUrl = ref.getDownloadURL().subscribe(url => {storageUrl = url});
-      regular.update({
-        images: firestore.FieldValue.arrayUnion({path: path})
-      });
-    });
+
+    // const date = new Date();
+    // const path = file.name + date.getMilliseconds().toString()+".jpg"; //path
+    // const task = await this._storage.upload(id + '/' + path, file).snapshotChanges();
+    // task.subscribe(result => {
+    //   console.log(result);
+    //   debugger;
+    //   this.getUrl(result, id);
+    // })
+    // // const snap = await this._storage.upload(id + '/' + path, file);
+    // const ref = this._storage.ref(path);
+
+
     alert('uploaded');
+
+    return new Promise(resolve => {
+      resolve(true);
+    });
+  }
+
+  private async getUrl(snap: firebase.storage.UploadTaskSnapshot, id) {
+    const url = await snap.ref.getDownloadURL();
+    this.downloadURL = url;  //store the URL
+    console.log(this.downloadURL);
+    this._db.collection('users').doc(id).update({
+      images: firestore.FieldValue.arrayUnion({path: this.downloadURL})
+    });
+  }
+
+
+  get downloadUrl() {
+    return this.downloadURL;
+  }
+
+  get account() {
+    return this._account;
   }
 }

@@ -51,11 +51,10 @@ export class LoginComponent implements OnInit {
     this.authService.register(this.signupForm.get('email').value, this.signupForm.get('password').value, this.signupForm.get('file').value);
   }
 
-  loginWithGoogle(){
-    this.authService.loginWithGoogle();
-  }
-
   picturesSelected($event) {
+    $event.forEach(element => {
+      alert(element.name + 'uploaded');
+    });
     console.log($event);
   }
 
