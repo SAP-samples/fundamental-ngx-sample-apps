@@ -1,8 +1,5 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
-  <div class="header">  
     <h3>Login</h3>
-    <button glyph="account" fd-button fdType="positive" (click)="loginWithGoogle()">Sign In with google</button>
-  </div>
   <div fd-form-item>
     <label fd-form-label for="company-input">Email: </label>
     <fd-form-input-message-group>
@@ -90,8 +87,20 @@
       Password must be more than 8 characters
       </fd-form-message>
     </fd-form-input-message-group>
+    <fd-file-input
+    #fileInput
+    [ngModel] = "files"
+    formControlName="file"
+    (onSelect)="picturesSelected($event)"
+    (onInvalidFiles)="invalidFile()"
+    [accept]="'.png'"
+    >
+      <button fd-button (click)="fileInput.open()">
+          Profile Picture
+      </button>
+    </fd-file-input>
   </div>
   <div class="button-grouping">
-    <button [disabled]="signupForm.invalid" type="submit" fd-button [fdType]="'emphasized'">Sign Up</button>
+    <button [disabled]="signupForm.invalid || !files" type="submit" fd-button [fdType]="'emphasized'">Sign Up</button>
   </div>
 </form>
