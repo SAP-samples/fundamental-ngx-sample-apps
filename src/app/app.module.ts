@@ -33,6 +33,7 @@ import {
     SideNavigationModule,
     TableModule,
     CheckboxModule,
+    FileInputModule,
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -49,6 +50,11 @@ import { ContractsService } from './services/contracts/contracts.service';
 import { NotificationConfirmationComponent } from './shared/notification-confirmation/notification-confirmation.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import {
+  AngularFireStorageModule,
+  AngularFireStorageReference,
+  AngularFireUploadTask,
+} from "@angular/fire/storage";
 import { ForgotPasswordComponent } from './components/auth/login/forgot-password/forgot-password.component';
 import { StatusToColorPipe } from './shared/status-to-color.pipe';
 import { CookieService } from 'ngx-cookie-service';
@@ -85,6 +91,7 @@ import { SnakeCasePipe } from './pipes/snake-case.pipe';
         AngularFireAuthModule,
         AngularFireDatabaseModule,
         AngularFireModule.initializeApp(environment.firebase),
+        AngularFireStorageModule,
         AngularFirestoreModule,
         AppRoutingModule,
         CdkTableModule,
@@ -92,6 +99,7 @@ import { SnakeCasePipe } from './pipes/snake-case.pipe';
         DatePickerModule,
         DialogModule,
         DragDropModule,
+        FileInputModule,
         FormModule,
         FormsModule,
         IconModule,

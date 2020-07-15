@@ -10,6 +10,9 @@ import {CompactService} from './services/compact/compact.service';
 import {ProductSwitchDataService} from './services/product-switch/product-switch.service';
 import {SideNavigationService} from './services/side-navigation/side-navigation.service';
 import {SideNavModel} from './services/side-navigation/side-navigation.model';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {Subscription} from 'rxjs';
+import {takeUntil, take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +22,8 @@ import {SideNavModel} from './services/side-navigation/side-navigation.model';
 export class AppComponent implements OnInit{
 
   globalCompact:boolean = false;
-
+  imageUrl;
+  accountSubscription: Subscription;
   constructor(
     private luigiUiService: LuigiUiService,
     private authService: AuthService,
@@ -29,9 +33,9 @@ export class AppComponent implements OnInit{
     private router: Router,
     private dialogService: DialogService,
     private sanitizer: DomSanitizer,
+    private _storage: AngularFireStorage
     ) {}
-;
-;
+
   title = 'Fundamental NGX Demo';
   sideNavMain: SideNavModel[] = [];
   sideNavSecondary: SideNavModel[] = [];
@@ -47,15 +51,14 @@ export class AppComponent implements OnInit{
   list: ProductSwitchItem[] = [];
 
   user: ShellbarUser = {
-    initials: 'WW',
-    image: 'https://placeimg.com/400/400/people'
+    initials: ''
   };
 
   userMenu: ShellbarUserMenu[] = [
       { text: 'Settings', callback: () => {
         this.dialogService.open(
           ThemeSelectorComponent,
-          { responsivePadding:true,
+          { responsivePadding: true,
             data: this.settings})
           .afterClosed.subscribe(result => {
             if (result) {
@@ -72,19 +75,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/sap_fiori_3.css');
-    if(this.authService.isLoggedIn){
-      this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
-    } else {
-      this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
-    }
-    this.authService.userObserLoginObservable.subscribe(value => {
-      if(!value) {
-        this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
-      } else {
-        this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
-      }
-    });
-
     this.productSwitchData.productSwitchData.subscribe(data => {
       const productSwitchDataFromDb = Object.keys(data.products).map(i => data.products[i]);
       this.list = productSwitchDataFromDb;
@@ -95,10 +85,29 @@ export class AppComponent implements OnInit{
       this.sideNavSecondary = sideNav.secondary;
     }, error => {
       console.log(error);
-    })
+    });
 
     this.luigiUiService.luigiOption.subscribe(luigiOption => {
       this.luigiOption = luigiOption;
+    });
+    
+    if (!this.authService.isLoggedIn) {
+      this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
+    } else {
+      this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
+    }
+    this.authService.userObserLoginObservable.subscribe(value => {
+      if (!value) {
+        this.userMenu[1] = { text: 'Sign In', callback: () => this.router.navigate(['auth'])};
+      } else {
+        this.userMenu[1] = { text: 'Sign Out', callback: () => this.authService.logout()};
+      }
+    });
+    this.authService.account.subscribe(account => {
+      this.user = {
+        initials: account.email,
+        image: account.images
+      };
     });
   }
 
