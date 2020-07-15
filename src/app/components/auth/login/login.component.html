@@ -89,6 +89,7 @@
     </fd-form-input-message-group>
     <fd-file-input
     #fileInput
+    [ngModel] = "files"
     formControlName="file"
     (onSelect)="picturesSelected($event)"
     (onInvalidFiles)="invalidFile()"
@@ -100,6 +101,6 @@
     </fd-file-input>
   </div>
   <div class="button-grouping">
-    <button [disabled]="signupForm.invalid" type="submit" fd-button [fdType]="'emphasized'">Sign Up</button>
+    <button [disabled]="signupForm.invalid || !files" type="submit" fd-button [fdType]="'emphasized'">Sign Up</button>
   </div>
 </form>

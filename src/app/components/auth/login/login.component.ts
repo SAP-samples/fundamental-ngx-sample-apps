@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private _dialogService: DialogService) { }
 
+  files: boolean = false; 
+
   loginForm: FormGroup = new FormGroup ({
     email: new FormControl ('', [Validators.required, Validators.email]),
     password: new FormControl ('', [Validators.required, Validators.minLength(8)])
@@ -24,7 +26,7 @@ export class LoginComponent implements OnInit {
   signupForm: FormGroup = new FormGroup ({
     email: new FormControl ('', [Validators.required, Validators.email]),
     password: new FormControl ('', [Validators.required, Validators.minLength(8)]),
-    file: new FormControl ([Validators.required])
+    file: new FormControl ([Validators.required, Validators.requiredTrue])
   });
 
   ngOnInit(): void {
@@ -52,10 +54,10 @@ export class LoginComponent implements OnInit {
   }
 
   picturesSelected($event) {
+    this.files = true;
     $event.forEach(element => {
       alert(element.name + 'uploaded');
     });
-    console.log($event);
   }
 
   invalidFile() {
