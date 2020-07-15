@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router } from  "@angular/router";
+import { Router } from  '@angular/router';
 import { auth } from  'firebase/app';
-import { AngularFireAuth } from  "@angular/fire/auth";
+import { AngularFireAuth } from  '@angular/fire/auth';
 import {Observable, Observer, BehaviorSubject} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {AngularFirestore} from '@angular/fire/firestore';
@@ -9,7 +9,7 @@ import {AngularFireUploadTask, AngularFireStorage} from '@angular/fire/storage';
 import {finalize, tap} from 'rxjs/operators';
 import { firestore } from 'firebase/app';
 import * as firebase from 'firebase';
-import {Account} from '../../models/account.model'
+import {Account} from '../../models/account.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,27 +21,27 @@ export class AuthService {
   private task: AngularFireUploadTask;
   private downloadURL: string;
 
-  constructor( 
+  constructor(
     public  afAuth: AngularFireAuth,
     public  router: Router,
     private cookie: CookieService,
     private _db: AngularFirestore,
     private _storage: AngularFireStorage) {
       afAuth.setPersistence('session');
-      const user = this.cookie.get("userid");
+      const user = this.cookie.get('userid');
       if (user) {
         this._loggedIn.next(true);
       }
     }
-   
+
    get userObserLoginObservable() {
      return this._loggedIn;
    }
 
    async login(email: string, password: string) {
-    var result = await this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
+    let result = await this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
       this._loggedIn.next(true);
-      this.cookie.set("userid", loginInfo.user.uid);
+      this.cookie.set('userid', loginInfo.user.uid);
       const user = this._db.collection('users', ref => ref.where('id' , '==' , loginInfo.user.uid)).valueChanges();
       user.subscribe((account: Account[]) => {
         const userAccount: Account = account[0];
@@ -61,23 +61,30 @@ export class AuthService {
   }
 
   async register(email: string, password: string, images) {
-    var result = await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
+    let result = await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
         this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
           this._loggedIn.next(true);
-          this.cookie.set("userid", loginInfo.user.uid);
-          this.addProfile(email, loginInfo.user.uid, images).then(res => {
-            alert('helloInnder');
-            const user = this._db.collection('users', ref => ref.where('id' , '==' , loginInfo.user.uid)).valueChanges();
-            user.subscribe((account: Account[]) => {
-              const userAccount: Account = account[0];
-              this._account.next(
-                {
-                  email: userAccount.email.charAt(0).toUpperCase(),
-                  images: userAccount.images[0].path
-                }
-              );
-              this.router.navigate(['/dashboard']);
-            }, error => {
+          this.cookie.set('userid', loginInfo.user.uid);
+          debugger;
+          this.addProfile(email, loginInfo.user.uid, images).then(observable => {
+            observable.subscribe(number => {
+
+              if (number == 100) {
+                const timer = setTimeout(() => {
+                  const user = this._db.collection('users', ref => ref.where('id' , '==' , loginInfo.user.uid)).valueChanges();
+                  user.subscribe((account: Account[]) => {
+                    const userAccount: Account = account[0];
+                    this._account.next(
+                      {
+                        email: userAccount.email.charAt(0).toUpperCase(),
+                        images: userAccount.images[0].path
+                      }
+                    );
+                    this.sendEmailVerification();
+                  }, error => {
+                  });
+                }, 1000);
+              }
             });
           });
       }).catch((error) => {
@@ -86,14 +93,13 @@ export class AuthService {
     }).catch((error) => {
       console.log('Registration could not be completed!');
     });
-    this.sendEmailVerification();
   }
 
   async sendEmailVerification() {
     await this.afAuth.currentUser.then (
       u => u.sendEmailVerification().then(
         () => {
-          this.router.navigate(['auth']);
+          this.router.navigate(['/dashboard']);
         }
       )
     );
@@ -105,8 +111,8 @@ export class AuthService {
 
   async logout(){
     await this.afAuth.signOut();
-    this.cookie.delete('userid','/');
-    this.cookie.delete('email','/');
+    this.cookie.delete('userid', '/');
+    this.cookie.delete('email', '/');
     this._account.next(
       {
         email: null,
@@ -118,9 +124,9 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    const user = this.cookie.get("userid");
+    const user = this.cookie.get('userid');
     if (user != '') {
-      const user = this._db.collection('users', ref => ref.where('id' , '==' , this.cookie.get("userid"))).valueChanges();
+      const user = this._db.collection('users', ref => ref.where('id' , '==' , this.cookie.get('userid'))).valueChanges();
       user.subscribe((account: Account[]) => {
         const userAccount: Account = account[0];
         this._account.next(
@@ -140,67 +146,37 @@ export class AuthService {
       this._loggedIn.next(true);
       this.router.navigate(['/dashboard']);
     }).catch((error) => {
-      console.log('Action did not get completed with google')
+      console.log('Action did not get completed with google');
     });
   }
 
   async addProfile(userEmail, userid, profileImages) {
     const id = userid;
     const email = userEmail;
-    let images = [];
+    const images = [];
     const obj = {id, email, images};
-    let regular = this._db.collection('users').doc(id);
+    const regular = this._db.collection('users').doc(id);
     regular.set(Object.assign({}, obj));
 
     for await (const element of profileImages) {
-      this.addImage(element, id);
-      alert("Image uploaded");
+      return this.addImage(element, id);
     }
-    alert('image finish');
-
-    return new Promise(resolve => {
-      resolve(true);
-    });
   }
 
   private async addImage(file: any, id) {
     const date = new Date();
-    const path = file.name + date.getMilliseconds().toString()+".jpg"; //path
-    const snap = await this._storage.upload(id + '/' + path, file);
-    this.getUrl(snap, id);
-    const ref = this._storage.ref(path);
-
-    // const date = new Date();
-    // const path = file.name + date.getMilliseconds().toString()+".jpg"; //path
-    // const task = await this._storage.upload(id + '/' + path, file).snapshotChanges();
-    // task.subscribe(result => {
-    //   console.log(result);
-    //   debugger;
-    //   this.getUrl(result, id);
-    // })
-    // // const snap = await this._storage.upload(id + '/' + path, file);
-    // const ref = this._storage.ref(path);
-
-
-    alert('uploaded');
-
-    return new Promise(resolve => {
-      resolve(true);
-    });
+    const path = file.name + date.getMilliseconds().toString() +'.jpg'; // path
+    const task = this._storage.upload(id + '/' + path, file);
+    this.getUrl(task, id);
+    return task.percentageChanges();
   }
 
-  private async getUrl(snap: firebase.storage.UploadTaskSnapshot, id) {
-    const url = await snap.ref.getDownloadURL();
-    this.downloadURL = url;  //store the URL
-    console.log(this.downloadURL);
-    this._db.collection('users').doc(id).update({
-      images: firestore.FieldValue.arrayUnion({path: this.downloadURL})
+  private async getUrl(snap: AngularFireUploadTask, id) {
+    const url = (await snap).ref.getDownloadURL().then(url => {
+      this._db.collection('users').doc(id).update({
+        images: firestore.FieldValue.arrayUnion({path: url})
+      });
     });
-  }
-
-
-  get downloadUrl() {
-    return this.downloadURL;
   }
 
   get account() {
