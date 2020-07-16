@@ -80,15 +80,15 @@ export class ContractsService {
 
     let contractCollection = this.db.collection('main').doc('en').collection('contracts').doc(company);
     contractCollection.set(Object.assign({}, obj));
-    contractCollection.update({
-      images: firestore.FieldValue.arrayUnion({company})
+    this.db.collection('main').doc('en').collection('contractsPage').doc('header').update({
+      contracts: firestore.FieldValue.arrayUnion(company)
     });
   }
 
   deleteContract(contractName) {
     this.db.collection('main').doc('en').collection('contracts').doc(contractName).delete();
     this.db.collection('main').doc('en').collection('contractsPage').doc('header').update({
-      "contracts": firebase.firestore.FieldValue.arrayRemove({contractName})
+      contracts: firebase.firestore.FieldValue.arrayRemove(contractName)
     });
   }
 
