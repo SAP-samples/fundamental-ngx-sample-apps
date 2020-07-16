@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   });
 
   signupForm: FormGroup = new FormGroup ({
+    first: new FormControl ('', [Validators.required]),
+    last: new FormControl ('', [Validators.required]),
     email: new FormControl ('', [Validators.required, Validators.email]),
     password: new FormControl ('', [Validators.required, Validators.minLength(8)]),
     file: new FormControl ([Validators.required])
@@ -31,7 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value);
+    this.authService.login(
+    this.loginForm.get('email').value, 
+    this.loginForm.get('password').value);
   }
 
   forgotPassword(){
@@ -48,7 +52,12 @@ export class LoginComponent implements OnInit {
   }
 
   signup() {
-    this.authService.register(this.signupForm.get('email').value, this.signupForm.get('password').value, this.signupForm.get('file').value);
+    this.authService.register(
+    this.signupForm.get('first').value,
+    this.signupForm.get('last').value,
+    this.signupForm.get('email').value,
+    this.signupForm.get('password').value,
+    this.signupForm.get('file').value);
   }
 
   picturesSelected($event) {
