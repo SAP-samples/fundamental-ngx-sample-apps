@@ -1,6 +1,6 @@
 export interface Account {
-  first: string;
-  last: string;
+  firstName: string;
+  lastName: string;
   email: string;
   images: {path: string}[];
   id: string;

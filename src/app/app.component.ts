@@ -104,10 +104,17 @@ export class AppComponent implements OnInit{
       }
     });
     this.authService.account.subscribe(account => {
-      this.user = {
-        initials: account.first.charAt(0).toLocaleLowerCase() + account.last.charAt(0).toLocaleLowerCase(),
-        image: account.images
-      };
+      debugger;
+      if (account.first != null) {
+        this.user = {
+          initials: account.first.charAt(0).toLocaleLowerCase() + account.last.charAt(0).toLocaleLowerCase(),
+          image: account.images
+        };
+      } else {
+        this.user = {
+          initials: '',
+        };
+      }
     });
   }
 
