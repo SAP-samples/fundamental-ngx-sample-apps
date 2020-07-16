@@ -105,7 +105,7 @@ export class AppComponent implements OnInit{
     });
     this.authService.account.subscribe(account => {
       this.user = {
-        initials: account.email,
+        initials: account.first.charAt(0).toLocaleLowerCase() + account.last.charAt(0).toLocaleLowerCase(),
         image: account.images
       };
     });

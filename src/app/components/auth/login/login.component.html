@@ -49,6 +49,46 @@
 <form [formGroup]="signupForm" (ngSubmit)="signup()">
   <h3>Sign Up</h3>
   <div fd-form-item>
+    <label fd-form-label for="company-input">First Name: </label>
+    <fd-form-input-message-group>
+      <input fd-form-control 
+      type="text"
+      id="company-input"
+      placeholder="First Name"
+      formControlName="first"
+      [state]="signupForm.get('first').touched ? 
+      (signupForm.get('first').valid ? 'success' : 'error'):
+      (signupForm.get('first').valid ? '' : '')">
+      <fd-form-message 
+      *ngIf="signupForm.get('first').invalid && signupForm.get('first').touched"
+      [type]="signupForm.get('first').touched ? 
+      (signupForm.get('first').valid ? 'success' : 'error'):
+      (signupForm.get('first').valid ? '' : '')">
+      First Name Required
+      </fd-form-message>
+    </fd-form-input-message-group>
+  </div>
+  <div fd-form-item>
+    <label fd-form-label for="company-input">Last Name: </label>
+    <fd-form-input-message-group>
+      <input fd-form-control 
+      type="text"
+      id="company-input"
+      placeholder="Last Name"
+      formControlName="last"
+      [state]="signupForm.get('last').touched ? 
+      (signupForm.get('last').valid ? 'success' : 'error'):
+      (signupForm.get('last').valid ? '' : '')">
+      <fd-form-message 
+      *ngIf="signupForm.get('last').invalid && signupForm.get('last').touched"
+      [type]="signupForm.get('last').touched ? 
+      (signupForm.get('last').valid ? 'success' : 'error'):
+      (signupForm.get('last').valid ? '' : '')">
+      Last Name Required
+      </fd-form-message>
+    </fd-form-input-message-group>
+  </div>
+  <div fd-form-item>
     <label fd-form-label for="company-input">Email: </label>
     <fd-form-input-message-group>
       <input fd-form-control 
