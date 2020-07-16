@@ -11,7 +11,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
-    BadgeLabelModule,
     BusyIndicatorModule,
     ButtonModule, 
     DatePickerModule,  
@@ -83,7 +82,6 @@ import { SnakeCasePipe } from './pipes/snake-case.pipe';
     ],
     imports: [
         AlertModule,
-        BadgeLabelModule,
         BrowserAnimationsModule,
         BrowserModule,
         BusyIndicatorModule,

@@ -60,12 +60,11 @@ export class AuthService {
     });
   }
 
-  async register(email: string, password: string, images) {
+  async register(email: string, password: string, images: File[]) {
     let result = await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
         this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
           this._loggedIn.next(true);
           this.cookie.set('userid', loginInfo.user.uid);
-          debugger;
           this.addProfile(email, loginInfo.user.uid, images).then(observable => {
             observable.subscribe(number => {
 
