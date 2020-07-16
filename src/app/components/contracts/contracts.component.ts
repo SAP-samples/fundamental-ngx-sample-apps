@@ -56,7 +56,6 @@ export class ContractsComponent implements OnInit {
         this.loading = true;
         this.isLoggedIn = this.authService.isLoggedIn;
         this.subscription = this.contractService.getContractsObservable().subscribe(data => {
-          console.log(data);
           this.lastInArray = data[(data.length - 1)].company;
           this.firstInArray = data[0].company;
           const databaseData = Object.keys(data).map(i => data[i]);
@@ -260,7 +259,6 @@ export class ContractsComponent implements OnInit {
           this.firstInArray = data[0].company;
           const databaseData = Object.keys(data).map(i => data[i]);
           this.contracts = databaseData;
-
         });
       }
     }
