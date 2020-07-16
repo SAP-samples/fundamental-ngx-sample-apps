@@ -4,6 +4,7 @@ import { Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {ProductPageService} from '../product-page/product-page.service';
 import * as firebase from 'firebase';
+import {firestore} from 'firebase';
 
 @Injectable()
 export class ProductsService {
@@ -33,6 +34,9 @@ export class ProductsService {
     const obj = {name, contact, user_number, status, lob};
     let productCollection = this.db.collection('main').doc('en').collection('products').doc(name);
     productCollection.set(Object.assign({}, obj));
+    this.db.collection('main').doc('en').collection('productsPage').doc('header').update({
+      products: firestore.FieldValue.arrayUnion(name)
+    });
   }
 
   updateProduct(product: Product) {
@@ -44,6 +48,9 @@ export class ProductsService {
     const obj = {name, contact, user_number, status, lob};
     let productCollection = this.db.collection('main').doc('en').collection('products').doc(name);
     productCollection.update(Object.assign({}, obj));
+    this.db.collection('main').doc('en').collection('productsPage').doc('header').update({
+      products: firebase.firestore.FieldValue.arrayRemove(name)
+    });
   }
 
   deleteProduct(productName) {
