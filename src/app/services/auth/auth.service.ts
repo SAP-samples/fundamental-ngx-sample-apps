@@ -16,7 +16,8 @@ import {Account} from '../../models/account.model';
 })
 export class AuthService {
   private readonly _loggedIn: BehaviorSubject<any> = new BehaviorSubject<any>(false);
-  private _account: BehaviorSubject<{images, email}> = new BehaviorSubject<{images, email}>({images: null, email: null});
+  private _account: BehaviorSubject<{first, last, images, email}> = 
+  new BehaviorSubject<{first, last, images, email}>({first: null, last: null, images: null, email: null});
   percentage: Observable<any>;
   private task: AngularFireUploadTask;
   private downloadURL: string;
@@ -47,7 +48,9 @@ export class AuthService {
         const userAccount: Account = account[0];
         this._account.next(
           {
-            email: userAccount.email.charAt(0).toUpperCase(),
+            first: userAccount.first,
+            last: userAccount.last,
+            email: userAccount.email,
             images: userAccount.images[0].path
           }
         );
@@ -60,12 +63,12 @@ export class AuthService {
     });
   }
 
-  async register(email: string, password: string, images: File[]) {
+  async register(firstName:string, lastName:string, email: string, password: string, images: File[]) {
     let result = await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
         this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
           this._loggedIn.next(true);
           this.cookie.set('userid', loginInfo.user.uid);
-          this.addProfile(email, loginInfo.user.uid, images).then(observable => {
+          this.addProfile(firstName, lastName, email, loginInfo.user.uid, images).then(observable => {
             observable.subscribe(number => {
 
               if (number == 100) {
@@ -75,7 +78,9 @@ export class AuthService {
                     const userAccount: Account = account[0];
                     this._account.next(
                       {
-                        email: userAccount.email.charAt(0).toUpperCase(),
+                        first: userAccount.first,
+                        last: userAccount.last,
+                        email: userAccount.email,
                         images: userAccount.images[0].path
                       }
                     );
@@ -114,6 +119,8 @@ export class AuthService {
     this.cookie.delete('email', '/');
     this._account.next(
       {
+        first: null,
+        last: null,
         email: null,
         images: null
       }
@@ -130,7 +137,9 @@ export class AuthService {
         const userAccount: Account = account[0];
         this._account.next(
           {
-            email: userAccount.email.charAt(0).toUpperCase(),
+            first: userAccount.first,
+            last: userAccount.last,
+            email: userAccount.email,
             images: userAccount.images[0].path
           }
         );
@@ -149,11 +158,13 @@ export class AuthService {
     });
   }
 
-  async addProfile(userEmail, userid, profileImages) {
+  async addProfile(firstName, lastName, userEmail, userid, profileImages) {
+    const first = firstName;
+    const last = lastName;
     const id = userid;
     const email = userEmail;
     const images = [];
-    const obj = {id, email, images};
+    const obj = {firstName, lastName, id, email, images};
     const regular = this._db.collection('users').doc(id);
     regular.set(Object.assign({}, obj));
 
