@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DialogRef, DIALOG_REF } from '@fundamental-ngx/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {LanguageService} from 'src/app/services/language/language.service';
 
 @Component({
   selector: 'app-theme-selector',
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ThemeSelectorComponent implements OnInit {
 
-  constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef) {}
+  constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef, private languageService: LanguageService) {}
 
   themes = [
     {
@@ -42,7 +43,7 @@ export class ThemeSelectorComponent implements OnInit {
       id: 'compact',
       name: 'Compact'
   }];
-
+  language: 'en'|'fr';
   options1: string[] = ['Fiori 3', 'Fiori Dark', 'High Contrast Black', 'High Contrast White'];
   options2: string[] = ['Cozy', 'Compact'];
 
@@ -53,13 +54,21 @@ export class ThemeSelectorComponent implements OnInit {
       selectControl1: new FormControl(this.dialogRef.data.theme, Validators.required),
       luigiUi: new FormControl(false),
       compact: new FormControl(false)
-  });
+    });
+
+    this.languageService.lang.subscribe(language => {
+      this.language = language;
+    });
   };
 
   closeModal() {
     event.preventDefault();
+    this.languageService.updateLang(this.language);
     this.dialogRef.close( {theme: this.customForm.controls.selectControl1.value, luigi: this.customForm.controls.luigiUi.value, compact: this.customForm.controls.compact.value});
   };
 
+  languageChange() {
+    this.language === 'en' ? this.language = 'fr' : this.language = 'en';
+  }
 
 }

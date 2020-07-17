@@ -104,7 +104,6 @@ export class AppComponent implements OnInit{
       }
     });
     this.authService.account.subscribe(account => {
-      debugger;
       if (account.first != null) {
         this.user = {
           initials: account.first.charAt(0).toLocaleLowerCase() + account.last.charAt(0).toLocaleLowerCase(),

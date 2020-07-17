@@ -12,6 +12,9 @@
               </fd-select>
           </div>
           <div fd-form-item>
+            <button fd-button (click)="languageChange()">{{language == 'en'? 'fr':'en'}}</button>
+          </div>
+          <div fd-form-item>
             <fd-checkbox label="Luigi UI" formControlName="luigiUi"></fd-checkbox>
           </div>
           <div fd-form-item>
