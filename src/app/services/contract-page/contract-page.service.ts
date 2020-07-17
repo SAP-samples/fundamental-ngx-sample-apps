@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {LanguageService} from '../language/language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,11 @@ export class ContractPageService {
   private _contractCol = new Observable<any>();
 
 
-  constructor(private db: AngularFirestore){
-    this._contractHeader = this.db.collection('main').doc('en').collection('contractsPage').doc('header').valueChanges();
-    this._contractCol = this.db.collection('main').doc('en').collection('contractsPage').doc('columns').valueChanges();
+  constructor(private db: AngularFirestore, private _lang:LanguageService){
+    this._lang.lang.subscribe(language => {
+      this._contractHeader = this.db.collection('main').doc(language).collection('contractsPage').doc('header').valueChanges();
+      this._contractCol = this.db.collection('main').doc(language).collection('contractsPage').doc('columns').valueChanges();
+    });
   }
 
   get contractHeader() {

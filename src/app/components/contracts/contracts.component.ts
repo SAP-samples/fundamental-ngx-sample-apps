@@ -14,6 +14,7 @@ import {AuthService} from 'src/app/services/auth/auth.service';
 import {CompactService} from 'src/app/services/compact/compact.service';
 import {ContractPageService} from 'src/app/services/contract-page/contract-page.service';
 import {BinaryOperator, FunctionCall} from '@angular/compiler';
+import {LanguageService} from 'src/app/services/language/language.service';
 
 @Component({
     selector: 'app-contracts',
@@ -48,6 +49,7 @@ export class ContractsComponent implements OnInit {
       private dialogService: DialogService,
       private contractPageData: ContractPageService,
       public alertService: AlertService,
+      private _languageService: LanguageService,
       private notificationService: NotificationService
       ) {
       }
@@ -68,12 +70,15 @@ export class ContractsComponent implements OnInit {
         this.globalCompact = result;
       });
 
+        this._languageService.lang.subscribe(language => {
+
         this.contractPageData.contractHeader.subscribe(data => {
         this.contractPage = {title: data.title, description: data.description};
         this.multiInputContracts = data.contracts;
       });
         this.contractPageData.contractColumns.subscribe(data => {
         this.columnHeaders = data.columns;
+      });
       });
 
         this.authService.userObserLoginObservable.subscribe(loggedIn => {this.isLoggedIn = loggedIn; });
