@@ -16,7 +16,7 @@ export class CreateContractModalComponent implements OnInit {
     editMode = false;
     globalCompact = false;
     fields: string [] = [];
-    
+    language: 'en' | 'fr' = 'en';
     contractForm = new FormGroup({
         company: new FormControl('', [Validators.required]),
         contact: new FormControl('', [Validators.required]),
@@ -51,6 +51,7 @@ export class CreateContractModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.language = this.dialogRef.data.language;
         this.editMode = this.dialogRef.data.editMode;
         const contract = this.dialogRef.data.contract;
         this.fields = this.dialogRef.data.fields;

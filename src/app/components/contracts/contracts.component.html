@@ -1,8 +1,8 @@
 <fd-layout-panel>
     <fd-layout-panel-header>
         <fd-layout-panel-head>
-            <h2>Contracts</h2>
-            <fd-layout-panel-description>Manage the contracts recorded by various company representatives.
+            <h2>{{contractPage.title | titlecase}}</h2>
+            <fd-layout-panel-description>{{contractPage.description}}
             </fd-layout-panel-description>
         </fd-layout-panel-head>
         <fd-layout-panel-actions>
@@ -18,7 +18,7 @@
       <fd-multi-input 
       [compact]="globalCompact"
       [dropdownValues]="multiInputContracts"
-      [placeholder]="'Search here...'"
+      [placeholder]="language=='en'?'Search here...':'Rechercher ...'"
       [(ngModel)]="selected"
       (ngModelChange)="refresh()"
       >
@@ -36,7 +36,7 @@
         <fd-table-wrapper *ngIf="!loading">
             <table cdk-table [dataSource]="contracts" #table cdkDropList [cdkDropListData]="contracts" (cdkDropListDropped)="dropRow($event)">
               <ng-container  cdkColumnDef="company">
-                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[0] | titlecase}}</th> 
+                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[0] | titlecase}}</th> 
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                   <td>
                     {{contract.company}}
@@ -48,7 +48,7 @@
               </ng-container>
               
               <ng-container   cdkColumnDef="contact">
-                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[1] | titlecase}}</th> 
+                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[1] | titlecase}}</th> 
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                   <td>
                     {{contract.contact}}
@@ -57,7 +57,7 @@
               </ng-container>
               
               <ng-container   cdkColumnDef="signed">
-                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[2] | titlecase}}</th>                            
+                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[2] | titlecase}}</th>                            
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                   <td>
                     {{contract.signed.seconds | date:'yyyy/MM/dd'}}
@@ -66,16 +66,16 @@
               </ng-container>
               
               <ng-container   cdkColumnDef="type">
-                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[3] | titlecase}}</th>
+                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[3] | titlecase}}</th>
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                   <td>
-                    {{contract.type | uppercase}}
+                    {{contract.type | languageType: language | uppercase}}
                   </td>
                 </ng-container>
               </ng-container>
               
               <ng-container   cdkColumnDef="value">
-                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[4] | titlecase}}</th>
+                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[4] | titlecase}}</th>
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                   <td>
                     {{contract.value | currency}}
@@ -84,16 +84,16 @@
               </ng-container>
               
               <ng-container  cdkColumnDef="status">
-                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[5] | titlecase}}</th>
+                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[5] | titlecase}}</th>
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                   <td>
-                    <span fd-info-label [color]="contract.status | statusToColor" > {{contract.status}} </span>
+                    <span fd-info-label [color]="contract.status | statusToColor" > {{contract.status | languageStatus:language}} </span>
                   </td>
                 </ng-container>
               </ng-container> 
               
               <ng-container   cdkColumnDef="edit">
-                <th cdk-header-cell *cdkHeaderCellDef>{{columnHeaders[6] | titlecase}}</th>
+                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[6] | titlecase}}</th>
                 <ng-container cdk-cell *cdkCellDef="let contract">                       
                   <td>
                     <button 
@@ -108,7 +108,7 @@
             </ng-container>
             
             <ng-container   cdkColumnDef="remove">
-              <th cdk-header-cell *cdkHeaderCellDef >{{columnHeaders[7] | titlecase}}</th>
+              <th cdk-header-cell *cdkHeaderCellDef >{{tableHeaders[7] | titlecase}}</th>
               <ng-container cdk-cell *cdkCellDef="let contract">                       
                 <td>
                   <button 

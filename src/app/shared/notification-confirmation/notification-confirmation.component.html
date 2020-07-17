@@ -1,8 +1,8 @@
 <fd-notification-header
   (closeButtonClick)="notificationRef.dismiss('Close Icon Click')"
   [type]="notificationRef.data.type">
-  <h3  *ngIf="!notificationRef.data.invalid" fd-notification-title>{{ notificationRef.data.company }} Added</h3>
-  <h3  *ngIf="notificationRef.data.invalid" fd-notification-title>No Account</h3>
+  <h3  *ngIf="!notificationRef.data.invalid" fd-notification-title>{{ notificationRef.data.company }} {{language=='en'?'Added':'Ajoutée'}}</h3>
+  <h3  *ngIf="notificationRef.data.invalid" fd-notification-title>{{language=='en'?'No Account':'Pas de Compte'}}</h3>
 </fd-notification-header>
 <fd-notification-body>
     <div fd-notification-content>
@@ -16,7 +16,9 @@
                 {{ notificationRef.data.status }}  
               </p>
               <p *ngIf="notificationRef.data.invalid">
-                Not logged in! Sign up or login.
+
+                {{language=='en'?'Not logged in! Sign up or login!':'
+                Pas connecté! Inscrivez-vous ou connectez-vous a votre compte'}}
               </p>
             </div>
         </div>
@@ -27,7 +29,8 @@
                 Ok
             </button>
             <button fd-button [fdType]="'negative'" (click)="notificationRef.dismiss()">
-                Undo
+              {{language=='en'?'Undo':'
+              Annuler'}}
             </button>
         </div>
     </fd-notification-footer>

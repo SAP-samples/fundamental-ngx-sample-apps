@@ -1,6 +1,6 @@
 <fd-dialog>
   <fd-dialog-header>
-      <h1 fd-dialog-title>{{ editMode == true ? 'Edit' : 'Create'}} a Contract</h1>
+      <h1 fd-dialog-title>{{language == 'en' ? (editMode ? 'Edit a Contract' : 'Create a Contract'): (editMode ? 'Modifier un Contrat' : 'Créer un Contrat')}}</h1>
       <button
        fd-dialog-close-button
         (click)="dialogRef.dismiss()"></button>
@@ -30,7 +30,7 @@
                 [type]="contractForm.get('company').touched ? 
                 (contractForm.get('company').valid ? 'success' : 'error'):
                 (contractForm.get('company').valid ? '' : '')">
-                Required Contact Name
+                {{fields[0] + ' ' + (language == 'en'?'Required':'Obligatoire') | titlecase}}
                 </fd-form-message>
               </fd-form-input-message-group>
             </div>
@@ -55,7 +55,8 @@
                 [type]="contractForm.get('contact').touched ? 
                 (contractForm.get('contact').valid ? 'success' : 'error'):
                 (contractForm.get('contact').valid ? '' : '')">
-                Required Contact Name</fd-form-message>
+                  {{fields[1] + ' ' + (language == 'en'?'Required':'Obligatoire') | titlecase}}
+                </fd-form-message>
                 </fd-form-input-message-group>          
               </div>
             </fd-layout-panel-body>
@@ -76,7 +77,7 @@
                 *ngIf="contractForm.get('signed').invalid && contractForm.get('signed').touched"
                 [type]="contractForm.get('signed').touched ? 
                 (contractForm.get('signed').valid ? 'success' : 'error'):
-                (contractForm.get('signed').valid ? '' : '')">Must enter a date</fd-form-message>
+                (contractForm.get('signed').valid ? '' : '')">{{fields[2] + ' ' + (language == 'en'?'Required':'Obligatoire'  | titlecase)}}</fd-form-message>
           </fd-layout-panel-body>
         </fd-layout-panel>
         <fd-layout-panel>
@@ -92,16 +93,16 @@
                   [state]="contractForm.get('type').touched ? 
                   (contractForm.get('type').valid ? 'success' : 'error'):
                   (contractForm.get('type').valid ? '' : '')">
-                    <option value="premium">Premium</option>
-                    <option value="gold">Gold</option>
-                    <option value="silver">Silver</option>
+                    <option value="premium">'{{'Premium' | languageType:language | titlecase}}'</option>
+                    <option value="gold">{{'Gold' | languageType:language | titlecase}}</option>
+                    <option value="silver">{{'Silver'  | languageType:language | titlecase}}</option>
                 </select>
                 <fd-form-message
                 *ngIf="contractForm.get('type').invalid && contractForm.get('type').touched" 
                 [type]="contractForm.get('type').touched ? 
                 (contractForm.get('type').valid ? 'success' : 'error'):
                 (contractForm.get('type').valid ? '' : '')">
-                Must enter a type
+                {{fields[3] + ' ' + (language == 'en'?'Required':'Obligatoire') | titlecase}}
                 </fd-form-message>
               </fd-form-input-message-group>
             </div>
@@ -127,7 +128,7 @@
                 [type]="contractForm.get('value').touched ? 
                 (contractForm.get('value').valid ? 'success' : 'error'):
                 (contractForm.get('value').valid ? '' : '')">
-                  Value must be more than 0
+                {{fields[4] + ' ' + (language == 'en'?'Required':'Obligatoire') | titlecase}}
                 </fd-form-message>
               </fd-form-input-message-group>
             </div>
@@ -146,16 +147,16 @@
                   [state]="contractForm.get('status').touched ? 
                   (contractForm.get('status').valid ? 'success' : 'error'):
                   (contractForm.get('status').valid ? '' : '')">
-                    <option value="completed">Completed</option>
-                    <option value="on hold">On Hold</option>
-                    <option value="dropped">Dropped</option>
+                    <option value="completed">{{'Completed' | languageStatus:language | titlecase}}</option>
+                    <option value="on hold">{{'On Hold' | languageStatus:language | titlecase}}</option>
+                    <option value="dropped">{{'Dropped' | languageStatus:language | titlecase}}</option>
                 </select>
                 <fd-form-message
                 *ngIf="contractForm.get('status').invalid && contractForm.get('status').touched"
                 [type]="contractForm.get('status').touched ? 
                 (contractForm.get('status').valid ? 'success' : 'error'):
                 (contractForm.get('status').valid ? '' : '')">
-                Required Status
+                {{fields[5] + ' ' + (language == 'en'?'Required':'Obligatoire') | titlecase}}
                 </fd-form-message>
               </fd-form-input-message-group>
             </div>
@@ -174,7 +175,7 @@
       type="submit"
       form="main-form"
       [disabled]="!contractForm.dirty || contractForm.invalid">
-        {{editMode == true? 'Edit' : 'Create'}}
+      {{language == 'en' ? (editMode ? 'Edit' : 'Create'): (editMode ? 'Modifier' : 'Créer')}}
       </button>
     </fd-dialog-footer-button>
     <fd-dialog-footer-button>
@@ -185,7 +186,7 @@
       fdType="transparent"
       style="margin-left: 16px;"
       (click)="this.dialogRef.dismiss()">
-      Cancel
+      {{language == 'en'? 'Cancel': 'Annuler'}}
     </button>
     </fd-dialog-footer-button>
   </fd-dialog-footer>
