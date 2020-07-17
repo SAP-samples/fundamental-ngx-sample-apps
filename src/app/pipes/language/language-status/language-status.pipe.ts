@@ -15,7 +15,7 @@ constructor() {}
       switch (value.toLocaleLowerCase()) {
         case ('completed'): return 'terminé';
         case ('on hold'): return 'en attente';
-        case ('in progress'): return 'en progrès';
+        case ('in progress'): return 'en progress';
         case ('dropped'): return 'chuté';
       }
       }

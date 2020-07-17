@@ -11,9 +11,11 @@ import {CreateProductModalDetailedComponent} from './create-product-modal-detail
 })
 export class CreateProductModalComponent implements OnInit {
 
+    language: 'en' | 'fr' = 'en';
     editMode = false;
     globalCompact:boolean = false;
     fields: string[]= [];
+    tableFields: string[]= [];
 
     productForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
@@ -58,9 +60,10 @@ export class CreateProductModalComponent implements OnInit {
     openModal() {
         this.dialogService.open(CreateProductModalDetailedComponent, {
           data: {
+            language: this.language,
             compact: this.globalCompact
           },
-          responsivePadding:true
+          responsivePadding: true
         });
     }
 
@@ -68,12 +71,14 @@ export class CreateProductModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.globalCompact = this.dialogRef.data.compact;
-        this.editMode = this.dialogRef.data.editMode;
-        this.fields = this.dialogRef.data.fields;
-        const product = this.dialogRef.data.product;
+      this.globalCompact = this.dialogRef.data.compact;
+      this.language = this.dialogRef.data.language;
+      this.editMode = this.dialogRef.data.editMode;
+      this.fields = this.dialogRef.data.fields;
+      this.tableFields = this.dialogRef.data.tableFields;
+      const product = this.dialogRef.data.product;
 
-        if (this.editMode && product) {
+      if (this.editMode && product) {
             Object.keys(product).forEach(key => {
                 if (this.productForm.controls[key]) {
                     this.productForm.controls[key].setValue(product[key]);

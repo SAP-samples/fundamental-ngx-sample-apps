@@ -15,6 +15,8 @@ import {CompactService} from 'src/app/services/compact/compact.service';
 import {ContractPageService} from 'src/app/services/contract-page/contract-page.service';
 import {BinaryOperator, FunctionCall} from '@angular/compiler';
 import {LanguageService} from 'src/app/services/language/language.service';
+import {MainService} from 'src/app/services/main/main.service';
+import {CommonService} from 'src/app/services/common/common.service';
 
 @Component({
     selector: 'app-contracts',
@@ -29,31 +31,35 @@ export class ContractsComponent implements OnInit {
   selected: Contract[] = [];
   subscription: Subscription;
   columnHeaders: string [] = [];
+  tableHeaders: string [] = [];
+  language: 'en' | 'fr' = 'en';
   contractPage: {title: string, description: string} = {title: '', description: ''};
   contract: Contract = null;
   totalContracts: number;
   isLoggedIn = false;
   firstInArray: string;
   lastInArray: string;
-  searching:boolean = false;
+  searching = false;
   currentPage = 1;
   limit = 5;
   loading = false;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
-    
+
     constructor(
       private authService: AuthService,
       private contractService: ContractsService,
       private compactService: CompactService,
       private dialogService: DialogService,
+      private _main: MainService,
+      private _common: CommonService,
       private contractPageData: ContractPageService,
       public alertService: AlertService,
       private _languageService: LanguageService,
       private notificationService: NotificationService
       ) {
       }
-      
+
       ngOnInit() {
         this.loading = true;
         this.isLoggedIn = this.authService.isLoggedIn;
@@ -71,14 +77,23 @@ export class ContractsComponent implements OnInit {
       });
 
         this._languageService.lang.subscribe(language => {
+          this.language = language;
+          this._main.main.subscribe(mainInfo => {
+            console.log(mainInfo)
+            this.contractPage = mainInfo.contract;
+          });
 
-        this.contractPageData.contractHeader.subscribe(data => {
-        this.contractPage = {title: data.title, description: data.description};
+          this._main.tables.subscribe(mainInfo => {
+            this.tableHeaders = mainInfo.contracts;
+          });
+      });
+
+        this._common.lists.subscribe(data => {
         this.multiInputContracts = data.contracts;
       });
-        this.contractPageData.contractColumns.subscribe(data => {
-        this.columnHeaders = data.columns;
-      });
+
+        this._common.columns.subscribe(data => {
+        this.columnHeaders = data.contracts;
       });
 
         this.authService.userObserLoginObservable.subscribe(loggedIn => {this.isLoggedIn = loggedIn; });
@@ -115,8 +130,9 @@ export class ContractsComponent implements OnInit {
         this.dialogService.open(CreateContractModalComponent, {
             responsivePadding: true,
             data: {
+              language: this.language,
               editMode: false,
-              fields: this.columnHeaders
+              fields: this.tableHeaders
             }
 
         }).afterClosed.subscribe(result => {
@@ -125,6 +141,7 @@ export class ContractsComponent implements OnInit {
               this.contract = result;
               const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
                 data: {
+                    language: this.language,
                     company: result.company,
                     contact: result.contact,
                     status: result.status,
@@ -160,6 +177,7 @@ export class ContractsComponent implements OnInit {
         copyObj.signed = new FdDate(tempDate.getFullYear(), tempDate.getMonth() + 1, tempDate.getDate());
         this.dialogService.open(CreateContractModalComponent, {
             data: {
+              language: this.language,
                 editMode: true,
                 fields: this.columnHeaders,
                 contract: copyObj
@@ -170,6 +188,7 @@ export class ContractsComponent implements OnInit {
                 this.contract = result;
                 const notificationService = this.notificationService.open(NotificationConfirmationComponent, {
                   data: {
+                      language: this.language,
                       company: result.company,
                       contact: result.contact,
                       status: result.status,
@@ -177,7 +196,7 @@ export class ContractsComponent implements OnInit {
                   size: 'm',
                   type: 'warning'
               });
-  
+
                 notificationService.afterClosed.subscribe(
                   (result) => {
                       if (result == 'OK'){

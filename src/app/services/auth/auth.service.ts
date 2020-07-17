@@ -46,7 +46,6 @@ export class AuthService {
       const user = this._db.collection('users', ref => ref.where('id' , '==' , loginInfo.user.uid)).valueChanges();
       user.subscribe((account: Account[]) => {
         const userAccount: Account = account[0];
-        console.log(account);
         this._account.next(
           {
             first: userAccount.firstName,

@@ -1,12 +1,14 @@
 <fd-dialog>
   <fd-dialog-header>
-    <h1 fd-dialog-title>Are you sure?</h1>
+    <h1 fd-dialog-title>{{language=='en'?'Are you sure?': 'êtes-vous sûr' | titlecase}}</h1>
     <button fd-dialog-close-button (click)="dialogRef.dismiss()"></button>
   </fd-dialog-header>
   <fd-dialog-body>
     <fd-layout-panel>
       <fd-layout-panel-body>
-        This action is permanent and cannot be reversed. Are you sure you want to continue?
+        {{language=='en'?
+        'This action is permanent and cannot be reversed. Are you sure you want to continue?':
+        'Cette action est permanente et ne peut pas être inversée. Es-tu sur de vouloir continuer?'}}
       </fd-layout-panel-body>
     </fd-layout-panel>
   </fd-dialog-body>
@@ -18,7 +20,7 @@
       fdType="main"
       [compact]="true"
       (click)="dialogRef.close(true)">
-      Delete
+      {{language=='en'?'Delete': 'Supprimer' | titlecase}}
       </button>
       </fd-dialog-footer-button>
       <fd-dialog-footer-button>
@@ -28,7 +30,7 @@
       fdType="transparent" 
       [compact]="true"
       (click)="dialogRef.close(false)">
-        Cancel
+      {{language=='en'?'Cancel': 'Annuler' | titlecase}}
       </button>
       </fd-dialog-footer-button>
   </fd-dialog-footer>
