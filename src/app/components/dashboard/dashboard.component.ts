@@ -7,6 +7,8 @@ import {ContractsService} from 'src/app/services/contracts/contracts.service';
 import {ProductsService} from 'src/app/services/products/products.service';
 import {ContractPageService} from 'src/app/services/contract-page/contract-page.service';
 import {ProductPageService} from 'src/app/services/product-page/product-page.service';
+import {MainService} from 'src/app/services/main/main.service';
+import {LanguageService} from 'src/app/services/language/language.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -24,8 +26,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     constructor(
       public productService:ProductsService,
       public contractService: ContractsService,
-      private contractPageData: ContractPageService,
-      private productPageData: ProductPageService) {
+      private _main: MainService,
+      private _languageService: LanguageService) {
     }
 
     ngOnInit() {
@@ -38,12 +40,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.contracts = databaseData;
       });
 
-      this.contractPageData.contractHeader.subscribe(data => {
-        this.contract = {title: data.title, description: data.description};
-      });
-
-      this.productPageData.productHeader.subscribe(data => {
-        this.product = {title: data.title, description: data.description};
+      this._languageService.lang.subscribe(lang => {
+        this._main.main.subscribe(mainInfo => {
+          this.contract = mainInfo.contract;
+          this.product = mainInfo.product;
+        });
       });
     }
 

@@ -13,6 +13,8 @@ import {SideNavModel} from './services/side-navigation/side-navigation.model';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Subscription} from 'rxjs';
 import {takeUntil, take} from 'rxjs/operators';
+import {MainService} from './services/main/main.service';
+import {LanguageService} from './services/language/language.service';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +30,8 @@ export class AppComponent implements OnInit{
     private luigiUiService: LuigiUiService,
     private authService: AuthService,
     private compactService: CompactService,
-    private productSwitchData: ProductSwitchDataService,
-    private sideNavData: SideNavigationService,
+    private _main: MainService,
+    private _languageService: LanguageService,
     private router: Router,
     private dialogService: DialogService,
     private sanitizer: DomSanitizer,
@@ -75,17 +77,14 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/sap_fiori_3.css');
-    this.productSwitchData.productSwitchData.subscribe(data => {
-      const productSwitchDataFromDb = Object.keys(data.products).map(i => data.products[i]);
-      this.list = productSwitchDataFromDb;
-    });
-
-    this.sideNavData.sideNavigationData.subscribe(sideNav => {
-      this.sideNavMain = sideNav.main;
-      this.sideNavSecondary = sideNav.secondary;
-    }, error => {
-      console.log(error);
-    });
+    this._languageService.lang.subscribe(lang => {
+      this._main.main.subscribe(mainInfo => {
+        this.title = mainInfo.title;
+        this.list = Object.keys(mainInfo.productSwitch).map(i => mainInfo.productSwitch[i]);
+        this.sideNavMain = mainInfo.sideNav[0].primary;
+        this.sideNavSecondary = mainInfo.sideNav[1].secondary;
+      });
+    })
 
     this.luigiUiService.luigiOption.subscribe(luigiOption => {
       this.luigiOption = luigiOption;

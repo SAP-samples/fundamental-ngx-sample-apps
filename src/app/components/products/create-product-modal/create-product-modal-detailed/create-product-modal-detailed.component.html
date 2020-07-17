@@ -9,7 +9,7 @@
       <form 
       [formGroup]="detailedProductForm"
       id="main-form">
-              <label fd-form-label for="datepicker-input">Date signed: </label>
+              <label fd-form-label for="datepicker-input">Date: </label>
               <fd-date-picker 
               [compact]="globalCompact"
               formControlName="product_date_signed"
@@ -25,7 +25,7 @@
               [type]="detailedProductForm.get('product_date_signed').touched ? 
               (detailedProductForm.get('product_date_signed').valid ? 'success' : 'error'):
               (detailedProductForm.get('product_date_signed').valid ? '' : '')">
-                Must enter a date
+                {{'Date '+ (language=='en'?'Required':'Obligatoire')}}
               </fd-form-message>
         </form>
       </fd-layout-panel-body>

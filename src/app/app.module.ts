@@ -51,8 +51,6 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import {
   AngularFireStorageModule,
-  AngularFireStorageReference,
-  AngularFireUploadTask,
 } from "@angular/fire/storage";
 import { ForgotPasswordComponent } from './components/auth/login/forgot-password/forgot-password.component';
 import { StatusToColorPipe } from './shared/status-to-color.pipe';
@@ -61,6 +59,8 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
 import {LuigiUiService} from './services/luigi-ui/luigi-ui.service';
 import {CompactService} from './services/compact/compact.service';
 import { SnakeCasePipe } from './pipes/snake-case.pipe';
+import { LanguageTypePipe } from './pipes/language/language-type/language-type.pipe';
+import { LanguageStatusPipe } from './pipes/language/language-status/language-status.pipe';
 
 @NgModule({
     declarations: [
@@ -78,7 +78,9 @@ import { SnakeCasePipe } from './pipes/snake-case.pipe';
         ForgotPasswordComponent,
         StatusToColorPipe,
         ThemeSelectorComponent,
-        SnakeCasePipe
+        SnakeCasePipe,
+        LanguageTypePipe,
+        LanguageStatusPipe
     ],
     imports: [
         AlertModule,
@@ -123,6 +125,8 @@ import { SnakeCasePipe } from './pipes/snake-case.pipe';
       ContractsService,
       ProductsService, 
       StatusToColorPipe,
+      LanguageTypePipe,
+      LanguageStatusPipe,
       LuigiUiService,
       SnakeCasePipe
     ],

@@ -13,6 +13,9 @@ import {CompactService} from 'src/app/services/compact/compact.service';
 import {ProductPageService} from 'src/app/services/product-page/product-page.service';
 import {NotificationConfirmationComponent} from 'src/app/shared/notification-confirmation/notification-confirmation.component';
 import {AuthService} from 'src/app/services/auth/auth.service';
+import {LanguageService} from 'src/app/services/language/language.service';
+import {MainService} from 'src/app/services/main/main.service';
+import {CommonService} from 'src/app/services/common/common.service';
 
 @Component({
     selector: 'app-products',
@@ -29,7 +32,9 @@ export class ProductsComponent implements OnDestroy, OnInit {
     selected: Product[] = [];
     filteredDataSource: Product[] = [];
     columnHeaders: string [];
+    tableHeaders: string [];
     totalProducts: number;
+    language: 'en' | 'fr' = 'en';
     loading: boolean = false;
     multiInputProducts: string[];
     searching: boolean = false;
@@ -46,6 +51,9 @@ export class ProductsComponent implements OnDestroy, OnInit {
     filteredDatasource: Product[];
 
     constructor(
+      private _languageService: LanguageService,
+      private _main: MainService,
+      private _common: CommonService,
       public productService: ProductsService, 
       private dialogService: DialogService, 
       private auth: AuthService,
@@ -57,11 +65,49 @@ export class ProductsComponent implements OnDestroy, OnInit {
         });
     }
 
+    ngOnInit() {
+      this.loggedIn = this.auth.isLoggedIn;
+      this.subscription = this.productService.products.subscribe(data => {
+        this.lastInArray = data[(data.length - 1)].name;
+        this.firstInArray = data[0].name;
+        const databaseData = Object.keys(data).map(i => data[i]);
+        this.products = databaseData;
+    });
+  
+      this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
+  
+      this._languageService.lang.subscribe(lang => {
+        this.language = lang;
+
+        this._main.main.subscribe(data => {
+          this.productsPage = data.product;
+        });
+
+        this._main.tables.subscribe(data => {
+          this.tableHeaders = data.products;
+        });
+      });
+
+      this._common.lists.subscribe(data => {
+        this.multiInputProducts = data.products;
+      });
+
+      this._common.columns.subscribe(data => {
+        this.columnHeaders = data.products;
+      });
+  
+      this.auth.userObserLoginObservable.subscribe(isLoggedIn => {
+        this.loggedIn = isLoggedIn;
+      });
+    }
+
     openCreateModal(): void {
         this.dialogService.open(CreateProductModalComponent, {
             data: {
+              language: this.language,
               editMode: false,
-              fields: this.columnHeaders,
+              fields: this.tableHeaders,
+              tableFields: this.tableHeaders,
               compact: this.globalCompact
             }
         }).afterClosed.subscribe(result => {
@@ -98,8 +144,10 @@ export class ProductsComponent implements OnDestroy, OnInit {
     openEditModal(newProduct: Product): void {
         this.dialogService.open(CreateProductModalComponent, {
             data: {
+                language: this.language,
                 editMode: true,
                 fields: this.columnHeaders,
+                tableFields: this.tableHeaders,
                 product: newProduct
             }
         }).afterClosed.subscribe(result => {
@@ -165,31 +213,6 @@ export class ProductsComponent implements OnDestroy, OnInit {
     this.subscription.unsubscribe();
   }
 
-  ngOnInit() {
-    this.loggedIn = this.auth.isLoggedIn;
-    this.subscription = this.productService.products.subscribe(data => {
-      this.lastInArray = data[(data.length - 1)].name;
-      this.firstInArray = data[0].name;
-      const databaseData = Object.keys(data).map(i => data[i]);
-      this.products = databaseData;
-  });
-
-    this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
-
-
-    this.productPageService.productHeader.subscribe(data => {
-      this.productsPage = {title: data.title, description: data.description};
-      this.multiInputProducts = data.products;
-    });
-
-    this.productPageService.productPageData.subscribe(data => {
-      this.columnHeaders = data.columns;
-    });
-
-    this.auth.userObserLoginObservable.subscribe(isLoggedIn => {
-      this.loggedIn = isLoggedIn;
-    });
-  }
 
   newPageClicked(event) {
     this.loading = true;
