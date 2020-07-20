@@ -1,0 +1,72 @@
+<fd-table-wrapper *ngIf="!loading">
+  <table cdk-table [dataSource]="users" #table cdkDropList [cdkDropListData]="users" (cdkDropListDropped)="dropRow($event)">
+    <ng-container  cdkColumnDef="profileImage">
+      <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[0] | titlecase}}</th> 
+      <ng-container cdk-cell *cdkCellDef="let user">                       
+        <td>
+          {{user.company}}
+        </td>
+      </ng-container>                    
+    </ng-container>
+    
+    <ng-container   cdkColumnDef="fullName">
+      <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[1] | titlecase}}</th> 
+      <ng-container cdk-cell *cdkCellDef="let user">                       
+        <td>
+          {{user.name}}
+        </td>
+      </ng-container>
+    </ng-container>
+    
+    <ng-container   cdkColumnDef="email">
+      <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[2] | titlecase}}</th>
+      <ng-container cdk-cell *cdkCellDef="let user">                       
+        <td>
+          {{user.email | languageType: language | uppercase}}
+        </td>
+      </ng-container>
+    </ng-container>
+    
+    <ng-container  cdkColumnDef="admin">
+      <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[3] | titlecase}}</th>
+      <ng-container cdk-cell *cdkCellDef="let user">                       
+        <td>
+          <fd-checkbox [(ngModel)]="user.admin" [disabled]="true" label="Admin"></fd-checkbox>
+        </td>
+      </ng-container>
+    </ng-container> 
+    
+    <ng-container   cdkColumnDef="edit">
+      <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[4] | titlecase}}</th>
+      <ng-container cdk-cell *cdkCellDef="let user">                       
+        <td>
+          <button 
+          fd-button
+          [glyph]="'edit'"
+          title="Edit User"
+          (click)="openEditModal(user.name)"
+          [fdType]="'transparent'">
+        </button>
+      </td>
+    </ng-container>
+  </ng-container>
+  
+  <ng-container   cdkColumnDef="remove">
+    <th cdk-header-cell *cdkHeaderCellDef >{{tableHeaders[5] | titlecase}}</th>
+    <ng-container cdk-cell *cdkCellDef="let user">                       
+      <td>
+        <button 
+        fd-button
+        [glyph]="'delete'"
+        title="Delete User"
+        (click)="openConfirmModal(user.name)"
+        [fdType]="'transparent'">
+      </button>
+    </td>
+  </ng-container>
+</ng-container>
+<tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
+
+<tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: columnHeaders" style="cursor: grab;"></tr>
+</table>
+</fd-table-wrapper>
