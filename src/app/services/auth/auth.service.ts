@@ -68,7 +68,7 @@ export class AuthService {
         this.afAuth.signInWithEmailAndPassword(email, password).then(loginInfo => {
           this._loggedIn.next(true);
           this.cookie.set('userid', loginInfo.user.uid);
-          this.addProfile(firstName, lastName, email, loginInfo.user.uid, images).then(observable => {
+          this.addProfile(false, firstName, lastName, email, loginInfo.user.uid, images).then(observable => {
             observable.subscribe(number => {
 
               if (number == 100) {
@@ -158,13 +158,13 @@ export class AuthService {
     });
   }
 
-  async addProfile(firstName, lastName, userEmail, userid, profileImages) {
+  async addProfile(admin, firstName, lastName, userEmail, userid, profileImages) {
     const first = firstName;
     const last = lastName;
     const id = userid;
     const email = userEmail;
     const images = [];
-    const obj = {firstName, lastName, id, email, images};
+    const obj = {admin, first, last, id, email, images};
     const regular = this._db.collection('users').doc(id);
     regular.set(Object.assign({}, obj));
 
