@@ -61,6 +61,7 @@ import {CompactService} from './services/compact/compact.service';
 import { SnakeCasePipe } from './pipes/snake-case.pipe';
 import { LanguageTypePipe } from './pipes/language/language-type/language-type.pipe';
 import { LanguageStatusPipe } from './pipes/language/language-status/language-status.pipe';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
     declarations: [
@@ -80,7 +81,8 @@ import { LanguageStatusPipe } from './pipes/language/language-status/language-st
         ThemeSelectorComponent,
         SnakeCasePipe,
         LanguageTypePipe,
-        LanguageStatusPipe
+        LanguageStatusPipe,
+        UsersComponent
     ],
     imports: [
         AlertModule,
