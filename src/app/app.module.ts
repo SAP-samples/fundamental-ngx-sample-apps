@@ -11,6 +11,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
+    ImageModule,
     BusyIndicatorModule,
     ButtonModule, 
     DatePickerModule,  
@@ -86,6 +87,7 @@ import { UsersComponent } from './components/users/users.component';
     ],
     imports: [
         AlertModule,
+        ImageModule,
         BrowserAnimationsModule,
         BrowserModule,
         BusyIndicatorModule,
