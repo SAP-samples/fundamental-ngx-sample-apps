@@ -15,7 +15,7 @@ export class ContractsService {
   private _totalQueryContract: Observable<any>
 
   constructor(private db: AngularFirestore, private _contractPageService: ContractPageService) {
-    this.contractObservable = db.collection('main').doc('en').collection('contracts',
+    this.contractObservable = db.collection('contracts',
     ref => ref.orderBy('company', 'asc').limit(5)).valueChanges();
 
     let query = db.collection('main').doc('en').collection('contracts',
@@ -24,48 +24,48 @@ export class ContractsService {
   }
 
   searchQuery(queryValue, limit) {
-    this.contractObservable = this.db.collection('main').doc('en')
+    this.contractObservable = this.db
     .collection('contracts', ref => ref.where('company' , 'in' , queryValue)
     .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(limit)).valueChanges();
 
-    let query = this.db.collection('main').doc('en')
+    let query = this.db
     .collection('contracts', ref => ref.where('company' , 'in' , queryValue));
     this._totalQueryContract = query.get();
   }
 
   nextSearch(lastDoc, queryValue, limit) {
-    this.contractObservable = this.db.collection('main').doc('en')
+    this.contractObservable = this.db
     .collection('contracts', ref => ref.where('company' , 'in' , queryValue)
     .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(limit).startAfter(lastDoc)).valueChanges();
 
-    let query = this.db.collection('main').doc('en')
+    let query = this.db
     .collection('contracts', ref => ref.where('company' , 'in' , queryValue));
     this._totalQueryContract = query.get();
   }
 
   prevSearch(firstDoc, queryValue, limit) {
-    this.contractObservable = this.db.collection('main').doc('en')
+    this.contractObservable = this.db
     .collection('contracts', ref => ref.where('company' , 'in' , queryValue)
     .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limitToLast(limit).endBefore(firstDoc)).valueChanges();
 
-    let query = this.db.collection('main').doc('en')
+    let query = this.db
     .collection('contracts', ref => ref.where('company' , 'in' , queryValue));
     this._totalQueryContract = query.get();
   }
 
   next(lastDoc, limit) {
-    this.contractObservable = this.db.collection('main').doc('en')
+    this.contractObservable = this.db
     .collection('contracts', ref => ref.orderBy('company', 'asc').limit(limit).startAfter(lastDoc)).valueChanges();
 
-    let query = this.db.collection('main').doc('en').collection('contracts', ref => ref.orderBy('company', 'asc'));
+    let query = this.db.collection('contracts', ref => ref.orderBy('company', 'asc'));
     this._totalQueryContract = query.get();
   }
 
   prev(firstDoc, limit) {
-    this.contractObservable = this.db.collection('main').doc('en')
+    this.contractObservable = this.db
     .collection('contracts', ref => ref.orderBy('company', 'asc').limitToLast(limit).endBefore(firstDoc)).valueChanges();
 
-    let query = this.db.collection('main').doc('en').collection('contracts', ref => ref.orderBy('company', 'asc'));
+    let query = this.db.collection('contracts', ref => ref.orderBy('company', 'asc'));
     this._totalQueryContract = query.get();
   }
 
@@ -78,16 +78,16 @@ export class ContractsService {
     const value = contract.value;
     const obj = {company, contact, signed, status, type, value};
 
-    let contractCollection = this.db.collection('main').doc('en').collection('contracts').doc(company);
+    let contractCollection = this.db.collection('contracts').doc(company);
     contractCollection.set(Object.assign({}, obj));
-    this.db.collection('main').doc('en').collection('contractsPage').doc('header').update({
+    this.db.collection('contractsPage').doc('header').update({
       contracts: firestore.FieldValue.arrayUnion(company)
     });
   }
 
   deleteContract(contractName) {
-    this.db.collection('main').doc('en').collection('contracts').doc(contractName).delete();
-    this.db.collection('main').doc('en').collection('contractsPage').doc('header').update({
+    this.db.collection('contracts').doc(contractName).delete();
+    this.db.collection('contractsPage').doc('header').update({
       contracts: firebase.firestore.FieldValue.arrayRemove(contractName)
     });
   }
@@ -100,7 +100,7 @@ export class ContractsService {
     const type = contract.type;
     const value = contract.value;
     const obj = {company, contact, signed, status, type, value};
-    let contractCollection = this.db.collection('main').doc('en').collection('contracts').doc(company);
+    let contractCollection = this.db.collection('contracts').doc(company);
     contractCollection.update(Object.assign({}, obj));
   }
 
