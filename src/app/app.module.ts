@@ -34,6 +34,7 @@ import {
     TableModule,
     CheckboxModule,
     FileInputModule,
+    MenuModule,
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -112,6 +113,7 @@ import { UsersComponent } from './components/users/users.component';
         InlineHelpModule,
         LayoutGridModule,
         LayoutPanelModule,
+        MenuModule,
         MultiInputModule,
         NestedListModule,
         NotificationModule,

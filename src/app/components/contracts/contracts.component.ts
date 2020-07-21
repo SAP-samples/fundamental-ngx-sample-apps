@@ -43,6 +43,8 @@ export class ContractsComponent implements OnInit {
   currentPage = 1;
   limit = 5;
   loading = false;
+  itemsPerPageOptions: number[] = [1, 5, 10];
+
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
@@ -99,32 +101,6 @@ export class ContractsComponent implements OnInit {
         this.authService.userObserLoginObservable.subscribe(loggedIn => {this.isLoggedIn = loggedIn; });
         this.loading = false;
     }
-
-
-    dropRow(event) {
-      const previousIndex = this.contracts.findIndex((d) => d === event.item.data);
-      moveItemInArray(this.contracts, previousIndex, event.currentIndex);
-      this.table.renderRows();
-  }
-
-  refresh() {
-      if (this.selected.length === 0) {
-          this.currentPage = 1;
-          this.searching = false;
-          } else {
-            this.searching = true;
-            this.subscription.unsubscribe();
-            this.contractService.searchQuery(this.selected, this.limit);
-            this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
-            this.subscription =  this.contractService.contractObservable.subscribe(data => {
-              this.lastInArray = data[(data.length - 1)].company;
-              this.firstInArray = data[0].company;
-              const databaseData = Object.keys(data).map(i => data[i]);
-              this.contracts = databaseData;
-            });
-          }
-      this.table.renderRows();
-  }
 
     openCreateModal(): void {
         this.dialogService.open(CreateContractModalComponent, {
@@ -243,6 +219,7 @@ export class ContractsComponent implements OnInit {
         if (this.currentPage === event) {
 
         } else {
+          debugger;
           if (this.searching === false) {
             if (event === this.currentPage + 1) {
               this.paginator('plus', this.contractService.next(this.lastInArray, this.limit));
@@ -252,9 +229,10 @@ export class ContractsComponent implements OnInit {
             this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
           } else {
             if (event === this.currentPage + 1) {
-              this.paginator('plus', this.contractService.nextSearch(this.lastInArray, this.selected, this.limit));
+              console.log(this.lastInArray);
+              this.paginator('plus', this.contractService.nextSearch(this.lastInArray, this.limit, this.selected));
             } else if (event === this.currentPage - 1) {
-              this.paginator('minus', this.contractService.prevSearch(this.firstInArray, this.selected, this.limit));
+              this.paginator('minus', this.contractService.prevSearch(this.firstInArray, this.limit, this.selected));
             }
             this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
           }
@@ -286,4 +264,48 @@ export class ContractsComponent implements OnInit {
         });
       }
     }
+
+
+  limitChange(event) {
+    this.limit = event;
+    this.refresh(true);
+  }
+
+  refresh(changeLimit) {
+    if (changeLimit) {
+      if (this.selected.length === 0) {
+        this.currentPage = 1;
+        this.newSubscription(false, this.contractService.searchQuery(this.limit));
+        } else {
+          this.newSubscription(true, this.contractService.searchQuery(this.limit, this.selected));
+        }
+    }
+    else {
+      if (this.selected.length === 0) {
+        console.log('hello');
+          this.currentPage = 1;
+          this.newSubscription(false, this.contractService.searchQuery(this.limit));
+          } else {
+            this.newSubscription(true, this.contractService.searchQuery(this.limit, this.selected));
+          }
+    }
+  }
+
+  private newSubscription(searching: boolean, callback: void) {
+    this.searching = searching;
+    this.subscription.unsubscribe();
+    callback;
+    this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
+    this.subscription = this.contractService.contractObservable.subscribe(data => {
+      this.dataChange(data);
+    });
+  }
+
+  private dataChange(data) {
+    this.lastInArray = data[(data.length - 1)].company;
+    this.firstInArray = data[0].company;
+    const databaseData = Object.keys(data).map(i => data[i]);
+    this.contracts = databaseData;
+  }
 }
+
