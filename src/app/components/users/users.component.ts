@@ -5,7 +5,7 @@ import {UsersService} from 'src/app/services/users/users.service';
 import {Subscription} from 'rxjs/internal/Subscription';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import {CdkTable} from '@angular/cdk/table';
-
+import {Account} from '../../models/account.model';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -44,8 +44,11 @@ export class UsersComponent implements OnInit {
     });
     this._compactService.compact.subscribe(compact => this.compact = compact);
     this.subscription = this._usersService.users.subscribe((listOfUsers: Account[]) => {
-      this.lastInArray = listOfUsers[(listOfUsers.length - 1)].name;
-      this.firstInArray = listOfUsers[0].name;
+
+
+
+      this.lastInArray = listOfUsers[(listOfUsers.length - 1)].firstName;
+      this.firstInArray = listOfUsers[0].firstName;
       this.users = listOfUsers;
     });
 
@@ -89,8 +92,8 @@ export class UsersComponent implements OnInit {
       this.currentPage = this.currentPage + 1;
       callback;
       this.subscription = this._usersService.users.subscribe(data => {
-        this.lastInArray = data[(data.length - 1)].name;
-        this.firstInArray = data[0].name;
+        this.lastInArray = data[(data.length - 1)].firstName;
+        this.firstInArray = data[0].firstName;
         const databaseData = Object.keys(data).map(i => data[i]);
         this.users = databaseData;
       });
@@ -99,8 +102,8 @@ export class UsersComponent implements OnInit {
       callback;
       this.subscription.unsubscribe();
       this.subscription = this._usersService.users.subscribe(data => {
-        this.lastInArray = data[(data.length - 1)].name;
-        this.firstInArray = data[0].name;
+        this.lastInArray = data[(data.length - 1)].firstName;
+        this.firstInArray = data[0].firstName;
         const databaseData = Object.keys(data).map(i => data[i]);
         this.users = databaseData;
       });
