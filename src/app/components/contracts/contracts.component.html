@@ -24,12 +24,6 @@
       >
       </fd-multi-input>
         <span *ngFor="let item of selected; let i = index"></span>
-        <!-- <fd-pagination
-            [totalItems]="totalContracts"
-            (pageChangeStart)="newPageClicked($event)"
-            [itemsPerPage]="limit"
-            [currentPage]="currentPage"
-        ></fd-pagination> -->
       </fd-layout-panel-filters>
     <fd-layout-panel-body>
       <fd-busy-indicator [loading]="loading"  block="true">

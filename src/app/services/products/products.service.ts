@@ -57,34 +57,57 @@ export class ProductsService {
     this.db.collection('products').doc(productName).delete();
   }
 
-  searchQuery(queryValue, limit) {
-    this._products = this.db
-    .collection('products', ref => ref.where('name' , 'in' , queryValue)
-    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(limit)).valueChanges();
-
-    let query = this.db
-    .collection('products', ref => ref.where('name' , 'in' , queryValue));
-    this._totalQueryProduct = query.get();
+  searchQuery(...args: any[]) {//args [0]= limit, args[1] query
+    if (args[1]) {
+      this._products = this.db
+      .collection('products', ref => ref.where('name' , 'in' , args[1])
+      .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(args[0])).valueChanges();
+      let query = this.db.collection('products', ref => ref.where('name' , 'in' , args[1]));
+      this._totalQueryProduct = query.get();
+    } else {
+      this._products = this.db
+      .collection('products', ref => ref.orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(args[0])).valueChanges();
+      let query = this.db.collection('products');
+      this._totalQueryProduct = query.get();
+    }
   }
 
-  nextSearch(lastDoc, queryValue, limit) {
-    this._products = this.db
-    .collection('products', ref => ref.where('name' , 'in' , queryValue)
-    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(limit).startAfter(lastDoc)).valueChanges();
+  nextSearch(...args: any[]) { //args[0]= limit, args[1] lastDoc, args[2] = query
+    if (args[2]) {
+      this._products = this.db
+      .collection('products', ref => ref.where('name' , 'in' , args[2])
+      .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(args[0]).startAfter(args[1])).valueChanges();
 
-    let query = this.db
-    .collection('products', ref => ref.where('name' , 'in' , queryValue));
-    this._totalQueryProduct = query.get();
+      let query = this.db
+      .collection('products', ref => ref.where('name' , 'in' , args[2]));
+      this._totalQueryProduct = query.get();
+    } else {
+      this._products = this.db
+      .collection('products', ref => ref.orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limit(args[0]).startAfter(args[1]))
+      .valueChanges();
+  
+      let query = this.db.collection('products');
+      this._totalQueryProduct = query.get();
+    }
   }
 
-  prevSearch(firstDoc, queryValue, limit) {
-    this._products = this.db
-    .collection('products', ref => ref.where('name' , 'in' , queryValue)
-    .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limitToLast(limit).endBefore(firstDoc)).valueChanges();
+  prevSearch(...args: any[]) { //args[0]= limit, args[1] prevDoc, args[2] = query
+    if (args[2]) {
+      this._products = this.db
+      .collection('products', ref => ref.where('name' , 'in' , args[2])
+      .orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limitToLast(args[0]).endBefore(args[1])).valueChanges();
 
-    let query = this.db
-    .collection('products', ref => ref.where('name' , 'in' , queryValue));
-    this._totalQueryProduct = query.get();
+      let query = this.db
+      .collection('products', ref => ref.where('name' , 'in' , args[2]));
+      this._totalQueryProduct = query.get();
+    } else {
+      this._products = this.db
+      .collection('products', ref => ref.orderBy(firebase.firestore.FieldPath.documentId(), 'asc').limitToLast(args[0]).endBefore(args[1]))
+      .valueChanges();
+
+      let query = this.db.collection('products');
+      this._totalQueryProduct = query.get();
+    }
   }
 
   next(lastDoc, limit) {
