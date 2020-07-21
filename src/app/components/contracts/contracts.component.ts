@@ -219,7 +219,6 @@ export class ContractsComponent implements OnInit {
         if (this.currentPage === event) {
 
         } else {
-          debugger;
           if (this.searching === false) {
             if (event === this.currentPage + 1) {
               this.paginator('plus', this.contractService.next(this.lastInArray, this.limit));
@@ -229,7 +228,6 @@ export class ContractsComponent implements OnInit {
             this.contractService.totalQueryContract.subscribe(data => {this.totalContracts = data.size; });
           } else {
             if (event === this.currentPage + 1) {
-              console.log(this.lastInArray);
               this.paginator('plus', this.contractService.nextSearch(this.lastInArray, this.limit, this.selected));
             } else if (event === this.currentPage - 1) {
               this.paginator('minus', this.contractService.prevSearch(this.firstInArray, this.limit, this.selected));
@@ -272,6 +270,7 @@ export class ContractsComponent implements OnInit {
   }
 
   refresh(changeLimit) {
+    debugger;
     if (changeLimit) {
       if (this.selected.length === 0) {
         this.currentPage = 1;
@@ -282,7 +281,6 @@ export class ContractsComponent implements OnInit {
     }
     else {
       if (this.selected.length === 0) {
-        console.log('hello');
           this.currentPage = 1;
           this.newSubscription(false, this.contractService.searchQuery(this.limit));
           } else {
