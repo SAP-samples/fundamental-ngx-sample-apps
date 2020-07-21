@@ -9,7 +9,7 @@ import {LanguageService} from '../language/language.service';
 })
 export class UsersService {
 
-  private _users: Observable<any>;
+  private _users: Observable<Account[]>;
   private _userPage: Observable<any>;
   private _userTable: Observable<any>;
   private _total: Observable<any>;
@@ -18,8 +18,8 @@ export class UsersService {
       this._userPage  = _db.collection(lang).doc('users').valueChanges();
     });
     this._userTable = _db.collection('commonLanguage').doc('columns').valueChanges();
-    this._users = _db.collection('users', ref => ref.orderBy('firstName', 'asc').limit(5)).valueChanges();
-    let query = _db.collection('users');
+    this._users = ( _db.collection('users', ref => ref.orderBy('firstName', 'asc').limit(5)).valueChanges() as Observable<Account[]>);
+    const query = _db.collection('users');
     this._total = query.get();
   }
 
@@ -28,17 +28,17 @@ export class UsersService {
     // this._users = this._db.collection('main').doc('en')
     // .collection('contracts', ref => ref.where('firstName' , '==' , lastDoc)).valueChanges();
 
-    this._users = this._db.collection(
+    this._users = (this._db.collection(
       'users',
       ref => ref.orderBy('firstName', 'asc').limit(limit).startAfter(lastDoc)
-    ).valueChanges();
+    ).valueChanges() as Observable<Account[]>);
   }
 
   prev(firstDoc, limit) {
-    this._users = this._db.collection(
+    this._users = (this._db.collection(
       'users',
       ref => ref.orderBy('firstName', 'asc').limitToLast(limit).endBefore(firstDoc)
-    ).valueChanges();
+    ).valueChanges() as Observable<Account[]>);
   }
 
   get users() {
