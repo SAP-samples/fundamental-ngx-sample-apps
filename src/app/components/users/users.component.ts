@@ -27,6 +27,9 @@ export class UsersComponent implements OnInit {
   limit = 5;
   currentPage = 1;
   totalUsers = 0;
+  itemsPerPageOptions: number[] = [1, 5, 10];
+  open: boolean = false;
+  columnSortDir: string = 'asc';
 
   constructor (
     private _languageService: LanguageService,
@@ -44,9 +47,6 @@ export class UsersComponent implements OnInit {
     });
     this._compactService.compact.subscribe(compact => this.compact = compact);
     this.subscription = this._usersService.users.subscribe((listOfUsers: Account[]) => {
-
-
-
       this.lastInArray = listOfUsers[(listOfUsers.length - 1)].firstName;
       this.firstInArray = listOfUsers[0].firstName;
       this.users = listOfUsers;
@@ -66,6 +66,32 @@ export class UsersComponent implements OnInit {
     const previousIndex = this.users.findIndex((d) => d === event.item.data);
     moveItemInArray(this.users, previousIndex, event.currentIndex);
     this.table.renderRows();
+  }
+
+  sortColumn(direction: 'asc' | 'desc') {
+    if (direction !== this.columnSortDir) {
+      this.columnSortDir = direction;
+      this.subscription.unsubscribe();
+      this._usersService.search(this.limit, direction);
+      this.subscription = this._usersService.users.subscribe((listOfUsers: Account[]) => {
+        this.lastInArray = listOfUsers[(listOfUsers.length - 1)].firstName;
+        this.firstInArray = listOfUsers[0].firstName;
+        this.users = listOfUsers;
+      });
+    }
+  }
+
+  limitChange(value) {
+    if (value !== this.limit) {
+      this.limit = value;
+      this.subscription.unsubscribe();
+      this._usersService.search(value);
+      this.subscription = this._usersService.users.subscribe((listOfUsers: Account[]) => {
+        this.lastInArray = listOfUsers[(listOfUsers.length - 1)].firstName;
+        this.firstInArray = listOfUsers[0].firstName;
+        this.users = listOfUsers;
+      });
+    }
   }
 
   newPageClicked(event) {
