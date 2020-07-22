@@ -28,7 +28,7 @@ export class AuthService {
     private cookie: CookieService,
     private _db: AngularFirestore,
     private _storage: AngularFireStorage) {
-      afAuth.setPersistence('session');
+      afAuth.setPersistence('local');
       const user = this.cookie.get('userid');
       if (user) {
         this._loggedIn.next(true);
