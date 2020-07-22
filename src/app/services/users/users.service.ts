@@ -23,21 +23,23 @@ export class UsersService {
     this._total = query.get();
   }
 
-  next(lastDoc, limit) {
-
-    // this._users = this._db.collection('main').doc('en')
-    // .collection('contracts', ref => ref.where('firstName' , '==' , lastDoc)).valueChanges();
-
+  search(...args: any[]) {//args[0]=limit
     this._users = (this._db.collection(
       'users',
-      ref => ref.orderBy('firstName', 'asc').limit(limit).startAfter(lastDoc)
+      ref => ref.orderBy('firstName', 'asc').limit(args[0])).valueChanges() as Observable<Account[]>);
+  }
+
+  next(...args: any[]) {//args[0]=lastDoc , args[1]=limit
+    this._users = (this._db.collection(
+      'users',
+      ref => ref.orderBy('firstName', 'asc').limit(args[1]).startAfter(args[0])
     ).valueChanges() as Observable<Account[]>);
   }
 
-  prev(firstDoc, limit) {
+  prev(...args: any[]) {//args[0]=firstDoc , args[1]=limit
     this._users = (this._db.collection(
       'users',
-      ref => ref.orderBy('firstName', 'asc').limitToLast(limit).endBefore(firstDoc)
+      ref => ref.orderBy('firstName', 'asc').limitToLast(args[1]).endBefore(args[0])
     ).valueChanges() as Observable<Account[]>);
   }
 
