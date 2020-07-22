@@ -20,7 +20,28 @@
           <thead fd-table-header>
             <tr fd-table-row>
                 <th fd-table-cell>Profile Image</th>
-                <th fd-table-cell>First Name</th>
+                <th fd-table-cell>
+                  <fd-popover fd-table-popover [(isOpen)]="open">
+                      <fd-popover-control>
+                          <div fd-table-inner>
+                              First Name
+                              <fd-icon fd-table-icon [glyph]="columnSortDir === 'asc' ? 'sort-ascending' : 'sort-descending'"></fd-icon>
+                          </div>
+                      </fd-popover-control>
+                      <fd-popover-body>
+                          <ul fd-list [compact]="true">
+                              <li fd-list-item (click)="sortColumn('asc')">
+                                  <fd-icon fd-list-icon [glyph]="'sort-ascending'"></fd-icon>
+                                  <span fd-list-title>Sort Ascending</span>
+                              </li>
+                              <li fd-list-item (click)="sortColumn('desc')">
+                                  <fd-icon fd-list-icon [glyph]="'sort-descending'"></fd-icon>
+                                  <span fd-list-title>Sort Descending</span>
+                              </li>
+                          </ul>
+                      </fd-popover-body>
+                  </fd-popover>
+              </th>
                 <th fd-table-cell>Last Name</th>
                 <th fd-table-cell>Email</th>
                 <th fd-table-cell>Admin</th>
@@ -31,8 +52,8 @@
                 <td fd-table-cell>              
                   <fd-image [size]="'m'" [photo]="user.images[0].path"></fd-image>
                 </td>
-                <td fd-table-cell>{{user.firstName}}></td>
-                <td fd-table-cell>{{user.lastName}}></td>
+                <td fd-table-cell>{{user.firstName}}</td>
+                <td fd-table-cell>{{user.lastName}}</td>
                 <td fd-table-cell>{{user.email}}</td>
                 <td>
                   <fd-checkbox [(ngModel)]="user.admin" [disabled]="true"></fd-checkbox>
