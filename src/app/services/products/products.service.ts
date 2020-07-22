@@ -34,7 +34,7 @@ export class ProductsService {
     const obj = {name, contact, user_number, status, lob};
     let productCollection = this.db.collection('products').doc(name);
     productCollection.set(Object.assign({}, obj));
-    this.db.collection('productsPage').doc('header').update({
+    this.db.collection('commonLanguage').doc('lists').update({
       products: firestore.FieldValue.arrayUnion(name)
     });
   }
@@ -48,13 +48,13 @@ export class ProductsService {
     const obj = {name, contact, user_number, status, lob};
     let productCollection = this.db.collection('products').doc(name);
     productCollection.update(Object.assign({}, obj));
-    this.db.collection('productsPage').doc('header').update({
-      products: firebase.firestore.FieldValue.arrayRemove(name)
-    });
   }
 
   deleteProduct(productName) {
     this.db.collection('products').doc(productName).delete();
+    this.db.collection('commonLanguage').doc('lists').update({
+      products: firebase.firestore.FieldValue.arrayRemove(name)
+    });
   }
 
   searchQuery(...args: any[]) {//args [0]= limit, args[1] query
