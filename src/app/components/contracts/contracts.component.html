@@ -20,82 +20,44 @@
       [dropdownValues]="multiInputContracts"
       [placeholder]="language=='en'?'Search here...':'Rechercher ...'"
       [(ngModel)]="selected"
-      (ngModelChange)="refresh()"
+      (ngModelChange)="refresh(false)"
       >
       </fd-multi-input>
         <span *ngFor="let item of selected; let i = index"></span>
-        <fd-pagination
-            [totalItems]="totalContracts"
-            (pageChangeStart)="newPageClicked($event)"
-            [itemsPerPage]="limit"
-            [currentPage]="currentPage"
-        ></fd-pagination>
       </fd-layout-panel-filters>
     <fd-layout-panel-body>
       <fd-busy-indicator [loading]="loading"  block="true">
         <fd-table-wrapper *ngIf="!loading">
-            <table cdk-table [dataSource]="contracts" #table cdkDropList [cdkDropListData]="contracts" (cdkDropListDropped)="dropRow($event)">
-              <ng-container  cdkColumnDef="company">
-                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[0] | titlecase}}</th> 
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                  <td>
+            <table fd-table>
+              <thead fd-table-header>
+                <tr fd-table-row>
+                    <th fd-table-cell *ngFor="let header of tableHeaders">{{header | titlecase}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contract of contracts" fd-table-row>
+                  <td fd-table-cell>
                     {{contract.company}}
                     <fd-inline-help [inlineHelpContentStyle]="{ 'background-color': 'var(--sapGroup_ContentBackground)', color: 'var(--sapTextColor)', 'border-color': 'var(--sapGroup_ContentBorderColor)'}" [placement]="'right'">
                       Information about {{contract.company}}
                     </fd-inline-help>
                   </td>
-                </ng-container>                    
-              </ng-container>
-              
-              <ng-container   cdkColumnDef="contact">
-                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[1] | titlecase}}</th> 
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                  <td>
+                  <td fd-table-cell>
                     {{contract.contact}}
                   </td>
-                </ng-container>
-              </ng-container>
-              
-              <ng-container   cdkColumnDef="signed">
-                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[2] | titlecase}}</th>                            
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                  <td>
+                  <td fd-table-cell>
                     {{contract.signed.seconds | date:'yyyy/MM/dd'}}
                   </td>
-                </ng-container>
-              </ng-container>
-              
-              <ng-container   cdkColumnDef="type">
-                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[3] | titlecase}}</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                  <td>
+                  <td fd-table-cell>
                     {{contract.type | languageType: language | uppercase}}
                   </td>
-                </ng-container>
-              </ng-container>
-              
-              <ng-container   cdkColumnDef="value">
-                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[4] | titlecase}}</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                  <td>
+                  <td fd-table-cell>
                     {{contract.value | currency}}
                   </td>
-                </ng-container>
-              </ng-container>
-              
-              <ng-container  cdkColumnDef="status">
-                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[5] | titlecase}}</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                  <td>
+                  <td fd-table-cell>
                     <span fd-info-label [color]="contract.status | statusToColor" > {{contract.status | languageStatus:language}} </span>
                   </td>
-                </ng-container>
-              </ng-container> 
-              
-              <ng-container   cdkColumnDef="edit">
-                <th cdk-header-cell *cdkHeaderCellDef>{{tableHeaders[6] | titlecase}}</th>
-                <ng-container cdk-cell *cdkCellDef="let contract">                       
-                  <td>
+                  <td fd-table-cell>
                     <button 
                     fd-button
                     [glyph]="'edit'"
@@ -104,13 +66,7 @@
                     [fdType]="'transparent'">
                   </button>
                 </td>
-              </ng-container>
-            </ng-container>
-            
-            <ng-container   cdkColumnDef="remove">
-              <th cdk-header-cell *cdkHeaderCellDef >{{tableHeaders[7] | titlecase}}</th>
-              <ng-container cdk-cell *cdkCellDef="let contract">                       
-                <td>
+                <td fd-table-cell>
                   <button 
                   fd-button
                   [glyph]="'delete'"
@@ -118,14 +74,30 @@
                   (click)="openConfirmModal(contract.company)"
                   [fdType]="'transparent'">
                 </button>
-              </td>
-            </ng-container>
-          </ng-container>
-          <tr cdk-header-row *cdkHeaderRowDef="columnHeaders"></tr>
-          
-          <tr cdk-row cdkDrag [cdkDragData]="row" *cdkRowDef="let row; columns: columnHeaders" style="cursor: grab;"></tr>
-        </table>
-      </fd-table-wrapper>
-    </fd-busy-indicator>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot fd-table-footer>
+              <button 
+              fd-button 
+              [fdMenu]="true" 
+              [fdMenuTrigger]="itemsPerPageMenu"
+              style="margin-right: 20px;">Items Per Page</button>
+              <fd-pagination
+                  [totalItems]="totalContracts"
+                  (pageChangeStart)="newPageClicked($event)"
+                  [itemsPerPage]="limit"
+                  [currentPage]="currentPage"
+              ></fd-pagination>
+            </tfoot>
+          </table>
+          <fd-menu #itemsPerPageMenu>
+            <li fd-menu-item *ngFor="let value of itemsPerPageOptions" (click)="limitChange(value)">
+                <span fd-menu-interactive>{{ value }}</span>
+            </li>
+          </fd-menu>
+        </fd-table-wrapper>
+      </fd-busy-indicator>
     </fd-layout-panel-body>
 </fd-layout-panel>
+

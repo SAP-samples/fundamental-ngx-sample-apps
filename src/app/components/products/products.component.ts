@@ -44,6 +44,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
     firstInArray: string;
     lastInArray: string;
     limit = 5;
+    itemsPerPageOptions: number[] = [1, 5, 10];
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
@@ -229,9 +230,9 @@ export class ProductsComponent implements OnDestroy, OnInit {
           this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
         } else {
           if (event === this.currentPage + 1) {
-            this.paginator('plus', this.productService.nextSearch(this.lastInArray, this.selected, this.limit));
+            this.paginator('plus', this.productService.nextSearch(this.limit, this.lastInArray, this.selected));
           } else if (event === this.currentPage - 1) {
-            this.paginator('minus', this.productService.prevSearch(this.firstInArray, this.selected, this.limit));
+            this.paginator('minus', this.productService.prevSearch(this.limit, this.firstInArray, this.selected));
           }
           this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
         }
@@ -268,25 +269,47 @@ export class ProductsComponent implements OnDestroy, OnInit {
     const previousIndex = this.products.findIndex((d) => d === event.item.data);
     moveItemInArray(this.products, previousIndex, event.currentIndex);
     this.table.renderRows();
-}
+  }
 
-refresh() {
-  if (this.selected.length === 0) {
-      this.currentPage = 1;
-      this.filteredDataSource = this.dataSource;
-      this.searching = false;
-      } else {
-        this.searching = true;
-        this.subscription.unsubscribe();
-        this.productService.searchQuery(this.selected, this.limit);
-        this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
-        this.subscription =  this.productService.products.subscribe(data => {
-          this.lastInArray = data[(data.length - 1)].name;
-          this.firstInArray = data[0].name;
-          const databaseData = Object.keys(data).map(i => data[i]);
-          this.products = databaseData;
-        });
-      }
-  this.table.renderRows();
-}
+  limitChange(event) {
+    this.limit = event;
+    this.refresh(true);
+  }
+
+  refresh(changeLimit) {
+    if (changeLimit) {
+      if (this.selected.length === 0) {
+        this.currentPage = 1;
+        this.newSubscription(false, this.productService.searchQuery(this.limit));
+        } else {
+          this.newSubscription(true, this.productService.searchQuery(this.limit, this.selected));
+        }
+    }
+    else {
+      if (this.selected.length === 0) {
+          this.currentPage = 1;
+          this.newSubscription(false, this.productService.searchQuery(this.limit));
+          } else {
+            debugger;
+            this.newSubscription(true, this.productService.searchQuery(this.limit, this.selected));
+          }
+    }
+  }
+
+  private newSubscription(searching: boolean, callback: void) {
+    this.searching = searching;
+    this.subscription.unsubscribe();
+    callback;
+    this.productService.totalQueryProduct.subscribe(data => {this.totalProducts = data.size; });
+    this.subscription = this.productService.products.subscribe(data => {
+      this.dataChange(data);
+    });
+  }
+
+  private dataChange(data) {
+    this.lastInArray = data[(data.length - 1)].name;
+    this.firstInArray = data[0].name;
+    const databaseData = Object.keys(data).map(i => data[i]);
+    this.products = databaseData;
+  }
 }
