@@ -222,7 +222,6 @@ export class ProductsComponent implements OnDestroy, OnInit {
 
       } else {
         if (this.searching === false) {
-          debugger;
           if (event === this.currentPage + 1) {
             this.paginator('plus', this.productService.next(this.lastInArray, this.limit));
           } else if (event === this.currentPage - 1) {
