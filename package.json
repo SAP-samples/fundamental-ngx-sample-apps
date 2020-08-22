@@ -34,7 +34,7 @@
     "angular-draggable-droppable": "^4.5.3",
     "angularfire2": "^5.4.2",
     "core-js": "^3.6.5",
-    "firebase": "^7.18.0",
+    "firebase": "^7.19.0",
     "fundamental-styles": "0.10.0",
     "ngx-cookie-service": "^10.0.1",
     "rxjs": "^6.5.5",
@@ -42,7 +42,7 @@
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1000.6",
+    "@angular-devkit/build-angular": "^0.1000.7",
     "@angular/cli": "^10.0.7",
     "@angular/compiler-cli": "^10.0.2",
     "@angular/language-service": "^10.0.11",
