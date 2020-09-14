@@ -31,7 +31,7 @@
     "@angular/router": "^10.0.2",
     "@fundamental-ngx/core": "v0.20.1",
     "@types/jest": "^26.0.13",
-    "angular-draggable-droppable": "^4.5.3",
+    "angular-draggable-droppable": "^4.5.4",
     "angularfire2": "^5.4.2",
     "core-js": "^3.6.5",
     "firebase": "^7.20.0",
