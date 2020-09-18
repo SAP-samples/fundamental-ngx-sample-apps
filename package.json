@@ -34,7 +34,7 @@
     "angular-draggable-droppable": "^4.5.4",
     "angularfire2": "^5.4.2",
     "core-js": "^3.6.5",
-    "firebase": "^7.20.0",
+    "firebase": "^7.21.0",
     "fundamental-styles": "0.10.0",
     "ngx-cookie-service": "^10.0.1",
     "rxjs": "^6.5.5",
