@@ -23,6 +23,7 @@ Disclaimer: The code in this project may include calls to APIs (“API Calls”)
  and non-commercial test and evaluation of such API Calls. Nothing herein grants
  you any rights to use or access any SAP External Product, or provide any third 
  parties the right to use of access any SAP External Product, through API Calls.
+
 Files: **
 Copyright:  2018-2020 SAP SE or an SAP affiliate company and Fundamental Ngx Sample Apps contributors
 License: Apache-2.0
