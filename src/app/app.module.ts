@@ -11,14 +11,13 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
-    ImageModule,
+    AvatarModule,
     BusyIndicatorModule,
     ButtonModule, 
     DatePickerModule,  
     DialogModule,
     FormModule, 
     IconModule,
-    IdentifierModule,
     InfoLabelModule,
     InlineHelpModule,
     LayoutGridModule, 
@@ -90,7 +89,7 @@ import { UsersComponent } from './components/users/users.component';
     ],
     imports: [
         AlertModule,
-        ImageModule,
+        AvatarModule,
         BrowserAnimationsModule,
         BrowserModule,
         BusyIndicatorModule,
@@ -110,7 +109,6 @@ import { UsersComponent } from './components/users/users.component';
         FormModule,
         FormsModule,
         IconModule,
-        IdentifierModule,
         InfoLabelModule,
         InlineHelpModule,
         LayoutGridModule,

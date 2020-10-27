@@ -50,7 +50,7 @@
         <tbody fd-table-body>
             <tr *ngFor="let user of users" fd-table-row>
                 <td fd-table-cell>              
-                  <fd-image [size]="'m'" [photo]="user.images[0].path"></fd-image>
+                  <fd-avatar size="m" [image]="user.images[0].path"></fd-avatar>
                 </td>
                 <td fd-table-cell>{{user.firstName}}</td>
                 <td fd-table-cell>{{user.lastName}}</td>
@@ -62,7 +62,7 @@
         </tbody>
         <br/>
         <tfoot fd-table-footer>
-            <button fd-button [fdMenu]="true" [fdMenuTrigger]="itemsPerPageMenu" style="margin-right: 20px;">Items Per Page</button>
+            <button fd-button [fdMenu]="true" [fdMenuTrigger]="itemsPerPageMenu" style="margin-right: 20px;" [label]="'Items Per Page'"></button>
             <fd-pagination
                 [totalItems]="totalUsers"
                 (pageChangeStart)="newPageClicked($event)"
