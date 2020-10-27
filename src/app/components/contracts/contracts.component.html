@@ -82,7 +82,8 @@
               fd-button 
               [fdMenu]="true" 
               [fdMenuTrigger]="itemsPerPageMenu"
-              style="margin-right: 20px;">Items Per Page</button>
+              style="margin-right: 20px;" 
+              label="Items Per Page"></button>
               <fd-pagination
                   [totalItems]="totalContracts"
                   (pageChangeStart)="newPageClicked($event)"
