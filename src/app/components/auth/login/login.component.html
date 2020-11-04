@@ -41,8 +41,8 @@
     </fd-form-input-message-group>
   </div>
     <div class="button-grouping">
-      <button [disabled]="loginForm.invalid" type="submit" fd-button [fdType]="'emphasized'">Login</button>
-      <button fd-button fdType="transparent" (click)="forgotPassword()">Forgot Password</button>
+      <button [disabled]="loginForm.invalid" type="submit" fd-button [fdType]="'emphasized'" label="Login"></button>
+      <button fd-button fdType="transparent" (click)="forgotPassword()" label="Forgot Password"></button>
     </div>
 </form>
 
@@ -140,6 +140,6 @@
     </fd-file-input>
   </div>
   <div class="button-grouping">
-    <button [disabled]="signupForm.invalid || !signupForm.get('file').dirty" type="submit" fd-button [fdType]="'emphasized'">Sign Up</button>
+    <button [disabled]="signupForm.invalid || !signupForm.get('file').dirty" type="submit" fd-button [fdType]="'emphasized'" label="Sign Up"></button>
   </div>
 </form>
