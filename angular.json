@@ -27,7 +27,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/fundamental-styles/dist/fundamental-styles.css",
               "src/styles.scss"
             ],
             "scripts": []

@@ -7,7 +7,7 @@
 <fd-notification-body>
     <div fd-notification-content>
         <div fd-notification-avatar *ngIf="!notificationRef.data.invalid">
-            <span fd-identifier [size]="'s'" [circle]="true" aria-label="notificationRef.data.company">{{notificationRef.data.company.charAt(0)}}</span>
+            <fd-avatar size="s" [circle]="true" aria-label="notificationRef.data.company">{{notificationRef.data.company.charAt(0)}}</fd-avatar>
         </div>
         <div fd-notification-text>
             <div fd-notification-description>
@@ -25,12 +25,9 @@
     </div>
     <fd-notification-footer>
         <div fd-notification-actions>
-            <button fd-button [fdType]="'positive'" (click)="notificationRef.close('OK')">
-                Ok
+            <button fd-button [fdType]="'positive'" (click)="notificationRef.close('OK')" [label]="'Ok'">
             </button>
-            <button fd-button [fdType]="'negative'" (click)="notificationRef.dismiss()">
-              {{language=='en'?'Undo':'
-              Annuler'}}
+            <button fd-button [fdType]="'negative'" (click)="notificationRef.dismiss()" [label]="language=='en'?'Undo':'Annuler'">
             </button>
         </div>
     </fd-notification-footer>

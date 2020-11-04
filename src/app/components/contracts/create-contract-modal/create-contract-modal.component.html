@@ -174,8 +174,8 @@
       fdType="main"
       type="submit"
       form="main-form"
-      [disabled]="!contractForm.dirty || contractForm.invalid">
-      {{language == 'en' ? (editMode ? 'Edit' : 'Create'): (editMode ? 'Modifier' : 'Créer')}}
+      [disabled]="!contractForm.dirty || contractForm.invalid"
+      [label]="language == 'en' ? (editMode ? 'Edit' : 'Create'): (editMode ? 'Modifier' : 'Créer')">
       </button>
     </fd-dialog-footer-button>
     <fd-dialog-footer-button>
@@ -185,8 +185,8 @@
       [compact]="globalCompact"
       fdType="transparent"
       style="margin-left: 16px;"
-      (click)="this.dialogRef.dismiss()">
-      {{language == 'en'? 'Cancel': 'Annuler'}}
+      (click)="this.dialogRef.dismiss()"
+      [label]="language == 'en'? 'Cancel': 'Annuler'">
     </button>
     </fd-dialog-footer-button>
   </fd-dialog-footer>

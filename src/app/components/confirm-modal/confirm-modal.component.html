@@ -19,8 +19,8 @@
       fd-dialog-decisive-button  
       fdType="main"
       [compact]="true"
-      (click)="dialogRef.close(true)">
-      {{language=='en'?'Delete': 'Supprimer' | titlecase}}
+      (click)="dialogRef.close(true)"
+      [label="language=='en'?'Delete': 'Supprimer' | titlecase"]>
       </button>
       </fd-dialog-footer-button>
       <fd-dialog-footer-button>
@@ -29,8 +29,8 @@
       fd-button 
       fdType="transparent" 
       [compact]="true"
-      (click)="dialogRef.close(false)">
-      {{language=='en'?'Cancel': 'Annuler' | titlecase}}
+      (click)="dialogRef.close(false)"
+      [label]="language=='en'?'Cancel': 'Annuler' | titlecase">
       </button>
       </fd-dialog-footer-button>
   </fd-dialog-footer>

@@ -152,8 +152,8 @@
       [compact]="globalCompact"
       fd-dialog-decisive-button
       (click)="openModal()" 
-      fdType="transparent">
-      {{language == 'en' ? 'Detailed':'Détaillée'}}
+      fdType="transparent"
+      [label]="language == 'en' ? 'Detailed':'Détaillée'">
       </button>
     </fd-dialog-footer-button>
     <fd-dialog-footer-button>
@@ -166,8 +166,8 @@
       form="main-form"
       style="margin-left: 16px;"
       [disabled]="!productForm.dirty || productForm.invalid"
-      [compact]="globalCompact">
-      {{language == 'en' ? (editMode ? 'Edit' : 'Create'): (editMode ? 'Modifier' : 'Créer') | titlecase}}
+      [compact]="globalCompact"
+      [label]="language == 'en' ? (editMode ? 'Edit' : 'Create'): (editMode ? 'Modifier' : 'Créer') | titlecase">
       </button>
     </fd-dialog-footer-button>
     <fd-dialog-footer-button>
@@ -177,8 +177,8 @@
       fdType="transparent"
       style="margin-left: 16px;"
       (click)="this.dialogRef.dismiss()"
-      [compact]="globalCompact">
-        {{language == 'en'? 'Cancel': 'Annuler'}}
+      [compact]="globalCompact"
+      [label]="language == 'en'? 'Cancel': 'Annuler'">
       </button>
     </fd-dialog-footer-button>
   </fd-dialog-footer>
