@@ -9,9 +9,10 @@
             (ngSubmit)="submitForm()"
             id="main-form">
         <div fd-form-set>
-            <fd-layout-grid [col]="2" [nogap]="true">
-              <fd-layout-panel>
-                <fd-layout-panel-body>
+          <fd-layout-panel>
+            <fd-layout-panel-body>
+            <fd-layout-grid>
+              <div fdLayoutGridCol="12" colLg="6">
                   <div fd-form-item>
                     <label fd-form-label for="name-input">{{tableFields[0] | titlecase}}: </label>
                     <fd-form-input-message-group>
@@ -33,10 +34,8 @@
                     </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
-                </fd-layout-panel-body>
-              </fd-layout-panel>
-              <fd-layout-panel>
-                <fd-layout-panel-body>
+                </div>
+                <div fdLayoutGridCol="12" colLg="6">
                   <div fd-form-item>
                     <label fd-form-label for="contact-input">{{tableFields[1] | titlecase}}: </label>
                     <fd-form-input-message-group>
@@ -59,10 +58,8 @@
                       </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
-                </fd-layout-panel-body>
-              </fd-layout-panel>
-              <fd-layout-panel>
-                <fd-layout-panel-body>
+                </div>
+                <div fdLayoutGridCol="12" colLg="6">
                   <div fd-form-item>
                     <label fd-form-label for="lob-input">{{tableFields[2] | titlecase}}: </label>
                     <fd-form-input-message-group>
@@ -85,10 +82,8 @@
                     </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
-                </fd-layout-panel-body>
-              </fd-layout-panel>
-              <fd-layout-panel>
-                <fd-layout-panel-body>
+                </div>
+                <div fdLayoutGridCol="12" colLg="6">
                   <div fd-form-item>
                     <label fd-form-label for="users-input">{{tableFields[3] | titlecase}}: </label>
                     <fd-form-input-message-group>
@@ -111,10 +106,8 @@
                       </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
-                </fd-layout-panel-body>
-              </fd-layout-panel>
-              <fd-layout-panel>
-                <fd-layout-panel-body>
+                </div>
+                <div fdLayoutGridCol="12" colLg="6">
                   <div fd-form-item>
                     <label fd-form-label [for]="'status-1'"> {{tableFields[4] | titlecase}}: </label>
                     <fd-form-input-message-group>
@@ -139,9 +132,10 @@
                       </fd-form-message>
                     </fd-form-input-message-group>
                   </div>
-                </fd-layout-panel-body>
-              </fd-layout-panel>
-          </fd-layout-grid>
+                  </div>
+                </fd-layout-grid>
+              </fd-layout-panel-body>
+            </fd-layout-panel>
         </div>
       </form>
   </fd-dialog-body>
