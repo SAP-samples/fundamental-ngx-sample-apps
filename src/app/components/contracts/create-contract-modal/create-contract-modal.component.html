@@ -10,9 +10,10 @@
           (ngSubmit)="submitForm()"
           id="main-form"
           autocomplete="off">
-      <fd-layout-grid [col]="2" [nogap]="true">
           <fd-layout-panel>
             <fd-layout-panel-body>
+      <fd-layout-grid>
+        <div fdLayoutGridCol="12" colLg="6">
               <div fd-form-item>
                 <label fd-form-label for="company-input">{{fields[0] | titlecase}}: </label>
               <fd-form-input-message-group>
@@ -34,10 +35,8 @@
                 </fd-form-message>
               </fd-form-input-message-group>
             </div>
-            </fd-layout-panel-body>
-          </fd-layout-panel>
-          <fd-layout-panel>
-            <fd-layout-panel-body>
+        </div>
+        <div fdLayoutGridCol="12" colLg="6">
               <div fd-form-item>
                 <label fd-form-label for="contact-input">{{fields[1] | titlecase}}: </label>
                 <fd-form-input-message-group>
@@ -59,10 +58,8 @@
                 </fd-form-message>
                 </fd-form-input-message-group>          
               </div>
-            </fd-layout-panel-body>
-          </fd-layout-panel>
-        <fd-layout-panel>
-          <fd-layout-panel-body>
+        </div>
+        <div fdLayoutGridCol="12" colLg="6">
               <label fd-form-label for="datepicker-input">{{fields[2] | titlecase}}: </label><br>
                 <fd-date-picker 
                   [compact]="globalCompact"
@@ -78,10 +75,8 @@
                 [type]="contractForm.get('signed').touched ? 
                 (contractForm.get('signed').valid ? 'success' : 'error'):
                 (contractForm.get('signed').valid ? '' : '')">{{fields[2] + ' ' + (language == 'en'?'Required':'Obligatoire'  | titlecase)}}</fd-form-message>
-          </fd-layout-panel-body>
-        </fd-layout-panel>
-        <fd-layout-panel>
-          <fd-layout-panel-body>
+      </div>
+      <div fdLayoutGridCol="12" colLg="6">
             <div fd-form-item>
               <label fd-form-label [for]="'type-1'">{{fields[3] | titlecase}}:</label>
                 <fd-form-input-message-group>
@@ -106,10 +101,8 @@
                 </fd-form-message>
               </fd-form-input-message-group>
             </div>
-          </fd-layout-panel-body>
-          </fd-layout-panel>
-        <fd-layout-panel>
-          <fd-layout-panel-body>
+        </div>
+        <div fdLayoutGridCol="12" colLg="6">
             <div fd-form-item>
               <label fd-form-label for="value-input">{{fields[4] | titlecase}}:</label>
               <fd-form-input-message-group>
@@ -132,10 +125,8 @@
                 </fd-form-message>
               </fd-form-input-message-group>
             </div>
-          </fd-layout-panel-body>
-        </fd-layout-panel>
-        <fd-layout-panel>
-          <fd-layout-panel-body>
+      </div>
+      <div fdLayoutGridCol="12" colLg="6">
             <div fd-form-item>
               <label fd-form-label [for]="'status-1'">{{fields[5] | titlecase}}:</label>
               <fd-form-input-message-group>
@@ -160,9 +151,10 @@
                 </fd-form-message>
               </fd-form-input-message-group>
             </div>
-          </fd-layout-panel-body>
-        </fd-layout-panel>
-      </fd-layout-grid>
+          </div>
+        </fd-layout-grid>
+      </fd-layout-panel-body>
+    </fd-layout-panel>
     </form>
   </fd-dialog-body>
   <fd-dialog-footer>
