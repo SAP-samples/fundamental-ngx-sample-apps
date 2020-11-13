@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     product: {title: string, description: string} = {title:'', description: ''};
     contracts: Contract[];
     products: Product[];
+    contractTableHeaders: string[];
+    productTableHeaders: string[];
     subscriptionContract: Subscription;
     subscriptionProduct: Subscription;
     
@@ -45,6 +47,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.contract = mainInfo.contract;
           this.product = mainInfo.product;
         });
+      });
+
+      this._main.tables.subscribe(headers => {
+        this.contractTableHeaders = headers.contracts;
+        this.productTableHeaders = headers.products;
       });
     }
 

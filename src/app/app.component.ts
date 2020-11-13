@@ -46,6 +46,7 @@ export class AppComponent implements OnInit{
     theme: 'sap_fiori_3', 
     mode: 'cozy'
   };
+  mobile = true;
   condensed: boolean = false;
 
   cssUrl: SafeResourceUrl;
@@ -76,6 +77,9 @@ export class AppComponent implements OnInit{
         ];
 
   ngOnInit() {
+    if (screen.width >= 768) {
+      this.mobile = false;
+    }
     this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/sap_fiori_3.css');
     this._languageService.lang.subscribe(lang => {
       this._main.main.subscribe(mainInfo => {
