@@ -3,8 +3,8 @@ import {Product} from 'src/app/models/product.model';
 import { Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {ProductPageService} from '../product-page/product-page.service';
-import * as firebase from 'firebase';
-import {firestore} from 'firebase';
+import "firebase/firestore";
+import firebase from "firebase/app";
 
 @Injectable()
 export class ProductsService {
@@ -35,7 +35,7 @@ export class ProductsService {
     let productCollection = this.db.collection('products').doc(name);
     productCollection.set(Object.assign({}, obj));
     this.db.collection('commonLanguage').doc('lists').update({
-      products: firestore.FieldValue.arrayUnion(name)
+      products: firebase.firestore.FieldValue.arrayUnion(name)
     });
   }
 
