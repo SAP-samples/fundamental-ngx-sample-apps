@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, QuerySnapshot} from '@angular/fire/firestore';
 import {Contract} from 'src/app/models/contract.model';
 import {Subscription, Observable} from 'rxjs';
-import * as firebase from 'firebase';
 import {ContractPageService} from '../contract-page/contract-page.service';
-import {firestore} from 'firebase';
+import "firebase/firestore";
+import firebase from "firebase/app";
 
 @Injectable({
   providedIn: 'root'
@@ -88,7 +88,7 @@ export class ContractsService {
     let contractCollection = this.db.collection('contracts').doc(company);
     contractCollection.set(Object.assign({}, obj));
     this.db.collection('commonLanguage').doc('lists').update({
-      contracts: firestore.FieldValue.arrayUnion(company)
+      contracts: firebase.firestore.FieldValue.arrayUnion(company)
     });
   }
 
