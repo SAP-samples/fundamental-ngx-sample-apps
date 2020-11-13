@@ -81,7 +81,6 @@ export class ContractsComponent implements OnInit {
         this._languageService.lang.subscribe(language => {
           this.language = language;
           this._main.main.subscribe(mainInfo => {
-            console.log(mainInfo)
             this.contractPage = mainInfo.contract;
           });
 
