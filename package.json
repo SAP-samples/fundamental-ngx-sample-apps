@@ -15,7 +15,7 @@
     "copy-dark-theme": "cp node_modules/@sap-theming/theming-base-content/content/Base/baseLib/sap_fiori_3_dark/css_variables.css src/assets/sap_fiori_3_dark.css",
     "copy-hcb-theme": "cp node_modules/@sap-theming/theming-base-content/content/Base/baseLib/sap_fiori_3_hcb/css_variables.css src/assets/sap_fiori_3_hcb.css",
     "copy-hcw-theme": "cp node_modules/@sap-theming/theming-base-content/content/Base/baseLib/sap_fiori_3_hcw/css_variables.css src/assets/sap_fiori_3_hcw.css",
-    "deploy": "ng build --prod --base-href=\"/fundamental-ngx-sample-apps/\" && npx ngh --dir dist/ngx-sample-app"
+    "deploy": "ng build --prod && npx ngh --dir dist/ngx-sample-app"
   },
   "private": true,
   "dependencies": {
