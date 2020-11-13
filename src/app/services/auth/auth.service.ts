@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from  '@angular/router';
-import { auth } from  'firebase/app';
 import { AngularFireAuth } from  '@angular/fire/auth';
 import {Observable, Observer, BehaviorSubject} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireUploadTask, AngularFireStorage} from '@angular/fire/storage';
 import {finalize, tap} from 'rxjs/operators';
-import { firestore } from 'firebase/app';
-import * as firebase from 'firebase';
+import "firebase/firestore";
+import firebase from "firebase/app";
 import {Account} from '../../models/account.model';
 
 @Injectable({
@@ -150,7 +149,7 @@ export class AuthService {
   }
 
   async  loginWithGoogle(){
-    await  this.afAuth.signInWithPopup(new auth.GoogleAuthProvider()).then(() => {
+    await  this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
       this._loggedIn.next(true);
       this.router.navigate(['/dashboard']);
     }).catch((error) => {
@@ -184,7 +183,7 @@ export class AuthService {
   private async getUrl(snap: AngularFireUploadTask, id) {
     const url = (await snap).ref.getDownloadURL().then(url => {
       this._db.collection('users').doc(id).update({
-        images: firestore.FieldValue.arrayUnion({path: url})
+        images: firebase.firestore.FieldValue.arrayUnion({path: url})
       });
     });
   }
