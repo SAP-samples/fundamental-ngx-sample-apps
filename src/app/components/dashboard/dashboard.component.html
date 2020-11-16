@@ -9,7 +9,7 @@
     </fd-layout-panel-header>
     <fd-layout-panel-body>
         <ng-container *ngIf="contracts && contractTableHeaders">
-            <table fd-table [popIn]="true" [noBorderX]="true" [noBorderY]="true">
+            <table *ngIf="mobile" fd-table [popIn]="true" [noBorderX]="true" [noBorderY]="true">
                 <thead fd-table-header>
                   <tr fd-table-row>
                     <th fd-table-cell colspan="100%">{{contract.title | titlecase}}</th>
@@ -50,6 +50,38 @@
                   </ng-container>
                 </tbody>
               </table>
+              <table  *ngIf="!mobile" fd-table [noBorderX]="true">
+                <thead fd-table-header>
+                  <tr fd-table-row>
+                    <th fd-table-cell *ngFor="let header of contractTableHeaders.slice(0,6)">{{header}}</th>
+                  </tr>
+                </thead>
+                <tbody fd-table-body>
+                  <ng-container *ngFor="let contract of contracts.slice(0,3)">
+                    <tr fd-table-row [main]="true" [activable]="true">
+                        <td fd-table-cell>
+                            {{contract.company | titlecase}}
+                        </td>
+                        <td fd-table-cell>
+                            {{contract.contact | titlecase}}
+                        </td>
+                        <td fd-table-cell>
+                            {{contract.signed.toDate() | date}}
+                        </td>
+                        <td fd-table-cell>
+                            {{contract.type | titlecase}}
+                        </td>
+                        <td fd-table-cell>
+                            {{contract.value | currency}}
+                        </td>
+                        <td fd-table-cell>
+                          <span fd-info-label [color]="contract.status | statusToColor"
+                          modifier="pill">{{contract.status}}</span>
+                        </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
         </ng-container>
         <div *ngIf="!(contracts)"
              class="spinner-container">
@@ -57,7 +89,6 @@
         </div>
     </fd-layout-panel-body>
 </fd-layout-panel>
-
 <fd-layout-panel class="panel-custom"
           [routerLink]="'/products'"
           queryParamsHandling="preserve">
@@ -69,7 +100,7 @@
     </fd-layout-panel-header>
     <fd-layout-panel-body>
         <ng-container *ngIf="products && productTableHeaders">
-            <table fd-table [popIn]="true" [noBorderX]="true" [noBorderY]="true">
+            <table  *ngIf="mobile" fd-table [popIn]="true" [noBorderX]="true" [noBorderY]="true">
                 <thead fd-table-header>
                   <tr fd-table-row>
                     <th fd-table-cell colspan="100%">{{product.title | titlecase}}</th>
@@ -102,6 +133,35 @@
                           modifier="pill">{{product.status}}</span>
                         </p>
                       </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+              <table  *ngIf="!mobile" fd-table [noBorderX]="true">
+                <thead fd-table-header>
+                  <tr fd-table-row>
+                    <th fd-table-cell *ngFor="let header of productTableHeaders.slice(0,5)">{{header}}</th>
+                  </tr>
+                </thead>
+                <tbody fd-table-body>
+                  <ng-container *ngFor="let product of products.slice(0,3)">
+                    <tr fd-table-row [main]="true" [activable]="true">
+                        <td fd-table-cell>
+                            {{product.name | titlecase}}
+                        </td>
+                        <td fd-table-cell>
+                            {{product.contact | titlecase}}
+                        </td>
+                        <td fd-table-cell>
+                            {{product.lob | titlecase}}
+                        </td>
+                        <td fd-table-cell>
+                            {{product.user_number | currency}}
+                        </td>
+                        <td fd-table-cell>
+                          <span fd-info-label [color]="product.status | statusToColor"
+                          modifier="pill">{{product.status}}</span>
+                        </td>
                     </tr>
                   </ng-container>
                 </tbody>

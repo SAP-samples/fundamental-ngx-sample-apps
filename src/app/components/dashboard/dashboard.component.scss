@@ -3,7 +3,7 @@
         box-sizing: border-box;
         flex-wrap: wrap;
         overflow: scroll;
-        height: 100vh;
+        height: calc(100vh - 44px);
         padding: 0;
     }
 
@@ -21,6 +21,12 @@
             text-align: end;
         }
     }
+
+    .panel-container {
+        width: 100%;
+        padding: 0;
+        box-sizing: border-box;
+    }
 }
 @media (min-width: 768px) {
     :host {
@@ -37,12 +43,16 @@
         flex-direction: row;
         width: 100%;
         flex-grow: 1;
-        padding: 36px;
     }
 
     .panel-custom {
+        width: 100%;
+    }
+
+    .panel-container {
         width: 50%;
         padding: 0 1rem;
+        box-sizing: border-box;
     }
 }
 

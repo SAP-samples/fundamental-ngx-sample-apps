@@ -27,55 +27,94 @@
       </fd-layout-panel-filters>
     <fd-layout-panel-body>
       <fd-busy-indicator [loading]="loading"  block="true">
-        <fd-table-wrapper *ngIf="!loading">
-            <table fd-table>
-              <thead fd-table-header>
-                <tr fd-table-row>
-                    <th fd-table-cell *ngFor="let header of tableHeaders">{{header | titlecase}}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let contract of contracts" fd-table-row>
-                  <td fd-table-cell>
-                    {{contract.company}}
-                    <fd-inline-help [inlineHelpContentStyle]="{ 'background-color': 'var(--sapGroup_ContentBackground)', color: 'var(--sapTextColor)', 'border-color': 'var(--sapGroup_ContentBorderColor)'}" [placement]="'right'">
-                      Information about {{contract.company}}
-                    </fd-inline-help>
-                  </td>
-                  <td fd-table-cell>
-                    {{contract.contact}}
-                  </td>
-                  <td fd-table-cell>
-                    {{contract.signed.seconds | date:'yyyy/MM/dd'}}
-                  </td>
-                  <td fd-table-cell>
-                    {{contract.type | languageType: language | uppercase}}
-                  </td>
-                  <td fd-table-cell>
-                    {{contract.value | currency}}
-                  </td>
-                  <td fd-table-cell>
-                    <span fd-info-label [color]="contract.status | statusToColor" > {{contract.status | languageStatus:language}} </span>
-                  </td>
-                  <td fd-table-cell>
-                    <button 
-                    fd-button
-                    [glyph]="'edit'"
-                    title="Edit Contract"
-                    (click)="openEditModal(contract)"
-                    [fdType]="'transparent'">
-                  </button>
-                </td>
-                <td fd-table-cell>
-                  <button 
-                  fd-button
-                  [glyph]="'delete'"
-                  title="Delete Contract"
-                  (click)="openConfirmModal(contract.company)"
-                  [fdType]="'transparent'">
-                </button>
-                </td>
+
+          <table *ngIf="mobile && !loading" fd-table [popIn]="true" [noBorderX]="true" [noBorderY]="true">
+            <thead fd-table-header>
+              <tr fd-table-row>
+                <th fd-table-cell colspan="100%">{{contractPage.title | titlecase}}</th>
               </tr>
+            </thead>
+            <tbody fd-table-body>
+              <ng-container *ngFor="let contract of contracts">
+                <tr fd-table-row [main]="true">
+                  <td fd-table-cell>
+                    <p fd-table-text [title]="true">{{contract.company | titlecase}}</p>
+                  </td>
+                </tr>
+                <tr fd-table-row [secondary]="true">
+                  <td fd-table-cell colspan="100%">
+                    <p fd-table-text>
+                        <label fd-form-label>{{tableHeaders[1]}}:</label>
+                        {{contract.contact | titlecase}}
+                    </p>
+                    <p fd-table-text>
+                        <label fd-form-label>{{tableHeaders[2]}}:</label>
+                        {{contract.signed.toDate() | date}}
+                    </p>
+                    <p fd-table-text>
+                        <label fd-form-label>{{tableHeaders[3]}}:</label>
+                        {{contract.type | titlecase}}
+                    </p>
+                    <p fd-table-text>
+                        <label fd-form-label>{{tableHeaders[4]}}:</label>
+                        {{contract.value | currency}}
+                    </p>
+                    <p fd-table-text>
+                      <label fd-form-label>{{tableHeaders[5]}}:</label>
+                      <span fd-info-label [color]="contract.status | statusToColor"
+                      modifier="pill">{{contract.status}}</span>
+                    </p>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+
+            <tfoot fd-table-footer>
+              <button 
+              fd-button 
+              [fdMenu]="true" 
+              [fdMenuTrigger]="itemsPerPageMenu"
+              style="margin-right: 20px;" 
+              label="Items Per Page"></button>
+              <fd-pagination
+                  [totalItems]="totalContracts"
+                  (pageChangeStart)="newPageClicked($event)"
+                  [itemsPerPage]="limit"
+                  [currentPage]="currentPage"
+              ></fd-pagination>
+            </tfoot>
+          </table>
+
+          <table  *ngIf="!mobile" fd-table [noBorderX]="true">
+            <thead fd-table-header>
+              <tr fd-table-row>
+                <th fd-table-cell *ngFor="let header of tableHeaders.slice(0,6)">{{header}}</th>
+              </tr>
+            </thead>
+            <tbody fd-table-body>
+              <ng-container *ngFor="let contract of contracts">
+                <tr fd-table-row [main]="true" [activable]="true">
+                    <td fd-table-cell>
+                        {{contract.company | titlecase}}
+                    </td>
+                    <td fd-table-cell>
+                        {{contract.contact | titlecase}}
+                    </td>
+                    <td fd-table-cell>
+                        {{contract.signed.toDate() | date}}
+                    </td>
+                    <td fd-table-cell>
+                        {{contract.type | titlecase}}
+                    </td>
+                    <td fd-table-cell>
+                        {{contract.value | currency}}
+                    </td>
+                    <td fd-table-cell>
+                      <span fd-info-label [color]="contract.status | statusToColor"
+                      modifier="pill">{{contract.status}}</span>
+                    </td>
+                </tr>
+              </ng-container>
             </tbody>
             <tfoot fd-table-footer>
               <button 
@@ -97,7 +136,6 @@
                 <span fd-menu-interactive>{{ value }}</span>
             </li>
           </fd-menu>
-        </fd-table-wrapper>
       </fd-busy-indicator>
     </fd-layout-panel-body>
 </fd-layout-panel>

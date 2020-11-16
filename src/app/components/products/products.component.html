@@ -14,8 +14,9 @@
             </button>
         </fd-layout-panel-actions>
     </fd-layout-panel-header>
-    <fd-layout-panel-filters *ngIf="products">
+    <fd-layout-panel-filters *ngIf="multiInputProducts">
       <fd-multi-input 
+      [mobile]="mobile"
       [compact]="globalCompact"
       [dropdownValues]="multiInputProducts"
       [placeholder]="language=='en'?'Search here...':'Rechercher ...'"
@@ -23,35 +24,42 @@
       (ngModelChange)="refresh(false)"
       >
       
-      </fd-multi-input><span *ngFor="let item of selected; let i = index"></span>
+      </fd-multi-input>
+      <span *ngFor="let item of selected; let i = index"></span>
     </fd-layout-panel-filters>
     <fd-layout-panel-body *ngIf="products">
-      <fd-table-wrapper>
-        <table fd-table>
-          <thead fd-table-header>
-            <tr fd-table-row>
-                <th fd-table-cell *ngFor="let header of tableHeaders">{{header | titlecase}}</th>
+      <table  *ngIf="mobile && tableHeaders" fd-table [popIn]="true" [noBorderX]="true" [noBorderY]="true">
+        <thead fd-table-header>
+          <tr fd-table-row>
+            <th fd-table-cell colspan="100%">{{productsPage.title | titlecase}}</th>
+          </tr>
+        </thead>
+        <tbody fd-table-body>
+          <ng-container *ngFor="let product of products">
+            <tr fd-table-row [main]="true">
+              <td fd-table-cell>
+                <p fd-table-text [title]="true">{{product.name | titlecase}}</p>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let product of products" fd-table-row>
-              <td fd-table-cell>
-                {{product.name}}
-                <fd-inline-help [inlineHelpContentStyle]="{ 'background-color': 'var(--sapGroup_ContentBackground)', color: 'var(--sapTextColor)', 'border-color': 'var(--sapGroup_ContentBorderColor)'}" [placement]="'right'">
-                  Information about {{product.company}}
-                </fd-inline-help>
-              </td>
-              <td fd-table-cell>
-                {{product.contact}}
-              </td>
-              <td fd-table-cell>
-                {{product.lob}}
-              </td>
-              <td fd-table-cell>
-                {{product.user_number}}
-              </td>
-              <td fd-table-cell>
-                <span fd-info-label [color]="product.status | statusToColor" > {{product.status | languageStatus:language}} </span>
+            <tr fd-table-row [secondary]="true">
+              <td fd-table-cell colspan="100%">
+                <p fd-table-text>
+                    <label fd-form-label>{{tableHeaders[1]}}:</label>
+                    {{product.contact | titlecase}}
+                </p>
+                <p fd-table-text>
+                    <label fd-form-label>{{tableHeaders[3]}}:</label>
+                    {{product.lob | titlecase}}
+                </p>
+                <p fd-table-text>
+                    <label fd-form-label>{{tableHeaders[4]}}:</label>
+                    {{product.user_number | currency}}
+                </p>
+                <p fd-table-text>
+                  <label fd-form-label>{{tableHeaders[5]}}:</label>
+                  <span fd-info-label [color]="product.status | statusToColor"
+                  modifier="pill">{{product.status}}</span>
+                </p>
               </td>
               <td fd-table-cell>
                 <button 
@@ -71,29 +79,62 @@
               [fdType]="'transparent'">
             </button>
             </td>
-          </tr>
+            </tr>
+          </ng-container>
         </tbody>
-        <tfoot fd-table-footer>
-          <button 
-          fd-button 
-          [fdMenu]="true" 
-          [fdMenuTrigger]="itemsPerPageMenu"
-          style="margin-right: 20px;"
-          [label]="'Items Per Page'"></button>
-          <fd-pagination
-              [totalItems]="totalProducts"
-              (pageChangeStart)="newPageClicked($event)"
-              [itemsPerPage]="limit"
-              [currentPage]="currentPage"
-          ></fd-pagination>
-        </tfoot>
+      </table>
+      <table  *ngIf="!mobile  && tableHeaders" fd-table [noBorderX]="true">
+        <thead fd-table-header>
+          <tr fd-table-row>
+            <th fd-table-cell *ngFor="let header of tableHeaders">{{header}}</th>
+          </tr>
+        </thead>
+        <tbody fd-table-body>
+          <ng-container *ngFor="let product of products">
+            <tr fd-table-row [main]="true" [activable]="true">
+                <td fd-table-cell>
+                    {{product.name | titlecase}}
+                </td>
+                <td fd-table-cell>
+                    {{product.contact | titlecase}}
+                </td>
+                <td fd-table-cell>
+                    {{product.lob | titlecase}}
+                </td>
+                <td fd-table-cell>
+                    {{product.user_number | currency}}
+                </td>
+                <td fd-table-cell>
+                  <span fd-info-label [color]="product.status | statusToColor"
+                  modifier="pill">{{product.status}}</span>
+                </td>
+                <td fd-table-cell>
+                    <button 
+                    fd-button
+                    [glyph]="'edit'"
+                    title="Edit product"
+                    (click)="openEditModal(product)"
+                    [fdType]="'transparent'">
+                  </button>
+                </td>
+                <td fd-table-cell>
+                  <button 
+                  fd-button
+                  [glyph]="'delete'"
+                  title="Delete product"
+                  (click)="openConfirmModal(product.company)"
+                  [fdType]="'transparent'">
+                </button>
+                </td>
+            </tr>
+          </ng-container>
+        </tbody>
       </table>
       <fd-menu #itemsPerPageMenu>
         <li fd-menu-item *ngFor="let value of itemsPerPageOptions" (click)="limitChange(value)">
             <span fd-menu-interactive>{{ value }}</span>
         </li>
       </fd-menu>
-    </fd-table-wrapper>
     </fd-layout-panel-body>
 </fd-layout-panel>
 <div *ngIf="!(products)"

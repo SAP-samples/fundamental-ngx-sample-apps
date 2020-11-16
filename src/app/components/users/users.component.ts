@@ -30,6 +30,7 @@ export class UsersComponent implements OnInit {
   itemsPerPageOptions: number[] = [1, 5, 10];
   open: boolean = false;
   columnSortDir: string = 'asc';
+  mobile: boolean = true;
 
   constructor (
     private _languageService: LanguageService,
@@ -38,6 +39,9 @@ export class UsersComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    if(screen.width >= 1024) {
+      this.mobile = false;
+    }
     this._languageService.lang.subscribe(lang => {
       this.language = lang;
       this._usersService.userPage.subscribe(pageInfo => {

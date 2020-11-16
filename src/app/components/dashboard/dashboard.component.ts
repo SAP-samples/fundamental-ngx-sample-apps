@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     productTableHeaders: string[];
     subscriptionContract: Subscription;
     subscriptionProduct: Subscription;
-    
+    mobile:boolean =  true;
     constructor(
       public productService:ProductsService,
       public contractService: ContractsService,
@@ -33,6 +33,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+      if(screen.width>=1024) {
+        this.mobile = false;
+      }
       this.subscriptionProduct = this.productService.products.subscribe(data => {
         const databaseData = Object.keys(data).map(i => data[i]); // to transfer a json object into an array
         this.products = databaseData;
