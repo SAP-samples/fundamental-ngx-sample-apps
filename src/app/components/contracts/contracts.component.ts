@@ -44,7 +44,7 @@ export class ContractsComponent implements OnInit {
   limit = 5;
   loading = false;
   itemsPerPageOptions: number[] = [1, 5, 10];
-
+  mobile: boolean = true;
 
     @ViewChild('table', {static: false}) table: CdkTable<{}[]>;
 
@@ -63,6 +63,9 @@ export class ContractsComponent implements OnInit {
       }
 
       ngOnInit() {
+        if(screen.width>=1024) {
+          this.mobile = false;
+        }
         this.loading = true;
         this.isLoggedIn = this.authService.isLoggedIn;
         this.subscription = this.contractService.getContractsObservable().subscribe(data => {
@@ -80,13 +83,14 @@ export class ContractsComponent implements OnInit {
 
         this._languageService.lang.subscribe(language => {
           this.language = language;
-          this._main.main.subscribe(mainInfo => {
-            this.contractPage = mainInfo.contract;
-          });
+      });
 
-          this._main.tables.subscribe(mainInfo => {
-            this.tableHeaders = mainInfo.contracts;
-          });
+      this._main.main.subscribe(mainInfo => {
+        this.contractPage = mainInfo.contract;
+      });
+
+      this._main.tables.subscribe(mainInfo => {
+        this.tableHeaders = mainInfo.contracts;
       });
 
         this._common.lists.subscribe(data => {
@@ -269,7 +273,6 @@ export class ContractsComponent implements OnInit {
   }
 
   refresh(changeLimit) {
-    debugger;
     if (changeLimit) {
       if (this.selected.length === 0) {
         this.currentPage = 1;

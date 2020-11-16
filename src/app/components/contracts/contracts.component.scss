@@ -1,7 +1,27 @@
-:host {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+
+@media (min-width: 0) {
+  :host {
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    overflow: scroll;
+    height: calc(100vh - 44px);
+    padding: 0;
+  }
+
+  fd-layout-panel {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      flex-grow: 1;
+      padding: 36px;
+  }
 }
 
 .spinner-container {

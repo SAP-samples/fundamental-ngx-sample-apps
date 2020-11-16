@@ -1,10 +1,23 @@
-:host {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
 
-.spinner-container {
+@media (min-width: 0) {
+  :host {
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    overflow: scroll;
+    height: calc(100vh - 44px);
+    padding: 0;
+  }
+
+  fd-layout-panel {
+    width: 100%;
+  }
+
+  .action-button {
+    margin-left: 8px;
+  }
+
+  .spinner-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,139 +25,21 @@
     background-color: var(--fd-color-background-2);//TODO
 }
 
-.action-button {
-    transition: all 0.2s ease-in-out;
-    margin-left: 24px;
-    display: inline-block;
-    cursor: pointer;
-    color: var(--fd-color-action-1);//TODO
-
-    &:hover {
-        transform: scale(1.25);
-    }
-}
-
-.cdk-drag-preview {
-    height: 100px;
-    background-color: #F2F2F2;
-    background-color: var(--sapList_HeaderBackground);
-    color: #32363A;
-    color: var(--sapList_HeaderTextColor);
-    box-sizing: border-box;
-    border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
-
-table {
-  border: none;
-  tr.cdk-row.cdk-drag {
-    > :first-child {
-      padding-left: 1rem;
-      padding-right: 0.5rem;
-    }
-    
-    > :not(:first-child) {
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
-
-    background-color: #FFFFFF;
-    background-color: var(--sapList_Background);
-    color: #32363A;
-    color: var(--sapList_TextColor);
-    &:hover {
-      background-color: #F5F5F5;
-      background-color: var(--sapList_Hover_Background);
-    }
-  
-    &:active {
-      color: #FFFFFF;
-      color: var(--sapList_Active_TextColor);
-      background-color: #0854A0;
-      background-color: var(--sapList_Active_Background);
-
-      .fd-button.fd-button--transparent {
-        color: #FFFFFF;
-        color: var(--sapList_Active_TextColor);
-      }
-    }
-    .is-selected {
-      background-color: #E5F0FA;
-      background-color: var(--sapList_SelectionBackgroundColor);
-      border-color: #0854A0;
-      border-color: var(--sapList_SelectionBorderColor);
-  
-      &:hover {
-        background-color: #D8E9F8;
-        background-color: var(--sapList_Hover_SelectionBackground);
-      }
-    }
-}
-
-.cdk-header-row {
-  background-color: #F2F2F2;
-  background-color: var(--sapList_HeaderBackground);
-  color: #32363A;
-  color: var(--sapList_HeaderTextColor);
-  border-bottom: solid 1px #E5E5E5;
-  border-bottom: solid 1px var(--sapList_BorderColor);
-  height: 2.75rem;
-
-  :hover{
-    cursor: [pointer];
-  }
-
-  > :first-child {
-    padding-left: 1rem;
-    padding-right: 0.5rem;
-  }
-
-  > :not(:first-child) {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  .fd-multi-input {
+    margin-bottom: 0.5rem;
   }
 }
-}
 
-@media screen and (max-width: 600px) {
-    .action-button {
-        margin-left: 8px;
-    }
-}
+@media (min-width: 768px) {
+  :host {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      flex-grow: 1;
+      padding: 36px;
+  }
 
-.fd-table {
-    border: none;
-}
-
-.cdk-row {
-    &.cdk-drag{
-        height: 50px;
-        &.cdk-drag-preview{
-            height: 20px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            :first-child {
-              padding-left: 1rem;
-            }
-            
-            :not(:first-child) {
-              padding-left: 0.5rem;
-            }
-            td {
-                font-weight: lighter;
-                font-size: 14px;
-                font-family: '72', sans-serif;
-            }
-        }
-    }
-}
-.cdk-header-row{
-    text-align: left;
-}
-
-.fd-multi-input {
-  margin-bottom: 0.5rem;
+  .action-button {
+    margin-left: 0;
+  }
 }
