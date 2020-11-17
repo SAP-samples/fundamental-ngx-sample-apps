@@ -24,7 +24,7 @@ import {CommonService} from 'src/app/services/common/common.service';
 })
 
 export class ProductsComponent implements OnDestroy, OnInit {
-
+    mobile = true;
     globalCompact: boolean;
     subscription: Subscription;
     products: any;
@@ -67,6 +67,10 @@ export class ProductsComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
+      if (screen.width >= 1024) {
+        this.mobile = false;
+      }
+
       this.loggedIn = this.auth.isLoggedIn;
       this.subscription = this.productService.products.subscribe(data => {
         this.lastInArray = data[(data.length - 1)].name;
