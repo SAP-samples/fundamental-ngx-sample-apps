@@ -24,7 +24,7 @@
     "@angular/common": "11.0.0",
     "@angular/compiler": "11.0.0",
     "@angular/core": "^11.0.0",
-    "@angular/fire": "^6.0.5",
+    "@angular/fire": "^6.1.0",
     "@angular/forms": "^11.0.0",
     "@angular/platform-browser": "^11.0.0",
     "@angular/platform-browser-dynamic": "^11.0.0",
