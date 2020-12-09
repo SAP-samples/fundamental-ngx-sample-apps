@@ -30,7 +30,7 @@
     "@angular/platform-browser-dynamic": "^11.0.0",
     "@angular/router": "^11.0.0",
     "@fundamental-ngx/core": "v0.24.2",
-    "@types/jest": "^26.0.16",
+    "@types/jest": "^26.0.18",
     "angular-draggable-droppable": "^4.5.6",
     "angularfire2": "^5.4.2",
     "core-js": "^3.7.0",
