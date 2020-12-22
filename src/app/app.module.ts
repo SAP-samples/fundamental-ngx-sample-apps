@@ -34,7 +34,6 @@ import {
     SideNavigationModule,
     TableModule,
     CheckboxModule,
-    FileInputModule,
     MenuModule,
 } from '@fundamental-ngx/core';
 import { ContractsComponent } from './components/contracts/contracts.component';
@@ -105,7 +104,6 @@ import { UsersComponent } from './components/users/users.component';
         DatePickerModule,
         DialogModule,
         DragDropModule,
-        FileInputModule,
         FormModule,
         FormsModule,
         IconModule,
