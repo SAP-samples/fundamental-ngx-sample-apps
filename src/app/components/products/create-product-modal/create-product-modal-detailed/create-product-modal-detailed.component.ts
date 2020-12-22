@@ -46,7 +46,7 @@ changeValueState(validity: string) {
     ngAfterViewInit() {
     }
     myDisableFunction = (d: FdDate) => {
-        const day = d.getDay();
+        const day = d.day;
         return day === 6 || day === 0;
     }
     myBlockFunction =  (d: FdDate) => {

@@ -19,8 +19,8 @@ import {CommonService} from 'src/app/services/common/common.service';
 
 @Component({
     selector: 'app-products',
-    templateUrl: './Products.component.html',
-    styleUrls: ['./Products.component.scss']
+    templateUrl: './products.component.html',
+    styleUrls: ['./products.component.scss']
 })
 
 export class ProductsComponent implements OnDestroy, OnInit {
