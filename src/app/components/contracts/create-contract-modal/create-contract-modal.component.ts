@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {DialogRef, DialogModule, DialogService, FdDate, DIALOG_REF} from '@fundamental-ngx/core';
+import {DialogRef, DialogModule, DialogService, FdDate} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { invalid } from '@angular/compiler/src/render3/view/util';
@@ -41,7 +41,7 @@ export class CreateContractModalComponent implements OnInit {
     // }
 
     constructor(
-    @Inject(DIALOG_REF) public dialogRef: DialogRef, 
+    @Inject(public dialogRef: DialogRef, 
     private dialogService: DialogService,
     compactService: CompactService
     ) {

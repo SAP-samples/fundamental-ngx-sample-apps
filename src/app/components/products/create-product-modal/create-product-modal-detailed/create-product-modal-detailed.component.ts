@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
-import { DialogRef, FdDate, DIALOG_REF } from '@fundamental-ngx/core';
+import { DialogRef, FdDate } from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MyValidation } from './../../../contracts/create-contract-modal/create-contract-modal-int';
 
@@ -55,7 +55,7 @@ changeValueState(validity: string) {
         return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
     }
 
-    constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef) {
+    constructor(public dialogRef: DialogRef) {
     }
 
     closeModal() {
