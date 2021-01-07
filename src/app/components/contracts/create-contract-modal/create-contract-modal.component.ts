@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {DialogRef, DialogModule, DialogService, FdDate, DIALOG_REF} from '@fundamental-ngx/core';
+import {DialogRef, DialogModule, DialogService, FdDate} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { invalid } from '@angular/compiler/src/render3/view/util';
@@ -40,10 +40,9 @@ export class CreateContractModalComponent implements OnInit {
     //     return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
     // }
 
-    constructor(
-    @Inject(DIALOG_REF) public dialogRef: DialogRef, 
-    private dialogService: DialogService,
-    compactService: CompactService
+    constructor(public dialogRef: DialogRef, 
+        private dialogService: DialogService,
+        compactService: CompactService
     ) {
       compactService.compact.subscribe(result => {
         this.globalCompact = result;

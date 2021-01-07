@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
-import { DialogRef, DIALOG_REF } from '@fundamental-ngx/core';
+import { DialogRef } from '@fundamental-ngx/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SafeResourceUrl } from "@angular/platform-browser";
 
@@ -19,7 +19,7 @@ export class ThemeSelectorComponent implements OnInit {
   cssUrl: SafeResourceUrl;
   cssCustomUrl: SafeResourceUrl;
 
-  constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef, private languageService: LanguageService, private _themesService: ThemesService) {}
+  constructor( public dialogRef: DialogRef, private languageService: LanguageService, private _themesService: ThemesService) {}
 
   language: 'en'|'fr';
 
