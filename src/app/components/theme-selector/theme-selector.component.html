@@ -7,7 +7,8 @@
         <form [formGroup]="customForm" class="flex-form">
           <div fd-form-item>
               <label fd-form-label for="themeSelector">Theme:</label>
-              <fd-select id="themeSelector" formControlName="selectControl1">
+              <fd-select id="themeSelector" formControlName="selectControl1" [(value)]="selectedValue1"
+              (valueChange)="selectTheme($event)">
                   <fd-option *ngFor="let option of themes" [value]="option.id">{{option.name}}</fd-option>
               </fd-select>
           </div>
