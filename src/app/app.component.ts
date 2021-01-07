@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
 
   cssUrl: SafeResourceUrl;
   cssCustomUrl: SafeResourceUrl;
+  
   constructor(
     private luigiUiService: LuigiUiService,
     private authService: AuthService,
