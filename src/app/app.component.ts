@@ -1,31 +1,33 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ProductSwitchItem, ShellbarUser, ShellbarUserMenu, DialogService } from '@fundamental-ngx/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
 import { Router } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SafeResourceUrl } from "@angular/platform-browser";
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Subscription } from 'rxjs';
 
+import { ProductSwitchItem, ShellbarUser, ShellbarUserMenu, DialogService } from '@fundamental-ngx/core';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
-import {LuigiUiService} from './services/luigi-ui/luigi-ui.service';
-import {CompactService} from './services/compact/compact.service';
-import {ProductSwitchDataService} from './services/product-switch/product-switch.service';
-import {SideNavigationService} from './services/side-navigation/side-navigation.service';
-import {SideNavModel} from './services/side-navigation/side-navigation.model';
-import {AngularFireStorage} from '@angular/fire/storage';
-import {Subscription} from 'rxjs';
-import {takeUntil, take} from 'rxjs/operators';
-import {MainService} from './services/main/main.service';
-import {LanguageService} from './services/language/language.service';
+import { LuigiUiService } from './services/luigi-ui/luigi-ui.service';
+import { CompactService } from './services/compact/compact.service';
+import { SideNavModel } from './services/side-navigation/side-navigation.model';
+import { MainService } from './services/main/main.service';
+import { LanguageService } from './services/language/language.service';
+import { ThemesService } from "@fundamental-ngx/core";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [ThemesService]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   globalCompact:boolean = false;
   imageUrl;
   accountSubscription: Subscription;
+
+  cssUrl: SafeResourceUrl;
+  cssCustomUrl: SafeResourceUrl;
   constructor(
     private luigiUiService: LuigiUiService,
     private authService: AuthService,
@@ -34,8 +36,8 @@ export class AppComponent implements OnInit{
     private _languageService: LanguageService,
     private router: Router,
     private dialogService: DialogService,
-    private sanitizer: DomSanitizer,
-    private _storage: AngularFireStorage
+    private _storage: AngularFireStorage,
+    private _themesService: ThemesService
     ) {}
 
   title = 'Fundamental NGX Demo';
@@ -48,8 +50,6 @@ export class AppComponent implements OnInit{
   };
   mobile = true;
   condensed: boolean = false;
-
-  cssUrl: SafeResourceUrl;
 
   list: ProductSwitchItem[] = [];
 
@@ -68,8 +68,9 @@ export class AppComponent implements OnInit{
              this.luigiUiService.updateLuigiUi(result.luigi);
              this.globalCompact = result.compact;
              this.compactService.updateCompact(result.compact);
-              this.settings = result;
-              this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/' + this.settings.theme + '.css');
+             this.settings = result;
+             this.cssUrl = this._themesService.setTheme(result.theme);
+             this.cssCustomUrl = this._themesService.setCustomTheme(result.theme);
             }
           }, () => { });
           } },
@@ -80,7 +81,7 @@ export class AppComponent implements OnInit{
     if (screen.width >= 768) {
       this.mobile = false;
     }
-    this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/sap_fiori_3.css');
+
     this._languageService.lang.subscribe(lang => {
       this._main.main.subscribe(mainInfo => {
         this.title = mainInfo.title;

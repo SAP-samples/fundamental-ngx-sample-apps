@@ -1,51 +1,30 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
 import { DialogRef, DIALOG_REF } from '@fundamental-ngx/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SafeResourceUrl } from "@angular/platform-browser";
+
 import {LanguageService} from 'src/app/services/language/language.service';
+import { ThemeServiceOutput, ThemesService } from "@fundamental-ngx/core";
 
 @Component({
   selector: 'app-theme-selector',
   templateUrl: './theme-selector.component.html',
-  styleUrls: ['./theme-selector.component.scss']
+  styleUrls: ['./theme-selector.component.scss'],
+  providers: [ThemesService]
 })
 export class ThemeSelectorComponent implements OnInit {
 
-  constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef, private languageService: LanguageService) {}
+  themes = this._themesService.themes;
+  selectedValue1: string;
+  cssUrl: SafeResourceUrl;
+  cssCustomUrl: SafeResourceUrl;
 
-  themes = [
-    {
-        id: 'sap_fiori_3',
-        name: 'Fiori 3'
-    },
-    {
-        id: 'sap_fiori_3_dark',
-        name: 'Fiori 3 Dark'
-    },
-    {
-        id: 'sap_fiori_3_hcb',
-        name: 'High Contrast Black'
-    },
-    {
-        id: 'sap_fiori_3_hcw',
-        name: 'High Contrast White'
-    },
-    {
-        id: 'sap_belize',
-        name: 'Belize'
-    }
-  ];
+  constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef, private languageService: LanguageService, private _themesService: ThemesService) {}
 
-
-  modes = [{
-      id: 'cozy',
-      name: 'Cozy'
-  }, {
-      id: 'compact',
-      name: 'Compact'
-  }];
   language: 'en'|'fr';
-  options1: string[] = ['Fiori 3', 'Fiori Dark', 'High Contrast Black', 'High Contrast White'];
-  options2: string[] = ['Cozy', 'Compact'];
+
+  @Output()
+  themeChanged = new EventEmitter<ThemeServiceOutput>();
 
   customForm:FormGroup;
 
@@ -66,6 +45,16 @@ export class ThemeSelectorComponent implements OnInit {
     this.languageService.updateLang(this.language);
     this.dialogRef.close( {theme: this.customForm.controls.selectControl1.value, luigi: this.customForm.controls.luigiUi.value, compact: this.customForm.controls.compact.value});
   };
+
+  selectTheme(selectedTheme: string): void {
+    this.cssUrl = this._themesService.setTheme(selectedTheme);
+    this.cssCustomUrl = this._themesService.setCustomTheme(selectedTheme);
+
+    this.themeChanged.emit({
+      themeUrl: this.cssCustomUrl,
+      customThemeUrl: this.cssUrl
+    });
+  }
 
   languageChange() {
     this.language === 'en' ? this.language = 'fr' : this.language = 'en';

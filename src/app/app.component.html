@@ -46,5 +46,6 @@
     </fd-side-nav>
     <router-outlet></router-outlet>
 </div>
-<link rel="stylesheet"
-      [href]="cssUrl" />
+
+<link rel="stylesheet" *ngIf="cssUrl" [href]="cssUrl"/>
+<link rel="stylesheet" *ngIf="customCssUrl" [href]="customCssUrl"/>
