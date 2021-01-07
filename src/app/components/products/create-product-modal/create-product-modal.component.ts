@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {DialogRef, DialogModule, DialogService, DIALOG_REF} from '@fundamental-ngx/core';
+import {DialogRef, DialogModule, DialogService} from '@fundamental-ngx/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MyValidation } from './../../contracts/create-contract-modal/create-contract-modal-int';
 import {CreateProductModalDetailedComponent} from './create-product-modal-detailed/create-product-modal-detailed.component';
@@ -67,7 +67,7 @@ export class CreateProductModalComponent implements OnInit {
         });
     }
 
-    constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef, private dialogService: DialogService) {
+    constructor(public dialogRef: DialogRef, private dialogService: DialogService) {
     }
 
     ngOnInit() {
