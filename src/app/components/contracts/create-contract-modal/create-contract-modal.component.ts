@@ -40,10 +40,9 @@ export class CreateContractModalComponent implements OnInit {
     //     return d.getTimeStamp() > firstDay.getTimeStamp() && d.getTimeStamp() < lastDay.getTimeStamp();
     // }
 
-    constructor(
-    @Inject(public dialogRef: DialogRef, 
-    private dialogService: DialogService,
-    compactService: CompactService
+    constructor(public dialogRef: DialogRef, 
+        private dialogService: DialogService,
+        compactService: CompactService
     ) {
       compactService.compact.subscribe(result => {
         this.globalCompact = result;
