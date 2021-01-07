@@ -127,17 +127,6 @@
       Password must be more than 8 characters
       </fd-form-message>
     </fd-form-input-message-group>
-    <fd-file-input
-    #fileInput
-    formControlName="file"
-    (onSelect)="picturesSelected($event)"
-    (onInvalidFiles)="invalidFile()"
-    [accept]="'.png'"
-    >
-      <button fd-button (click)="fileInput.open()">
-          Profile Picture
-      </button>
-    </fd-file-input>
   </div>
   <div class="button-grouping">
     <button [disabled]="signupForm.invalid || !signupForm.get('file').dirty" type="submit" fd-button [fdType]="'emphasized'" label="Sign Up"></button>

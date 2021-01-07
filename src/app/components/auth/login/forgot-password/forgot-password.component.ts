@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
-import {DIALOG_REF,DialogRef} from '@fundamental-ngx/core';
+import {DialogRef} from '@fundamental-ngx/core';
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,7 +9,7 @@ import {DIALOG_REF,DialogRef} from '@fundamental-ngx/core';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  constructor(@Inject(DIALOG_REF) public dialogRef: DialogRef) { }
+  constructor(public dialogRef: DialogRef) { }
 
   ngOnInit(): void {
   }
