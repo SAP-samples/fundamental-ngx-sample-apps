@@ -23,7 +23,7 @@
     "@angular/platform-browser": "^11.0.0",
     "@angular/platform-browser-dynamic": "^11.0.0",
     "@angular/router": "^11.0.0",
-    "@fundamental-ngx/core": "v0.26.0-rc.47",
+    "@fundamental-ngx/core": "v0.26.0-rc.48",
     "@sap-theming/theming-base-content": "11.1.24",
     "@types/jest": "^26.0.20",
     "angular-draggable-droppable": "^4.6.0",
