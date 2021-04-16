@@ -22,7 +22,7 @@
     "@angular/forms": "^11.2.10",
     "@angular/platform-browser": "^11.2.9",
     "@angular/platform-browser-dynamic": "^11.2.4",
-    "@angular/router": "^11.2.4",
+    "@angular/router": "^11.2.10",
     "@fundamental-ngx/core": "v0.28.1",
     "@sap-theming/theming-base-content": "11.1.28",
     "@types/jest": "^26.0.22",
