@@ -1,0 +1,95 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "06:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - droshev
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.26
+    - 14.14.30
+    - 14.14.34
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: "@angular/common"
+    versions:
+    - 11.2.10
+    - 11.2.11
+    - 11.2.5
+    - 11.2.6
+    - 11.2.7
+    - 11.2.8
+  - dependency-name: "@angular-devkit/build-angular"
+    versions:
+    - 0.1102.10
+    - 0.1102.5
+    - 0.1102.6
+    - 0.1102.9
+  - dependency-name: "@angular/language-service"
+    versions:
+    - 11.2.1
+    - 11.2.10
+    - 11.2.11
+    - 11.2.6
+    - 11.2.7
+    - 11.2.8
+  - dependency-name: "@angular/platform-browser"
+    versions:
+    - 11.2.10
+    - 11.2.11
+    - 11.2.5
+    - 11.2.7
+    - 11.2.8
+  - dependency-name: "@angular/router"
+    versions:
+    - 11.2.11
+    - 11.2.9
+  - dependency-name: "@angular/forms"
+    versions:
+    - 11.2.9
+  - dependency-name: "@angular/animations"
+    versions:
+    - 11.2.6
+    - 11.2.8
+    - 11.2.9
+  - dependency-name: "@angular/cli"
+    versions:
+    - 11.2.3
+    - 11.2.4
+    - 11.2.5
+    - 11.2.7
+  - dependency-name: firebase
+    versions:
+    - 8.3.2
+  - dependency-name: "@angular/cdk"
+    versions:
+    - 11.2.1
+    - 11.2.4
+    - 11.2.5
+    - 11.2.6
+    - 11.2.7
+  - dependency-name: core-js
+    versions:
+    - 3.10.0
+  - dependency-name: "@angular/core"
+    versions:
+    - 11.2.5
+    - 11.2.6
+    - 11.2.7
+  - dependency-name: "@types/jest"
+    versions:
+    - 26.0.21
+  - dependency-name: typescript
+    versions:
+    - 4.0.6
+    - 4.2.3
+  - dependency-name: "@fundamental-ngx/core"
+    versions:
+    - 0.27.0
+    - 0.28.0
