@@ -3,13 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "publish": "ng build --prod && ng add angular-cli-ghpages && npx ngh --dir dist/ngx-sample-app",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod && npx ngh --dir dist/ngx-sample-app"
+    "deploy": "ng deploy --base-href=/fundamental-ngx-sample-apps/"
   },
   "private": true,
   "dependencies": {
@@ -23,8 +22,8 @@
     "@angular/platform-browser": "^11.2.12",
     "@angular/platform-browser-dynamic": "^11.2.4",
     "@angular/router": "^11.2.12",
-    "@fundamental-ngx/core": "v0.28.1",
-    "@sap-theming/theming-base-content": "11.1.28",
+    "@fundamental-ngx/core": "0.28.1",
+    "@sap-theming/theming-base-content": "11.1.30",
     "@types/jest": "^26.0.22",
     "angular-draggable-droppable": "^4.6.0",
     "angularfire2": "^5.4.2",
@@ -42,7 +41,7 @@
     "@angular/compiler-cli": "^11.2.4",
     "@angular/language-service": "^11.2.9",
     "@types/node": "^15.0.1",
-    "angular-cli-ghpages": "^1.0.0-rc.1",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.1",
     "firebase": "^8.4.1",
     "ts-node": "^9.1.1",
