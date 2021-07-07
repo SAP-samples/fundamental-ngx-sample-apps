@@ -3,13 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "publish": "ng build --prod && ng add angular-cli-ghpages && npx ngh --dir dist/ngx-sample-app",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod && npx ngh --dir dist/ngx-sample-app"
+    "deploy": "ng deploy --base-href=/fundamental-ngx-sample-apps/"
   },
   "private": true,
   "dependencies": {
@@ -42,7 +41,7 @@
     "@angular/compiler-cli": "^11.2.4",
     "@angular/language-service": "^11.2.9",
     "@types/node": "^14.14.37",
-    "angular-cli-ghpages": "^1.0.0-rc.1",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.1",
     "firebase": "^8.4.1",
     "ts-node": "^9.1.1",
