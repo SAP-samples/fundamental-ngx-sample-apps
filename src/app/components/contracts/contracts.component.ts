@@ -124,9 +124,7 @@ export class ContractsComponent implements OnInit {
                     company: result.company,
                     contact: result.contact,
                     status: result.status,
-                },
-                size: 'm',
-                type: 'success'
+                }
             });
 
               notificationService.afterClosed.subscribe(
@@ -142,9 +140,7 @@ export class ContractsComponent implements OnInit {
             this.notificationService.open(NotificationConfirmationComponent, {
               data: {
                   invalid: true
-              },
-              size: 'm',
-              type: 'error'
+              }
             });
           }
         }, () => {});
@@ -171,9 +167,7 @@ export class ContractsComponent implements OnInit {
                       company: result.company,
                       contact: result.contact,
                       status: result.status,
-                  },
-                  size: 'm',
-                  type: 'warning'
+                  }
               });
 
                 notificationService.afterClosed.subscribe(
@@ -190,9 +184,7 @@ export class ContractsComponent implements OnInit {
                 this.notificationService.open(NotificationConfirmationComponent, {
                   data: {
                       invalid: true
-                  },
-                  size: 'm',
-                  type: 'error'
+                  }
               });
               }
         }, () => {});
@@ -207,9 +199,7 @@ export class ContractsComponent implements OnInit {
                 this.notificationService.open(NotificationConfirmationComponent, {
                   data: {
                       invalid: true
-                  },
-                  size: 'm',
-                  type: 'error'
+                  }
               });
               }
             }

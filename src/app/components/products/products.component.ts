@@ -126,8 +126,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
                   company: result.name,
                   contact: result.contact,
                   status: result.status
-                  },
-                  type: 'success'
+                  }
                 });
               notif.afterClosed.subscribe( result => {
                   this.productService.addProduct(this.product);
@@ -137,9 +136,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
             this.notificationService.open(NotificationConfirmationComponent, {
               data: {
                   invalid: true
-              },
-              size: 'm',
-              type: 'error'
+              }
             });
           }
             
@@ -164,9 +161,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
                     company: result.name,
                     contact: result.contact,
                     status: result.status,
-                },
-                size: 'm',
-                type: 'warning'
+                }
             });
   
               notificationService.afterClosed.subscribe(
@@ -182,9 +177,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
               this.notificationService.open(NotificationConfirmationComponent, {
                 data: {
                     invalid: true
-                },
-                size: 'm',
-                type: 'error'
+                }
               });
             }
         }
@@ -204,9 +197,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
                 this.notificationService.open(NotificationConfirmationComponent, {
                   data: {
                       invalid: true
-                  },
-                  size: 'm',
-                  type: 'error'
+                  }
                 });
               }
             }
