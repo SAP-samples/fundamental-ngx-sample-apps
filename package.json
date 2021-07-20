@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^11.2.14",
     "@angular/platform-browser-dynamic": "^11.2.14",
     "@angular/router": "^11.2.14",
-    "@fundamental-ngx/core": "0.31.0-rc.65",
+    "@fundamental-ngx/core": "0.31.0-rc.126",
     "@fundamental-ngx/platform": "^0.31.0-rc.65",
     "@sap-theming/theming-base-content": "11.1.28",
     "@types/jest": "^26.0.22",
