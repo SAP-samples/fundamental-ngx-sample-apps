@@ -25,11 +25,11 @@
         <legend>Personal Information:</legend><ul>
           <li>
             <label for="first_name">First Name:</label>
-            <input type="text" placeholder="Enter First Name" name="first_name" id="first_name" required>
+            <input type="text" placeholder="Enter First Name" name="first_name" id="first_name" required maxlength="32" pattern="[A-Za-z]{1,32}">
           </li>
           <li>
             <label for="last_name">Last Name:</label>
-            <input type="text" placeholder="Enter Last Name" name="last_name" id="last_name" required>
+            <input type="text" placeholder="Enter Last Name" name="last_name" id="last_name" required  maxlength="32" pattern="[A-Za-z]{1,32}">
           </li>
           <li>
             <label for="email">Email:</label>
