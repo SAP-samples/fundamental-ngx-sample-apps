@@ -13,7 +13,6 @@ import {NotificationConfirmationComponent} from 'src/app/shared/notification-con
 import {AuthService} from 'src/app/services/auth/auth.service';
 import {CompactService} from 'src/app/services/compact/compact.service';
 import {ContractPageService} from 'src/app/services/contract-page/contract-page.service';
-import {BinaryOperator, FunctionCall} from '@angular/compiler';
 import {LanguageService} from 'src/app/services/language/language.service';
 import {MainService} from 'src/app/services/main/main.service';
 import {CommonService} from 'src/app/services/common/common.service';
