@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore, QuerySnapshot} from '@angular/fire/firestore';
+import {AngularFirestore, QuerySnapshot} from '@angular/fire/compat/firestore';
 import {Contract} from 'src/app/models/contract.model';
 import {Subscription, Observable} from 'rxjs';
 import {ContractPageService} from '../contract-page/contract-page.service';
-import "firebase/firestore";
-import firebase from "firebase/app";
+import undefined from "firebase/compat/firestore";
+import firebase from "firebase/compat/app";
 
 @Injectable({
   providedIn: 'root'

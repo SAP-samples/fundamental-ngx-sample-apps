@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {Observable, Subscription} from 'rxjs';
 import {Contract} from '../../models/contract.model';
 import {Product} from '../../models/product.model';

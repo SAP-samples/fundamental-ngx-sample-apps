@@ -5,9 +5,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     AlertModule,
@@ -50,10 +50,10 @@ import { ProductsService } from './services/products/products.service';
 import { ContractsService } from './services/contracts/contracts.service';
 import { NotificationConfirmationComponent } from './shared/notification-confirmation/notification-confirmation.component';
 import { LoginComponent } from './components/auth/login/login.component';
-import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import {
   AngularFireStorageModule,
-} from "@angular/fire/storage";
+} from "@angular/fire/compat/storage";
 import { ForgotPasswordComponent } from './components/auth/login/forgot-password/forgot-password.component';
 import { StatusToColorPipe } from './shared/status-to-color.pipe';
 import { CookieService } from 'ngx-cookie-service';

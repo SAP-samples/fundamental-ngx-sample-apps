@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Product} from 'src/app/models/product.model';
 import { Observable} from 'rxjs';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {ProductPageService} from '../product-page/product-page.service';
-import "firebase/firestore";
-import firebase from "firebase/app";
+import undefined from "firebase/compat/firestore";
+import firebase from "firebase/compat/app";
 
 @Injectable()
 export class ProductsService {
