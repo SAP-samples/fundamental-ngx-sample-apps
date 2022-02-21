@@ -125,27 +125,18 @@ import { UsersComponent } from './components/users/users.component';
         ShellbarModule,
         TableModule
     ],
-    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
-      CookieService,
-      CompactService,
-      ContractsService,
-      ProductsService, 
-      StatusToColorPipe,
-      LanguageTypePipe,
-      LanguageStatusPipe,
-      LuigiUiService,
-      SnakeCasePipe
+    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },
+        CookieService,
+        CompactService,
+        ContractsService,
+        ProductsService,
+        StatusToColorPipe,
+        LanguageTypePipe,
+        LanguageStatusPipe,
+        LuigiUiService,
+        SnakeCasePipe
     ],
-    entryComponents: [
-        CreateContractModalComponent,
-        ConfirmModalComponent,
-        CreateProductModalComponent,
-        CreateProductModalDetailedComponent,
-        NotificationConfirmationComponent,
-        ThemeSelectorComponent
-
-    ],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
