@@ -45,7 +45,7 @@
     "@angular/language-service": "^13.2.3",
     "@types/node": "^14.14.37",
     "angular-cli-ghpages": "^1.0.0",
-    "codelyzer": "^6.0.1",
+    "codelyzer": "^6.0.2",
     "firebase": "^9.6.7",
     "ts-node": "^9.1.1",
     "tslint": "~6.1.3",
