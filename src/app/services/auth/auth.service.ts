@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from  '@angular/router';
-import { AngularFireAuth } from  '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {Observable, Observer, BehaviorSubject} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {AngularFireUploadTask, AngularFireStorage} from '@angular/fire/storage';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {AngularFireUploadTask, AngularFireStorage} from '@angular/fire/compat/storage';
 import {finalize, tap} from 'rxjs/operators';
-import "firebase/firestore";
-import firebase from "firebase/app";
+import undefined from "firebase/compat/firestore";
+import firebase from "firebase/compat/app";
 import {Account} from '../../models/account.model';
 
 @Injectable({

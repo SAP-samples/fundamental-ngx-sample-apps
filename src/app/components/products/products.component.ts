@@ -1,7 +1,7 @@
 import { Component,  ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Product } from '../../models/product.model';
 import { AlertService, DialogService, MultiInputModule, CalendarModule, NotificationService } from '@fundamental-ngx/core';
 import { CreateProductModalComponent } from './create-product-modal/create-product-modal.component';
