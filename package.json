@@ -24,7 +24,7 @@
     "@angular/router": "^13.2.3",
     "@fundamental-ngx/core": "0.33.4",
     "@fundamental-ngx/platform": "^0.33.4",
-    "@sap-theming/theming-base-content": "11.1.28",
+    "@sap-theming/theming-base-content": "11.1.34",
     "@types/jest": "^26.0.22",
     "angular-draggable-droppable": "^4.6.0",
     "angularfire2": "^5.4.2",
