@@ -1,3 +1,9 @@
+@import '~fundamental-styles/dist/layout-grid';
+@import '~@fundamental-styles/fn/dist/fn-card';
+@import '~@fundamental-styles/fn/dist/fn-link';
+@import '~@fundamental-styles/fn/dist/fn-page';
+@import '~@fundamental-styles/fn/dist/fn-button';
+@import '~@fundamental-styles/fn/dist/fn-search';
 
 @font-face {
     font-family: '72';
@@ -22,7 +28,7 @@
 
 @font-face {
     font-family: 'SAP-icons';
-    src: url('~@sap-theming/theming-base-content/content/Base/baseLib/baseTheme/fonts/SAP-icons.woff') format('woff');
+    src: url('~@sap-theming/theming-base-content/content/Base/baseLib/sap_horizon/fonts/SAP-icons.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
