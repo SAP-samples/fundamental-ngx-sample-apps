@@ -1,0 +1,73 @@
+
+    <form action="/form-page-handling" method="post">
+        <fieldset>
+          <legend>Personal Information:</legend><ul>
+            <li>
+              <label for="first_name">First Name:</label>
+              <input type="text" placeholder="Enter First Name" name="first_name" id="first_name" required maxlength="32" pattern="[A-Za-z]{1,32}">
+            </li>
+            <li>
+              <label for="last_name">Last Name:</label>
+              <input type="text" placeholder="Enter Last Name" name="last_name" id="last_name" required  maxlength="32" pattern="[A-Za-z]{1,32}">
+            </li>
+            <li>
+              <label for="email">Email:</label>
+              <input type="email" placeholder="Enter Email" name="email" id="email" required>
+            </li>
+            <li>
+              <label for="psw">Password:</label>
+              <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+            </li>
+            <li>
+              <label for="psw-repeat">Repeat Password:</label>
+              <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+            </li>
+            <li>
+              <label for="birthday">Date of Birth:</label>
+              <input type="date" name="bday" id="bday">
+            </li>
+            <li>
+              <label for="country">Country:</label>
+              <select id="country" name="country">
+                <option value="australia">Albania</option>
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="usa">USA</option>
+              </select>
+            </li>
+            <li>
+              <input type="radio" name="sex" value="Female" id="female">
+              <label for="femaile">Female</label>
+              <input type="radio" name="sex" value="Male" id="male">
+              <label for="femaile">Male</label>
+              <input type="radio" name="sex" value="Other" id="other">
+              <label for="femaile">Other</label>
+            </li>
+            <li>
+              <label for="bio">Short Bio:</label>
+              <textarea name="bio" rows="4" cols="50"></textarea>
+            </li>
+            <li>
+              <label for="icecream">Favourite Ice Cream</label>
+              <input type="text" name="icecream" required list="icecreams" id="icecream">
+              <datalist id="icecreams">
+                <option value="Mint Chocolate Chip"></option>
+                <option value="Vanilla"></option>
+                <option value="Mango"></option>
+                <option value="Chocolate"></option>
+                <option value="Pistachio"></option>
+                <option value="Cookie Dough"></option>
+                <option value="Strawberry"></option>
+                <option value="Green Tea"></option>
+              </datalist>
+            </li>
+            <li>
+              <input type="checkbox" checked name="remember" value="remember">
+              <label>Remember me</label>
+            </li>
+          </ul>
+        </fieldset>
+  
+        <button type="submit">Register</button>
+        <input type="reset">
+      </form>

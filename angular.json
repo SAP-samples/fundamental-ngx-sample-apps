@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "app": {
+    "fundamental-ngx-sample-apps": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/app",
+            "outputPath": "dist/fundamental-ngx-sample-apps",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -41,8 +41,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -65,22 +65,6 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            },
-            "ar": {
-              "aot": true,
-              "outputPath": "dist/app/locale/ar",
-              "i18nFile": "src/locale/ar/messages.ar.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "ar",
-              "i18nMissingTranslation": "error"
-            },
-            "fr": {
-              "aot": true,
-              "outputPath": "dist/app/locale/fr",
-              "i18nFile": "src/locale/fr/messages.fr.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "fr",
-              "i18nMissingTranslation": "error"
             }
           },
           "defaultConfiguration": "production"
@@ -89,16 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "fundamental-ngx-sample-apps:build:production"
             },
             "development": {
-              "browserTarget": "app:build:development"
-            },
-            "ar": {
-              "browserTarget": "app:build:ar"
-            },
-            "fr": {
-              "browserTarget": "app:build:fr"
+              "browserTarget": "fundamental-ngx-sample-apps:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -106,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "fundamental-ngx-sample-apps:build"
           }
         },
         "test": {
@@ -133,5 +111,5 @@
       }
     }
   },
-  "defaultProject": "app"
+  "defaultProject": "fundamental-ngx-sample-apps"
 }

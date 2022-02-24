@@ -1,20 +1,32 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormGroup, FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SimpleFormComponent } from './simple-form/simple-form.component';
+import { CoreFormComponent } from './core-form/core-form.component';
+import { LandingComponent } from './landing/landing.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from '@fundamental-ngx/core/button';
+import { FundamentalNgxCoreModule } from '@fundamental-ngx/core';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SimpleFormComponent,
+    LandingComponent,
+    CoreFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ButtonModule
+    ButtonModule,
+
+    FundamentalNgxCoreModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
