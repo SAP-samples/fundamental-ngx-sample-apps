@@ -10,9 +10,6 @@
     </fd-form-message>
 
 
-
-
-
     <label fd-form-label [required]="true">Last Name</label>
     <fd-input-group placement="before" glyph="account" placeholder="Enter Last Name" glyphAriaLabel="account"
         [required]="true" [showFocus]="true" ngModel name="lastName" #lastName="ngModel" minlength="3" maxlength="10"
@@ -51,7 +48,7 @@
 
     <div fd-form-item>
         <label fd-form-label [required]="true">Date of Birth</label>
-        <!-- <app-date-of-birth></app-date-of-birth> -->
+        <fd-date-picker type="range" [(ngModel)]="selectedRange"> </fd-date-picker>
 
     </div>
 

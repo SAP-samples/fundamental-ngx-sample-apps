@@ -7,11 +7,37 @@ import {
     Validators,
     FormBuilder
   } from '@angular/forms';
+  import { state } from '@angular/animations';
+  import {
+    DatetimeAdapter,
+    DATE_TIME_FORMATS,
+    FdDate,
+    FdDatetimeAdapter,
+    FD_DATETIME_FORMATS
+  } from '@fundamental-ngx/core/datetime';
+  import { DateRange } from '@fundamental-ngx/core/calendar';
+  import { FdpFormGroupModule } from '@fundamental-ngx/platform';
+
+
 
 @Component({
   selector: 'core-form',
   templateUrl: './core-form.component.html',
-  styleUrls: ['./core-form.component.scss']
+  styleUrls: ['./core-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: ` <fd-date-picker type="range" [(ngModel)]="selectedRange"> </fd-date-picker>`,
+  providers: [
+      {
+          provide: DatetimeAdapter,
+          useClass: FdDatetimeAdapter
+      },
+      {
+          provide: DATE_TIME_FORMATS,
+          useValue: FD_DATETIME_FORMATS
+      }
+  ]
+  
+
 })
 export class CoreFormComponent implements OnInit {
   
@@ -34,6 +60,13 @@ export class CoreFormComponent implements OnInit {
     this.myform?.reset();
     }
   }*/
+
+  selectedRange: DateRange<FdDate>;
+
+  constructor(private datetimeAdapter: DatetimeAdapter<FdDate>) {
+      const today = this.datetimeAdapter.today();
+      this.selectedRange = new DateRange(today, this.datetimeAdapter.addCalendarDays(today, 1));
+  }
 ngOnInit(){
 this.reg = new FormGroup ({
 
