@@ -1,30 +1,27 @@
-# Fundamental NGX Sample Application
+# App
 
-Intended as a showcase of fundamental-ngx components and their capabilities. The project also uses Firebase for some mock data loading.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
 
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/fundamental-ngx-sample-apps)](https://api.reuse.software/info/github.com/SAP-samples/fundamental-ngx-sample-apps)
+## Development server
 
-## Requirements
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Basic knowledge of Angular is expected.
+## Code scaffolding
 
-## Download and Installation
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-1. Clone the repository.
-2. Run npm install
-3. Run `ng serve` in the root.
-4. Navigate to `http://localhost:4200/`.
+## Build
 
-The application will automatically reload if you change any of the source files.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Known Issues
+## Running unit tests
 
-There are no known issues.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## How to obtain support
+## Running end-to-end tests
 
-Please post an issue on this repository's issues section.
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Developer Certificate of Origin (DCO)
+## Further help
 
-Due to legal reasons, contributors will be asked to accept a DCO before they submit the first pull request to this projects, this happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
