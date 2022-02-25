@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
     ReactiveFormsModule,
     FormsModule,
@@ -16,7 +16,6 @@ import {
     FD_DATETIME_FORMATS
   } from '@fundamental-ngx/core/datetime';
   import { DateRange } from '@fundamental-ngx/core/calendar';
-  import { FdpFormGroupModule } from '@fundamental-ngx/platform';
 
 
 
