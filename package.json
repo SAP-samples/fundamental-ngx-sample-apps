@@ -24,7 +24,7 @@
     "@fundamental-ngx/platform": "^0.33.4",
     "@fundamental-styles/fn": "0.22.0-rc.9",
     "@sap-theming/theming-base-content": "11.1.34",
-    "fundamental-styles": "0.22.0-rc.9",
+    "fundamental-styles": "0.22.0-rc.10",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
