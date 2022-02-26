@@ -50,6 +50,16 @@
         </div>
     </fieldset>
 
+    <div fd-bar barDesign="footer">
+        <div fd-bar-right>
+            <fd-bar-element>
+                <button type="submit" fd-button label="Register" fdType="emphasized" (click)="showLoad.loading = true"></button>
+            </fd-bar-element>
+            <fd-bar-element>
+                <button type="reset" fd-button label="Reset" ariaLabel="Reset form data" (click)="reg.reset()"></button>
+            </fd-bar-element>
+        </div>
+    </div>
 
 
 </form>
