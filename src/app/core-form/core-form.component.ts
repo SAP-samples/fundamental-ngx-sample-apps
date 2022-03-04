@@ -10,6 +10,7 @@ import {
   import { state } from '@angular/animations';
   import {
     DatetimeAdapter,
+    DateTimeFormats,
     DATE_TIME_FORMATS,
     FdDate,
     FdDatetimeAdapter,
@@ -24,7 +25,6 @@ import {
   templateUrl: './core-form.component.html',
   styleUrls: ['./core-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <fd-date-picker type="range" [(ngModel)]="selectedRange"> </fd-date-picker>`,
   providers: [
       {
           provide: DatetimeAdapter,
@@ -60,12 +60,8 @@ export class CoreFormComponent implements OnInit {
     }
   }*/
 
-  selectedRange: DateRange<FdDate>;
+  date = FdDate.getNow();
 
-  constructor(private datetimeAdapter: DatetimeAdapter<FdDate>) {
-      const today = this.datetimeAdapter.today();
-      this.selectedRange = new DateRange(today, this.datetimeAdapter.addCalendarDays(today, 1));
-  }
 ngOnInit(){
 this.reg = new FormGroup ({
 
