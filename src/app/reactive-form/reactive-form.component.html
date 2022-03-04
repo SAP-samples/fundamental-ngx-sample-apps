@@ -1,3 +1,69 @@
+<form [formGroup]="reg">
+    <fieldset fd-fieldset>
+        <div fd-form-item>
+            <label fd-form-label for="firstName" [required]="true">First Name</label>
+            <fd-form-input-message-group>
+                <input  fd-form-control 
+                        type="text" 
+                        id="firstName" 
+                        placeholder="Enter Your First Name"
+                        formControlName="firstName"
+                        state="success" />
+                <fd-form-message type="success">
+                    Pellentesque metus lacus commodo eget justo ut rutrum varius nunc
+                </fd-form-message>
+            </fd-form-input-message-group>
+        </div>
+
+        <div fd-form-item>
+
+            <label fd-form-label for="lastName" [required]="true">Last Name</label>
+            <fd-form-input-message-group>
+                <input  fd-form-control 
+                        type="text" 
+                        id="lastName" 
+                        placeholder="Enter Your Last Name"
+                        formControlName="lastName"
+                        state="success" />
+                <fd-form-message type="success">
+                    Pellentesque metus lacus commodo eget justo ut rutrum varius nunc
+                </fd-form-message>
+            </fd-form-input-message-group>
+
+        </div>
+
+        <div fd-form-item>
+            <label fd-form-label [required]="true" for="firstNameGroup">First Name</label>
+            <fd-form-input-message-group>
+                <fd-input-group id="firstNameGroup"
+                    placement="before" 
+                    glyph="account" 
+                    placeholder="Enter First Name" 
+                    glyphAriaLabel="account"
+                    [required]="true"
+                    minlength="3" maxlength="10"
+                    pattern="[a-zA-Z]+"></fd-input-group>
+                <fd-form-message type="success">
+                    Pellentesque metus lacus commodo eget justo ut rutrum varius nunc
+                </fd-form-message>
+            </fd-form-input-message-group>
+        </div>
+    </fieldset>
+
+    <div fd-bar barDesign="footer">
+        <div fd-bar-right>
+            <fd-bar-element>
+                <button type="submit" fd-button label="Register" fdType="emphasized" (click)="showLoad.loading = true"></button>
+            </fd-bar-element>
+            <fd-bar-element>
+                <button type="reset" fd-button label="Reset" ariaLabel="Reset form data" (click)="reg.reset()"></button>
+            </fd-bar-element>
+        </div>
+    </div>
+
+
+</form>
+<!-- 
 <form #register="ngForm" (ngSubmit)="submit(register)" id='form' >
 
     <label fd-form-label [required]="true">First Name</label>
@@ -119,4 +185,4 @@
 
 <div *ngIf="showLoad.loading" style="text-align: center">
     <fd-busy-indicator [loading]="true" ariaLabel="loading" title="Please Wait"></fd-busy-indicator>
-</div>
+</div> -->
