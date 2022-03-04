@@ -1,4 +1,4 @@
-<form #register="ngForm" (ngSubmit)="submit(register)" id='form' >
+<form #register="ngForm" (ngSubmit)="submit(register)" >
 
     <label fd-form-label [required]="true">First Name</label>
     <fd-input-group 
@@ -40,7 +40,7 @@
     <div fd-form-item>
         <label fd-form-label [required]="true">Password</label>
         <fd-input-group placement="before" glyph="locked" placeholder="Enter password" glyphAriaLabel="password" input
-            type="password" maxlength="12" pattern="[A-Za-z]{1,32}">
+            type="password"  ngModel name="password"  maxlength="12" pattern="[A-Za-z]{1,32}">
         </fd-input-group>
     </div>
 
@@ -48,21 +48,21 @@
     <div fd-form-item>
         <label fd-form-label [required]="true">Repeat Password</label>
         <fd-input-group placement="before" glyph="locked" placeholder="Re-enter password" glyphAriaLabel="password"
-            input type="password" maxlength="12" pattern="[A-Za-z]{1,32}">
+            input type="password"  ngModel name="repeat_password"  maxlength="12" pattern="[A-Za-z]{1,32}">
         </fd-input-group>
     </div>
 
 
     <div fd-form-item>
         <label fd-form-label [required]="true">Date of Birth</label>
-        <fd-date-picker [(ngModel)]="date"></fd-date-picker>
+        <fd-date-picker [(ngModel)]="date" name="date"></fd-date-picker>
 
     </div>
 
     <div fd-form-item>
         <label fd-form-label>Country</label>
         <fd-combobox id="countries" placeholder="Pick a Country" [filterFn]="customFilter"
-            [dropdownValues]="dropdownValues">
+            [dropdownValues]="dropdownValues" ngModel name="country">
         </fd-combobox>
 
     </div>
@@ -71,22 +71,22 @@
 
         <fieldset fd-fieldset>
             <legend fd-form-label>Gender</legend>
-            <fd-form-group [isInline]="true">
+            <fd-form-group [isInline]="true" >
 
                 <div fd-form-item>
 
 
-                    <fd-radio-button value="val1" id="radio-7" name="radio-name-3" [(ngModel)]="optionThreeVariable">
+                    <fd-radio-button value="Male" id="radio-7" name="gender" [(ngModel)]="optionThreeVariable " >
                         Male
                     </fd-radio-button>
                 </div>
                 <div fd-form-item>
-                    <fd-radio-button value="val2" id="radio-8" name="radio-name-3" [(ngModel)]="optionThreeVariable">
+                    <fd-radio-button value="Female" id="radio-8" name="gender" [(ngModel)]="optionThreeVariable">
                         Female
                     </fd-radio-button>
                 </div>
                 <div fd-form-item>
-                    <fd-radio-button value="val3" id="radio-9" name="radio-name-3" [(ngModel)]="optionThreeVariable">
+                    <fd-radio-button value="Other" id="radio-9" name="gender" [(ngModel)]="optionThreeVariable">
                         Other
                     </fd-radio-button>
                 </div>
@@ -94,16 +94,16 @@
         </fieldset>
     </div>
 
-    <div fd-form-item>
+    <div fd-form-item  >
         <label fd-form-label [colon]="true" for="textarea-11">Short Bio</label>
-        <textarea fd-form-control id="textarea-11" placeholder=""></textarea>
+        <textarea fd-form-control id="textarea-11" placeholder="" ngModel name = "bio"></textarea>
     </div>
 
 
     <div fd-form-item>
         <label fd-form-label>Favourite Ice Cream</label>
         <fd-combobox id="icecream" placeholder="Ice Cream Flavours" [filterFn]="customFilter"
-            [dropdownValues]="dropdownVal2 ">
+            [dropdownValues]="dropdownVal2 "  ngModel name = "icecream">
         </fd-combobox>
 
     </div>

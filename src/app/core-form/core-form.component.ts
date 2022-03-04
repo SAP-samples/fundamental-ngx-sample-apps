@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
-    ReactiveFormsModule,
     FormsModule,
     FormGroup,
     FormControl,
     Validators,
-    FormBuilder
+    FormBuilder,
+    NgForm
   } from '@angular/forms';
   import { state } from '@angular/animations';
   import {
@@ -45,21 +45,6 @@ export class CoreFormComponent implements OnInit {
   //Drop down elements with their values
   selectedIndex!: number;
   reg: FormGroup | undefined;
-  //myform!: FormGroup;
-  //firstName!: FormControl;
-  //lastName!: FormControl;
-  //email!: FormControl;
-  //password!: FormControl;
-  //'firstname' : new FormControl(null, Validators.required)
-
-  /*onReset(){
-
-    if (this.myform.valid){
-      console.log("Clear the format")
-    this.myform?.reset();
-    }
-  }*/
-
   date = FdDate.getNow();
 
 ngOnInit(){
@@ -70,9 +55,25 @@ this.reg = new FormGroup ({
 
 }
 
+  
+
 submit(register: any) {
   
     console.log("Form Submitted!", register);
+    console.log("First Name is : " + register.value.firstName);
+    console.log("Last Name is : " + register.value.lastName);
+    console.log("Email is : " + register.value.email);
+    console.log("Password is : " + register.value.password);
+    console.log("Repeat Password is : " + register.value.repeat_password);
+    console.log("Date of bith is : " + register.value.date);
+    console.log("Country is : " + register.value.country);
+    console.log("Gender is : " + register.value.gender);
+    console.log("Short Bio is : " + register.value.bio);
+    console.log("Ice cream flavor is : " + register.value.icecream);
+
+  
+
+
   
 }
 
