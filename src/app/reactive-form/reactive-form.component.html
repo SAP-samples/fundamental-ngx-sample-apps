@@ -1,23 +1,22 @@
 <form [formGroup]="reg">
     <fieldset fd-fieldset>
         <div fd-form-item>
-            <label fd-form-label for="firstName" [required]="true">First Name</label>
+            <label fd-form-label for="firstName" [required]="f['firstName'].errors && f['firstName'].errors['required']">First Name:</label>
             <fd-form-input-message-group>
                 <input  fd-form-control 
                         type="text" 
                         id="firstName" 
                         placeholder="Enter Your First Name"
                         formControlName="firstName"
-                        state="success" />
-                <fd-form-message type="success">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius nunc
+                        [state]="getFieldState(f['firstName'])" />
+                <fd-form-message type="error" *ngIf="f['firstName'].errors && f['firstName'].errors['required']">
+                    This field is required
                 </fd-form-message>
             </fd-form-input-message-group>
         </div>
 
         <div fd-form-item>
-
-            <label fd-form-label for="lastName" [required]="true">Last Name</label>
+            <label fd-form-label for="lastName" [required]="f['lastName'].errors && f['lastName'].errors['required']">Last Name:</label>
             <fd-form-input-message-group>
                 <input  fd-form-control 
                         type="text" 
@@ -25,12 +24,39 @@
                         placeholder="Enter Your Last Name"
                         formControlName="lastName"
                         state="success" />
-                <fd-form-message type="success">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius nunc
+                <fd-form-message type="error" *ngIf="f['lastName'].errors && f['lastName'].errors['required']">
+                    This field is required
                 </fd-form-message>
             </fd-form-input-message-group>
-
         </div>
+
+        <div fd-form-item>
+            <label fd-form-label for="email" [required]="f['email'].errors && f['email'].errors['required']">Email:</label>
+            <fd-form-input-message-group>
+                <input fd-form-control
+                    id="email"
+                    type="email"
+                    formControlName="email"
+                    state="error" />
+                <fd-form-message type="error" *ngIf="f['email'].touched && f['email'].invalid">
+                    <p>Enter a valid email</p>
+                </fd-form-message>
+
+            </fd-form-input-message-group>
+            <div>{{ f['email'].invalid | json }}</div>
+            <div>{{ f['email'].touched | json }}</div>
+        </div>
+
+        <!-- <div fd-form-item>
+            <label fd-form-label for="" [required]=""></label>
+            <fd-form-input-message-group>
+                <input fd-form-control
+                type="text" />
+                <fd-form-message type="error">
+                    
+                </fd-form-message>
+            </fd-form-input-message-group>
+        </div> -->
 
         <div fd-form-item>
             <label fd-form-label [required]="true" for="firstNameGroup">First Name</label>
@@ -53,7 +79,7 @@
     <div fd-bar barDesign="footer">
         <div fd-bar-right>
             <fd-bar-element>
-                <button type="submit" fd-button label="Register" fdType="emphasized" (click)="showLoad.loading = true"></button>
+                <button type="submit" fd-button label="Register" fdType="emphasized"></button>
             </fd-bar-element>
             <fd-bar-element>
                 <button type="reset" fd-button label="Reset" ariaLabel="Reset form data" (click)="reg.reset()"></button>
