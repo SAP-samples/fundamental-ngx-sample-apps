@@ -5,7 +5,8 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder
+  FormBuilder,
+  FormArray
 } from '@angular/forms';
 import { state } from '@angular/animations';
 import {
@@ -23,8 +24,6 @@ import { DateRange } from '@fundamental-ngx/core/calendar';
   selector: 'reactive-form',
   templateUrl: './reactive-form.component.html',
   styleUrls: ['./reactive-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <fd-date-picker type="range" [(ngModel)]="selectedRange"> </fd-date-picker>`,
   providers: [
     {
       provide: DatetimeAdapter,
@@ -71,8 +70,14 @@ export class ReactiveFormComponent implements OnInit {
     this.reg = this.fb.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.compose( [ Validators.required, Validators.email ])),
       firstNameGroup: new FormControl('', Validators.required),
     });
+    console.log(this.reg);
+  }
+
+  get f() {
+    return this.reg.controls;
   }
 
   submit(register: any) {
