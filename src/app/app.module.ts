@@ -11,6 +11,7 @@ import { LandingComponent } from './landing/landing.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from '@fundamental-ngx/core/button';
 import { FundamentalNgxCoreModule } from '@fundamental-ngx/core';
+import { FundamentalNgxPlatformModule } from '@fundamental-ngx/platform';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { FundamentalNgxCoreModule } from '@fundamental-ngx/core';
     AppRoutingModule,
     BrowserAnimationsModule,
     ButtonModule,
-
+    FundamentalNgxPlatformModule,
     FundamentalNgxCoreModule,
     FormsModule,
     ReactiveFormsModule,
