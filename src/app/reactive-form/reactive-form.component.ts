@@ -5,7 +5,9 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder
+  FormBuilder,
+  FormArray,
+  AbstractControl
 } from '@angular/forms';
 import { state } from '@angular/animations';
 import {
@@ -23,8 +25,6 @@ import { DateRange } from '@fundamental-ngx/core/calendar';
   selector: 'reactive-form',
   templateUrl: './reactive-form.component.html',
   styleUrls: ['./reactive-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <fd-date-picker type="range" [(ngModel)]="selectedRange"> </fd-date-picker>`,
   providers: [
     {
       provide: DatetimeAdapter,
@@ -60,6 +60,8 @@ export class ReactiveFormComponent implements OnInit {
     }
   }*/
 
+  vtest: boolean | undefined;
+
   selectedRange: DateRange<FdDate>;
 
   constructor(private datetimeAdapter: DatetimeAdapter<FdDate>, private fb: FormBuilder) {
@@ -68,11 +70,18 @@ export class ReactiveFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.vtest = undefined;
     this.reg = this.fb.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.compose( [ Validators.required, Validators.email ])),
       firstNameGroup: new FormControl('', Validators.required),
     });
+    console.log(this.reg);
+  }
+
+  get f() {
+    return this.reg.controls;
   }
 
   submit(register: any) {
@@ -90,7 +99,8 @@ export class ReactiveFormComponent implements OnInit {
     return content.filter((item) => item.startsWith(searchTerm));
 
   }
-  showLoad = {
-    loading: false
+
+  getFieldState(formControl: AbstractControl) {
+    return formControl.invalid && formControl.touched ? 'error' : undefined;
   }
 }
