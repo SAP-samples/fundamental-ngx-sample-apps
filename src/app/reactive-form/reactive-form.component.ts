@@ -60,6 +60,8 @@ export class ReactiveFormComponent implements OnInit {
     }
   }*/
 
+  vtest: boolean | undefined;
+
   selectedRange: DateRange<FdDate>;
 
   constructor(private datetimeAdapter: DatetimeAdapter<FdDate>, private fb: FormBuilder) {
@@ -68,6 +70,7 @@ export class ReactiveFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.vtest = undefined;
     this.reg = this.fb.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -98,6 +101,6 @@ export class ReactiveFormComponent implements OnInit {
   }
 
   getFieldState(formControl: AbstractControl) {
-    return formControl.invalid && formControl.touched ? 'error' : 'information'
+    return formControl.invalid && formControl.touched ? 'error' : undefined;
   }
 }
