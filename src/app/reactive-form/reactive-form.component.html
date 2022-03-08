@@ -5,6 +5,7 @@
             <fd-form-input-message-group>
                 <input  fd-form-control 
                         type="text" 
+                        [compact]="vtest"
                         id="firstName" 
                         placeholder="Enter Your First Name"
                         formControlName="firstName"
@@ -23,7 +24,7 @@
                         id="lastName" 
                         placeholder="Enter Your Last Name"
                         formControlName="lastName"
-                        state="success" />
+                        [state]="getFieldState(f['lastName'])" />
                 <fd-form-message type="error" *ngIf="f['lastName'].errors && f['lastName'].errors['required']">
                     This field is required
                 </fd-form-message>
@@ -37,43 +38,15 @@
                     id="email"
                     type="email"
                     formControlName="email"
-                    state="error" />
+                    placeholder="Enter Your Email Address"
+                    [state]="getFieldState(f['email'])" />
                 <fd-form-message type="error" *ngIf="f['email'].touched && f['email'].invalid">
                     <p>Enter a valid email</p>
                 </fd-form-message>
 
             </fd-form-input-message-group>
-            <div>{{ f['email'].invalid | json }}</div>
-            <div>{{ f['email'].touched | json }}</div>
         </div>
 
-        <!-- <div fd-form-item>
-            <label fd-form-label for="" [required]=""></label>
-            <fd-form-input-message-group>
-                <input fd-form-control
-                type="text" />
-                <fd-form-message type="error">
-                    
-                </fd-form-message>
-            </fd-form-input-message-group>
-        </div> -->
-
-        <div fd-form-item>
-            <label fd-form-label [required]="true" for="firstNameGroup">First Name</label>
-            <fd-form-input-message-group>
-                <fd-input-group id="firstNameGroup"
-                    placement="before" 
-                    glyph="account" 
-                    placeholder="Enter First Name" 
-                    glyphAriaLabel="account"
-                    [required]="true"
-                    minlength="3" maxlength="10"
-                    pattern="[a-zA-Z]+"></fd-input-group>
-                <fd-form-message type="success">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius nunc
-                </fd-form-message>
-            </fd-form-input-message-group>
-        </div>
     </fieldset>
 
     <div fd-bar barDesign="footer">
