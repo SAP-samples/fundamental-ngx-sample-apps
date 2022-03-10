@@ -96,7 +96,21 @@
             </fd-combobox>
     
         </div>
-
+        
+        <label fd-form-label>Gender:</label>
+        <fd-form-group [isInline]="true" >
+        <div fd-form-item *ngFor="let value of radioInput.values">
+            <fd-radio-button
+                selectedValue="reg.controls.radioInput.value"
+                value="value"
+                name="radioInput.name"
+                [formControlName]="radioInput.formControlName"
+                
+            > {{ value }}
+            
+        </fd-radio-button>  </div></fd-form-group>
+            
+        
         <div fd-form-item>
             <label fd-form-label [colon]="true" for="textarea">Short Bio:</label>
             <textarea
@@ -108,6 +122,20 @@
             
         </div>
 
+        <div fd-form-item>
+            <label fd-form-label [required]="true">Ice Cream Flavours</label>
+            <fd-combobox
+            state="information"
+            [communicateByObject]="true"
+            placeholder="Type some text..."
+            formControlName="itemOnDropdownMode"
+            [required]="true"
+            [displayFn]="myDisplayFunction"
+            [dropdownValues]="dropdownValues2"
+        >
+        </fd-combobox>
+        </div>
+      
        
       
         
