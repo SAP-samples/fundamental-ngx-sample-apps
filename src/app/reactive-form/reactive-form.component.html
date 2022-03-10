@@ -46,8 +46,75 @@
 
             </fd-form-input-message-group>
         </div>
+        <div fd-form-item>
+            <label fd-form-label for="password" [required]="f['password'].errors && f['password'].errors['required']">Password:</label>
+            <fd-form-input-message-group>
+                <input fd-form-control
+                    id="password"
+                    type="password"
+                    formControlName="password"
+                    placeholder="Enter Your Password"
+                    [state]="getFieldState(f['password'])" />
+                <fd-form-message type="error" *ngIf="f['password'].touched && f['password'].invalid">
+                    <p>Enter a valid password</p>
+                </fd-form-message>
 
-    </fieldset>
+            </fd-form-input-message-group>
+        </div>
+        <div fd-form-item>
+            <label fd-form-label for="repeat_password" [required]="f['repeat_password'].errors && f['repeat_password'].errors['repeat_password']">Repeat Password:</label>
+            <fd-form-input-message-group>
+                <input fd-form-control
+                    id="repeat_password"
+                    type="repeat_password"
+                    formControlName="repeat_password"
+                    placeholder="Repeat Your Password"
+                    [state]="getFieldState(f['repeat_password'])" />
+                <fd-form-message type="error" *ngIf="f['repeat_password'].touched && f['repeat_password'].invalid">
+                    <p>Enter a valid password</p>
+                </fd-form-message>
+
+            </fd-form-input-message-group>
+        </div>
+
+        <div fd-form-item>
+            <label for="date" fd-form-label [required]="true">Date of Birth</label>
+            <fd-date-picker
+               
+                [required]="true" 
+                formControlName="date"
+                inputId="date"
+            >
+            </fd-date-picker>
+           
+        </div>
+      
+        <div fd-form-item>
+            <label fd-form-label>Country</label>
+            <fd-combobox id="countries" placeholder="Pick a Country" [filterFn]="customFilter"
+                [dropdownValues]="dropdownValues" ngModel name="country">
+            </fd-combobox>
+    
+        </div>
+
+        <div fd-form-item>
+            <label fd-form-label [colon]="true" for="textarea">Short Bio:</label>
+            <textarea
+                formControlName="textAreaControl"
+                fd-form-control
+                id="textarea"
+                placeholder=""
+            ></textarea>
+            
+        </div>
+
+       
+      
+        
+        <div fd-form-item>
+            <fd-checkbox>Remember me</fd-checkbox>
+        </div>
+        </fieldset>
 
     <div fd-bar barDesign="footer">
         <div fd-bar-right>
