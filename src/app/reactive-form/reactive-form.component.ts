@@ -45,6 +45,7 @@ export class ReactiveFormComponent implements OnInit {
   //Drop down elements with their values
   selectedIndex!: number;
   reg!: FormGroup;
+  
   //myform!: FormGroup;
   //firstName!: FormControl;
   //lastName!: FormControl;
@@ -75,11 +76,24 @@ export class ReactiveFormComponent implements OnInit {
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       email: new FormControl('', Validators.compose( [ Validators.required, Validators.email ])),
+      password: new FormControl('', Validators.required),
+      repeat_password: new FormControl('', Validators.required),
       firstNameGroup: new FormControl('', Validators.required),
+      date : new FormControl(FdDate.getNow()),
+      radioInput: new FormControl(1),
+      textAreaControl: new FormControl(''),
     });
     console.log(this.reg);
+    
+    
   }
 
+  
+   radioInput = {
+        name: 'radio-input-form-1',
+        formControlName: 'radioInput',
+        values: [1, 2, 3]
+    };
   get f() {
     return this.reg.controls;
   }
@@ -103,4 +117,7 @@ export class ReactiveFormComponent implements OnInit {
   getFieldState(formControl: AbstractControl) {
     return formControl.invalid && formControl.touched ? 'error' : undefined;
   }
+
+ 
+ 
 }
