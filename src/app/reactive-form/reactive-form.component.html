@@ -89,12 +89,18 @@
            
         </div>
       
+          
+
         <div fd-form-item>
-            <label fd-form-label>Country</label>
-            <fd-combobox id="countries" placeholder="Pick a Country" [filterFn]="customFilter"
-                [dropdownValues]="dropdownValues" ngModel name="country">
-            </fd-combobox>
-    
+            <label fd-form-label >Country:</label>
+            <fd-combobox
+            state="information"
+            [communicateByObject]="true"
+            placeholder="Type some text..."
+            formControlName="country"
+            [dropdownValues]="dropdownValues"
+        >
+        </fd-combobox>
         </div>
         
         <label fd-form-label>Gender:</label>
@@ -121,16 +127,16 @@
             ></textarea>
             
         </div>
+       
+        
 
         <div fd-form-item>
-            <label fd-form-label [required]="true">Ice Cream Flavours</label>
+            <label fd-form-label >Ice Cream Flavours</label>
             <fd-combobox
             state="information"
             [communicateByObject]="true"
             placeholder="Type some text..."
-            formControlName="itemOnDropdownMode"
-            [required]="true"
-            [displayFn]="myDisplayFunction"
+            formControlName="icecream"
             [dropdownValues]="dropdownValues2"
         >
         </fd-combobox>

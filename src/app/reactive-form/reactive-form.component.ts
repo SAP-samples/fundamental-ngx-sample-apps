@@ -86,31 +86,16 @@ export class ReactiveFormComponent implements OnInit {
       firstNameGroup: new FormControl('', Validators.required),
       date : new FormControl(FdDate.getNow()),
       radioInput: new FormControl(''),
+      country: new FormControl(),
       textAreaControl: new FormControl(''),
-      item: new FormControl(null),
-      itemOnDropdownMode: new FormControl(null),
+      icecream: new FormControl(),
     });
     console.log(this.reg);
     
     
   }
 
-  dropdownValues2: ComboboxItem[] = [
-    { displayedValue: 'Mint Chocolate Chip', value: 'MintChocolateChipValue' },
-    { displayedValue: 'Vanilla', value: 'VanillaValue' },
-    { displayedValue: 'Mango', value: 'MangoValue' },
-    { displayedValue: 'Chocolate', value: 'ChocolateValue' },
-    { displayedValue: 'Pistachio', value: 'PistachioValue' },
-    { displayedValue: 'Cookie Dough', value: 'CookieDoughValue' },
-    { displayedValue: 'Strawberry', value: 'StrawberryValue' },
-    { displayedValue: 'Green Tea', value: 'GreenTeaValue' },
-  ];
-
-  myDisplayFunction = (item: ComboboxItem): string => {
-    if (item) {
-      return item.displayedValue;
-    }
-  };
+ 
   
   radioInput = {
     name: 'radio-input-form',
@@ -127,7 +112,7 @@ export class ReactiveFormComponent implements OnInit {
 
 
   dropdownValues = ['Albania', 'Australia', 'Canada', 'USA'];
-  dropdownVal2 = ['Mint Chocolate Chip', 'Vanilla', 'Mango', 'Chocolate', 'Pistachio', 'Cookie Dough', 'Strawberry', 'Green Tea'];
+  dropdownValues2 = ['Mint Chocolate Chip', 'Vanilla', 'Mango', 'Chocolate', 'Pistachio', 'Cookie Dough', 'Strawberry', 'Green Tea'];
 
 
 
