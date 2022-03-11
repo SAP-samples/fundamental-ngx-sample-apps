@@ -96,6 +96,14 @@ export class ReactiveFormComponent implements OnInit {
   }
 
  
+//loading button
+  loading = false;
+  Show(){
+  
+
+      this.loading = true;   
+  
+  }
   
   radioInput = {
     name: 'radio-input-form',

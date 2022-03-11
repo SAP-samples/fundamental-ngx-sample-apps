@@ -152,17 +152,22 @@
 
     <div fd-bar barDesign="footer">
         <div fd-bar-right>
-            <fd-bar-element>
-                <button type="submit" fd-button label="Register" fdType="emphasized"></button>
+            <fd-bar-element>     
+                <button type="submit" fd-button label="Register" fdType="emphasized" (click)="Show()"></button>
             </fd-bar-element>
             <fd-bar-element>
                 <button type="reset" fd-button label="Reset" ariaLabel="Reset form data" (click)="reg.reset()"></button>
             </fd-bar-element>
         </div>
     </div>
-
+   
+       
+    
 
 </form>
+<div style = "text-align:center">
+<fd-busy-indicator [loading]="loading"></fd-busy-indicator>
+</div>
 <!-- 
 <form #register="ngForm" (ngSubmit)="submit(register)" id='form' >
 
