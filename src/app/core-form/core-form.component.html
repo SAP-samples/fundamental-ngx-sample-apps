@@ -1,5 +1,5 @@
 <form #register="ngForm" (ngSubmit)="submit(register)" >
-
+    <fd-form-input-message-group>
     <label fd-form-label [required]="true">First Name</label>
     <fd-input-group 
         placement="before" 
@@ -13,10 +13,10 @@
     <fd-form-message type="error" *ngIf="firstName.touched && !firstName.valid && firstName?.errors?.['minlength']">
         First name is not correct.
     </fd-form-message>
+</fd-form-input-message-group>
 
 
-
-
+<fd-form-input-message-group>
     <label fd-form-label [required]="true">Last Name</label>
     <fd-input-group placement="before" glyph="account" placeholder="Enter Last Name" glyphAriaLabel="account"
         [required]="true" [showFocus]="true" ngModel name="lastName" #lastName="ngModel" minlength="3" maxlength="10"
@@ -25,9 +25,9 @@
     <fd-form-message type="error" *ngIf="lastName.touched && !lastName.valid && lastName?.errors?.['minlength']">
         Last name is not correct.
     </fd-form-message>
+</fd-form-input-message-group>
 
-
-
+<fd-form-input-message-group>
     <label fd-form-label [required]="true">Email</label>
     <fd-input-group placement="before" glyph="email" placeholder="Enter email" glyphAriaLabel="email" maxlength="3"
         ngModel name="email" #email="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" minlength="5">
@@ -36,21 +36,25 @@
         *ngIf="email.touched && !email.valid && email?.errors?.['pattern'] && email?.errors?.['minlength']">
         Email is not correct.
     </fd-form-message>
+</fd-form-input-message-group>
 
+<fd-form-input-message-group>
     <div fd-form-item>
         <label fd-form-label [required]="true">Password</label>
         <fd-input-group placement="before" glyph="locked" placeholder="Enter password" glyphAriaLabel="password" input
             type="password"  ngModel name="password"  maxlength="12" pattern="[A-Za-z]{1,32}">
         </fd-input-group>
     </div>
+</fd-form-input-message-group>
 
-
+<fd-form-input-message-group>
     <div fd-form-item>
         <label fd-form-label [required]="true">Repeat Password</label>
         <fd-input-group placement="before" glyph="locked" placeholder="Re-enter password" glyphAriaLabel="password"
             input type="password"  ngModel name="repeat_password"  maxlength="12" pattern="[A-Za-z]{1,32}">
         </fd-input-group>
     </div>
+</fd-form-input-message-group>
 
 
     <div fd-form-item>
