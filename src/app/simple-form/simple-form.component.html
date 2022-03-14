@@ -29,19 +29,22 @@
             <li>
               <label for="country">Country:</label>
               <select id="country" name="country">
-                <option value="australia">Albania</option>
+                <option value="albania">Albania</option>
                 <option value="australia">Australia</option>
                 <option value="canada">Canada</option>
                 <option value="usa">USA</option>
               </select>
             </li>
             <li>
-              <input type="radio" name="sex" value="Female" id="female">
-              <label for="femaile">Female</label>
-              <input type="radio" name="sex" value="Male" id="male">
-              <label for="femaile">Male</label>
-              <input type="radio" name="sex" value="Other" id="other">
-              <label for="femaile">Other</label>
+              <fieldset>
+                <legend>Sex:</legend>
+                <input type="radio" name="sex" value="Female" id="female">
+                <label for="femaile">Female</label>
+                <input type="radio" name="sex" value="Male" id="male">
+                <label for="femaile">Male</label>
+                <input type="radio" name="sex" value="Other" id="other">
+                <label for="femaile">Other</label>
+              </fieldset>
             </li>
             <li>
               <label for="bio">Short Bio:</label>
@@ -62,8 +65,10 @@
               </datalist>
             </li>
             <li>
-              <input type="checkbox" checked name="remember" value="remember">
-              <label>Remember me</label>
+              <fieldset>
+                <legend>Remember Me</legend>
+                <input type="checkbox" id="rememberme" checked name="remember" value="remember">
+              </fieldset>
             </li>
           </ul>
         </fieldset>
