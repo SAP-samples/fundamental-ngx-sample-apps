@@ -1,99 +1,113 @@
+<form action="/form-page-handling" method="post" clas="fd-container">
+  <div class="fd-row">
+    <div class="fd-form-header">
+      <span class="fd-form-header__text">Personal Information</span>
+    </div>
+  </div>
 
-    <form action="/form-page-handling" method="post">
+  <div class="fd-row">
+    <div class="fd-form-group fd-col fd-col--12 fd-col-lg--6">
+      <div class="fd-form-group__header">
+        <h2 class="fd-form-group__header-text">Primary Information</h2>
+      </div>
 
-        <div class="fd-form-header">
-          <span class="fd-form-header__text">Personal Information</span>
-        </div>
+      <div class="fd-form-item">
+        <label for="first_name" class="fd-form-label fd-form-label--colon">First Name</label>
+        <input type="text" placeholder="Enter First Name" name="first_name" id="first_name" required maxlength="32"
+          pattern="[A-Za-z]{1,32}">
+      </div>
 
-        <div class="fd-form-group">
-          <div class="fd-form-group__header">
-            <h2 class="fd-form-group__header-text">Primary Information</h2>
-          </div>
+      <div class="fd-form-item">
+        <label for="last_name" class="fd-form-label fd-form-label--colon">Last Name</label>
+        <input type="text" placeholder="Enter Last Name" name="last_name" id="last_name" required maxlength="32"
+          pattern="[A-Za-z]{1,32}">
+      </div>
 
-          <div class="fd-form-item">
-            <label for="first_name" class="fd-form-label fd-form-label--colon">First Name</label>
-            <input type="text" placeholder="Enter First Name" name="first_name" id="first_name" required maxlength="32" pattern="[A-Za-z]{1,32}">
-          </div>
-          
-          <div class="fd-form-item">
-            <label for="last_name" class="fd-form-label fd-form-label--colon">Last Name</label>
-            <input type="text" placeholder="Enter Last Name" name="last_name" id="last_name" required  maxlength="32" pattern="[A-Za-z]{1,32}">
-          </div>
+      <div class="fd-form-item">
+        <label for="email" class="fd-form-label fd-form-label--colon">Email</label>
+        <input type="email" placeholder="Enter Email" name="email" id="email" required>
+      </div>
 
-          <div class="fd-form-item">
-            <label for="email" class="fd-form-label fd-form-label--colon">Email</label>
-            <input type="email" placeholder="Enter Email" name="email" id="email" required>
-          </div>
+      <div class="fd-form-item">
+        <label for="psw" class="fd-form-label fd-form-label--colon">Password</label>
+        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+      </div>
 
-          <div class="fd-form-item">
-            <label for="psw" class="fd-form-label fd-form-label--colon">Password</label>
-            <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-          </div>
-          <div class="fd-form-item">
-            <label for="psw-repeat" class="fd-form-label fd-form-label--colon">Repeat Password</label>
-            <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-          </div>
-        </div>
+      <div class="fd-form-item">
+        <label for="psw-repeat" class="fd-form-label fd-form-label--colon">Repeat Password</label>
+        <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+      </div>
+    </div>
 
-        <div class="fd-form-group">
-          <div class="fd-form-group__header">
-            <h2 class="fd-form-group__header-text">Secondary Information</h2>
-          </div>
+    <div class="fd-form-group fd-col fd-col--12 fd-col-lg--6">
 
-          <div class="fd-form-item">
-            <label for="birthday" class="fd-form-label fd-form-label--colon">Date of Birth</label>
-            <input type="date" name="bday" id="bday">
-          </div>
-          <div class="fd-form-item">
-            <label for="country" class="fd-form-label fd-form-label--colon">Country</label>
-            <select id="country" name="country">
-              <option value="albania">Albania</option>
-              <option value="australia">Australia</option>
-              <option value="canada">Canada</option>
-              <option value="usa">USA</option>
-            </select>
-          </div>
-          <div class="fd-form-item">
-            <fieldset class="fd-fieldset">
-              <legend class="fd-fieldset__legend">Sex:</legend>
-              <input type="radio" name="sex" value="Female" id="female">
-              <label for="femaile">Female</label>
-              <input type="radio" name="sex" value="Male" id="male">
-              <label for="femaile">Male</label>
-              <input type="radio" name="sex" value="Other" id="other">
-              <label for="femaile">Other</label>
-            </fieldset>
-          </div>
-          <div class="fd-form-item">
-            <label for="bio" class="fd-form-label fd-form-label--colon">Short Bio</label>
-            <textarea name="bio" rows="4" cols="50"></textarea>
-          </div>
-          <div class="fd-form-item">
-            <label for="icecream" class="fd-form-label fd-form-label--colon">Favourite Ice Cream</label>
-            <input type="text" name="icecream" required list="icecreams" id="icecream">
-            <datalist id="icecreams">
-              <option value="Mint Chocolate Chip"></option>
-              <option value="Vanilla"></option>
-              <option value="Mango"></option>
-              <option value="Chocolate"></option>
-              <option value="Pistachio"></option>
-              <option value="Cookie Dough"></option>
-              <option value="Strawberry"></option>
-              <option value="Green Tea"></option>
-            </datalist>
-          </div>
-          <div class="fd-form-item">
-            <fieldset class="fd-fieldset">
-              <legend class="fd-fieldset__legend">Remember Me:</legend>
-              <input type="checkbox" id="rememberme" checked name="remember" value="remember">
-            </fieldset>
-            
-          </div>
+      <div class="fd-form-group__header">
+        <h2 class="fd-form-group__header-text">Secondary Information</h2>
+      </div>
 
-        </div>
+      <div class="fd-form-item">
+        <label for="birthday" class="fd-form-label fd-form-label--colon">Date of Birth</label>
+        <input type="date" name="bday" id="bday">
+      </div>
+      <div class="fd-form-item">
+        <label for="country" class="fd-form-label fd-form-label--colon">Country</label>
+        <select id="country" name="country">
+          <option value="albania">Albania</option>
+          <option value="australia">Australia</option>
+          <option value="canada">Canada</option>
+          <option value="usa">USA</option>
+        </select>
+      </div>
+      <div class="fd-form-item">
+        <fieldset class="fd-fieldset">
+          <legend class="fd-fieldset__legend">Sex:</legend>
+          <input type="radio" name="sex" value="Female" id="female">
+          <label for="femaile">Female</label>
+          <input type="radio" name="sex" value="Male" id="male">
+          <label for="femaile">Male</label>
+          <input type="radio" name="sex" value="Other" id="other">
+          <label for="femaile">Other</label>
+        </fieldset>
+      </div>
+      <div class="fd-form-item">
+        <label for="bio" class="fd-form-label fd-form-label--colon">Short Bio</label>
+        <textarea name="bio" rows="4" cols="50"></textarea>
+      </div>
+      <div class="fd-form-item">
+        <label for="icecream" class="fd-form-label fd-form-label--colon">Favourite Ice Cream</label>
+        <input type="text" name="icecream" required list="icecreams" id="icecream">
+        <datalist id="icecreams">
+          <option value="Mint Chocolate Chip"></option>
+          <option value="Vanilla"></option>
+          <option value="Mango"></option>
+          <option value="Chocolate"></option>
+          <option value="Pistachio"></option>
+          <option value="Cookie Dough"></option>
+          <option value="Strawberry"></option>
+          <option value="Green Tea"></option>
+        </datalist>
+      </div>
+      <div class="fd-form-item">
+        <fieldset class="fd-fieldset">
+          <legend class="fd-fieldset__legend">Remember Me:</legend>
+          <input type="checkbox" id="rememberme" checked name="remember" value="remember">
+        </fieldset>
 
-          
-  
+      </div>
+
+    </div>
+  </div>
+
+  <div class="fd-bar fd-bar--footer">
+    <div class="fd-bar__right">
+      <div class="fd-bar__element">
         <button type="submit">Register</button>
+
+      </div>
+      <div class="fd-bar__element">
         <input type="reset">
-      </form>
+
+      </div>
+    </div>
+  </div>
+</form>
