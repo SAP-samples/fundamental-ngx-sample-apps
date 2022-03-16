@@ -3,13 +3,15 @@
         <div fd-form-item>
             <label fd-form-label for="firstName" [required]="f['firstName'].errors && f['firstName'].errors['required']">First Name:</label>
             <fd-form-input-message-group>
-                <input  fd-form-control 
+                <fd-input-group
                         type="text" 
-                        [compact]="vtest"
+                        placement="before" 
+                        glyph="account"
+                        glyphAriaLabel="account"
                         id="firstName" 
                         placeholder="Enter Your First Name"
                         formControlName="firstName"
-                        [state]="getFieldState(f['firstName'])" />
+                        [state]="getFieldState(f['firstName'])" ></fd-input-group>
                 <fd-form-message type="error" *ngIf="f['firstName'].errors && f['firstName'].errors['required']">
                     This field is required
                 </fd-form-message>
@@ -19,12 +21,15 @@
         <div fd-form-item>
             <label fd-form-label for="lastName" [required]="f['lastName'].errors && f['lastName'].errors['required']">Last Name:</label>
             <fd-form-input-message-group>
-                <input  fd-form-control 
-                        type="text" 
-                        id="lastName" 
-                        placeholder="Enter Your Last Name"
-                        formControlName="lastName"
-                        [state]="getFieldState(f['lastName'])" />
+                <fd-input-group
+                type="text" 
+                placement="before" 
+                glyph="account"
+                glyphAriaLabel="account" 
+                id="lastName" 
+                placeholder="Enter Your Last Name"
+                formControlName="lastName"
+                [state]="getFieldState(f['lastName'])" ></fd-input-group>
                 <fd-form-message type="error" *ngIf="f['lastName'].errors && f['lastName'].errors['required']">
                     This field is required
                 </fd-form-message>
@@ -34,12 +39,16 @@
         <div fd-form-item>
             <label fd-form-label for="email" [required]="f['email'].errors && f['email'].errors['required']">Email:</label>
             <fd-form-input-message-group>
-                <input fd-form-control
+                <fd-input-group
+                    placement="before" 
+                    glyph="email"
+                    glyphAriaLabel="email" 
                     id="email"
                     type="email"
                     formControlName="email"
                     placeholder="Enter Your Email Address"
-                    [state]="getFieldState(f['email'])" />
+                    [state]="getFieldState(f['email'])" ></fd-input-group>
+
                 <fd-form-message type="error" *ngIf="f['email'].touched && f['email'].invalid">
                     <p>Enter a valid email</p>
                 </fd-form-message>
@@ -49,12 +58,15 @@
         <div fd-form-item>
             <label fd-form-label for="password" [required]="f['password'].errors && f['password'].errors['required']">Password:</label>
             <fd-form-input-message-group>
-                <input fd-form-control
+                <fd-input-group 
+                    placement="before" 
+                    glyph="locked" 
+                    glyphAriaLabel="locked" 
                     id="password"
                     type="password"
                     formControlName="password"
                     placeholder="Enter Your Password"
-                    [state]="getFieldState(f['password'])" />
+                    [state]="getFieldState(f['password'])" ></fd-input-group>
                 <fd-form-message type="error" *ngIf="f['password'].touched && f['password'].invalid">
                     <p>Enter a valid password</p>
                 </fd-form-message>
@@ -64,12 +76,15 @@
         <div fd-form-item>
             <label fd-form-label for="repeat_password" [required]="f['repeat_password'].errors && f['repeat_password'].errors['repeat_password']">Repeat Password:</label>
             <fd-form-input-message-group>
-                <input fd-form-control
+                <fd-input-group 
+                    placement="before" 
+                    glyph="locked" 
+                    glyphAriaLabel="locked" 
                     id="repeat_password"
                     type="password"
                     formControlName="repeat_password"
                     placeholder="Repeat Your Password"
-                    [state]="getFieldState(f['repeat_password'])" />
+                    [state]="getFieldState(f['repeat_password'])" ></fd-input-group>
                 <fd-form-message type="error" *ngIf="f['repeat_password'].touched && f['repeat_password'].invalid">
                     <p>Enter a valid password</p>
                 </fd-form-message>
@@ -80,7 +95,7 @@
         <div fd-form-item>
             <label for="date" fd-form-label [required]="true">Date of Birth</label>
             <fd-date-picker
-               
+                
                 [required]="true" 
                 formControlName="date"
                 inputId="date"
