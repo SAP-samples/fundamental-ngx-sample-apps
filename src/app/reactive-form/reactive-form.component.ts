@@ -18,6 +18,7 @@ import {
   FD_DATETIME_FORMATS
 } from '@fundamental-ngx/core/datetime';
 import { DateRange } from '@fundamental-ngx/core/calendar';
+import { ElementSchemaRegistry } from '@angular/compiler';
 
 interface ComboboxItem {
   displayedValue: string;
@@ -49,42 +50,26 @@ export class ReactiveFormComponent implements OnInit {
   //Drop down elements with their values
   selectedIndex!: number;
   reg!: FormGroup;
-  
-  //myform!: FormGroup;
-  //firstName!: FormControl;
-  //lastName!: FormControl;
-  //email!: FormControl;
-  //password!: FormControl;
-  //'firstname' : new FormControl(null, Validators.required)
-
-  /*onReset(){
-
-    if (this.myform.valid){
-      console.log("Clear the format")
-    this.myform?.reset();
-    }
-  }*/
 
   vtest: boolean | undefined;
 
-  selectedRange: DateRange<FdDate>;
 
-  constructor(private datetimeAdapter: DatetimeAdapter<FdDate>, private fb: FormBuilder) {
-    const today = this.datetimeAdapter.today();
-    this.selectedRange = new DateRange(today, this.datetimeAdapter.addCalendarDays(today, 1));
-  }
+
+ 
  
 
+ 
+   
   ngOnInit() {
     this.vtest = undefined;
-    this.reg = this.fb.group({
+    this.reg = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       email: new FormControl('', Validators.compose( [ Validators.required, Validators.email ])),
       password: new FormControl('', Validators.required),
       repeat_password: new FormControl('', Validators.required),
       firstNameGroup: new FormControl('', Validators.required),
-      date : new FormControl(FdDate.getNow()),
+      date : new FormControl(FdDate.getToday()),
       radioInput: new FormControl(''),
       country: new FormControl(),
       textAreaControl: new FormControl(''),
@@ -94,6 +79,14 @@ export class ReactiveFormComponent implements OnInit {
     
     
   }
+  constructor(private datetimeAdapter: DatetimeAdapter<FdDate>) {}
+   today = FdDate.getToday();
+  isValid() {
+    if (this.reg.get('date')?.value <= this.today){
+   return this.reg.get('date')?.valid;}
+   else 
+   return false;
+}
 
  
 //loading button
