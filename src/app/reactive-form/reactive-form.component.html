@@ -95,12 +95,14 @@
         <div fd-form-item>
             <label for="date" fd-form-label [required]="true">Date of Birth</label>
             <fd-date-picker
-                
+                 [message]="isValid() ? 'This is valid a date': 'This is invalid date'"
+                 [state]="isValid() ? 'success' : 'error'"
                 [required]="true" 
                 formControlName="date"
                 inputId="date"
             >
             </fd-date-picker>
+           
            
         </div>
       
