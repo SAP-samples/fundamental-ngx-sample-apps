@@ -11,7 +11,7 @@
                         id="firstName" 
                         placeholder="Enter Your First Name"
                         formControlName="firstName"
-                        [state]="getFieldState(f['firstName'])" ></fd-input-group>
+                        ></fd-input-group>
                 <fd-form-message type="error" *ngIf="f['firstName'].errors && f['firstName'].errors['required']">
                     This field is required
                 </fd-form-message>
@@ -50,11 +50,11 @@
                     [state]="getFieldState(f['email'])" ></fd-input-group>
 
                 <fd-form-message type="error" *ngIf="f['email'].touched && f['email'].invalid">
-                    <p>Enter a valid email</p>
+                    Enter a valid email
                 </fd-form-message>
-
             </fd-form-input-message-group>
         </div>
+
         <div fd-form-item>
             <label fd-form-label for="password" [required]="f['password'].errors && f['password'].errors['required']">Password:</label>
             <fd-form-input-message-group>
@@ -68,13 +68,12 @@
                     placeholder="Enter Your Password"
                     [state]="getFieldState(f['password'])" ></fd-input-group>
                 <fd-form-message type="error" *ngIf="f['password'].touched && f['password'].invalid">
-                    <p>Enter a valid password</p>
+                    Enter a valid password
                 </fd-form-message>
-
             </fd-form-input-message-group>
         </div>
         <div fd-form-item>
-            <label fd-form-label for="repeat_password" [required]="f['repeat_password'].errors && f['repeat_password'].errors['repeat_password']">Repeat Password:</label>
+            <label fd-form-label for="repeat_password" [required]="f['repeat_password'].errors && f['repeat_password'].errors['required']">Repeat Password:</label>
             <fd-form-input-message-group>
                 <fd-input-group 
                     placement="before" 
@@ -86,20 +85,21 @@
                     placeholder="Repeat Your Password"
                     [state]="getFieldState(f['repeat_password'])" ></fd-input-group>
                 <fd-form-message type="error" *ngIf="f['repeat_password'].touched && f['repeat_password'].invalid">
-                    <p>Enter a valid password</p>
+                    Enter a valid password
                 </fd-form-message>
-
-            </fd-form-input-message-group>
+         </fd-form-input-message-group>
         </div>
 
         <div fd-form-item>
             <label for="date" fd-form-label [required]="true">Date of Birth</label>
             <fd-date-picker
                  [message]="isValid() ? 'This is valid a date': 'This is invalid date'"
-                 [state]="isValid() ? 'success' : 'error'"
+                 [state]="isValid() ? 'success': 'error' "
                 [required]="true" 
                 formControlName="date"
                 inputId="date"
+               
+
             >
             </fd-date-picker>
            
@@ -111,7 +111,6 @@
         <div fd-form-item>
             <label fd-form-label >Country:</label>
             <fd-combobox
-            state="information"
             [communicateByObject]="true"
             placeholder="Type some text..."
             formControlName="country"
@@ -150,7 +149,7 @@
         <div fd-form-item>
             <label fd-form-label >Ice Cream Flavours</label>
             <fd-combobox
-            state="information"
+            
             [communicateByObject]="true"
             placeholder="Type some text..."
             formControlName="icecream"
