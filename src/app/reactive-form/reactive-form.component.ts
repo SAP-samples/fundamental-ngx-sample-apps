@@ -54,11 +54,6 @@ export class ReactiveFormComponent implements OnInit {
   vtest: boolean | undefined;
 
 
-
- 
- 
-
- 
    
   ngOnInit() {
     this.vtest = undefined;
