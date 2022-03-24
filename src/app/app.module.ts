@@ -12,6 +12,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from '@fundamental-ngx/core/button';
 import { FundamentalNgxCoreModule } from '@fundamental-ngx/core';
 import { FundamentalNgxPlatformModule } from '@fundamental-ngx/platform';
+import { PlatformFormComponent } from './platform-form/platform-form.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CdkTableModule } from '@angular/cdk/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { RtlService } from '@fundamental-ngx/core/utils';
+
+
+
 
 @NgModule({
   declarations: [
@@ -19,7 +27,8 @@ import { FundamentalNgxPlatformModule } from '@fundamental-ngx/platform';
     SimpleFormComponent,
     LandingComponent,
     CoreFormComponent,
-    ReactiveFormComponent
+    ReactiveFormComponent,
+    PlatformFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,8 +39,11 @@ import { FundamentalNgxPlatformModule } from '@fundamental-ngx/platform';
     FundamentalNgxCoreModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    CdkTableModule,
+    DragDropModule,
   ],
-  providers: [],
+  providers: [  RtlService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
