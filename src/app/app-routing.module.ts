@@ -4,6 +4,7 @@ import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { SimpleFormStylesComponent } from './simple-form-styles/simple-form-styles.component';
 import { CoreFormComponent } from './core-form/core-form.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { PlatformFormComponent } from './platform-form/platform-form.component';
 import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'simple-form-styles', component: SimpleFormStylesComponent},
   { path: 'core-form', component: CoreFormComponent},
   { path: 'reactive-form', component: ReactiveFormComponent},
+  {path: 'platform-form', component:PlatformFormComponent},
   { path: 'main', component: LandingComponent},
   { path: '', redirectTo: '/main', pathMatch: 'full'}
 ];
