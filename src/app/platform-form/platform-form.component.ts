@@ -105,8 +105,13 @@ export class PlatformFormComponent {
               ? null
               : 'Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character';
       },
+     
       guiOptions: {
-          column: 1
+          column: 1,
+          additionalData: {
+            glyph: "account",
+            glyphAriaLabel:"account"
+        }
       }
   },
   {
@@ -153,8 +158,11 @@ export class PlatformFormComponent {
   name: 'gender',
   message: 'Gender',
   choices: ['Female', 'Male', 'Other'],
+  
+  
   guiOptions: {
-      column: 2
+      column: 2,
+      inline: true,
   }, 
   validate: (result: string) => (result === ' ' ? null : 'You should pick one')
 },
