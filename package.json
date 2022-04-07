@@ -19,7 +19,7 @@
     "@angular/forms": "~13.2.0",
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
-    "@angular/router": "~13.2.0",
+    "@angular/router": "~13.3.2",
     "@fundamental-ngx/core": "^0.33.5",
     "@fundamental-ngx/platform": "^0.33.5",
     "@fundamental-styles/fn": "0.23.0-rc.7",
