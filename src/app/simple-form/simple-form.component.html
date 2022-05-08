@@ -2,40 +2,47 @@
     <form action="/form-page-handling" method="post">
         <fieldset>
           <legend>Personal Information:</legend><ul>
-            <li>
+            <div>
               <label for="first_name">First Name:</label>
               <input type="text" placeholder="Enter First Name" name="first_name" id="first_name" required maxlength="32" pattern="[A-Za-z]{1,32}">
-            </li>
-            <li>
+            </div>
+            <div>
               <label for="last_name">Last Name:</label>
               <input type="text" placeholder="Enter Last Name" name="last_name" id="last_name" required  maxlength="32" pattern="[A-Za-z]{1,32}">
-            </li>
-            <li>
+            </div>
+            <div>
               <label for="email">Email:</label>
               <input type="email" placeholder="Enter Email" name="email" id="email" required>
-            </li>
-            <li>
+            </div>
+            <div>
               <label for="psw">Password:</label>
               <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-            </li>
-            <li>
+            </div>
+            <div>
               <label for="psw-repeat">Repeat Password:</label>
               <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-            </li>
-            <li>
+            </div>
+            <div>
               <label for="birthday">Date of Birth:</label>
               <input type="date" name="bday" id="bday">
-            </li>
-            <li>
+            </div>
+            <div>
               <label for="country">Country:</label>
               <select id="country" name="country">
-                <option value="albania">Albania</option>
-                <option value="australia">Australia</option>
-                <option value="canada">Canada</option>
-                <option value="usa">USA</option>
+                <optgroup label="North America">
+                  <option value="Canada">Canada</option>
+                  <option value="Mexico">Mexico</option>
+                  <option value="USA">USA</option>
+                </optgroup>
+                <optgroup label="Europe">
+                  <option value="Albania">Albania</option>
+                  <option value="Bulgaria">Bulgaria</option>
+                  <option value="Germany">Germany</option>
+
+                </optgroup>
               </select>
-            </li>
-            <li>
+            </div>
+            <div>
               <fieldset>
                 <legend>Sex:</legend>
                 <input type="radio" name="sex" value="Female" id="female">
@@ -45,12 +52,12 @@
                 <input type="radio" name="sex" value="Other" id="other">
                 <label for="femaile">Other</label>
               </fieldset>
-            </li>
-            <li>
+            </div>
+            <div>
               <label for="bio">Short Bio:</label>
               <textarea name="bio" rows="4" cols="50"></textarea>
-            </li>
-            <li>
+            </div>
+            <div>
               <label for="icecream">Favourite Ice Cream</label>
               <input type="text" name="icecream" required list="icecreams" id="icecream">
               <datalist id="icecreams">
@@ -63,16 +70,13 @@
                 <option value="Strawberry"></option>
                 <option value="Green Tea"></option>
               </datalist>
-            </li>
-            <li>
-              <fieldset>
-                <legend>Remember Me</legend>
-                <input type="checkbox" id="rememberme" checked name="remember" value="remember">
-              </fieldset>
-            </li>
+            </div>
+            <div>
+              <input type="checkbox" id="rememberme" checked name="remember" value="remember">
+              <label for="rememberme">Remember me</label>
+            </div>
           </ul>
         </fieldset>
-  
         <button type="submit">Register</button>
         <input type="reset">
       </form>
