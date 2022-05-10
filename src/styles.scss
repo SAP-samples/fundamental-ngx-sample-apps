@@ -1,9 +1,4 @@
 @import '~fundamental-styles/dist/layout-grid';
-@import '~@fundamental-styles/fn/dist/fn-card';
-@import '~@fundamental-styles/fn/dist/fn-link';
-@import '~@fundamental-styles/fn/dist/fn-page';
-@import '~@fundamental-styles/fn/dist/fn-button';
-@import '~@fundamental-styles/fn/dist/fn-search';
 @import '~fundamental-styles/dist/form-item';
 @import '~fundamental-styles/dist/form-header';
 @import '~fundamental-styles/dist/form-group';
@@ -13,7 +8,7 @@
 @import '~fundamental-styles/dist/bar';
 @import '~fundamental-styles/dist/input';
 @import '~fundamental-styles';
-// @import '~@sap-theming/theming-base-content/content/Base/baseLib/sap_horizon/css_variables';
+@import '~@sap-theming/theming-base-content/content/Base/baseLib/sap_horizon/css_variables';
 
 @font-face {
     font-family: '72';
@@ -54,6 +49,11 @@
     src: url('~@sap-theming/theming-base-content/content/Base/baseLib/baseTheme/fonts/SAP-icons-TNT.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+}
+
+body{
+    background-color: var(--sapBackgroundColor);
+    margin: 0;
 }
 
 

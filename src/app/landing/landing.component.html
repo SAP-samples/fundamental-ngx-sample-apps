@@ -1,91 +1,64 @@
-<div class="fn-page__title">
-    <div class="fn-page__container fn-page__container--left">
-      <h3 class="fn-title fn-title--h3">Fundamental Library for Angular Examples</h3>
-    </div>
-    <div class="fn-page__container fn-page__container--middle">
-      <div class="fn-search">
-        <span class="sap-icon sap-icon--search"></span>
-        <input type="search" class="fn-search__input" placeholder="Search everything" />
-        <span class="sap-icon sap-icon--navigation-right-arrow"></span>
+  <div class="landing-page">
+    <div class="fd-shellbar">
+      <div class="fd-shellbar__group fd-shellbar__group--product">
+        <!-- <div class="fd-shellbar__logo">
+          <img src="favicon.ico" alt="NGX app">
+        </div> -->
+        <div class="fd-shellbar__title">Fundamental Library for Angular Examples</div>
       </div>
-    </div>
-    <div class="fn-page__container fn-page__container--right">
-      <div class="fn-page__element">
-        <button class="fn-button fn-button--layout fn-button--icon-only" aria-label="More">
-          <span class="sap-icon sap-icon--pushpin-on"></span>
-        </button>
-      </div>
-      <div class="fn-page__element">
-        <button class="fn-button fn-button--layout fn-button--icon-only" aria-label="More">
-          <span class="sap-icon sap-icon--table-view"></span>
-        </button>
-      </div>
-      <div class="fn-page__element">
-        <button class="fn-button fn-button--layout fn-button--icon-only" aria-label="More">
-          <span class="sap-icon sap-icon--decline"></span>
-        </button>
-      </div>
-     
-    </div>
-  </div>
-  
-  <div class='fd-container' style="padding-top:1rem">
-    <div class='fd-row'>
-      <div class='fd-col fd-col--4'>
-        <div class="fn-card" >
-          <div class="fn-card__header">
-            <div class="fn-card__title-container">
-              <h1 class="fn-card__title">Simple Form</h1>
-            </div>
-          </div>
-          <div class="fn-card__content">See the <a class="fn-link" routerLink="/simple-form" routerLinkActive="active">example</a></div>
+      <div class="fd-shellbar__group fd-shellbar__group--actions">
+        <div class="fd-shellbar__action fd-shellbar__action-desktop">
+          <button class="fd-button fd-shellbar__button">
+            <i class="sap-icon sap-icon--pushpin-on"></i>
+          </button>
         </div>
-      </div>
-      <div class='fd-col fd-col--4'>
-        <div class="fn-card" >
-          <div class="fn-card__header">
-            <div class="fn-card__title-container">
-              <h1 class="fn-card__title">Simple Form Styled</h1>
-            </div>
-          </div>
-          <div class="fn-card__content">See the <a class="fn-link" routerLink="/simple-form-styles" routerLinkActive="active">example</a></div>
+        <div class="fd-shellbar__action fd-shellbar__action-desktop">
+          <button class="fd-button fd-shellbar__button">
+            <i class="sap-icon sap-icon--table-view"></i>
+          </button>
         </div>
-      </div>
-  
-      <div class='fd-col fd-col--4'>
-        <div class="fn-card" >
-          <div class="fn-card__header">
-            <div class="fn-card__title-container">
-              <h1 class="fn-card__title">Template-driven form with @fundamental-ngx/core</h1>
-            </div>
-          </div>
-          <div class="fn-card__content"><a class="fn-link" routerLink="/core-form" routerLinkActive="active">example</a></div>
-        </div>
-      </div>
-  
-      <div class='fd-col fd-col--4'>
-        <div class="fn-card" >
-          <div class="fn-card__header">
-            <div class="fn-card__title-container">
-              <h1 class="fn-card__title">Reactive Form with @fundamental-ngx/core</h1>
-            </div>
-          </div>
-          <div class="fn-card__content"><a class="fn-link" routerLink="/reactive-form" routerLinkActive="active">example</a></div>
-        </div>
-      </div>
-
-
-      <div class='fd-col fd-col--4'>
-        <div class="fn-card" >
-          <div class="fn-card__header">
-            <div class="fn-card__title-container">
-              <h1 class="fn-card__title">Platform Form with @fundamental-ngx/core</h1>
-            </div>
-          </div>
-          <div class="fn-card__content">See the <a class="fn-link" routerLink="/platform-form" routerLinkActive="active">example</a></div>
+        <div class="fd-shellbar__action fd-shellbar__action-desktop">
+          <button class="fd-button fd-shellbar__button">
+            <i class="sap-icon sap-icon--decline"></i>
+          </button>
         </div>
       </div>
     </div>
-
-    
+    <div style="display: flex; gap: 10px; margin-top: 20px; justify-content: space-around;">
+      <div role="button" class="fd-tile fd-tile--launch" routerLink="/simple-form" routerLinkActive="active">
+        <div class="fd-badge">HTML</div>
+        <div class="fd-tile__header">
+          <div class="fd-tile__title">Simple Form</div>
+          <div class="fd-tile__subtitle">Plain</div>
+        </div>
+      </div>
+      <div role="button" class="fd-tile fd-tile--launch" routerLink="/simple-form-styles" routerLinkActive="active">
+        <div class="fd-badge">HTML + CSS</div>
+        <div class="fd-tile__header">
+          <div class="fd-tile__title">Simple Form</div>
+          <div class="fd-tile__subtitle">Styled</div>
+        </div>
+      </div>
+      <div role="button" class="fd-tile fd-tile--launch" routerLink="/core-form" routerLinkActive="active">
+        <div class="fd-badge">NGX</div>
+        <div class="fd-tile__header">
+          <div class="fd-tile__title">Angular Form</div>
+          <div class="fd-tile__subtitle">Template Driven</div>
+        </div>
+      </div>
+      <div role="button" class="fd-tile fd-tile--launch" routerLink="/reactive-form" routerLinkActive="active">
+        <div class="fd-badge">NGX</div>
+        <div class="fd-tile__header">
+          <div class="fd-tile__title">Angular Form</div>
+          <div class="fd-tile__subtitle">Reactive</div>
+        </div>
+      </div>
+      <div role="button" class="fd-tile fd-tile--launch" routerLink="/platform-form" routerLinkActive="active">
+        <div class="fd-badge">NGX</div>
+        <div class="fd-tile__header">
+          <div class="fd-tile__title">Angular Form</div>
+          <div class="fd-tile__subtitle">Platform</div>
+        </div>
+      </div>
+    </div>
   </div>
