@@ -32,9 +32,10 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/fundamental-styles/dist/theming/sap_horizon.css",
+              "node_modules/fundamental-styles/dist/theming/sap_fiori_3.css",
               "node_modules/fundamental-styles/dist/icon.css",
-              "node_modules/@sap-theming/theming-base-content/content/Base/baseLib/sap_horizon/css_variables.css"
+              "node_modules/fundamental-styles/dist/fundamental-styles.css",
+              "node_modules/@sap-theming/theming-base-content/content/Base/baseLib/sap_fiori_3/css_variables.css"
             ],
             "scripts": []
           },
