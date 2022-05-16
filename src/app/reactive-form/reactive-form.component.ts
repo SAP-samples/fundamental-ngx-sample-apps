@@ -80,7 +80,7 @@ export class ReactiveFormComponent implements OnInit {
   //loading button
   loading = false;
   Show() {
-    this.loading = true;
+    //this.loading = true;
   }
 
   radioInput = {
@@ -115,7 +115,8 @@ export class ReactiveFormComponent implements OnInit {
     return content.filter((item) => item.startsWith(searchTerm));
   }
 
-  getFieldState(formControl: AbstractControl) {
-    return formControl.invalid && formControl.touched ? 'error' : undefined;
+  getFieldState(formControl: AbstractControl, name: string = '') {
+    console.log(">>>", name, formControl.errors, "<> touched:", formControl.touched);
+    return formControl.errors && formControl.touched ? 'error' : undefined;
   }
 }
