@@ -6,6 +6,7 @@ import { CoreFormComponent } from './core-form/core-form.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { PlatformFormComponent } from './platform-form/platform-form.component';
 import { LandingComponent } from './landing/landing.component';
+import { WizardFormComponent} from './wizard-form/wizard-form.component';
 
 const routes: Routes = [
   { path: 'simple-form', component: SimpleFormComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'reactive-form', component: ReactiveFormComponent},
   {path: 'platform-form', component:PlatformFormComponent},
   { path: 'main', component: LandingComponent},
+  {path: 'wizard-form', component:WizardFormComponent},
   { path: '', redirectTo: '/main', pathMatch: 'full'}
 ];
 
