@@ -43,7 +43,7 @@ export class PlatformFormComponent {
   questions: DynamicFormItem[] = [
      
       {
-        type: 'input',
+        type: 'multi-input',
         name: 'firstname',
         message: 'First Name',
         placeholder: 'Enter your First Name',
@@ -56,14 +56,21 @@ export class PlatformFormComponent {
             await dummyAwaitablePromise();
             return `${value}777`;
         },
-        validators: [Validators.required]
+        validators: [Validators.required],
+        guiOptions: {
+            hint: "The first name should be a combination of letters only.",
+            additionalData: {
+                glyph: "account",
+                glyphAriaLabel:"account"
+            }
+        }
     },
 
     {
       type: 'input',
       name: 'lastname',
       message: 'Last Name',
-      placeholder: 'Enter your Last Name',
+      placeholder: 'Enter your last name',
       
       validate: async (value) => {
           await dummyAwaitablePromise();
@@ -74,7 +81,10 @@ export class PlatformFormComponent {
           await dummyAwaitablePromise();
           return `${value}777`;
       },
-      validators: [Validators.required]
+      validators: [Validators.required],
+      guiOptions: {
+        hint: "The first name should be a combination of letters only."
+    }
   },
   {
     type: 'email',
@@ -98,6 +108,7 @@ export class PlatformFormComponent {
       controlType: 'password',
       name: 'password',
       message: 'Password',
+      placeholder: 'Enter your password',
       validators: [Validators.required],
       validate: (value: string) => {
           const passwordPattern = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w\\s]).{8,}$');
@@ -119,6 +130,7 @@ export class PlatformFormComponent {
     controlType: 'password',
     name: 'repeat_password',
     message: 'Repeat Password',
+    placeholder: 'Repeat your password',
     validators: [Validators.required],
     validate: (value: string) => {
         const passwordPattern = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w\\s]).{8,}$');
@@ -183,6 +195,18 @@ export class PlatformFormComponent {
       column: 2
   }
 },
+
+{
+    type: 'checkbox',
+    name: 'rememberme',
+    message:'',
+    guiOptions: {
+        inline: true,
+        column: 2
+    },
+    choices: () => ['Remember me']
+
+}
   ];
 
   }
