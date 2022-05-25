@@ -11,12 +11,21 @@ import {
   WizardTitle
 } from '@fundamental-ngx/platform/wizard-generator';
 import { ChildrenOutletContexts } from '@angular/router';
+import { DatePickerComponent, DatePickerModule, DatetimeAdapter, DATE_TIME_FORMATS, FdDatetimeAdapter, FD_DATETIME_FORMATS } from '@fundamental-ngx/core';
 
 @Component({
   selector: 'app-wizard-form',
   templateUrl: './wizard-form.component.html',
   styleUrls: ['./wizard-form.component.scss'],
-  providers: [FormGeneratorService]
+  providers: [FormGeneratorService,  {
+    provide: DatetimeAdapter,
+    useClass: FdDatetimeAdapter
+},
+{
+    provide: DATE_TIME_FORMATS,
+    useValue: FD_DATETIME_FORMATS
+}
+]
 })
 export class WizardFormComponent implements OnDestroy {
 
@@ -152,19 +161,22 @@ export class WizardFormComponent implements OnDestroy {
               name: 'password',
               message: 'Password',
               type: 'password',
+              controlType: 'password',
               validators: [Validators.required]
             },
             {
               name: 'repeat_password',
               message: 'Repeat Password',
               type: 'password',
+              controlType: 'password',
               validators: [Validators.required]
             },
-            // {
-            //   name: 'date',
-            //   message: 'Date of Birth',
-            //   type: 'datepicker',
-            // },
+            {
+              name: 'date',
+              message: 'Date of Birth',
+              type: 'datepicker',
+              validators: [Validators.required]
+            },
             {
               name: 'country',
               message: 'Country',
