@@ -19,6 +19,7 @@ import {
 } from '@fundamental-ngx/core/datetime';
 import { DateRange } from '@fundamental-ngx/core/calendar';
 import { ElementSchemaRegistry } from '@angular/compiler';
+import { FormStates } from '@fundamental-ngx/core';
 
 interface ComboboxItem {
   displayedValue: string;
@@ -115,8 +116,8 @@ export class ReactiveFormComponent implements OnInit {
     return content.filter((item) => item.startsWith(searchTerm));
   }
 
-  getFieldState(formControl: AbstractControl, name: string = '') {
+  getFieldState(formControl: AbstractControl, name: string = ''): FormStates | null {
     console.log(">>>", name, formControl.errors, "<> touched:", formControl.touched);
-    return formControl.errors && formControl.touched ? 'error' : undefined;
+    return formControl.errors && formControl.touched ? 'error' : null;
   }
 }
