@@ -18,6 +18,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RtlService } from '@fundamental-ngx/core/utils';
 import { WizardFormComponent } from './wizard-form/wizard-form.component';
+import { RegistrationService } from './services/registration.service'
 
 
 
@@ -45,7 +46,7 @@ import { WizardFormComponent } from './wizard-form/wizard-form.component';
     CdkTableModule,
     DragDropModule,
   ],
-  providers: [  RtlService,],
+  providers: [  RtlService, RegistrationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
