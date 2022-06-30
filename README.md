@@ -1,3 +1,5 @@
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/fundamental-ngx-sample-apps)](https://api.reuse.software/info/github.com/SAP-samples/fundamental-ngx-sample-apps)
+
 # App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
