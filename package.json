@@ -19,7 +19,7 @@
     "@angular/forms": "~13.2.0",
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
-    "@angular/router": "~13.2.0",
+    "@angular/router": "~16.0.5",
     "@fundamental-ngx/core": "^0.34.3-rc.45",
     "@fundamental-ngx/platform": "^0.34.3-rc.45",
     "@sap-theming/theming-base-content": "11.1.38",
