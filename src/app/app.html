@@ -1,0 +1,112 @@
+<div class="app-container">
+  <!-- ShellBar -->
+  <fd-shellbar>
+    <fd-shellbar-branding>
+      <fd-shellbar-logo>
+        <div class="app-logo">
+          <span class="app-logo__icon sap-icon--employee"></span>
+          <span class="app-logo__text">PRS</span>
+        </div>
+      </fd-shellbar-logo>
+      <fd-shellbar-title>Performance Review System</fd-shellbar-title>
+    </fd-shellbar-branding>
+
+    <fd-shellbar-actions>
+      <fd-user-menu>
+        <fd-user-menu-control>
+          <fd-avatar
+            fd-user-menu-control-element
+            size="xs"
+            [circle]="true"
+            [interactive]="true"
+            label="JS"
+            ariaLabel="User Menu">
+          </fd-avatar>
+        </fd-user-menu-control>
+
+        <fd-user-menu-body>
+          <div fd-user-menu-header>
+            <fd-avatar
+              size="l"
+              [circle]="true"
+              label="JS">
+            </fd-avatar>
+            <div fd-user-menu-header-container>
+              <div fd-user-menu-user-name>{{ userName() }}</div>
+              <div fd-user-menu-subline>Administrator</div>
+            </div>
+          </div>
+
+          <div fd-user-menu-content-container>
+            <fd-user-menu-list>
+              <!-- Theme Switcher -->
+              @for (theme of themes; track theme.value) {
+                <li
+                  fd-user-menu-list-item
+                  icon="palette"
+                  [text]="theme.label"
+                  [selected]="themeService.theme() === theme.value"
+                  (click)="setTheme(theme.value)">
+                </li>
+              }
+
+              <!-- Density Switcher -->
+              @for (density of densities; track density.value) {
+                <li
+                  fd-user-menu-list-item
+                  icon="resize"
+                  [text]="density.label"
+                  [selected]="themeService.density() === density.value"
+                  (click)="setDensity(density.value)">
+                </li>
+              }
+
+              <!-- Reset Button -->
+              <li
+                fd-user-menu-list-item
+                icon="reset"
+                text="Reset to Defaults"
+                (click)="resetTheme()">
+              </li>
+            </fd-user-menu-list>
+          </div>
+        </fd-user-menu-body>
+      </fd-user-menu>
+    </fd-shellbar-actions>
+  </fd-shellbar>
+
+  <!-- Main Layout with BTP Vertical Navigation -->
+  <div class="app-layout">
+    <!-- BTP Vertical Navigation -->
+    <fdb-navigation
+      [state]="navigationState()"
+      [mode]="navigationMode()"
+      [style.height.vh]="100"
+      ariaLabel="Main Navigation"
+      ariaRoleDescription="Side Navigation"
+    >
+      <fdb-navigation-content-start ariaLabel="Primary Navigation Menu" ariaRoleDescription="Navigation List Tree">
+        <fdb-navigation-list-item>
+          <a fdb-navigation-link *fdbNavigationLinkRef glyph="home" [routerLink]="['/dashboard']">Dashboard</a>
+        </fdb-navigation-list-item>
+        <fdb-navigation-list-item>
+          <a fdb-navigation-link *fdbNavigationLinkRef glyph="employee" [routerLink]="['/employees']">Employees</a>
+        </fdb-navigation-list-item>
+        <fdb-navigation-list-item>
+          <a fdb-navigation-link *fdbNavigationLinkRef glyph="add-employee" [routerLink]="['/new-employee']">New Employee</a>
+        </fdb-navigation-list-item>
+      </fdb-navigation-content-start>
+
+      <fdb-navigation-content-end ariaLabel="Footer Navigation Menu" ariaRoleDescription="Navigation List Tree">
+        <fdb-navigation-list-item>
+          <a fdb-navigation-link *fdbNavigationLinkRef glyph="bbyd-dashboard">Analytics</a>
+        </fdb-navigation-list-item>
+      </fdb-navigation-content-end>
+    </fdb-navigation>
+
+    <!-- Main Content Area -->
+    <main class="app-content">
+      <router-outlet />
+    </main>
+  </div>
+</div>

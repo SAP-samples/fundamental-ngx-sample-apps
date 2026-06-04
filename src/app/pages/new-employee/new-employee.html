@@ -1,0 +1,252 @@
+<div class="new-employee-page">
+  <div>
+    <h1 fd-title [headerSize]="2">New Employee</h1>
+    <fd-text [text]="'Fill in the form below to add a new employee to the system.'"></fd-text>
+  </div>
+
+  <form
+    [formGroup]="employeeForm"
+    (ngSubmit)="onSubmit()"
+    class="sap-bg-color-pageHeader_Background sap-padding-inline-tiny sap-margin-block-start-medium"
+  >
+    <div>
+      <h2 fd-form-header>Personal Information</h2>
+
+      <div
+        class="sap-flex sap-flex--gap-small sap-margin-block-start-small sap-padding-inline-small"
+      >
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="firstName">First Name</label>
+          <input
+            fd-form-control
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            placeholder="Enter first name"
+            [state]="hasError('firstName') ? 'error' : null"
+          />
+          @if (hasError('firstName')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('firstName') }}</fd-form-message>
+          }
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="lastName">Last Name</label>
+          <input
+            fd-form-control
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            placeholder="Enter last name"
+            [state]="hasError('lastName') ? 'error' : null"
+          />
+          @if (hasError('lastName')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('lastName') }}</fd-form-message>
+          }
+        </div>
+      </div>
+
+      <div
+        class="sap-flex sap-flex--gap-small sap-margin-block-start-small sap-padding-inline-small"
+      >
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="email">Email</label>
+          <input
+            fd-form-control
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="employee@company.com"
+            [state]="hasError('email') ? 'error' : null"
+          />
+          @if (hasError('email')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('email') }}</fd-form-message>
+          }
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="phone">Phone Number</label>
+          <input
+            fd-form-control
+            type="tel"
+            id="phone"
+            formControlName="phone"
+            placeholder="+1 (555) 123-4567"
+            [state]="hasError('phone') ? 'error' : null"
+          />
+          @if (hasError('phone')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('phone') }}</fd-form-message>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="sap-margin-block-start-small">
+      <h2 fd-form-header>Employment Details</h2>
+
+      <div
+        class="sap-flex sap-flex--gap-small sap-margin-block-start-small sap-padding-inline-small"
+      >
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="department">Department</label>
+          <fd-select
+            id="department"
+            formControlName="department"
+            placeholder="Select department"
+            [state]="hasError('department') ? 'error' : null"
+          >
+            @for (dept of departments; track dept.id) {
+              <fd-option [value]="dept.id">{{ dept.name }}</fd-option>
+            }
+          </fd-select>
+          @if (hasError('department')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('department') }}</fd-form-message>
+          }
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="position">Position</label>
+          <input
+            fd-form-control
+            type="text"
+            id="position"
+            formControlName="position"
+            placeholder="e.g., Software Engineer"
+            [state]="hasError('position') ? 'error' : null"
+          />
+          @if (hasError('position')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('position') }}</fd-form-message>
+          }
+        </div>
+      </div>
+
+      <div
+        class="sap-flex sap-flex--gap-small sap-margin-block-start-small sap-padding-inline-small"
+      >
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="employmentType">Employment Type</label>
+          <fd-select
+            id="employmentType"
+            formControlName="employmentType"
+            placeholder="Select employment type"
+            [state]="hasError('employmentType') ? 'error' : null"
+          >
+            @for (type of employmentTypes; track type) {
+              <fd-option [value]="type">{{ type }}</fd-option>
+            }
+          </fd-select>
+          @if (hasError('employmentType')) {
+            <fd-form-message [type]="'error'">{{
+              getErrorMessage('employmentType')
+            }}</fd-form-message>
+          }
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="startDate">Start Date</label>
+          <fd-date-picker
+            id="startDate"
+            formControlName="startDate"
+            placeholder="Select start date"
+            [state]="hasError('startDate') ? 'error' : null"
+          ></fd-date-picker>
+          @if (hasError('startDate')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('startDate') }}</fd-form-message>
+          }
+        </div>
+      </div>
+
+      <div
+        class="sap-flex sap-flex--gap-small sap-margin-block-start-small sap-padding-inline-small"
+      >
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="location">Location</label>
+          <fd-select
+            id="location"
+            formControlName="location"
+            placeholder="Select location"
+            [state]="hasError('location') ? 'error' : null"
+          >
+            @for (loc of locations; track loc) {
+              <fd-option [value]="loc">{{ loc }}</fd-option>
+            }
+          </fd-select>
+          @if (hasError('location')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('location') }}</fd-form-message>
+          }
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label for="salary">Annual Salary (USD)</label>
+          <input
+            fd-form-control
+            type="number"
+            id="salary"
+            formControlName="salary"
+            placeholder="e.g., 75000"
+            [state]="hasError('salary') ? 'error' : null"
+          />
+          @if (hasError('salary')) {
+            <fd-form-message [type]="'error'">{{ getErrorMessage('salary') }}</fd-form-message>
+          }
+        </div>
+      </div>
+
+      <div
+        class="sap-flex sap-flex--gap-small sap-margin-block-start-small sap-padding-inline-small"
+      >
+        <div fd-form-item>
+          <label fd-form-label for="manager">Manager (Optional)</label>
+          <input
+            fd-form-control
+            type="text"
+            id="manager"
+            formControlName="manager"
+            placeholder="Manager's name"
+          />
+        </div>
+        <div fd-form-item>
+          <label fd-form-label for="cost-center">Cost Center (Optional)</label>
+          <input
+            fd-form-control
+            type="text"
+            id="cost-center"
+            formControlName="cost-center"
+            placeholder="Cost center"
+          />
+        </div>
+      </div>
+    </div>
+
+    @if (submitted() && employeeForm.invalid) {
+      <fd-message-strip [type]="'error'" [dismissible]="false">
+        Please fix the errors above before submitting the form.
+      </fd-message-strip>
+    }
+
+    <div fd-bar [barDesign]="'footer'">
+      <div fd-bar-right>
+        <div fd-bar-element>
+          <button
+            fd-button
+            [fdType]="'transparent'"
+            type="button"
+            (click)="onCancel()"
+            [disabled]="isSubmitting()"
+          >
+            Cancel
+          </button>
+        </div>
+        <div fd-bar-element>
+          <button fd-button [fdType]="'emphasized'" type="submit" [disabled]="isSubmitting()">
+            @if (isSubmitting()) {
+              <span>Creating...</span>
+            } @else {
+              <span>Create Employee</span>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

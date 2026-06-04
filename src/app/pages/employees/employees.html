@@ -1,0 +1,153 @@
+<div class="employees">
+  <h1 fd-title [headerSize]="2">Employee Management</h1>
+  <br />
+  <!-- Employee Table -->
+  <table fd-table>
+    <thead fd-table-header>
+      <tr fd-table-row>
+        <th fd-table-cell>First Name</th>
+        <th fd-table-cell>Last Name</th>
+        <th fd-table-cell>Department</th>
+        <th fd-table-cell>Position</th>
+        <th fd-table-cell>Status</th>
+        <th fd-table-cell>Performance Rating</th>
+        <th fd-table-cell>Next Review</th>
+        <th fd-table-cell>Actions</th>
+      </tr>
+    </thead>
+    <tbody fd-table-body>
+      @for (emp of employees(); track emp.id) {
+        <tr fd-table-row>
+          <td fd-table-cell>{{ emp.firstName }}</td>
+          <td fd-table-cell>{{ emp.lastName }}</td>
+          <td fd-table-cell>{{ emp.department }}</td>
+          <td fd-table-cell>{{ emp.position }}</td>
+          <td fd-table-cell>
+            @if (emp.status === 'Active') {
+              <fd-info-label [label]="emp.status" [color]="8"></fd-info-label>
+            } @else if (emp.status === 'On Leave') {
+              <fd-info-label [label]="emp.status" [color]="3"></fd-info-label>
+            } @else if (emp.status === 'Probation') {
+              <fd-info-label [label]="emp.status" [color]="6"></fd-info-label>
+            }
+          </td>
+          <td fd-table-cell>
+            @if (emp.performanceRating) {
+              <fd-rating-indicator
+                [value]="emp.performanceRating"
+                [indicatorCapacity]="5"
+                [disabled]="true"
+              >
+              </fd-rating-indicator>
+            } @else {
+              <span>-</span>
+            }
+          </td>
+          <td fd-table-cell>
+            {{ emp.nextReviewDate ? (emp.nextReviewDate | date: 'MMM d, y') : '-' }}
+          </td>
+          <td fd-table-cell>
+            <button fd-button [label]="'Review'" (click)="openReviewDialog(emp)"></button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Performance Review Dialog Template -->
+<ng-template #reviewDialog [fdDialogTemplate] let-dialog let-dialogConfig="dialogConfig">
+  <fd-dialog [dialogConfig]="dialogConfig" [dialogRef]="dialog">
+    <fd-dialog-header>
+      <h1 fd-dialog-title>
+        Performance Review - {{ selectedEmployee()?.firstName }} {{ selectedEmployee()?.lastName }}
+      </h1>
+      <button fd-dialog-close-button (click)="dialog.dismiss('Cancel')" ariaLabel="Close"></button>
+    </fd-dialog-header>
+
+    <fd-dialog-body>
+      <form [formGroup]="reviewForm">
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="reviewDate">Review Date</label>
+          <fd-date-picker id="reviewDate" formControlName="reviewDate" [type]="'single'">
+          </fd-date-picker>
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="periodStart">Review Period Start</label>
+          <fd-date-picker id="periodStart" formControlName="reviewPeriodStart" [type]="'single'">
+          </fd-date-picker>
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="periodEnd">Review Period End</label>
+          <fd-date-picker id="periodEnd" formControlName="reviewPeriodEnd" [type]="'single'">
+          </fd-date-picker>
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true">Performance Rating</label>
+          <fd-rating-indicator formControlName="rating" [indicatorCapacity]="5">
+          </fd-rating-indicator>
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="strengths">Strengths</label>
+          <textarea
+            fd-form-control
+            id="strengths"
+            formControlName="strengths"
+            rows="3"
+            placeholder="Key strengths and accomplishments"
+          >
+          </textarea>
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="improvements">Areas for Improvement</label>
+          <textarea
+            fd-form-control
+            id="improvements"
+            formControlName="areasForImprovement"
+            rows="3"
+            placeholder="Areas to focus on"
+          >
+          </textarea>
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="goals">Goals for Next Period</label>
+          <textarea
+            fd-form-control
+            id="goals"
+            formControlName="goals"
+            rows="3"
+            placeholder="Goals and objectives"
+          >
+          </textarea>
+        </div>
+
+        <div fd-form-item>
+          <label fd-form-label [required]="true" for="reviewer">Reviewer Name</label>
+          <input fd-form-control type="text" id="reviewer" formControlName="reviewerName" />
+        </div>
+      </form>
+    </fd-dialog-body>
+
+    <fd-dialog-footer>
+      <button
+        fd-button
+        fdType="transparent"
+        [label]="'Cancel'"
+        (click)="dialog.dismiss('Cancel')"
+      ></button>
+      <button
+        fd-button
+        fdType="emphasized"
+        [label]="'Submit Review'"
+        [disabled]="!reviewForm.valid"
+        (click)="submitReview()"
+      ></button>
+    </fd-dialog-footer>
+  </fd-dialog>
+</ng-template>

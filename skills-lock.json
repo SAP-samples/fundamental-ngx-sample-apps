@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "skills": {
+    "a11y-audit": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/a11y-audit/SKILL.md",
+      "computedHash": "ca5e74075c0ae7611f532b6bbbe3eb3fa9330100e4fb0eda7fbcd3b7539202c7"
+    },
+    "adopt-styles": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/adopt-styles/SKILL.md",
+      "computedHash": "1e19001c3e2bcf4c13ea7974f7505788509c2f82ee6f1d80945edbdf27021af7"
+    },
+    "best-practices": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/best-practices/SKILL.md",
+      "computedHash": "daade1546bb841241816cbcbe6e8e02e4423f142af3fe7f9101da5d53478c68b"
+    },
+    "build-form": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/build-form/SKILL.md",
+      "computedHash": "98b2025ad29e508cb2905a0e0fd438f05dd992f36122d1a50c8a023e6985e380"
+    },
+    "build-page-layout": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/build-page-layout/SKILL.md",
+      "computedHash": "97c957b454718e3397ea779ca2cccacfa620a240a06fa531bda625832c8c7eac"
+    },
+    "build-table": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/build-table/SKILL.md",
+      "computedHash": "d7e36d086a24642190b00c827b477c0b78000214187651ac52adf00f03fea33a"
+    },
+    "create-test": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/create-test/SKILL.md",
+      "computedHash": "0c2d4ca08c2e2cd7a1c53b859cb0a85c08829bd3b5c58c6ce1c1e706ed9a93b1"
+    },
+    "migrate": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/migrate/SKILL.md",
+      "computedHash": "70ca1e94ba6fc94e686512dc9adcca46925757628dc649e3b42f85d302983ddd"
+    },
+    "preflight": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/preflight/SKILL.md",
+      "computedHash": "18e4db70af259aab9f5b112b5fc15a47f883f2ac39e08803405341e7a8dc7f99"
+    },
+    "review-pr": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/review-pr/SKILL.md",
+      "computedHash": "7416373aa4ea5d7ed260cc35bca823498c3a7e12c377db21390caa971ea3219e"
+    },
+    "scaffold": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/scaffold/SKILL.md",
+      "computedHash": "84b056a309cceed81e8bfbf1f3c6f1a91e5b452e6b61810102b44e78f7755021"
+    },
+    "update-docs": {
+      "source": "SAP/fundamental-ngx",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/update-docs/SKILL.md",
+      "computedHash": "abed345b63f879c86e8f9ff376d35e810f37b741faecc53a2cc866af2e20bba2"
+    }
+  }
+}
