@@ -8,16 +8,15 @@ This application demonstrates a modern HR system for managing employee performan
 - **Dashboard** with key performance metrics
 - **Employee table** with detailed information and filtering
 - **Performance review form** in a modal dialog with date pickers and validation
+- **New employee form** with comprehensive validation and SAP Fundamental components
 - **Theme switching** (Horizon Light/Dark/High Contrast)
 - **Content density** toggle (Cozy/Compact)
-- **Multi-language** support (English, Bulgarian, French - placeholder implementation)
 
 ## 📦 Installed Fundamental NGX Packages
 
 - `@fundamental-ngx/core@0.62.3` - Core UI components
 - `@fundamental-ngx/platform@0.62.3` - Platform-level components  
 - `@fundamental-ngx/cdk@0.62.3` - Component Development Kit
-- `@fundamental-ngx/i18n@0.62.3` - Internationalization utilities
 - `@fundamental-ngx/ui5-webcomponents@latest` - UI5 Web Components for Angular
 - `@fundamental-ngx/ui5-webcomponents-fiori@latest` - UI5 Fiori components (ShellBar)
 - `fundamental-styles@0.41.6` - Base styles (auto-installed)
@@ -46,8 +45,8 @@ npm run build
 
 ### ✅ Shell Layout & Navigation
 - **UI5 ShellBar** - Top application bar with branding and user menu
-- **Side Navigation** - Simple list-based navigation menu
-- **User Menu Popover** - Settings dropdown with theme/density/language options
+- **Side Navigation** - Simple list-based navigation menu (Dashboard, Employees, New Employee)
+- **User Menu Popover** - Settings dropdown with theme and density options
 
 ### ✅ Dashboard Page  
 - **Tiles** (`fd-tile`) displaying key metrics:
@@ -88,6 +87,32 @@ npm run build
 - Goals for Next Period (textarea)
 - Reviewer Name (text input)
 
+### ✅ New Employee Form Page
+**Components used:**
+- `fd-form-control` - Form field wrappers with labels and validation states
+- `fd-input` - Text inputs for names, email, phone, position
+- `fd-select` - Dropdowns for department, employment type, location
+- `fd-date-picker` - Start date selection
+- `fd-message-strip` - Validation error messages
+- `fd-button` - Form actions (Cancel, Submit)
+- Reactive Forms with comprehensive validation
+
+**Form Fields:**
+- Personal Information: First Name, Last Name, Email, Phone
+- Position Details: Department (6 options), Position, Start Date, Employment Type
+- Compensation: Salary (optional, numeric validation)
+- Organizational: Manager (optional), Cost Center (optional), Location (7 options)
+- Status: Active (default)
+
+**Validation Features:**
+- Required field validation with visual feedback
+- Email format validation
+- Phone number pattern validation (international formats)
+- Minimum length validation (2 chars for names)
+- Salary minimum value validation
+- Real-time error messages
+- Submit button disabled during processing
+
 ### ✅ Theme Management
 **Theming Service** (`ThemeService`) with:
 - Theme switching via `ThemingService` from `@fundamental-ngx/core/theming`
@@ -101,20 +126,17 @@ npm run build
 
 ### ✅ Content Density
 - Toggle between **Cozy** (default, touch-friendly) and **Compact** (desktop-optimized)
-- Applied globally via CSS classes
+- Applied globally via CSS classes on `<body>` and `<html>` elements
 - Persisted to localStorage
-
-### ✅ Internationalization (Placeholder)
-- Language switcher UI in user menu
-- English, Bulgarian (Български), French (Français)
-- Infrastructure ready for `@fundamental-ngx/i18n` integration
+- Affects spacing, sizing, and padding across all components
 
 ## 📁 Project Structure
 
 ```
 src/app/
 ├── models/
-│   └── employee.model.ts          # TypeScript interfaces
+│   ├── employee.model.ts          # TypeScript interfaces (legacy)
+│   └── employee.ts                # Employee and Department types
 ├── services/
 │   ├── employee.ts                # Employee data service (signal-based)
 │   └── theme.ts                   # Theme & density management
@@ -123,10 +145,14 @@ src/app/
 │   │   ├── dashboard.ts
 │   │   ├── dashboard.html
 │   │   └── dashboard.scss
-│   └── employees/                 # Employee table & review dialog
-│       ├── employees.ts
-│       ├── employees.html
-│       └── employees.scss
+│   ├── employees/                 # Employee table & review dialog
+│   │   ├── employees.ts
+│   │   ├── employees.html
+│   │   └── employees.scss
+│   └── new-employee/              # New employee form
+│       ├── new-employee.ts
+│       ├── new-employee.html
+│       └── new-employee.scss
 ├── app.ts                         # Root component with shell layout
 ├── app.html                       # ShellBar + side nav + router outlet
 ├── app.scss                       # App-level styles
@@ -187,11 +213,19 @@ src/app/
    - Form validates required fields
    - Submission updates employee data
 
-4. **Customize Experience**
+4. **Add New Employee**
+   - Click "New Employee" in navigation
+   - Fill out comprehensive employee form
+   - Select department, location, employment type from dropdowns
+   - Pick start date with date picker
+   - Real-time validation with error messages
+   - Submit to navigate back to employee list
+
+5. **Customize Experience**
    - Click user avatar in ShellBar
    - Switch theme (Light/Dark/High Contrast)
    - Toggle content density (Cozy/Compact)
-   - Change language (UI placeholder)
+   - Settings persist across sessions
 
 ## Development server
 
