@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
   "newProjectRoot": "projects",
   "projects": {
     "fundamental-ngx-sample-apps": {
@@ -8,9 +11,6 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
         }
       },
       "root": "",
@@ -18,125 +18,72 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/fundamental-ngx-sample-apps",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
-              
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@sap-theming/theming-base-content/content/Base/baseLib",
+                "output": "assets/theming-base"
+              },
+              {
+                "glob": "**/*.css",
+                "input": "node_modules/fundamental-styles/dist/theming",
+                "output": "assets/fundamental-styles-theming"
+              }
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/fundamental-styles/dist/theming/sap_fiori_3.css",
-              "node_modules/fundamental-styles/dist/icon.css",
-              "node_modules/fundamental-styles/dist/fundamental-styles.css",
-              "node_modules/@sap-theming/theming-base-content/content/Base/baseLib/sap_fiori_3/css_variables.css"
-            ],
-            "scripts": []
+              "node_modules/@fundamental-styles/common-css/dist/common-css.css",
+              "src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            },
-            "ar": {
-              "aot": true,
-              "outputPath": "dist/fundamental-ngx-sample-apps/locale/ar",
-              "i18nFile": "src/locale/ar/messages.ar.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "ar",
-              "i18nMissingTranslation": "error"
-            },
-            "fr": {
-              "aot": true,
-              "outputPath": "dist/fundamental-ngx-sample-apps/locale/fr",
-              "i18nFile": "src/locale/fr/messages.fr.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "fr",
-              "i18nMissingTranslation": "error"
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "fundamental-ngx-sample-apps:build:production"
+              "buildTarget": "fundamental-ngx-sample-apps:build:production"
             },
             "development": {
-              "browserTarget": "fundamental-ngx-sample-apps:build:development"
-            },
-            "ar": {
-              "browserTarget": "fundamental-ngx-sample-apps:build:ar"
-            },
-            "fr": {
-              "browserTarget": "fundamental-ngx-sample-apps:build:fr"
+              "buildTarget": "fundamental-ngx-sample-apps:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "fundamental-ngx-sample-apps:build"
-          }
-        },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-             
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "@angular/build:unit-test"
         }
       }
     }
-  },
-  "defaultProject": "fundamental-ngx-sample-apps"
+  }
 }

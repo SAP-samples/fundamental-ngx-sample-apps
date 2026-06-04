@@ -1,0 +1,75 @@
+<div class="dashboard">
+  <h1 fd-title [headerSize]="2">Performance Review Dashboard</h1>
+
+  <div class="dashboard-metrics">
+    <fd-tile type="launch" role="button" tabindex="0">
+      <div fd-tile-header>
+        <div fd-tile-title>Total Employees</div>
+      </div>
+      <div fd-tile-content>
+        <div fd-numeric-content>
+          <div fd-numeric-content-launch-icon-container>
+            <i fd-numeric-content-launch-icon glyph="employee" role="presentation"></i>
+          </div>
+          <div fd-numeric-content-kpi-container>
+            <div fd-numeric-content-kpi>{{ totalEmployees() }}</div>
+          </div>
+        </div>
+      </div>
+    </fd-tile>
+
+    <fd-tile type="launch" role="button" tabindex="0">
+      <div fd-tile-header>
+        <div fd-tile-title>Active Employees</div>
+      </div>
+      <div fd-tile-content>
+        <div fd-numeric-content>
+          <div fd-numeric-content-launch-icon-container>
+            <i fd-numeric-content-launch-icon glyph="accept" role="presentation"></i>
+          </div>
+          <div fd-numeric-content-kpi-container>
+            <div fd-numeric-content-kpi state="positive">{{ activeEmployees() }}</div>
+          </div>
+        </div>
+      </div>
+    </fd-tile>
+
+    <fd-tile type="launch" role="button" tabindex="0">
+      <div fd-tile-header>
+        <div fd-tile-title>Average Rating</div>
+      </div>
+      <div fd-tile-content>
+        <div fd-numeric-content>
+          <div fd-numeric-content-launch-icon-container>
+            <i fd-numeric-content-launch-icon glyph="favorite" role="presentation"></i>
+          </div>
+          <div fd-numeric-content-kpi-container>
+            <div fd-numeric-content-kpi state="critical">{{ avgRating() }}</div>
+          </div>
+          <div fd-numeric-content-scale-container>
+            <div fd-numeric-content-scale>
+              <span fd-numeric-content-scale-text>/ 5.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fd-tile>
+
+    <fd-tile type="launch" role="button" tabindex="0">
+      <div fd-tile-header>
+        <div fd-tile-title>Upcoming Reviews</div>
+        <div fd-tile-subtitle>Next 30 days</div>
+      </div>
+      <div fd-tile-content>
+        <div fd-numeric-content>
+          <div fd-numeric-content-launch-icon-container>
+            <i fd-numeric-content-launch-icon glyph="calendar" role="presentation"></i>
+          </div>
+          <div fd-numeric-content-kpi-container>
+            <div fd-numeric-content-kpi state="informative">{{ upcomingReviews() }}</div>
+          </div>
+        </div>
+      </div>
+    </fd-tile>
+  </div>
+</div>

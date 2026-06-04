@@ -1,0 +1,35 @@
+// Logo styling
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: linear-gradient(135deg, var(--sapButton_Emphasized_Background) 0%, var(--sapButton_Emphasized_Hover_Background) 100%);
+  border-radius: 0.25rem;
+  min-width: 60px;
+
+  &__icon {
+    font-size: 1.25rem;
+    color: var(--sapButton_Emphasized_TextColor);
+  }
+
+  &__text {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--sapButton_Emphasized_TextColor);
+    letter-spacing: 0.05em;
+  }
+}
+
+.app-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--sapBackgroundColor);
+  padding: 2rem;
+}
